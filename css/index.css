@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+:root {
+    --primary-teal: #4a9b8e;
+    --secondary-blue: #6ba3d6;
+    --accent-red: #e74c3c;
+    --light-gray: #f8f9fa;
+    --dark-gray: #6c757d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Manrope", sans-serif;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     background: url('../assets/images/bg.png');
+     background-size: cover;
+    min-height: 100vh;
+    position: relative;
+    background-attachment: fixed;
+}
+
+/* sidebar  */
+
+.sidebar {
+    background: rgba(255, 255, 255);
+    backdrop-filter: blur(10px);
+    /* Ensured full viewport height */
+    height: 100vh;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px !important;
+    z-index: 1;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    /* Added overflow for scrolling if content exceeds height */
+    overflow-y: auto;
+}
+
+.sidebar.show {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.logo {
+    text-align: center;
+    text-decoration: none;
+    color: var(--primary-teal);
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.logo-text {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.nav-item {
+    margin-bottom: 5px;
+    padding: 0 10px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    color: var(--dark-gray);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgb(255, 255, 255);
+    box-shadow: 5px 5px  5px rgba(0, 0, 0, 0.205);
+    border-radius: 0 50px 50px 0px;
+    /* background: rgba(74, 155, 142, 0.1); */
+    color: var(--primary-teal);
+    border-left-color: var(--primary-teal);
+}
+
+.nav-link i {
+    width: 20px;
+    text-align: center;
+}
+
+.main-content {
+    transition: margin-left 0.3s ease;
+}
+
+.header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobile-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.mobile-logo .logo-icon {
+    background: white;
+    color: var(--primary-teal);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ff6b6b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.menu-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Sponsored Add  */
+
+
+/* Footer  */
+
+.main-content{
+    position: relative;
+    /* display: none; */
+}
+
+.footer {
+    background: rgba(74, 155, 142, 0.9);
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.social-icon {
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.social-icon:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.swiper {
+    width: 600px;
+    height: 300px;
+  }

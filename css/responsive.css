@@ -1,0 +1,101 @@
+
+
+        /* Responsive Design */
+        @media (min-width: 992px) {
+            .sidebar {
+                transform: translateX(0);
+                position: relative;
+                height: auto;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-logo {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .medical-circle {
+                width: 320px;
+                height: 320px;
+            }
+
+            .circle-text {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .sidebar-header {
+                display: none;
+            }
+
+            .hero-section {
+                padding: 30px 15px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .medical-circle {
+                width: 250px;
+                height: 250px;
+            }
+
+            .ad-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .ad-content {
+                text-align: center;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+            }
+    
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .medical-circle {
+                width: 220px;
+                height: 220px;
+            }
+
+            .circle-text {
+                font-size: 1.3rem;
+            }
+
+            .stats-info {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+

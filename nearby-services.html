@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Centre App</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/nearby-services.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-img">
+                        <img src="assets/images/Logo.svg" alt="">
+                    </div>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link active">
+                        <img src="assets/icons/home.svg" />
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <img src="assets/icons/info.svg" />
+                        <span>About Us</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <img src="assets/icons/mail.svg" />
+                        <span>Contact Us</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <img src="assets/icons/book.svg" />
+                        <span>Editions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <img src="assets/icons/star.svg" />
+                        <span>Reviews</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <img src="assets/icons/ph_handshake.svg" />
+                        <span>Partnerships</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <img src="assets/icons/settings.svg" />
+                        <span>System</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header Section -->
+            <div class="header-section">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h6 class="mb-1 ">We found <span class="fw-bold" id="resultCount">6</span> nearby medical
+                            services
+                            to your current location</h6>
+                    </div>
+                    <div class="dropdown">
+                        <button class="profile-btn d-none d-lg-flex">
+                            <img src="assets/icons/user.svg" alt="">
+                            <i class="dropdown-toggle"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div class="search-container">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" class="form-control search-input" placeholder="Search results"
+                                id="searchInput">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <!-- Location Info -->
+                        <div class="location-info">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="assets/icons/select-location.svg" alt="Location Icon" class="me-2"
+                                        style="width: 30px; height: 30px;">
+                                    <span>Your Current Location is: Richard St., Enugu, North</span>
+                                </div>
+                                <button class="btn change-location" id="searchSection">Change Location</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Content Grid -->
+            <div class="content-grid">
+                <!-- Results Section -->
+                <div class="results-section">
+                    <div id="healthCenters">
+                        <!-- Featured Health Center -->
+                        <div class="health-center-card">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h4 class="mb-0">Asata Health Centre</h4>
+                                <button class="report-btn"
+                                    onclick="openReportModal('Asata Health Centre')">Report</button>
+                            </div>
+                            <div class="mb-3">
+                                <span class="service-tag">Emergency</span>
+                                <span class="service-tag">Medical</span>
+                                <span class="service-tag">Hospital</span>
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-map-marker-alt me-2"></i>
+                                <strong>Address:</strong> Asata Health Centre, Richard Street, Enugu, General Health
+                                Services
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-phone me-2"></i>
+                                <strong>Tel:</strong> +234 764 234 3423
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-clock me-2"></i>
+                                <strong>Opening Hours:</strong> 09:00 Am - 08:00 Pm
+                            </div>
+                            <div>
+                                <i class="fas fa-route me-2"></i>
+                                <strong>Distance:</strong> 0.4 Miles
+                            </div>
+                        </div>
+
+                        <!-- Regular Health Centers -->
+                        <div class="regular-card">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="mb-0">Park Lane Hospital</h5>
+                                 <div class="text-end">
+                                <small class="text-muted"><i class="fas fa-route me-1"></i>0.4 Miles</small>
+                            </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="regular-tag">Medical</span>
+                                <span class="regular-tag">Psychological</span>
+                                <span class="regular-tag">Childcare</span>
+                            </div>
+                          
+                        </div>
+
+                        <div class="regular-card">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="mb-0">82 Div Hospital</h5>
+                             <div class="text-end">
+                                <small class="text-muted"><i class="fas fa-route me-1"></i>0.4 Miles</small>
+                            </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="regular-tag">Medical</span>
+                                <span class="regular-tag">Psychological</span>
+                                <span class="regular-tag">Childcare</span>
+                            </div>
+                           
+                        </div>
+
+                        <div class="regular-card">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="mb-0">Park Lane Hospital</h5>
+                            <div class="text-end">
+                                <small class="text-muted"><i class="fas fa-route me-1"></i>0.4 Miles</small>
+                            </div>  
+                        </div>
+                            <div class="mb-3">
+                                <span class="regular-tag">Skin Care</span>
+                                <span class="regular-tag">Psychological</span>
+                                <span class="regular-tag">Childcare</span>
+                            </div>
+                          
+                        </div>
+
+                        <div class="regular-card">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="mb-0">82 Div Hospital</h5>
+                             <div class="text-end">
+                                <small class="text-muted"><i class="fas fa-route me-1"></i>0.4 Miles</small>
+                            </div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="regular-tag">Medical</span>
+                                <span class="regular-tag">Psychological</span>
+                                <span class="regular-tag">Childcare</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav aria-label="Health centers pagination">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Map Section -->
+                <div class="map-section">
+                    <div class="map-container">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Basemap%20image%20%281%29-VDAJCoZEmHRSqqEPT0qmUsTOHjkzJI.png"
+                            alt="Nigeria Map" class="map-image">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Added search popup modal -->
+    <div class="popup-overlay d-none" id="seach-popup">
+        <div class="seacrch-card">
+            <div class=" d-flex justify-content-between align-items-center p-3 border-bottom">
+                <h5 class="modal-title">Search Medical Services</h5>
+                <button type="button" class="btn-close"></button>
+            </div>
+            <form id="searchForm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <select class="form-select" id="country" name="country">
+                            <option value="">Select</option>
+                            <option value="pakistan">Pakistan</option>
+                            <option value="india">India</option>
+                            <option value="usa">United States</option>
+                            <option value="uk">United Kingdom</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="state" class="form-label">State</label>
+                        <select class="form-select" id="state" name="state">
+                            <option value="">Select</option>
+                            <option value="punjab">Punjab</option>
+                            <option value="sindh">Sindh</option>
+                            <option value="kpk">KPK</option>
+                            <option value="balochistan">Balochistan</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <select class="form-select" id="city" name="city">
+                            <option value="">Select</option>
+                            <option value="karachi">Karachi</option>
+                            <option value="lahore">Lahore</option>
+                            <option value="islamabad">Islamabad</option>
+                            <option value="peshawar">Peshawar</option>
+                        </select>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="name" class="form-label">Type location</label>
+                        <select class="form-select" id="name" name="name">
+                            <option value="">Select</option>
+                            <option value="hospital">Hospital</option>
+                            <option value="clinic">Clinic</option>
+                            <option value="pharmacy">Pharmacy</option>
+                            <option value="laboratory">Laboratory</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Report Location Modal -->
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+        <!-- Modified modal dialog to slide from right -->
+        <div class="modal-dialog modal-dialog-right reportModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="text">
+                        <h5 class="modal-title" id="reportModalLabel">Report this location</h5>
+                        <p class="text-muted mb-4">Please provide information below</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reportForm">
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject/Headline</label>
+                            <input type="text" class="form-control" id="subject" placeholder="Max 25 characters"
+                                maxlength="25">
+                        </div>
+                        <div class="mb-3">
+                            <label for="details" class="form-label">Details</label>
+                            <textarea class="form-control" id="details" rows="4" placeholder="Max 250 characters"
+                                maxlength="250"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="actionRequired" class="form-label">Action required</label>
+                            <select class="form-select" id="actionRequired">
+                                <option value="">Select</option>
+                                <option value="Correction">Correction</option>
+                                <option value="Remove">Remove</option>
+                                <option value="Investigate">Investigate</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="userRole" class="form-label">Your role</label>
+                            <select class="form-select" id="userRole">
+                                <option value="">Select</option>
+                                <option value="user">User</option>
+                                <option value="owner">Owner</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary px-4">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Send Details Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <!-- Centered modal -->
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-center">Send your details</h4>
+                <p class="text-center text-success mb-3">Thank you for your report, it is receiving attention</p>
+                <p class="text-muted mb-4">Please provide your details below in case we need to check some details
+                    with you.</p>
+                <form id="detailsForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <select class="form-select" id="title">
+                                <option value="">Select</option>
+                                <option value="Mr">Mr</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Dr">Dr</option>
+                                <option value="Ms">Ms</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Prof">Prof</option>
+                                <option value="HRH">HRH</option>
+                                <option value="REV">REV</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="John">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Doe">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="country" class="form-label">Country</label>
+                            <select class="form-select" id="country">
+                                <option value="">Select</option>
+                                <option value="Nigeria">Nigeria</option>
+                                <option value="South Africa">South Africa</option>
+                                <option value="UK">UK</option>
+                                <option value="America">America</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="contactNumber" class="form-label">Contact number</label>
+                            <input type="tel" class="form-control" id="contactNumber" placeholder="+00 xx xxxxx">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="confirmNumber" class="form-label">Confirm number</label>
+                            <input type="tel" class="form-control" id="confirmNumber" placeholder="+00 xx xxxxx">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="abc@gmail.com">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="confirmEmail" class="form-label">Confirm Email</label>
+                            <input type="email" class="form-control" id="confirmEmail" placeholder="abc@gmail.com">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="reasonToReport" class="form-label">Reason to report (Optional)</label>
+                        <textarea class="form-control" id="reasonToReport" rows="3" placeholder="Describe"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn details-send-btn px-4">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+
+    document.getElementById('searchSection').addEventListener('click', function () {
+        document.getElementById('seach-popup').classList.remove('d-none');
+    });
+
+    document.querySelector('#seach-popup .btn-close').addEventListener('click', function () {
+        document.getElementById('seach-popup').classList.add('d-none');
+    });
+
+
+        let currentLocation = '';
+
+        function openReportModal(locationName) {
+            currentLocation = locationName;
+            const modal = new bootstrap.Modal(document.getElementById('reportModal'));
+            modal.show();
+        }
+
+        // Handle report form submission
+        document.getElementById('reportForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Validate form
+            const subject = document.getElementById('subject').value;
+            const details = document.getElementById('details').value;
+            const actionRequired = document.getElementById('actionRequired').value;
+            const userRole = document.getElementById('userRole').value;
+
+            if (!subject || !details || !actionRequired || !userRole) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Close report modal and open details modal
+            const reportModal = bootstrap.Modal.getInstance(document.getElementById('reportModal'));
+            reportModal.hide();
+
+            setTimeout(() => {
+                const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+                detailsModal.show();
+            }, 300);
+        });
+
+        // Handle details form submission
+        document.getElementById('detailsForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Validate form
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const confirmEmail = document.getElementById('confirmEmail').value;
+            const contactNumber = document.getElementById('contactNumber').value;
+
+            if (!firstName || !lastName || !email || !confirmEmail || !contactNumber) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            if (email !== confirmEmail) {
+                alert('Email addresses do not match');
+                return;
+            }
+
+            // Simulate form submission
+            alert('Thank you! Your report has been submitted successfully.');
+
+            // Close modal and reset forms
+            const detailsModal = bootstrap.Modal.getInstance(document.getElementById('detailsModal'));
+            detailsModal.hide();
+
+            document.getElementById('reportForm').reset();
+            document.getElementById('detailsForm').reset();
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const healthCenters = document.querySelectorAll('#healthCenters > div');
+            let visibleCount = 0;
+
+            healthCenters.forEach(center => {
+                const centerName = center.querySelector('h4, h5').textContent.toLowerCase();
+                if (centerName.includes(searchTerm)) {
+                    center.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    center.style.display = 'none';
+                }
+            });
+
+            document.getElementById('resultCount').textContent = visibleCount;
+        });
+
+        // Pagination functionality
+        document.querySelectorAll('.page-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Remove active class from all page items
+                document.querySelectorAll('.page-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Add active class to clicked item (if it's a number)
+                if (this.textContent.match(/^\d+$/)) {
+                    this.parentElement.classList.add('active');
+                }
+
+                // Simulate loading new page content
+                console.log('Loading page:', this.textContent);
+            });
+        });
+
+        // Mobile sidebar toggle (for responsive design)
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('show');
+        }
+
+        // Add mobile menu button for smaller screens
+        if (window.innerWidth <= 768) {
+            const header = document.querySelector('.header-section');
+            const mobileMenuBtn = document.createElement('button');
+            mobileMenuBtn.className = 'btn btn-outline-primary d-md-none mb-3';
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i> Menu';
+            mobileMenuBtn.onclick = toggleSidebar;
+            header.insertBefore(mobileMenuBtn, header.firstChild);
+        }
+    </script>
+</body>
+
+</html>
