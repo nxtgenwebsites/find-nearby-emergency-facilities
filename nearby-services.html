@@ -616,7 +616,6 @@
 
                     // Update result count
                     document.getElementById('resultCount').textContent = data.totalHospitals;
-                    console.log(data.hospitals[0].location.coordinates[1], data.hospitals[0].location.coordinates[0]);
                     
                     // ✅ Pagination
                     renderPagination(data, data.hospitals[0].location.coordinates[1], data.hospitals[0].location.coordinates[0]);
@@ -681,10 +680,12 @@
                                     <i class="fas fa-map-marker-alt me-2"></i>
                                     <strong>Address:</strong> ${hospital.city}, ${hospital.state}, ${hospital.country}
                                 </div>
+                                ${hospital.phone_number ? `
                                 <div class="mb-2">
                                     <i class="fas fa-phone me-2"></i>
                                     <strong>Tel:</strong> ${hospital.phone_number}
                                 </div>
+                                `: ``}
                                 ${hospital.hours ? `
                                 <div class="mb-2">
                                     <i class="fas fa-clock me-2"></i>
