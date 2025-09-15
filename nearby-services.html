@@ -603,7 +603,7 @@
                 return;
             }
 
-            axios.post(`http://localhost:3000/api/hospitals/find?page=${currentPage}&limit=${limit}`, userData).then((res) => {
+            axios.post(`https://health-monitor-backend.vercel.app/api/hospitals/find?page=${currentPage}&limit=${limit}`, userData).then((res) => {
                 const data = res.data;
                 document.getElementById('seach-popup').classList.add('d-none');
 
