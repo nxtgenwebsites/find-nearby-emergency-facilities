@@ -8,12 +8,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/nearby-services.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
     <div class="d-flex">
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
@@ -71,7 +74,21 @@
         </div>
 
         <!-- Main Content -->
-        <main class="main-content">
+        <main class="main-content w-100">
+            <!-- Header -->
+            <header class="header d-lg-none">
+                <a href="index.html" class="mobile-logo">
+                    <img src="assets/images/logo.svg">
+                </a>
+                <div class="header-right">
+                    <div class="user">
+                        <img src="assets/icons/user-icon.svg" alt="">
+                    </div>
+                    <button class="menu-toggle" id="menuToggle">
+                        <img src="assets/icons/bars.svg" alt="">
+                    </button>
+                </div>
+            </header>
             <!-- Header Section -->
             <div class="header-section">
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -88,22 +105,23 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-12 col-md-4">
+                <div class="row row-gap-3">
+                    <div class="col-12 col-md-4 ">
                         <div class="search-container">
                             <i class="fas fa-search search-icon"></i>
-                            <input type="text" class="form-control search-input" placeholder="Search results"
-                                id="searchInput">
+                            <input type="text" class="form-control search-input" id="hospitalSearch"
+                                placeholder="Search hospitals..." class="form-control" />
                         </div>
                     </div>
                     <div class="col-12 col-md-8">
                         <!-- Location Info -->
-                        <div class="location-info">
-                            <div class="d-flex justify-content-between align-items-center">
+                        <div class="location-info mb-0 mb-md-3">
+                            <div
+                                class="d-flex flex-column row-gap-3  flex-md-row justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
                                     <img src="assets/icons/select-location.svg" alt="Location Icon" class="me-2"
                                         style="width: 30px; height: 30px;">
-                                    <span>Your Current Location is: Richard St., Enugu, North</span>
+                                    <span id="user-location">Your Current Location is: Richard St., Enugu, North</span>
                                 </div>
                                 <button class="btn change-location" id="searchSection">Change Location</button>
                             </div>
@@ -117,131 +135,39 @@
             <div class="content-grid">
                 <!-- Results Section -->
                 <div class="results-section">
+                    <!-- Error message -->
+                    <div id="error" class="error" style="display: none;">
+                        <h5>Unable to load hospitals</h5>
+                        <p>Please check your location settings and try again.</p>
+                    </div>
+
+                    <!-- Loading indicator -->
+                    <div id="loading" class="loading">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Finding nearby hospitals...</p>
+                    </div>
                     <div id="healthCenters">
-                        <!-- Featured Health Center -->
-                        <div class="health-center-card">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h4 class="mb-0">Asata Health Centre</h4>
-                                <button class="report-btn"
-                                    onclick="openReportModal('Asata Health Centre')">Report</button>
-                            </div>
-                            <div class="mb-3">
-                                <span class="service-tag">Emergency</span>
-                                <span class="service-tag">Medical</span>
-                                <span class="service-tag">Hospital</span>
-                            </div>
-                            <div class="mb-2">
-                                <i class="fas fa-map-marker-alt me-2"></i>
-                                <strong>Address:</strong> Asata Health Centre, Richard Street, Enugu, General Health
-                                Services
-                            </div>
-                            <div class="mb-2">
-                                <i class="fas fa-phone me-2"></i>
-                                <strong>Tel:</strong> +234 764 234 3423
-                            </div>
-                            <div class="mb-2">
-                                <i class="fas fa-clock me-2"></i>
-                                <strong>Opening Hours:</strong> 09:00 Am - 08:00 Pm
-                            </div>
-                            <div>
-                                <i class="fas fa-route me-2"></i>
-                                <strong>Distance:</strong> 0.4 Miles
-                            </div>
-                        </div>
 
-                        <!-- Regular Health Centers -->
-                        <div class="regular-card">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h5 class="mb-0">Park Lane Hospital</h5>
-                                 <div class="text-end">
-                                <small class="text-muted"><i class="fas fa-route me-1"></i>0.4 Miles</small>
-                            </div>
-                            </div>
-                            <div class="mb-3">
-                                <span class="regular-tag">Medical</span>
-                                <span class="regular-tag">Psychological</span>
-                                <span class="regular-tag">Childcare</span>
-                            </div>
-                          
-                        </div>
-
-                        <div class="regular-card">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h5 class="mb-0">82 Div Hospital</h5>
-                             <div class="text-end">
-                                <small class="text-muted"><i class="fas fa-route me-1"></i>0.4 Miles</small>
-                            </div>
-                            </div>
-                            <div class="mb-3">
-                                <span class="regular-tag">Medical</span>
-                                <span class="regular-tag">Psychological</span>
-                                <span class="regular-tag">Childcare</span>
-                            </div>
-                           
-                        </div>
-
-                        <div class="regular-card">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h5 class="mb-0">Park Lane Hospital</h5>
-                            <div class="text-end">
-                                <small class="text-muted"><i class="fas fa-route me-1"></i>0.4 Miles</small>
-                            </div>  
-                        </div>
-                            <div class="mb-3">
-                                <span class="regular-tag">Skin Care</span>
-                                <span class="regular-tag">Psychological</span>
-                                <span class="regular-tag">Childcare</span>
-                            </div>
-                          
-                        </div>
-
-                        <div class="regular-card">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h5 class="mb-0">82 Div Hospital</h5>
-                             <div class="text-end">
-                                <small class="text-muted"><i class="fas fa-route me-1"></i>0.4 Miles</small>
-                            </div>
-                            </div>
-                            <div class="mb-3">
-                                <span class="regular-tag">Medical</span>
-                                <span class="regular-tag">Psychological</span>
-                                <span class="regular-tag">Childcare</span>
-                            </div>
-                            
-                        </div>
                     </div>
 
                     <!-- Pagination -->
                     <nav aria-label="Health centers pagination">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <i class="fas fa-chevron-left"></i>
-                                </a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <i class="fas fa-chevron-right"></i>
-                                </a>
-                            </li>
-                        </ul>
+                        <div id="pagination"></div>
                     </nav>
                 </div>
 
                 <!-- Map Section -->
                 <div class="map-section">
                     <div class="map-container">
-                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Basemap%20image%20%281%29-VDAJCoZEmHRSqqEPT0qmUsTOHjkzJI.png"
-                            alt="Nigeria Map" class="map-image">
+                        <div id="map"></div>
                     </div>
                 </div>
             </div>
         </main>
-    </div>
 
+    </div>
     <!-- Added search popup modal -->
     <div class="popup-overlay d-none" id="seach-popup">
         <div class="seacrch-card">
@@ -250,25 +176,21 @@
                 <button type="button" class="btn-close"></button>
             </div>
             <form id="searchForm">
-                <div class="row">
+                <div class="row mt-3">
                     <div class="col-md-6 mb-3">
                         <label for="country" class="form-label">Country</label>
                         <select class="form-select" id="country" name="country">
                             <option value="">Select</option>
+                            <option value="nigeria">Nigeria</option>
                             <option value="pakistan">Pakistan</option>
-                            <option value="india">India</option>
-                            <option value="usa">United States</option>
-                            <option value="uk">United Kingdom</option>
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="state" class="form-label">State</label>
                         <select class="form-select" id="state" name="state">
                             <option value="">Select</option>
+                            <option value="enugu">Enugu</option>
                             <option value="punjab">Punjab</option>
-                            <option value="sindh">Sindh</option>
-                            <option value="kpk">KPK</option>
-                            <option value="balochistan">Balochistan</option>
                         </select>
                     </div>
                 </div>
@@ -277,15 +199,13 @@
                         <label for="city" class="form-label">City</label>
                         <select class="form-select" id="city" name="city">
                             <option value="">Select</option>
-                            <option value="karachi">Karachi</option>
-                            <option value="lahore">Lahore</option>
-                            <option value="islamabad">Islamabad</option>
-                            <option value="peshawar">Peshawar</option>
+                            <option value="rawalpindi">Rawalpindi</option>
+                            <option value="nsukka">Nsukka</option>
                         </select>
                     </div>
                     <div class="col-12 mb-3">
-                        <label for="name" class="form-label">Type location</label>
-                        <select class="form-select" id="name" name="name">
+                        <label for="services-type" class="form-label">Type location</label>
+                        <select class="form-select" id="services-type" name="services-type">
                             <option value="">Select</option>
                             <option value="hospital">Hospital</option>
                             <option value="clinic">Clinic</option>
@@ -353,101 +273,594 @@
         </div>
     </div>
 
-<!-- Send Details Modal -->
-<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
-    <!-- Centered modal -->
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h4 class="text-center">Send your details</h4>
-                <p class="text-center text-success mb-3">Thank you for your report, it is receiving attention</p>
-                <p class="text-muted mb-4">Please provide your details below in case we need to check some details
-                    with you.</p>
-                <form id="detailsForm">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="title" class="form-label">Title</label>
-                            <select class="form-select" id="title">
-                                <option value="">Select</option>
-                                <option value="Mr">Mr</option>
-                                <option value="Mrs">Mrs</option>
-                                <option value="Dr">Dr</option>
-                                <option value="Ms">Ms</option>
-                                <option value="Miss">Miss</option>
-                                <option value="Prof">Prof</option>
-                                <option value="HRH">HRH</option>
-                                <option value="REV">REV</option>
-                            </select>
+    <!-- Send Details Modal -->
+    <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+        <!-- Centered modal -->
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center">Send your details</h4>
+                    <p class="text-center text-success mb-3">Thank you for your report, it is receiving attention</p>
+                    <p class="text-muted mb-4">Please provide your details below in case we need to check some details
+                        with you.</p>
+                    <form id="detailsForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <select class="form-select" id="title">
+                                    <option value="">Select</option>
+                                    <option value="Mr">Mr</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Dr">Dr</option>
+                                    <option value="Ms">Ms</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Prof">Prof</option>
+                                    <option value="HRH">HRH</option>
+                                    <option value="REV">REV</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="John">
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="John">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Doe">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="country" class="form-label">Country</label>
+                                <select class="form-select" id="country">
+                                    <option value="">Select</option>
+                                    <option value="Nigeria">Nigeria</option>
+                                    <option value="South Africa">South Africa</option>
+                                    <option value="UK">UK</option>
+                                    <option value="America">America</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="Doe">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="contactNumber" class="form-label">Contact number</label>
+                                <input type="tel" class="form-control" id="contactNumber" placeholder="+00 xx xxxxx">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="confirmNumber" class="form-label">Confirm number</label>
+                                <input type="tel" class="form-control" id="confirmNumber" placeholder="+00 xx xxxxx">
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="country" class="form-label">Country</label>
-                            <select class="form-select" id="country">
-                                <option value="">Select</option>
-                                <option value="Nigeria">Nigeria</option>
-                                <option value="South Africa">South Africa</option>
-                                <option value="UK">UK</option>
-                                <option value="America">America</option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="abc@gmail.com">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="confirmEmail" class="form-label">Confirm Email</label>
+                                <input type="email" class="form-control" id="confirmEmail" placeholder="abc@gmail.com">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="contactNumber" class="form-label">Contact number</label>
-                            <input type="tel" class="form-control" id="contactNumber" placeholder="+00 xx xxxxx">
+                        <div class="mb-4">
+                            <label for="reasonToReport" class="form-label">Reason to report (Optional)</label>
+                            <textarea class="form-control" id="reasonToReport" rows="3"
+                                placeholder="Describe"></textarea>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="confirmNumber" class="form-label">Confirm number</label>
-                            <input type="tel" class="form-control" id="confirmNumber" placeholder="+00 xx xxxxx">
+                        <div class="text-center">
+                            <button type="submit" class="btn details-send-btn px-4">Send</button>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="abc@gmail.com">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="confirmEmail" class="form-label">Confirm Email</label>
-                            <input type="email" class="form-control" id="confirmEmail" placeholder="abc@gmail.com">
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label for="reasonToReport" class="form-label">Reason to report (Optional)</label>
-                        <textarea class="form-control" id="reasonToReport" rows="3" placeholder="Describe"></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn details-send-btn px-4">Send</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <script>
+        function toggleExpand(card) {
+            const details = card.querySelector(".extra-details");
+            const reportBtn = card.querySelector(".report-btn");
+            const distance = card.querySelector(".small-distance");
+            const title = card.querySelector("h5, h4");
+
+            card.classList.toggle("expanded");
+
+            if (card.classList.contains("expanded")) {
+                details.classList.remove("d-none");
+                reportBtn.classList.remove("d-none");
+                distance.classList.add("d-none");
+
+                // Title ko bada karo
+                if (title.tagName.toLowerCase() === "h5") {
+                    title.outerHTML = `<h4 class="mb-0">${title.innerText}</h4>`;
+                }
+            } else {
+                details.classList.add("d-none");
+                reportBtn.classList.add("d-none");
+                distance.classList.remove("d-none");
+
+                // Wapas chhota karo
+                if (title.tagName.toLowerCase() === "h4") {
+                    title.outerHTML = `<h5 class="mb-0">${title.innerText}</h5>`;
+                }
+            }
+        }
+    </script>
+
+    <script>
+        let map;
+        let userMarker;
+        let hospitalMarkers = [];
+        let radiusCircle;
+        let userLocation = null;
+        let allHospitals = []; // Store all hospitals for filtering
+
+        // Initialize map
+        function initMap() {
+            // Default center (Pakistan)
+            map = L.map('map').setView([33.6844, 73.0479], 10);
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Get user location and load hospitals automatically
+            getCurrentUserLocation();
+        }
 
 
-    document.getElementById('searchSection').addEventListener('click', function () {
-        document.getElementById('seach-popup').classList.remove('d-none');
-    });
+        // Hospital search functionality
+        const hospitalSearchInput = document.getElementById('hospitalSearch');
 
-    document.querySelector('#seach-popup .btn-close').addEventListener('click', function () {
-        document.getElementById('seach-popup').classList.add('d-none');
-    });
+        hospitalSearchInput.addEventListener('input', function () {
+            const searchTerm = this.value.toLowerCase().trim();
+            filterHospitals(searchTerm);
+        });
+
+        function filterHospitals(searchTerm) {
+            if (!allHospitals.length) return;
+
+            let filteredHospitals = allHospitals;
+
+            if (searchTerm) {
+                filteredHospitals = allHospitals.filter(hospital =>
+                    hospital.facility_name.toLowerCase().includes(searchTerm) ||
+                    hospital.city.toLowerCase().includes(searchTerm) ||
+                    hospital.state.toLowerCase().includes(searchTerm) ||
+                    (hospital.services && hospital.services.toLowerCase().includes(searchTerm))
+                );
+            }
+
+            // Update result count
+            document.getElementById('resultCount').textContent = filteredHospitals.length;
+
+            // Display filtered hospitals
+            displayHospitals(filteredHospitals);
+            addHospitalMarkers(filteredHospitals);
+        }
+
+        // Calculate distance between two points in miles
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 3959; // Earth's radius in miles
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const distance = R * c;
+            return distance;
+        }
+
+        // Get current user location
+        function getCurrentUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    userLocation = { lat, lon };
+
+                    // Remove existing user marker
+                    if (userMarker) {
+                        map.removeLayer(userMarker);
+                    }
+
+                    userMarker = L.marker([lat, lon], {
+                        icon: L.icon({
+                            iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+                            shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+                            iconSize: [25, 41],
+                            iconAnchor: [12, 41]
+                        })
+                    }).addTo(map);
+
+                    map.setView([lat, lon], 13);
+
+                    // Add 50-mile radius circle
+                    if (radiusCircle) {
+                        map.removeLayer(radiusCircle);
+                    }
+                    radiusCircle = L.circle([lat, lon], {
+                        color: '#007bff',
+                        fillColor: '#007bff',
+                        fillOpacity: 0.1,
+                        radius: 1610
+                    }).addTo(map);
+
+                    // ✅ Show location name in span using reverse geocoding
+                    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data && data.display_name) {
+                                document.getElementById("user-location").innerText =
+                                    `Your Current Location is: ${data.display_name}`;
+                            } else {
+                                document.getElementById("user-location").innerText =
+                                    `Your Current Location is: (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Reverse geocoding error:", err);
+                            document.getElementById("user-location").innerText =
+                                `Your Current Location is: (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
+                        });
+
+                    // Load hospitals automatically
+                    loadNearbyHospitals(lat, lon);
+
+                }, (error) => {
+                    console.warn('Geolocation error:', error);
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('error').style.display = 'block';
+                    document.getElementById('healthCenters').innerHTML = ''; // Hide cards on error
+                    document.getElementById('error').innerHTML = `
+                <h5>Location Access Required</h5>
+                <p>Please enable location services to find nearby hospitals.</p>
+            `;
+                }, {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 60000
+                });
+            } else {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('healthCenters').innerHTML = ''; // Hide cards on error
+                document.getElementById('error').innerHTML = `
+            <h5>Geolocation Not Supported</h5>
+            <p>Your browser doesn't support geolocation.</p>
+        `;
+            }
+        }
+
+        let currentPage = 1;
+        const limit = 20;
+
+        async function loadNearbyHospitals(latitude, longitude, country = "") {
+            try {
+                let url = `https://health-monitor-backend.vercel.app/api/hospitals/nearby?latitude=${latitude}&longitude=${longitude}&page=${currentPage}&limit=${limit}`;
+                if (country) url += `&country=${encodeURIComponent(country)}`;
+
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Failed to fetch hospitals');
+
+                const data = await response.json();
+                document.getElementById('loading').style.display = 'none';
+
+                if (data.hospitals && data.hospitals.length > 0) {
+                    allHospitals = data.hospitals; // Store all hospitals
+                    document.getElementById('error').style.display = 'none'; // Hide error
+                    document.getElementById('healthCenters').innerHTML = "";
+                    displayHospitals(data.hospitals);
+                    addHospitalMarkers(data.hospitals);
+
+                    // Update result count
+                    document.getElementById('resultCount').textContent = data.totalHospitals;
+
+                    // ✅ Pagination
+                    renderPagination(data, latitude, longitude, country);
+
+                } else {
+                    allHospitals = []; // Clear hospitals array
+                    document.getElementById('error').style.display = 'block';
+                    document.getElementById('healthCenters').innerHTML = ''; // Hide cards
+                    document.getElementById('resultCount').textContent = '0';
+                    document.getElementById('error').innerHTML = `
+                    <h5>No Hospitals Found</h5>
+                    <p>No hospitals found in this location.</p>`;
+                }
+            } catch (error) {
+                console.error('Error loading hospitals:', error);
+                allHospitals = []; // Clear hospitals array
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('healthCenters').innerHTML = ''; // Hide cards on error
+                document.getElementById('resultCount').textContent = '0';
+                document.getElementById('error').innerHTML = `
+                <h5>Error Loading Hospitals</h5>
+                <p>Unable to load nearby hospitals. Please try again later.</p>`;
+            }
+        }
+
+        document.getElementById('searchForm').addEventListener("submit", (e) => {
+            e.preventDefault();
+            const userData = {
+                country: document.getElementById('country').value,
+                state: document.getElementById('state').value,
+                city: document.getElementById('city').value,
+                service: document.getElementById('services-type').value
+            }
+
+            if (!country) {
+                alert("Country is required");
+                return;
+            }
+
+            axios.post(`http://localhost:3000/api/hospitals/find?page=${currentPage}&limit=${limit}`, userData).then((res) => {
+                const data = res.data;
+                document.getElementById('seach-popup').classList.add('d-none');
+
+                if(data.hospitals && data.hospitals.length > 0) {
+                    allHospitals = data.hospitals; // Store all hospitals
+                    document.getElementById('error').style.display = 'none'; // Hide error
+                    document.getElementById('healthCenters').innerHTML = "";
+                    displayHospitals(data.hospitals);
+                    addHospitalMarkers(data.hospitals);
+
+                    // Update result count
+                    document.getElementById('resultCount').textContent = data.totalHospitals;
+                    console.log(data.hospitals[0].location.coordinates[1], data.hospitals[0].location.coordinates[0]);
+                    
+                    // ✅ Pagination
+                    renderPagination(data, data.hospitals[0].location.coordinates[1], data.hospitals[0].location.coordinates[0]);
+
+                } else {
+                    allHospitals = []; // Clear hospitals array
+                    document.getElementById('error').style.display = 'block';
+                    document.getElementById('healthCenters').innerHTML = ''; // Hide cards
+                    document.getElementById('resultCount').textContent = '0';
+                    document.getElementById('error').innerHTML = `
+                    <h5>No Hospitals Found</h5>
+                    <p>No hospitals found in this location.</p>`;
+                }
+            }).catch((err) => {
+                console.log(err);
+            })
+        })
+
+
+        // Display hospitals in cards
+        function displayHospitals(hospitals) {
+            if (userLocation) {
+                hospitals.sort((a, b) => {
+                    const distA = calculateDistance(userLocation.lat, userLocation.lon, a.location.coordinates[1], a.location.coordinates[0]);
+                    const distB = calculateDistance(userLocation.lat, userLocation.lon, b.location.coordinates[1], b.location.coordinates[0]);
+                    return distA - distB; // nearest first
+                });
+            }
+
+            const hospitalList = document.getElementById('healthCenters');
+            hospitalList.innerHTML = '';
+
+            hospitals.forEach(hospital => {
+                const hospitalLat = hospital.location.coordinates[1];
+                const hospitalLon = hospital.location.coordinates[0];
+
+                let distance = 'N/A';
+                if (userLocation) {
+                    distance = `${calculateDistance(userLocation.lat, userLocation.lon, hospitalLat, hospitalLon).toFixed(1)} miles`;
+                }
+
+                const hospitalCard = `
+
+              <div class="health-center-card collapsed" onclick="toggleExpand(this)">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="mb-0">${hospital.facility_name}</h5>
+                                <div class="text-end small-distance">
+                                    <small class="text-muted"><i class="fas fa-route me-1"></i>${distance}</small>
+                                </div>
+                                <button class="report-btn d-none"
+                                    onclick="event.stopPropagation(); openReportModal('${hospital.facility_name}')">Report</button>
+                            </div>
+                                ${hospital.services && `
+                                <div class="mb-3">
+                                    <span class="service-tag">${hospital.services}</span>
+                                </div>
+                                `}
+
+                            <!-- Hidden Extra Details -->
+                            <div class="extra-details d-none">
+                                <div class="mb-2">
+                                    <i class="fas fa-map-marker-alt me-2"></i>
+                                    <strong>Address:</strong> ${hospital.city}, ${hospital.state}, ${hospital.country}
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fas fa-phone me-2"></i>
+                                    <strong>Tel:</strong> ${hospital.phone_number}
+                                </div>
+                                ${hospital.hours ? `
+                                <div class="mb-2">
+                                    <i class="fas fa-clock me-2"></i>
+                                     <strong>Opening Hours:</strong> ${hospital.hours}
+                                  
+                                </div>
+                                `: ``}
+                                ${distance && `
+                                <div>
+                                <i class="fas fa-route me-2"></i>
+                                <strong>Distance:</strong> ${distance} miles
+                            </div>
+                                `}
+                            </div>
+                        </div>
+            `;
+                hospitalList.innerHTML += hospitalCard;
+            });
+        }
+
+        // Add hospital markers to map
+        function addHospitalMarkers(hospitals) {
+            // Clear existing hospital markers
+            hospitalMarkers.forEach(marker => map.removeLayer(marker));
+            hospitalMarkers = [];
+
+            hospitals.forEach(hospital => {
+                const hospitalLat = hospital.location.coordinates[1];
+                const hospitalLon = hospital.location.coordinates[0];
+
+                const marker = L.marker([hospitalLat, hospitalLon], {
+                    icon: L.icon({
+                        iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAzMCAzMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE1IDNDMTAuMDM3NSAzIDYgNy4wMzc1IDYgMTJDNiAxOC43NSAxNSAyNyAxNSAyN0MxNSAyNyAyNCAxOC43NSAyNCAxMkMyNCA3LjAzNzUgMTkuOTYyNSAzIDE1IDNaTTE1IDE2QzEyLjc5MDkgMTYgMTEgMTQuMjA5MSAxMSAxMkMxMSA5Ljc5MDkxIDEyLjc5MDkgOCAxNSA4QzE3LjIwOTEgOCAxOSA5Ljc5MDkxIDE5IDEyQzE5IDE0LjIwOTEgMTcuMjA5MSAxNiAxNSAxNloiIGZpbGw9IiNkYzM1NDUiLz4KPC9zdmc+',
+                        iconSize: [30, 30],
+                        iconAnchor: [15, 30]
+                    })
+                }).addTo(map);
+
+                // Calculate distance for popup
+                let distance = 'N/A';
+                if (userLocation) {
+                    const distanceInMiles = calculateDistance(
+                        userLocation.lat, userLocation.lon,
+                        hospitalLat, hospitalLon
+                    );
+                    distance = `${distanceInMiles.toFixed(1)} miles`;
+                }
+
+                marker.bindPopup(`
+                        <div style="text-align: center;">
+                            <strong>${hospital.facility_name}</strong><br>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 5px;">
+                                <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM18 14H13V18H11V14H6V12H11V8H13V12H18V14Z" fill="#6c757d"/>
+                            </svg>
+                            ${hospital.services}<br>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 5px;">
+                                <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22S19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9S10.62 6.5 12 6.5S14.5 7.62 14.5 9S13.38 11.5 12 11.5Z" fill="#6c757d"/>
+                            </svg>
+                            ${hospital.city}, ${hospital.state}<br>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 5px;">
+                                <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.08 14.82 16.43 14.93C17.55 15.3 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z" fill="#28a745"/>
+                            </svg>
+                            ${hospital.phone_number}<br>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 5px;">
+                                <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22S19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9S10.62 6.5 12 6.5S14.5 7.62 14.5 9S13.38 11.5 12 11.5Z" fill="#17a2b8"/>
+                            </svg>
+                            ${distance}
+                        </div>
+                    `);
+
+                hospitalMarkers.push(marker);
+            });
+        }
+
+        // Get directions function
+        function getDirections(lat, lon) {
+            if (userLocation) {
+                const url = `https://www.google.com/maps/dir/${userLocation.lat},${userLocation.lon}/${lat},${lon}`;
+                window.open(url, '_blank');
+            } else {
+                const url = `https://www.google.com/maps/dir//${lat},${lon}`;
+                window.open(url, '_blank');
+            }
+        }
+
+        // Initialize map when page loads
+        document.addEventListener('DOMContentLoaded', initMap);
+    </script>
+
+    <script>
+        document.getElementById('searchSection').addEventListener('click', function () {
+            document.getElementById('seach-popup').classList.remove('d-none');
+        });
+
+        document.querySelector('#seach-popup .btn-close').addEventListener('click', function () {
+            document.getElementById('seach-popup').classList.add('d-none');
+        });
+
+        function renderPagination(data, latitude, longitude, country) {
+            const paginationDiv = document.getElementById('pagination');
+            paginationDiv.innerHTML = "";
+
+            const totalPages = data.totalPages;
+
+            // ⚡ Agar sirf 1 page hai to pagination na dikhaye
+            if (totalPages <= 1) return;
+
+            // Create <ul class="pagination">
+            const ul = document.createElement("ul");
+            ul.className = "pagination";
+
+            function createPageItem(page, label = null, disabled = false, active = false, ariaLabel = null) {
+                if (page < 1 || page > totalPages) return; // page safe check
+
+                const li = document.createElement("li");
+                li.className = `page-item ${disabled ? "disabled" : ""} ${active ? "active" : ""}`;
+
+                const a = document.createElement("a");
+                a.className = "page-link";
+                a.href = "#";
+                a.innerHTML = label || page;
+                if (ariaLabel) a.setAttribute("aria-label", ariaLabel);
+
+                if (!disabled && !active) {
+                    a.onclick = (e) => {
+                        e.preventDefault();
+                        currentPage = page; // ✅ page update
+                        loadNearbyHospitals(latitude, longitude, country); // ✅ reload hospitals
+                    };
+                }
+
+                li.appendChild(a);
+                ul.appendChild(li);
+            }
+
+            function createEllipsis() {
+                const li = document.createElement("li");
+                li.className = "page-item disabled";
+                li.innerHTML = `<span class="page-link">...</span>`;
+                ul.appendChild(li);
+            }
+
+            // Prev button
+            createPageItem(currentPage - 1, '<i class="fas fa-chevron-left"></i>', currentPage === 1, false, "Previous");
+
+            // Always show first page
+            createPageItem(1, "1", false, currentPage === 1);
+
+            // Add "..." if gap between first and currentPage-2
+            if (currentPage > 4) {
+                createEllipsis();
+            }
+
+            // Show pages around current page
+            const start = Math.max(2, currentPage - 1);
+            const end = Math.min(totalPages - 1, currentPage + 1);
+
+            for (let p = start; p <= end; p++) {
+                createPageItem(p, null, false, p === currentPage);
+            }
+
+            // Add "..." if gap before last page
+            if (currentPage < totalPages - 3) {
+                createEllipsis();
+            }
+
+            // Always show last page (agar totalPages > 1)
+            if (totalPages > 1) {
+                createPageItem(totalPages, totalPages, false, currentPage === totalPages);
+            }
+
+            // Next button
+            createPageItem(currentPage + 1, '<i class="fas fa-chevron-right"></i>', currentPage === totalPages, false, "Next");
+
+            paginationDiv.appendChild(ul);
+        }
 
 
         let currentLocation = '';
@@ -515,25 +928,6 @@
             document.getElementById('detailsForm').reset();
         });
 
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', function (e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const healthCenters = document.querySelectorAll('#healthCenters > div');
-            let visibleCount = 0;
-
-            healthCenters.forEach(center => {
-                const centerName = center.querySelector('h4, h5').textContent.toLowerCase();
-                if (centerName.includes(searchTerm)) {
-                    center.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    center.style.display = 'none';
-                }
-            });
-
-            document.getElementById('resultCount').textContent = visibleCount;
-        });
-
         // Pagination functionality
         document.querySelectorAll('.page-link').forEach(link => {
             link.addEventListener('click', function (e) {
@@ -554,21 +948,22 @@
             });
         });
 
-        // Mobile sidebar toggle (for responsive design)
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('show');
-        }
 
-        // Add mobile menu button for smaller screens
-        if (window.innerWidth <= 768) {
-            const header = document.querySelector('.header-section');
-            const mobileMenuBtn = document.createElement('button');
-            mobileMenuBtn.className = 'btn btn-outline-primary d-md-none mb-3';
-            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i> Menu';
-            mobileMenuBtn.onclick = toggleSidebar;
-            header.insertBefore(mobileMenuBtn, header.firstChild);
-        }
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuToggle.addEventListener('click', function () {
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        });
+
+        overlay.addEventListener('click', function () {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+        });
+
     </script>
 </body>
 

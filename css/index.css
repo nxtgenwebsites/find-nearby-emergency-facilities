@@ -21,6 +21,8 @@ body {
      background-size: cover;
     min-height: 100vh;
     position: relative;
+    width: 100%;
+    overflow-x: hidden;
     background-attachment: fixed;
 }
 
@@ -30,7 +32,7 @@ body {
     background: rgba(255, 255, 255);
     backdrop-filter: blur(10px);
     /* Ensured full viewport height */
-    height: 100vh;
+    height: auto !important;
     min-height: 100vh;
     position: fixed;
     left: 0;
