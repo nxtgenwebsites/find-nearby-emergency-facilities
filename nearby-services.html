@@ -545,7 +545,7 @@
 
         async function loadNearbyHospitals(latitude, longitude, country = "") {
             try {
-                let url = `https://health-monitor-backend.vercel.app/api/hospitals/nearby?latitude=${latitude}&longitude=${longitude}&page=${currentPage}&limit=${limit}`;
+                let url = `https://find-nearby-emergency-facilities-ba.vercel.app/api/hospitals/nearby?latitude=${latitude}&longitude=${longitude}&page=${currentPage}&limit=${limit}`;
                 if (country) url += `&country=${encodeURIComponent(country)}`;
 
                 const response = await fetch(url);
@@ -603,11 +603,37 @@
                 return;
             }
 
-            axios.post(`https://health-monitor-backend.vercel.app/api/hospitals/find?page=${currentPage}&limit=${limit}`, userData).then((res) => {
+            axios.post(`https://find-nearby-emergency-facilities-ba.vercel.app/api/hospitals/find?page=${currentPage}&limit=${limit}`, userData).then((res) => {
                 const data = res.data;
                 document.getElementById('seach-popup').classList.add('d-none');
 
-                if(data.hospitals && data.hospitals.length > 0) {
+                if (data.coordinates) {
+                    const lat = parseFloat(data.coordinates.lat);
+                    const lon = parseFloat(data.coordinates.lon);
+
+                    userLocation = { lat, lon };
+
+                    // ✅ Remove old marker if exists
+                    if (userMarker) map.removeLayer(userMarker);
+                    userMarker = L.marker([lat, lon]).addTo(map);
+
+                    // ✅ Center map on new location
+                    map.setView([lat, lon], 13);
+
+                    // ✅ Remove old circle if exists
+                    if (radiusCircle) map.removeLayer(radiusCircle);
+
+                    // ✅ Add new circle (~1 mile)
+                    radiusCircle = L.circle([lat, lon], {
+                        color: '#007bff',
+                        fillColor: '#007bff',
+                        fillOpacity: 0.1,
+                        radius: 1610
+                    }).addTo(map);
+                }
+
+
+                if (data.hospitals && data.hospitals.length > 0) {
                     allHospitals = data.hospitals; // Store all hospitals
                     document.getElementById('error').style.display = 'none'; // Hide error
                     document.getElementById('healthCenters').innerHTML = "";
@@ -616,7 +642,7 @@
 
                     // Update result count
                     document.getElementById('resultCount').textContent = data.totalHospitals;
-                    
+
                     // ✅ Pagination
                     renderPagination(data, data.hospitals[0].location.coordinates[1], data.hospitals[0].location.coordinates[0]);
 
@@ -633,7 +659,6 @@
                 console.log(err);
             })
         })
-
 
         // Display hospitals in cards
         function displayHospitals(hospitals) {
