@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
 :root {
-    --primary-teal: #4a9b8e;
+    --primary-teal: #368186;
     --secondary-blue: #6ba3d6;
     --accent-red: #e74c3c;
     --light-gray: #f8f9fa;
-    --dark-gray: #6c757d;
+    --dark-gray: #4F4F4F;
 }
 
 * {
@@ -16,7 +16,6 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
      background: url('../assets/images/bg.png');
      background-size: cover;
     min-height: 100vh;
@@ -35,11 +34,11 @@ body {
     height: auto !important;
     min-height: 100vh;
     position: fixed;
-    left: 0;
+    right: 0;
     top: 0;
-    width: 300px !important;
+    width: 250px !important;
     z-index: 1;
-    transform: translateX(-100%);
+    transform: translateX(100%);
     transition: transform 0.3s ease;
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);
     /* Added overflow for scrolling if content exceeds height */
@@ -97,17 +96,17 @@ body {
     color: var(--dark-gray);
     text-decoration: none;
     transition: all 0.3s ease;
-    border-left: 3px solid transparent;
+    border-left: 4px solid transparent;
 }
 
 .nav-link:hover,
 .nav-link.active {
-    background: rgb(255, 255, 255);
+    background: #EFF5F5;
     box-shadow: 5px 5px  5px rgba(0, 0, 0, 0.205);
-    border-radius: 0 50px 50px 0px;
+    border-radius: 0 10px 10px 0px;
     /* background: rgba(74, 155, 142, 0.1); */
     color: var(--primary-teal);
-    border-left-color: var(--primary-teal);
+    border-left: 4px solid var(--primary-teal) !important;
 }
 
 .nav-link i {
@@ -173,14 +172,13 @@ body {
 
 
 /* Footer  */
-
 .main-content{
     position: relative;
-    /* display: none; */
-}
+    width: calc(100% - 250px) !important;
+   }
 
 .footer {
-    background: rgba(74, 155, 142, 0.9);
+    background: #368186;
     color: white;
     position: absolute;
     bottom: 0;

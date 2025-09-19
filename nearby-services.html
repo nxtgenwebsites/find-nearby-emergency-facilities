@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Removed Leaflet CSS and added Google Maps -->
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/nearby-services.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -17,6 +17,19 @@
 <body>
     <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
+
+    <div class="overlay" id="overlay2"></div>
+
+    <div class="location-modal" id="profileModal">
+        <h3>Coming Soon!</h3>
+        <p>User profile feature isn't available yet!</p>
+        <div class="location-buttons">
+            <button class="btn-location btn-allow" id="closeProfileBtn">
+                Go back
+            </button>
+        </div>
+    </div>
+
     <div class="d-flex">
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
@@ -81,7 +94,7 @@
                     <img src="assets/images/logo.svg">
                 </a>
                 <div class="header-right">
-                    <div class="user">
+                    <div class="user profile-button">
                         <img src="assets/icons/user-icon.svg" alt="">
                     </div>
                     <button class="menu-toggle" id="menuToggle">
@@ -89,17 +102,23 @@
                     </button>
                 </div>
             </header>
+
             <!-- Header Section -->
             <div class="header-section">
-                <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex flex-column-reverse mb-4 pt-4">
                     <div>
-                        <h6 class="mb-1 ">We found <span class="fw-bold" id="resultCount">6</span> nearby medical
+                        <h6 class="mb-1 result-text">We
+                            <span class="fw-bold text-black">
+                                found <span id="resultCount">0</span> nearby
+                            </span>
+                            medical
                             services
-                            to your current location</h6>
+                            to your current location
+                        </h6>
                     </div>
-                    <div class="dropdown">
-                        <button class="profile-btn d-none d-lg-flex">
-                            <img src="assets/icons/user.svg" alt="">
+                    <div class="dropdown pb-2">
+                        <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
+                            <img src="assets/icons/user-icon.svg" width="30" alt="">
                             <i class="dropdown-toggle"></i>
                         </button>
                     </div>
@@ -121,7 +140,7 @@
                                 <div class="d-flex align-items-center">
                                     <img src="assets/icons/select-location.svg" alt="Location Icon" class="me-2"
                                         style="width: 30px; height: 30px;">
-                                    <span id="user-location">Your Current Location is: Richard St., Enugu, North</span>
+                                    <span id="user-location">Getting your location...</span>
                                 </div>
                                 <button class="btn change-location" id="searchSection">Change Location</button>
                             </div>
@@ -171,47 +190,38 @@
     <!-- Added search popup modal -->
     <div class="popup-overlay d-none" id="seach-popup">
         <div class="seacrch-card">
-            <div class=" d-flex justify-content-between align-items-center p-3 border-bottom">
-                <h5 class="modal-title">Search Medical Services</h5>
-                <button type="button" class="btn-close"></button>
+            <div class="p-3 position-relative">
+                <h5 class="modal-title text-center">Change location</h5>
+                <button type="button" class="btn-close position-absolute top-0 " style="right: -10px;"></button>
             </div>
             <form id="searchForm">
                 <div class="row mt-3">
                     <div class="col-md-6 mb-3">
                         <label for="country" class="form-label">Country</label>
-                        <select class="form-select" id="country" name="country">
-                            <option value="">Select</option>
+                        <select class="form-select" id="user-country" name="country">
+                            <!-- <option value="">Select</option>
                             <option value="nigeria">Nigeria</option>
-                            <option value="pakistan">Pakistan</option>
+                            <option value="pakistan">Pakistan</option> -->
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="state" class="form-label">State</label>
-                        <select class="form-select" id="state" name="state">
-                            <option value="">Select</option>
+                        <select class="form-select" id="user-state" name="state">
+                            <!-- <option value="">Select</option>
                             <option value="enugu">Enugu</option>
-                            <option value="punjab">Punjab</option>
+                            <option value="punjab">Punjab</option> -->
                         </select>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 city-inp">
                         <label for="city" class="form-label">City</label>
-                        <select class="form-select" id="city" name="city">
-                            <option value="">Select</option>
-                            <option value="rawalpindi">Rawalpindi</option>
-                            <option value="nsukka">Nsukka</option>
-                        </select>
+                        <input type="text" class="form-control" id="city" name="city" placeholder="Type here" />
                     </div>
-                    <div class="col-12 mb-3">
+                    <div class="col-12 mb-3 services-type">
                         <label for="services-type" class="form-label">Type location</label>
-                        <select class="form-select" id="services-type" name="services-type">
-                            <option value="">Select</option>
-                            <option value="hospital">Hospital</option>
-                            <option value="clinic">Clinic</option>
-                            <option value="pharmacy">Pharmacy</option>
-                            <option value="laboratory">Laboratory</option>
-                        </select>
+                        <input class="form-control" type="text" id="services-type" placeholder="Type here" />
+                        <i class="fa fa-search"></i>
                     </div>
                 </div>
                 <div class="text-center">
@@ -357,13 +367,105 @@
         </div>
     </div>
 
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- Removed Leaflet and axios, added Google Maps -->
+    <script src="js/country-states.js"></script>
+
 
     <script>
+        var user_country_code = ""; // Default me koi country selected nahi
+
+        (() => {
+            // Add null checks for country_and_states
+            if (!window.country_and_states || !country_and_states.country || !country_and_states.states) {
+                console.warn('Country and states data not loaded properly');
+                return;
+            }
+
+            const country_list = country_and_states.country;
+            const state_list = country_and_states.states;
+
+            const id_state_option = document.getElementById("user-state");
+            const id_country_option = document.getElementById("user-country");
+
+            if (!id_state_option || !id_country_option) {
+                console.warn('Country/State select elements not found');
+                return;
+            }
+
+            // Initially disable the state dropdown
+            id_state_option.innerHTML = '<option>select state</option>';
+            id_state_option.setAttribute("disabled", "disabled");
+
+            const create_country_selection = () => {
+                let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
+                // Add null check for country_list
+                if (country_list && typeof country_list === 'object') {
+                    for (const country_code in country_list) {
+                        if (country_list.hasOwnProperty(country_code)) {
+                            option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
+                        }
+                    }
+                }
+                id_country_option.innerHTML = option;
+            };
+
+            const create_states_selection = () => {
+                let selected_country_code = id_country_option.value;
+                let state_names = state_list && state_list[selected_country_code] ? state_list[selected_country_code] : null;
+
+                if (!state_names || !Array.isArray(state_names)) {
+                    id_state_option.innerHTML = '<option>select state</option>';
+                    id_state_option.setAttribute("disabled", "disabled");
+                    return;
+                }
+
+                let option = '<option>select state</option>';
+                state_names.forEach(state => {
+                    if (state && state.code && state.name) {
+                        option += '<option value="' + state.code + '">' + state.name + '</option>';
+                    }
+                });
+
+                id_state_option.innerHTML = option;
+                id_state_option.removeAttribute("disabled"); // Enable dropdown when country is selected
+            };
+
+            // Country select change event update state dropdown
+            id_country_option.addEventListener('change', create_states_selection);
+
+            // Initialize country dropdown with placeholder
+            create_country_selection();
+        })();
+
+
+    </script>
+
+    <script>
+
+        const profileButton = document.querySelectorAll('.profile-button');
+        const profileModal = document.getElementById('profileModal');
+        const closeProfileBtn = document.getElementById('closeProfileBtn');
+
+        if (profileButton && profileModal && closeProfileBtn) {
+            profileButton.forEach(button => {
+                button.addEventListener('click', function () {
+                    profileModal.classList.add('show');
+                    const overlay2 = document.getElementById('overlay2');
+                    if (overlay2) overlay2.classList.add('show');
+                });
+            });
+
+            closeProfileBtn.addEventListener('click', function () {
+                profileModal.classList.remove('show');
+                const overlay2 = document.getElementById('overlay2');
+                if (overlay2) overlay2.classList.remove('show');
+            });
+        }
+
         function toggleExpand(card) {
+            if (!card) return;
+
             const details = card.querySelector(".extra-details");
             const reportBtn = card.querySelector(".report-btn");
             const distance = card.querySelector(".small-distance");
@@ -372,21 +474,21 @@
             card.classList.toggle("expanded");
 
             if (card.classList.contains("expanded")) {
-                details.classList.remove("d-none");
-                reportBtn.classList.remove("d-none");
-                distance.classList.add("d-none");
+                if (details) details.classList.remove("d-none");
+                if (reportBtn) reportBtn.classList.remove("d-none");
+                if (distance) distance.classList.add("d-none");
 
                 // Title ko bada karo
-                if (title.tagName.toLowerCase() === "h5") {
+                if (title && title.tagName.toLowerCase() === "h5") {
                     title.outerHTML = `<h4 class="mb-0">${title.innerText}</h4>`;
                 }
             } else {
-                details.classList.add("d-none");
-                reportBtn.classList.add("d-none");
-                distance.classList.remove("d-none");
+                if (details) details.classList.add("d-none");
+                if (reportBtn) reportBtn.classList.add("d-none");
+                if (distance) distance.classList.remove("d-none");
 
                 // Wapas chhota karo
-                if (title.tagName.toLowerCase() === "h4") {
+                if (title && title.tagName.toLowerCase() === "h4") {
                     title.outerHTML = `<h5 class="mb-0">${title.innerText}</h5>`;
                 }
             }
@@ -395,59 +497,88 @@
 
     <script>
         let map;
+        let infoWindow;
         let userMarker;
         let hospitalMarkers = [];
-        let radiusCircle;
         let userLocation = null;
         let allHospitals = []; // Store all hospitals for filtering
+        let filteredHospitals = []; // Store filtered hospitals for pagination
+        let currentPage = 1;
+        let itemsPerPage = 5; // Default 5 items per page
+        const limit = 20;
 
-        // Initialize map
-        function initMap() {
-            // Default center (Pakistan)
-            map = L.map('map').setView([33.6844, 73.0479], 10);
+        // Initialize Google Map
+        async function initMap() {
+            try {
+                const { Map } = await google.maps.importLibrary("maps");
+                const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
-            // Add OpenStreetMap tiles
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
+                // Default center (Pakistan)
+                map = new Map(document.getElementById("map"), {
+                    center: { lat: 33.6844, lng: 73.0479 },
+                    zoom: 10,
+                    mapId: "DEMO_MAP_ID"
+                });
 
-            // Get user location and load hospitals automatically
-            getCurrentUserLocation();
+                infoWindow = new google.maps.InfoWindow();
+
+                // Get user location and load hospitals automatically
+                getCurrentUserLocation();
+            } catch (error) {
+                console.error('Error initializing map:', error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').innerHTML = `
+                    <h5>Map Loading Error</h5>
+                    <p>Unable to load Google Maps. Please check your internet connection.</p>
+                `;
+            }
         }
-
 
         // Hospital search functionality
         const hospitalSearchInput = document.getElementById('hospitalSearch');
 
-        hospitalSearchInput.addEventListener('input', function () {
-            const searchTerm = this.value.toLowerCase().trim();
-            filterHospitals(searchTerm);
-        });
+        if (hospitalSearchInput) {
+            hospitalSearchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase().trim();
+                filterHospitals(searchTerm);
+            });
+        }
 
         function filterHospitals(searchTerm) {
             if (!allHospitals.length) return;
 
-            let filteredHospitals = allHospitals;
+            let filtered = allHospitals;
 
             if (searchTerm) {
-                filteredHospitals = allHospitals.filter(hospital =>
-                    hospital.facility_name.toLowerCase().includes(searchTerm) ||
-                    hospital.city.toLowerCase().includes(searchTerm) ||
-                    hospital.state.toLowerCase().includes(searchTerm) ||
-                    (hospital.services && hospital.services.toLowerCase().includes(searchTerm))
-                );
+                filtered = allHospitals.filter(hospital => {
+                    if (!hospital) return false;
+
+                    const name = hospital.name ? hospital.name.toLowerCase() : '';
+                    const vicinity = hospital.vicinity ? hospital.vicinity.toLowerCase() : '';
+                    const types = hospital.types && Array.isArray(hospital.types) ?
+                        hospital.types.some(type => type.toLowerCase().includes(searchTerm)) : false;
+
+                    return name.includes(searchTerm) || vicinity.includes(searchTerm) || types;
+                });
             }
 
-            // Update result count
-            document.getElementById('resultCount').textContent = filteredHospitals.length;
+            filteredHospitals = filtered;
+            currentPage = 1;
 
-            // Display filtered hospitals
-            displayHospitals(filteredHospitals);
-            addHospitalMarkers(filteredHospitals);
+            // Update result count
+            const resultCountEl = document.getElementById('resultCount');
+            if (resultCountEl) {
+                resultCountEl.textContent = filteredHospitals.length;
+            }
+
+            displayPaginatedHospitals();
+            renderPagination();
         }
 
         // Calculate distance between two points in miles
         function calculateDistance(lat1, lon1, lat2, lon2) {
+
             const R = 3959; // Earth's radius in miles
             const dLat = (lat2 - lat1) * Math.PI / 180;
             const dLon = (lon2 - lon1) * Math.PI / 180;
@@ -462,327 +593,431 @@
         // Get current user location
         function getCurrentUserLocation() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    userLocation = { lat, lon };
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    try {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        userLocation = { lat, lon };
 
-                    // Remove existing user marker
-                    if (userMarker) {
-                        map.removeLayer(userMarker);
-                    }
+                        const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
-                    userMarker = L.marker([lat, lon], {
-                        icon: L.icon({
-                            iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-                            shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-                            iconSize: [25, 41],
-                            iconAnchor: [12, 41]
-                        })
-                    }).addTo(map);
+                        // Remove existing user marker
+                        if (userMarker) {
+                            userMarker.map = null;
+                        }
 
-                    map.setView([lat, lon], 13);
-
-                    // Add 50-mile radius circle
-                    if (radiusCircle) {
-                        map.removeLayer(radiusCircle);
-                    }
-                    radiusCircle = L.circle([lat, lon], {
-                        color: '#007bff',
-                        fillColor: '#007bff',
-                        fillOpacity: 0.1,
-                        radius: 1610
-                    }).addTo(map);
-
-                    // ✅ Show location name in span using reverse geocoding
-                    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data && data.display_name) {
-                                document.getElementById("user-location").innerText =
-                                    `Your Current Location is: ${data.display_name}`;
-                            } else {
-                                document.getElementById("user-location").innerText =
-                                    `Your Current Location is: (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
-                            }
-                        })
-                        .catch(err => {
-                            console.error("Reverse geocoding error:", err);
-                            document.getElementById("user-location").innerText =
-                                `Your Current Location is: (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
+                        const userPin = new PinElement({
+                            background: "#4285F4",
+                            borderColor: "#ffffff",
+                            glyphColor: "#ffffff"
                         });
 
-                    // Load hospitals automatically
-                    loadNearbyHospitals(lat, lon);
+                        userMarker = new AdvancedMarkerElement({
+                            map,
+                            position: { lat, lng: lon },
+                            title: "You are here",
+                            content: userPin.element
+                        });
 
+                        map.setCenter({ lat, lng: lon });
+                        map.setZoom(13);
+
+                        // Get location name using reverse geocoding
+                        const geocoder = new google.maps.Geocoder();
+                        geocoder.geocode({ location: { lat, lng: lon } }, (results, status) => {
+                            const userLocationEl = document.getElementById("user-location");
+                            if (userLocationEl) {
+                                if (status === 'OK' && results && results[0]) {
+                                    userLocationEl.innerText =
+                                        `Your Current Location is: ${results[0].formatted_address}`;
+                                } else {
+                                    userLocationEl.innerText =
+                                        `Your Current Location is: (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
+                                }
+                            }
+                        });
+
+                        // Load hospitals automatically using Google Places
+                        loadNearbyHospitals(lat, lon);
+
+                    } catch (error) {
+                        console.error('Error setting up user location:', error);
+                        handleLocationError();
+                    }
                 }, (error) => {
                     console.warn('Geolocation error:', error);
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('error').style.display = 'block';
-                    document.getElementById('healthCenters').innerHTML = ''; // Hide cards on error
-                    document.getElementById('error').innerHTML = `
-                <h5>Location Access Required</h5>
-                <p>Please enable location services to find nearby hospitals.</p>
-            `;
+                    handleLocationError();
                 }, {
                     enableHighAccuracy: true,
                     timeout: 10000,
                     maximumAge: 60000
                 });
             } else {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('error').style.display = 'block';
-                document.getElementById('healthCenters').innerHTML = ''; // Hide cards on error
-                document.getElementById('error').innerHTML = `
-            <h5>Geolocation Not Supported</h5>
-            <p>Your browser doesn't support geolocation.</p>
-        `;
+                handleLocationError('Geolocation not supported');
             }
         }
 
-        let currentPage = 1;
-        const limit = 20;
+        function handleLocationError(message = 'Location access required') {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+            document.getElementById('healthCenters').innerHTML = '';
+            document.getElementById('error').innerHTML = `
+                <h5>Location Access Required</h5>
+                <p>Please enable location services to find nearby hospitals.</p>
+            `;
+        }
 
-        async function loadNearbyHospitals(latitude, longitude, country = "") {
+        async function loadNearbyHospitals(latitude, longitude, searchQuery = '') {
             try {
-                let url = `https://find-nearby-emergency-facilities-ba.vercel.app/api/hospitals/nearby?latitude=${latitude}&longitude=${longitude}&page=${currentPage}&limit=${limit}`;
-                if (country) url += `&country=${encodeURIComponent(country)}`;
+                // Use the new Place API instead of deprecated PlacesService
+                const { Place, SearchNearbyRequest } = await google.maps.importLibrary("places");
 
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Failed to fetch hospitals');
+                const request = {
+                    fields: ['displayName', 'location', 'rating', 'userRatingCount', 'businessStatus', 'formattedAddress', 'types'],
+                    locationRestriction: {
+                        center: { lat: latitude, lng: longitude },
+                        radius: 5000, // 5km radius
+                    },
+                    includedTypes: ['hospital'],
+                    rankPreference: 'DISTANCE',
+                    language: 'en-US',
+                    region: 'us',
+                };
 
-                const data = await response.json();
+                const { places } = await Place.searchNearby(request);
+
                 document.getElementById('loading').style.display = 'none';
 
-                if (data.hospitals && data.hospitals.length > 0) {
-                    allHospitals = data.hospitals; // Store all hospitals
-                    document.getElementById('error').style.display = 'none'; // Hide error
+                if (places && places.length > 0) {
+                    // Convert new Place format to old format for compatibility
+                    const results = places.map(place => {
+                        const hospital = {
+                            name: place.displayName || 'Unknown Hospital',
+                            geometry: {
+                                location: {
+                                    lat: () => place.location ? place.location.lat : 0,
+                                    lng: () => place.location ? place.location.lng : 0
+                                }
+                            },
+                            rating: place.rating || null,
+                            vicinity: place.formattedAddress || 'Address not available',
+                            types: place.types || ['hospital'],
+                            business_status: place.businessStatus || 'OPERATIONAL'
+                        };
+
+                        // Calculate distance
+                        if (place.location) {
+                            hospital.distance = calculateDistance(
+                                latitude, longitude,
+                                place.Fg.location.lat,
+                                place.Fg.location.lng
+                            );
+                        } else {
+                            hospital.distance = 0;
+                        }
+
+                        return hospital;
+                    });
+
+                    // Sort by distance
+                    results.sort((a, b) => a.distance - b.distance);
+
+                    allHospitals = results;
+                    filteredHospitals = results;
+                    currentPage = 1;
+
+                    document.getElementById('error').style.display = 'none';
                     document.getElementById('healthCenters').innerHTML = "";
-                    displayHospitals(data.hospitals);
-                    addHospitalMarkers(data.hospitals);
+
+                    displayPaginatedHospitals();
 
                     // Update result count
-                    document.getElementById('resultCount').textContent = data.totalHospitals;
+                    const resultCountEl = document.getElementById('resultCount');
+                    if (resultCountEl) {
+                        resultCountEl.textContent = results.length;
+                    }
 
-                    // ✅ Pagination
-                    renderPagination(data, latitude, longitude, country);
+                    renderPagination();
 
                 } else {
-                    allHospitals = []; // Clear hospitals array
+                    allHospitals = [];
+                    filteredHospitals = [];
+                    currentPage = 1;
                     document.getElementById('error').style.display = 'block';
-                    document.getElementById('healthCenters').innerHTML = ''; // Hide cards
-                    document.getElementById('resultCount').textContent = '0';
+                    document.getElementById('healthCenters').innerHTML = '';
+                    const resultCountEl = document.getElementById('resultCount');
+                    if (resultCountEl) {
+                        resultCountEl.textContent = '0';
+                    }
                     document.getElementById('error').innerHTML = `
-                    <h5>No Hospitals Found</h5>
-                    <p>No hospitals found in this location.</p>`;
+                        <h5>No Hospitals Found</h5>
+                        <p>No hospitals found in this location.</p>`;
+                    renderPagination(); // Clear pagination if no results
                 }
+
             } catch (error) {
                 console.error('Error loading hospitals:', error);
-                allHospitals = []; // Clear hospitals array
+                allHospitals = [];
+                filteredHospitals = [];
+                currentPage = 1;
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('error').style.display = 'block';
-                document.getElementById('healthCenters').innerHTML = ''; // Hide cards on error
-                document.getElementById('resultCount').textContent = '0';
+                document.getElementById('healthCenters').innerHTML = '';
+                const resultCountEl = document.getElementById('resultCount');
+                if (resultCountEl) {
+                    resultCountEl.textContent = '0';
+                }
                 document.getElementById('error').innerHTML = `
-                <h5>Error Loading Hospitals</h5>
-                <p>Unable to load nearby hospitals. Please try again later.</p>`;
+                    <h5>Error Loading Hospitals</h5>
+                    <p>Unable to load nearby hospitals. Please try again later.</p>`;
+                renderPagination(); // Clear pagination on error
             }
         }
 
-        document.getElementById('searchForm').addEventListener("submit", (e) => {
-            e.preventDefault();
-            const userData = {
-                country: document.getElementById('country').value,
-                state: document.getElementById('state').value,
-                city: document.getElementById('city').value,
-                service: document.getElementById('services-type').value
-            }
+        const searchForm = document.getElementById('searchForm');
+        if (searchForm) {
+            searchForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
 
-            if (!country) {
-                alert("Country is required");
-                return;
-            }
-
-            axios.post(`https://find-nearby-emergency-facilities-ba.vercel.app/api/hospitals/find?page=${currentPage}&limit=${limit}`, userData).then((res) => {
-                const data = res.data;
-                document.getElementById('seach-popup').classList.add('d-none');
-
-                if (data.coordinates) {
-                    const lat = parseFloat(data.coordinates.lat);
-                    const lon = parseFloat(data.coordinates.lon);
-
-                    userLocation = { lat, lon };
-
-                    // ✅ Remove old marker if exists
-                    if (userMarker) map.removeLayer(userMarker);
-                    userMarker = L.marker([lat, lon]).addTo(map);
-
-                    // ✅ Center map on new location
-                    map.setView([lat, lon], 13);
-
-                    // ✅ Remove old circle if exists
-                    if (radiusCircle) map.removeLayer(radiusCircle);
-
-                    // ✅ Add new circle (~1 mile)
-                    radiusCircle = L.circle([lat, lon], {
-                        color: '#007bff',
-                        fillColor: '#007bff',
-                        fillOpacity: 0.1,
-                        radius: 1610
-                    }).addTo(map);
+                const userData = {
+                    country: document.getElementById('user-country')?.value || '',
+                    state: document.getElementById('user-state')?.value || '',
+                    city: document.getElementById('city')?.value || '',
+                    service: document.getElementById('services-type')?.value || ''
                 }
 
-
-                if (data.hospitals && data.hospitals.length > 0) {
-                    allHospitals = data.hospitals; // Store all hospitals
-                    document.getElementById('error').style.display = 'none'; // Hide error
-                    document.getElementById('healthCenters').innerHTML = "";
-                    displayHospitals(data.hospitals);
-                    addHospitalMarkers(data.hospitals);
-
-                    // Update result count
-                    document.getElementById('resultCount').textContent = data.totalHospitals;
-
-                    // ✅ Pagination
-                    renderPagination(data, data.hospitals[0].location.coordinates[1], data.hospitals[0].location.coordinates[0]);
-
-                } else {
-                    allHospitals = []; // Clear hospitals array
-                    document.getElementById('error').style.display = 'block';
-                    document.getElementById('healthCenters').innerHTML = ''; // Hide cards
-                    document.getElementById('resultCount').textContent = '0';
-                    document.getElementById('error').innerHTML = `
-                    <h5>No Hospitals Found</h5>
-                    <p>No hospitals found in this location.</p>`;
+                if (!userData.country) {
+                    alert("Country is required");
+                    return;
                 }
-            }).catch((err) => {
-                console.log(err);
-            })
-        })
+
+                const query = `${userData.city}, ${userData.state}, ${userData.country}`;
+
+                // Use Google Geocoding to get coordinates
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ address: query }, async (results, status) => {
+                    if (status === 'OK' && results && results[0]) {
+                        const location = results[0].geometry.location;
+                        const lat = location.lat();
+                        const lon = location.lng();
+
+                        userLocation = { lat, lon };
+
+                        // Update user marker
+                        if (userMarker) {
+                            userMarker.map = null;
+                        }
+
+                        try {
+                            const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+                            const userPin = new PinElement({
+                                background: "#4285F4",
+                                borderColor: "#ffffff",
+                                glyphColor: "#ffffff"
+                            });
+
+                            userMarker = new AdvancedMarkerElement({
+                                map,
+                                position: { lat, lng: lon },
+                                title: "You are here",
+                                content: userPin.element
+                            });
+                        } catch (error) {
+                            console.error('Error creating user marker:', error);
+                        }
+
+                        map.setCenter({ lat, lng: lon });
+                        map.setZoom(13);
+
+                        const userLocationEl = document.getElementById('user-location');
+                        if (userLocationEl) {
+                            userLocationEl.innerText =
+                                `Your Current Location is: ${results[0].formatted_address}`;
+                        }
+
+                        const searchPopup = document.getElementById('seach-popup');
+                        if (searchPopup) {
+                            searchPopup.classList.add('d-none');
+                        }
+
+                        // Load hospitals for new location
+                        loadNearbyHospitals(lat, lon, userData.service);
+                    } else {
+                        alert('Location not found. Please try a different search.');
+                    }
+                });
+            });
+        }
+
+        function displayPaginatedHospitals() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const hospitalsToShow = filteredHospitals.slice(startIndex, endIndex);
+
+            displayHospitals(hospitalsToShow);
+            addHospitalMarkers(hospitalsToShow);
+        }
+
+        function changeItemsPerPage(newItemsPerPage) {
+            itemsPerPage = parseInt(newItemsPerPage);
+            currentPage = 1; // Reset to first page
+            displayPaginatedHospitals();
+            renderPagination();
+        }
 
         // Display hospitals in cards
         function displayHospitals(hospitals) {
-            if (userLocation) {
-                hospitals.sort((a, b) => {
-                    const distA = calculateDistance(userLocation.lat, userLocation.lon, a.location.coordinates[1], a.location.coordinates[0]);
-                    const distB = calculateDistance(userLocation.lat, userLocation.lon, b.location.coordinates[1], b.location.coordinates[0]);
-                    return distA - distB; // nearest first
-                });
-            }
-
             const hospitalList = document.getElementById('healthCenters');
+            if (!hospitalList) return;
+
             hospitalList.innerHTML = '';
 
-            hospitals.forEach(hospital => {
-                const hospitalLat = hospital.location.coordinates[1];
-                const hospitalLon = hospital.location.coordinates[0];
+            if (!hospitals || !Array.isArray(hospitals)) {
+                return;
+            }
 
-                let distance = 'N/A';
-                if (userLocation) {
-                    distance = `${calculateDistance(userLocation.lat, userLocation.lon, hospitalLat, hospitalLon).toFixed(1)} miles`;
+            hospitals.forEach(hospital => {
+                if (!hospital || !hospital.geometry || !hospital.geometry.location) {
+                    return;
                 }
 
+                const hospitalLat = hospital.geometry.location.lat();
+                const hospitalLon = hospital.geometry.location.lng();
+
+                let distance = 'N/A';
+                if (userLocation && hospital.distance !== undefined) {
+                    distance = `${hospital.distance.toFixed(1)} miles`;
+                }
+
+                // Get additional details with null checks
+                const rating = hospital.rating ? `${hospital.rating}/5` : 'No rating';
+                const isOpen = hospital.business_status === 'OPERATIONAL' ? 'Open' : 'Check status';
+                const address = hospital.vicinity || 'Address not available';
+                const types = hospital.types && Array.isArray(hospital.types) ? hospital.types.join(', ') : 'Hospital';
+                const hospitalName = hospital.name || 'Unknown Hospital';
+
+
+
                 const hospitalCard = `
-
-              <div class="health-center-card collapsed" onclick="toggleExpand(this)">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h5 class="mb-0">${hospital.facility_name}</h5>
-                                <div class="text-end small-distance">
-                                    <small class="text-muted"><i class="fas fa-route me-1"></i>${distance}</small>
-                                </div>
-                                <button class="report-btn d-none"
-                                    onclick="event.stopPropagation(); openReportModal('${hospital.facility_name}')">Report</button>
-                            </div>
-                                ${hospital.services && `
-                                <div class="mb-3">
-                                    <span class="service-tag">${hospital.services}</span>
-                                </div>
-                                `}
-
-                            <!-- Hidden Extra Details -->
-                            <div class="extra-details d-none">
-                                <div class="mb-2">
-                                    <i class="fas fa-map-marker-alt me-2"></i>
-                                    <strong>Address:</strong> ${hospital.city}, ${hospital.state}, ${hospital.country}
-                                </div>
-                                ${hospital.phone_number ? `
-                                <div class="mb-2">
-                                    <i class="fas fa-phone me-2"></i>
-                                    <strong>Tel:</strong> ${hospital.phone_number}
-                                </div>
-                                `: ``}
-                                ${hospital.hours ? `
-                                <div class="mb-2">
-                                    <i class="fas fa-clock me-2"></i>
-                                     <strong>Opening Hours:</strong> ${hospital.hours}
-                                  
-                                </div>
-                                `: ``}
-                                ${distance && `
-                                <div>
-                                <i class="fas fa-route me-2"></i>
-                                <strong>Distance:</strong> ${distance} miles
-                            </div>
-                                `}
+                    <div class="health-center-card collapsed" onclick="toggleExpand(this)">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="mb-0">${hospitalName}</h5>
+                            <div class="text-end small-distance">
+                                <small class="text-muted"><i class="fas fa-route me-1"></i>${distance}</small>
                             </div>
                         </div>
-            `;
+                        
+                   
+<div class="mb-3 tags-container">
+    ${types
+                        .split(', ')
+                        .filter(type => type !== "point_of_interest") // remove unwanted
+                        .map(type =>
+                            `<span class="service-tag">${type.charAt(0).toUpperCase() + type.slice(1)
+                            }</span>`
+                        )
+                        .join(' ')}
+</div>
+
+                        <!-- Hidden Extra Details -->
+                        <div class="extra-details d-none">
+                            <div class="mb-2">
+                                <i class="fas fa-map-marker-alt me-2"></i>
+                                <strong>Address:</strong> ${address}
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-star me-2"></i>
+                                <strong>Rating:</strong> ${rating}
+                            </div>
+                            <div class="mb-2">
+                                <i class="fas fa-clock me-2"></i>
+                                <strong>Status:</strong> ${isOpen}
+                            </div>
+
+                            <div  class="d-flex justify-content-between w-100 align-content-center">
+                                <div>
+                                    <i class="fas fa-route me-2"></i>
+                                    <strong>Distance:</strong> ${distance}
+                                    </div>
+                                    <button class="report-btn d-none"
+                                  onclick="event.stopPropagation(); openReportModal('${hospitalName.replace(/'/g, "\\'")}')">Report</button>
+                                </div>
+                        </div>
+                    </div>
+
+
+                `;
                 hospitalList.innerHTML += hospitalCard;
             });
         }
 
-        // Add hospital markers to map
-        function addHospitalMarkers(hospitals) {
-            // Clear existing hospital markers
-            hospitalMarkers.forEach(marker => map.removeLayer(marker));
-            hospitalMarkers = [];
+        async function addHospitalMarkers(hospitals) {
+            try {
+                const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
-            hospitals.forEach(hospital => {
-                const hospitalLat = hospital.location.coordinates[1];
-                const hospitalLon = hospital.location.coordinates[0];
+                // Clear existing hospital markers
+                hospitalMarkers.forEach(marker => {
+                    if (marker && marker.map) {
+                        marker.map = null;
+                    }
+                });
+                hospitalMarkers = [];
 
-                const marker = L.marker([hospitalLat, hospitalLon], {
-                    icon: L.icon({
-                        iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAzMCAzMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE1IDNDMTAuMDM3NSAzIDYgNy4wMzc1IDYgMTJDNiAxOC43NSAxNSAyNyAxNSAyN0MxNSAyNyAyNCAxOC43NSAyNCAxMkMyNCA3LjAzNzUgMTkuOTYyNSAzIDE1IDNaTTE1IDE2QzEyLjc5MDkgMTYgMTEgMTQuMjA5MSAxMSAxMkMxMSA5Ljc5MDkxIDEyLjc5MDkgOCAxNSA4QzE3LjIwOTEgOCAxOSA5Ljc5MDkxIDE5IDEyQzE5IDE0LjIwOTEgMTcuMjA5MSAxNiAxNSAxNloiIGZpbGw9IiNkYzM1NDUiLz4KPC9zdmc+',
-                        iconSize: [30, 30],
-                        iconAnchor: [15, 30]
-                    })
-                }).addTo(map);
-
-                // Calculate distance for popup
-                let distance = 'N/A';
-                if (userLocation) {
-                    const distanceInMiles = calculateDistance(
-                        userLocation.lat, userLocation.lon,
-                        hospitalLat, hospitalLon
-                    );
-                    distance = `${distanceInMiles.toFixed(1)} miles`;
+                if (!hospitals || !Array.isArray(hospitals)) {
+                    return;
                 }
 
-                marker.bindPopup(`
-                        <div style="text-align: center;">
-                            <strong>${hospital.facility_name}</strong><br>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 5px;">
-                                <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM18 14H13V18H11V14H6V12H11V8H13V12H18V14Z" fill="#6c757d"/>
-                            </svg>
-                            ${hospital.services}<br>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 5px;">
-                                <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22S19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9S10.62 6.5 12 6.5S14.5 7.62 14.5 9S13.38 11.5 12 11.5Z" fill="#6c757d"/>
-                            </svg>
-                            ${hospital.city}, ${hospital.state}<br>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 5px;">
-                                <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.08 14.82 16.43 14.93C17.55 15.3 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z" fill="#28a745"/>
-                            </svg>
-                            ${hospital.phone_number}<br>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 5px;">
-                                <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22S19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9S10.62 6.5 12 6.5S14.5 7.62 14.5 9S13.38 11.5 12 11.5Z" fill="#17a2b8"/>
-                            </svg>
-                            ${distance}
-                        </div>
-                    `);
+                hospitals.forEach(hospital => {
+                    if (!hospital || !hospital.geometry || !hospital.geometry.location) {
+                        return;
+                    }
 
-                hospitalMarkers.push(marker);
-            });
+                    const hospitalLat = hospital.geometry.location.lat();
+                    const hospitalLon = hospital.geometry.location.lng();
+
+                    const hospitalPin = new PinElement({
+                        background: "#EA4335",
+                        borderColor: "#ffffff",
+                        glyphColor: "#ffffff",
+                        glyph: "H"
+                    });
+
+                    const marker = new AdvancedMarkerElement({
+                        map,
+                        position: { lat: hospitalLat, lng: hospitalLon },
+                        title: hospital.name || 'Hospital',
+                        content: hospitalPin.element
+                    });
+
+                    // Calculate distance for popup
+                    let distance = 'N/A';
+                    if (userLocation && hospital.distance !== undefined) {
+                        distance = `${hospital.distance.toFixed(1)} miles`;
+                    }
+
+                    const rating = hospital.rating ? `${hospital.rating}/5` : 'No rating';
+                    const isOpen = hospital.business_status === 'OPERATIONAL' ? 'Open' : 'Check status';
+                    const hospitalName = hospital.name || 'Unknown Hospital';
+                    const vicinity = hospital.vicinity || 'Address not available';
+
+                    marker.addListener("click", () => {
+                        infoWindow.setContent(`
+                            <div style="text-align: center;">
+                                <strong>${hospitalName}</strong><br>
+                                <i class="fas fa-map-marker-alt"></i> ${vicinity}<br>
+                                <i class="fas fa-star"></i> ${rating}<br>
+                                <i class="fas fa-clock"></i> ${isOpen}<br>
+                                <i class="fas fa-route"></i> ${distance}
+                            </div>
+                        `);
+                        infoWindow.open(map, marker);
+                    });
+
+                    hospitalMarkers.push(marker);
+                });
+            } catch (error) {
+                console.error('Error adding hospital markers:', error);
+            }
         }
 
         // Get directions function
@@ -796,201 +1031,106 @@
             }
         }
 
-        // Initialize map when page loads
-        document.addEventListener('DOMContentLoaded', initMap);
+        // Handle API load errors
+        window.gm_authFailure = function () {
+            const loadingEl = document.getElementById("loading");
+            if (loadingEl) {
+                loadingEl.innerHTML = "Google Maps API authentication failed. Please check your API key.";
+            }
+        };
+
+        // Add global error handler
+        window.addEventListener('error', function (e) {
+            console.error('Global error:', e.error);
+        });
+
+        window.addEventListener('unhandledrejection', function (e) {
+            console.error('Unhandled promise rejection:', e.reason);
+        });
     </script>
 
     <script>
-        document.getElementById('searchSection').addEventListener('click', function () {
-            document.getElementById('seach-popup').classList.remove('d-none');
-        });
-
-        document.querySelector('#seach-popup .btn-close').addEventListener('click', function () {
-            document.getElementById('seach-popup').classList.add('d-none');
-        });
-
-        function renderPagination(data, latitude, longitude, country) {
-            const paginationDiv = document.getElementById('pagination');
-            paginationDiv.innerHTML = "";
-
-            const totalPages = data.totalPages;
-
-            // ⚡ Agar sirf 1 page hai to pagination na dikhaye
-            if (totalPages <= 1) return;
-
-            // Create <ul class="pagination">
-            const ul = document.createElement("ul");
-            ul.className = "pagination";
-
-            function createPageItem(page, label = null, disabled = false, active = false, ariaLabel = null) {
-                if (page < 1 || page > totalPages) return; // page safe check
-
-                const li = document.createElement("li");
-                li.className = `page-item ${disabled ? "disabled" : ""} ${active ? "active" : ""}`;
-
-                const a = document.createElement("a");
-                a.className = "page-link";
-                a.href = "#";
-                a.innerHTML = label || page;
-                if (ariaLabel) a.setAttribute("aria-label", ariaLabel);
-
-                if (!disabled && !active) {
-                    a.onclick = (e) => {
-                        e.preventDefault();
-                        currentPage = page; // ✅ page update
-                        loadNearbyHospitals(latitude, longitude, country); // ✅ reload hospitals
-                    };
+        const searchSection = document.getElementById('searchSection');
+        if (searchSection) {
+            searchSection.addEventListener('click', function () {
+                const searchPopup = document.getElementById('seach-popup');
+                if (searchPopup) {
+                    searchPopup.classList.remove('d-none');
                 }
-
-                li.appendChild(a);
-                ul.appendChild(li);
-            }
-
-            function createEllipsis() {
-                const li = document.createElement("li");
-                li.className = "page-item disabled";
-                li.innerHTML = `<span class="page-link">...</span>`;
-                ul.appendChild(li);
-            }
-
-            // Prev button
-            createPageItem(currentPage - 1, '<i class="fas fa-chevron-left"></i>', currentPage === 1, false, "Previous");
-
-            // Always show first page
-            createPageItem(1, "1", false, currentPage === 1);
-
-            // Add "..." if gap between first and currentPage-2
-            if (currentPage > 4) {
-                createEllipsis();
-            }
-
-            // Show pages around current page
-            const start = Math.max(2, currentPage - 1);
-            const end = Math.min(totalPages - 1, currentPage + 1);
-
-            for (let p = start; p <= end; p++) {
-                createPageItem(p, null, false, p === currentPage);
-            }
-
-            // Add "..." if gap before last page
-            if (currentPage < totalPages - 3) {
-                createEllipsis();
-            }
-
-            // Always show last page (agar totalPages > 1)
-            if (totalPages > 1) {
-                createPageItem(totalPages, totalPages, false, currentPage === totalPages);
-            }
-
-            // Next button
-            createPageItem(currentPage + 1, '<i class="fas fa-chevron-right"></i>', currentPage === totalPages, false, "Next");
-
-            paginationDiv.appendChild(ul);
-        }
-
-
-        let currentLocation = '';
-
-        function openReportModal(locationName) {
-            currentLocation = locationName;
-            const modal = new bootstrap.Modal(document.getElementById('reportModal'));
-            modal.show();
-        }
-
-        // Handle report form submission
-        document.getElementById('reportForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Validate form
-            const subject = document.getElementById('subject').value;
-            const details = document.getElementById('details').value;
-            const actionRequired = document.getElementById('actionRequired').value;
-            const userRole = document.getElementById('userRole').value;
-
-            if (!subject || !details || !actionRequired || !userRole) {
-                alert('Please fill in all required fields');
-                return;
-            }
-
-            // Close report modal and open details modal
-            const reportModal = bootstrap.Modal.getInstance(document.getElementById('reportModal'));
-            reportModal.hide();
-
-            setTimeout(() => {
-                const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
-                detailsModal.show();
-            }, 300);
-        });
-
-        // Handle details form submission
-        document.getElementById('detailsForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Validate form
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
-            const confirmEmail = document.getElementById('confirmEmail').value;
-            const contactNumber = document.getElementById('contactNumber').value;
-
-            if (!firstName || !lastName || !email || !confirmEmail || !contactNumber) {
-                alert('Please fill in all required fields');
-                return;
-            }
-
-            if (email !== confirmEmail) {
-                alert('Email addresses do not match');
-                return;
-            }
-
-            // Simulate form submission
-            alert('Thank you! Your report has been submitted successfully.');
-
-            // Close modal and reset forms
-            const detailsModal = bootstrap.Modal.getInstance(document.getElementById('detailsModal'));
-            detailsModal.hide();
-
-            document.getElementById('reportForm').reset();
-            document.getElementById('detailsForm').reset();
-        });
-
-        // Pagination functionality
-        document.querySelectorAll('.page-link').forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                // Remove active class from all page items
-                document.querySelectorAll('.page-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-
-                // Add active class to clicked item (if it's a number)
-                if (this.textContent.match(/^\d+$/)) {
-                    this.parentElement.classList.add('active');
-                }
-
-                // Simulate loading new page content
-                console.log('Loading page:', this.textContent);
             });
-        });
+        }
 
+        const closeBtn = document.querySelector('#seach-popup .btn-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function () {
+                const searchPopup = document.getElementById('seach-popup');
+                if (searchPopup) {
+                    searchPopup.classList.add('d-none');
+                }
+            });
+        }
 
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
+        function renderPagination() {
+            const paginationDiv = document.getElementById('pagination');
+            if (!paginationDiv) return;
 
-        menuToggle.addEventListener('click', function () {
-            sidebar.classList.toggle('show');
-            overlay.classList.toggle('show');
-        });
+            const totalItems = filteredHospitals.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-        overlay.addEventListener('click', function () {
-            sidebar.classList.remove('show');
-            overlay.classList.remove('show');
-        });
+            if (totalItems === 0) {
+                paginationDiv.innerHTML = '';
+                return;
+            }
+
+            const startItem = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+            const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+
+            paginationDiv.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex align-items-center">
+                        <span class="me-2">Results per page:</span>
+                        <select class="form-select form-select-sm" style="width: 70px;" onchange="changeItemsPerPage(this.value)">
+                            <option value="5" ${itemsPerPage === 5 ? 'selected' : ''}>5</option>
+                            <option value="10" ${itemsPerPage === 10 ? 'selected' : ''}>10</option>
+                            <option value="20" ${itemsPerPage === 20 ? 'selected' : ''}>20</option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="me-3">${startItem}-${endItem} of ${totalItems}</span>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" 
+                                    onclick="changePage(${currentPage - 1})" 
+                                    ${currentPage === 1 ? 'disabled' : ''}>
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" 
+                                    onclick="changePage(${currentPage + 1})" 
+                                    ${currentPage === totalPages ? 'disabled' : ''}>
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+        }
+
+        function changePage(newPage) {
+            const totalPages = Math.ceil(filteredHospitals.length / itemsPerPage);
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                displayPaginatedHospitals();
+                renderPagination();
+            }
+        }
+
 
     </script>
+
+    <!-- Updated Google Maps API with Places library -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwuos0yjEDV1ouNOsg7tvqVmQ6UGRqoSU&libraries=places,marker&callback=initMap&loading=async">
+        </script>
 </body>
 
 </html>

@@ -16,9 +16,21 @@
 <body>
     <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay2"></div>
 
     <!-- Added location permission modal -->
-    <div class="location-modal" id="locationModal">
+    <div class="location-modal " id="profileModal">
+        <h3>Coming Soon!</h3>
+        <p>User profile feature isn’t available yet!</p>
+        <div class="location-buttons">
+                <button class="btn-location btn-allow" id="closeProfileBtn">
+                    Go back
+                </button>
+        </div>
+    </div>
+
+    <!-- Added location permission modal -->
+    <div class="location-modal " id="locationModal">
         <h3>Confirm to Continue</h3>
         <p>By continuing to use this service you agree to our Terms & Conditions.</p>
         <div class="location-buttons">
@@ -36,7 +48,7 @@
     <!-- Added search popup modal -->
     <div class="popup-overlay d-none" id="seach-popup">
         <div class="seacrch-card">
-            <div class=" d-flex justify-content-between align-items-center p-3 border-bottom">
+            <div class=" d-flex justify-content-between align-items-center py-3">
                 <h5 class="modal-title">Search Medical Services</h5>
                 <button type="button" class="btn-close"></button>
             </div>
@@ -181,12 +193,9 @@
         </div>
     </div>
 
-    <!-- Added location status notification -->
-    <div class="location-status" id="locationStatus"></div>
-
-    <div class="d-flex">
+    <div class="d-flex w-100">
         <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
+        <div class="sidebar w-100" id="sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="logo">
                     <div class="logo-img">
@@ -248,7 +257,7 @@
                     <img src="assets/images/logo.svg">
                 </a>
                 <div class="header-right">
-                    <div class="user">
+                    <div class="user profile-button">
                         <img src="assets/icons/user-icon.svg" alt="">
                     </div>
                     <button class="menu-toggle" id="menuToggle">
@@ -260,10 +269,10 @@
             <!-- Hero Section -->
             <section class="hero-section">
                 <div class="container">
-                    <div class="hero-content position-relative">
+                    <div class="hero-content position-relative d-none d-md-block">
                         <div class="hero-text">
-                            <button class="profile-btn d-none d-lg-flex">
-                                <img src="assets/icons/user.svg" alt="">
+                            <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
+                                <img src="assets/icons/user-icon.svg" width="30" alt="">
                                 <i class="dropdown-toggle"></i>
                             </button>
                             <span>Welcome to</span>
@@ -271,19 +280,40 @@
                             <div class="d-flex flex-column flex-lg-row justify-content-between">
                                 <p class="hero-subtitle">Empowering Citizens Supporting Health</p>
                                 <div class="stats-info">
-                                    <i class="fas fa-users"></i>
+                                    <img src="assets/icons/ph_users-four.svg" alt="">
                                     <span>Total Users: 3612</span>
                                     <span>|</span>
-                                    <span>09 Sept, 2025</span>
+                                    <span class="time-date"></span>
                                 </div>
                             </div>
 
                         </div>
+                    </div>
 
+                    <div class="position-relative d-md-none m-hero">
+                        <div class="m-hero-content ">
+                            <div class="hero-text">
+                                <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
+                                    <img src="assets/icons/user-icon.svg" width="30" alt="">
+                                    <i class="dropdown-toggle"></i>
+                                </button>
+                                <span class="text-center">Welcome to</span>
+                                <h1 class="hero-title">HealthCentreApp</h1>
+                                <div class="d-flex flex-column flex-lg-row justify-content-between">
+                                    <p class="hero-subtitle mb-0">Empowering Citizens Supporting Health</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-info">
+                            <img src="assets/icons/ph_users-four.svg" alt="">
+                            <span>Total Users: 3612</span>
+                            <span>|</span>
+                            <span class="time-date"></span>
+                        </div>
                     </div>
 
                     <div class="medical mt-5" onclick="findNearbyServices()">
-                        <img src="assets/icons/button.svg" alt="">
+                        <img src="assets/images/Group 71.svg" alt="">
                     </div>
 
                     <div class="search-section" id="searchSection">
@@ -291,8 +321,8 @@
                         <i class="fas fa-search search-icon"></i>
                     </div>
 
-                    <div class="sponsored-section my-5">
-                        <div class="swiper ">
+                    <div class="sponsored-section w-100 my-5">
+                        <div class="swiper">
                             <!-- Additional required wrapper -->
                             <div class="text-muted text-start mb-3">
                                 <span>Sponsored ads</span>
@@ -300,20 +330,30 @@
                             </div>
                             <div class="swiper-wrapper">
                                 <!-- Slides -->
-                                <div class="swiper-slide text-black pb-5">
+                                <!-- <div class="swiper-slide text-black pb-5">
                                     <img src="assets/images/add_1.jpg" alt="images">
                                 </div>
                                 <div class="swiper-slide text-black pb-5">
                                     <img src="assets/images/add_2.jpg" alt="images">
-
                                 </div>
                                 <div class="swiper-slide text-black pb-5">
                                     <img src="assets/images/add_3.jpg" alt="images">
                                 </div>
                                 <div class="swiper-slide text-black pb-5">
                                     <img src="assets/images/add_4.jpg" alt="images">
+                                </div> -->
+                                <div class="swiper-slide text-black pb-5">
+                                    <img src="assets/images/sponsor-add.png" alt="images">
                                 </div>
-                                ...
+                                <div class="swiper-slide text-black pb-5">
+                                    <img src="assets/images/sponsor-add.png" alt="images">
+                                </div>
+                                <div class="swiper-slide text-black pb-5">
+                                    <img src="assets/images/sponsor-add.png" alt="images">
+                                </div>
+                                <div class="swiper-slide text-black pb-5">
+                                    <img src="assets/images/sponsor-add.png" alt="images">
+                                </div>
                             </div>
 
                         </div>
@@ -332,8 +372,8 @@
                             <a href="#">Privacy Policy</a>
                             <span>|</span>
                             <a href="#">Terms & Conditions</a>
-                            <a href="#" class="social-icon">
-                                <i class="fab fa-facebook-f"></i>
+                            <a href="#" class="social">
+                                <img src="assets/icons/facebook 1.svg" alt="">
                             </a>
                         </div>
                     </div>
@@ -344,6 +384,24 @@
 
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+       function updateTime() {
+            const now = new Date();
+            const options = {
+                weekday: "long", day: "numeric", month: "long", year: "numeric",
+                hour: "2-digit", minute: "2-digit", second: "2-digit"
+            };
+            const formatted = now.toLocaleString("en-GB", options);
+
+            document.querySelectorAll(".time-date").forEach((span) => {
+                span.textContent = formatted;
+            });
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+
     <script>
         const swiper = new Swiper('.swiper', {
             direction: 'horizontal',
@@ -355,6 +413,22 @@
         });
     </script>
     <script>
+
+        const profileButton = document.querySelectorAll('.profile-button');
+        const profileModal = document.getElementById('profileModal');
+        const closeProfileBtn = document.getElementById('closeProfileBtn');
+
+        profileButton.forEach(button => {
+            button.addEventListener('click', function () {
+                profileModal.classList.add('show');
+                document.getElementById('overlay2').classList.add('show');
+            });
+        });
+
+        closeProfileBtn.addEventListener('click', function () {
+            profileModal.classList.remove('show');
+            document.getElementById('overlay2').classList.remove('show');
+        });
 
         document.getElementById('searchSection').addEventListener('click', function () {
             document.getElementById('seach-popup').classList.remove('d-none');
@@ -396,12 +470,6 @@
         });
 
         function findNearbyServices() {
-            // Check if geolocation is supported
-            if (!navigator.geolocation) {
-                showLocationStatus('Geolocation is not supported by this browser.', 'error');
-                return;
-            }
-
             // Show location permission modal
             document.getElementById('locationModal').classList.add('show');
             document.getElementById('overlay').classList.add('show');
@@ -416,11 +484,9 @@
                     const longitude = position.coords.longitude;
 
                     console.log('[v0] Location obtained:', latitude, longitude);
-                    showLocationStatus('Location access granted! Finding nearby services...', 'success');
-
+                  
                     // Simulate finding nearby services
                     setTimeout(() => {
-                        showLocationStatus('Found 12 medical facilities nearby', 'success');
                     }, 2000);
                 },
                 function (error) {
@@ -454,7 +520,6 @@
 
         function denyLocation() {
             hideLocationModal();
-            showLocationStatus('Location access denied. Showing general medical services.', 'error');
         }
 
         function hideLocationModal() {
@@ -462,15 +527,6 @@
             document.getElementById('overlay').classList.remove('show');
         }
 
-        function showLocationStatus(message, type) {
-            const statusElement = document.getElementById('locationStatus');
-            statusElement.textContent = message;
-            statusElement.className = `location-status ${type} show`;
-
-            setTimeout(() => {
-                statusElement.classList.remove('show');
-            }, 4000);
-        }
 
         // Search functionality
         const searchInput = document.querySelector('.search-input');

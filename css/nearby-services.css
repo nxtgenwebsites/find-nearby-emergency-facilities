@@ -1,10 +1,14 @@
 :root {
-    --primary-color: #4f46e5;
+    --primary-color: #368186;
     --secondary-color: #06b6d4;
     --success-color: #10b981;
     --danger-color: #ef4444;
     --dark-color: #1f2937;
     --light-color: #f8fafc;
+}
+
+body {
+    background: #F9F9F9 !important;
 }
 
 /* .sidebar {
@@ -42,17 +46,11 @@
 }
 
 .search-input {
-    border: 2px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 12px 20px 12px 50px !important;
-
+    border: 2px solid #d4d4d4 !important;
+    padding: 10px 20px 10px 50px !important;
+    border-radius: 30px !important;
     font-size: 16px;
     transition: all 0.3s ease;
-}
-
-.search-input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
 .search-icon {
@@ -116,6 +114,25 @@
     margin-bottom: 15px;
 }
 
+.health-center-card .tags-container {
+    margin-bottom: 0 !important;
+}
+
+
+.health-center-card .tags-container .service-tag{ 
+    background: #3681861A !important;
+    color: #6B6B6B !important;
+}
+    .health-center-card.expanded .tags-container .service-tag{ 
+        background: #FFFFFF45 !important;
+        color: #FFFFFF !important;
+    }
+
+
+.health-center-card.expanded .tags-container {
+    margin-bottom: 10px !important;
+}
+
 .health-center-card.expanded h4 {
     font-size: 1.4rem !important;
     width: 80%;
@@ -143,25 +160,13 @@
 }
 
 .health-center-card.expanded{
-    background: linear-gradient(135deg, var(--primary-color), #6366f1);
+    background: #635BFF !important;
     color: white;
     border-radius: 15px;
     padding: 25px;
     margin-bottom: 20px;
     position: relative;
     overflow: hidden;
-}
-
-.health-center-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100px;
-    height: 100px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    transform: translate(30px, -30px);
 }
 
 .regular-card {
@@ -210,12 +215,13 @@
 }
 
 .report-btn {
-    background: var(--danger-color);
-    color: white;
-    border: none;
-    padding: 8px 16px;
+    background: #fff !important;
+    color: #368186;
+    border: 2px solid #368186;
+    font-weight: 600;
+    padding: 6px 10px;
     border-radius: 8px;
-    font-size: 12px;
+    font-size: 14px;
     z-index: 10 !important;
     transition: all 0.3s ease;
 }
@@ -306,8 +312,36 @@ max-width: 600px;
 }
 
 .seacrch-card  h5{
-color: #368186;
-font-weight: bold;
+    color: #368186;
+    font-size: 1.6rem !important;
+    font-weight: bold;
+}
+.seacrch-card  select{
+    border: 2px solid #b8b8b8 !important;
+    padding: 10px 20px 10px 20px !important;
+    border-radius: 10px !important;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.seacrch-card  .services-type{
+    position: relative;
+}
+.seacrch-card  .services-type i{
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(60%);
+    color: #98A4AE;
+    font-size: 15px;
+}
+
+.seacrch-card  input{
+    border: 2px solid #b8b8b8 !important;
+    padding: 10px 20px 10px 20px !important;
+    border-radius: 10px !important;
+    font-size: 16px;
+    transition: all 0.3s ease;
 }
 
 #searchForm button{
@@ -477,3 +511,79 @@ transition: all 0.3s ease;
     border-radius: 10px;
     margin: 20px 0;
 }
+
+.location-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 7px;
+    box-shadow: 0 10px 18px #0c0c0d21;
+    z-index: 1001;
+    max-width: 550px;
+    width: 90%;
+    text-align: center;
+    display: none;
+  }
+  
+  .location-modal.show {
+    display: block;
+  }
+  
+  .location-modal h3 {
+    color: #29343d;
+    margin-bottom: 15px;
+  }
+  
+  .location-modal p {
+    color: var(--dark-gray);
+    margin-bottom: 25px;
+    line-height: 1.5;
+  }
+  
+  .location-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .btn-location {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-allow {
+    background: #3681861a !important;
+    color: #368186;
+    border-radius: 5px !important;
+  }
+  
+  .btn-deny {
+    border-radius: 5px !important;
+    background: #ffe5ed;
+    color: #ff6692 !important;
+  }
+  
+  .location-status {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border-radius: 25px;
+    color: white;
+    font-size: 0.9rem;
+    z-index: 1000;
+    display: none;
+  }
+
+  #user-location {
+    font-weight: 500 !important; 
+    width: 90%;
+    /* color: #368186; */
+  }
