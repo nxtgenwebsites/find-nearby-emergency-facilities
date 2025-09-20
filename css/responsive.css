@@ -21,7 +21,7 @@
             }
 
             .hero-title {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
 
             .medical-circle {
@@ -44,6 +44,7 @@
             }
 
             .hero-section {
+                padding-top: 0 !important;
                 padding: 30px 15px;
             }
 
@@ -160,6 +161,14 @@
             }
             .swiper img {
                 margin-bottom: 300px !important;
+            }
+            .m-hero-content {
+                padding: 10px !important;
+            }
+            .stats-info span {
+                font-size: 16px !important;
+                width: 90% !important;
+                margin: auto !important;
             }
         }
         

@@ -99,7 +99,7 @@
 }
 
 .medical img {
-  max-width: 400px;
+  max-width: 320px;
   width: 100%;
   margin-bottom: 10px;
   object-fit: cover;
@@ -140,7 +140,7 @@
 
 .search-section {
   max-width: 500px;
-  margin: 0 auto 40px;
+  margin: 0 auto 30px;
   position: relative;
 }
 
@@ -349,7 +349,7 @@
 .swiper {
   /* max-width: ; */
   width: 100%;
-  /* height: 50px !important; */
+  height: 200px !important;
 }
 
 .swiper img {
