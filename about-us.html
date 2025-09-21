@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 
@@ -26,22 +26,6 @@
                 <button class="btn-location btn-allow" id="closeProfileBtn">
                     Go back
                 </button>
-        </div>
-    </div>
-
-    <!-- Added location permission modal -->
-    <div class="location-modal " id="locationModal">
-        <h3>Confirm to Continue</h3>
-        <p>By continuing to use this service you agree to our Terms & Conditions.</p>
-        <div class="location-buttons">
-            <button class="btn-location btn-deny " onclick="denyLocation()">
-                Disagree
-            </button>
-            <a href="nearby-services.html">
-                <button class="btn-location btn-allow">
-                    Agree
-                </button>
-            </a>
         </div>
     </div>
 
@@ -176,7 +160,7 @@
 
     <div class="d-flex w-100">
         <!-- Sidebar -->
-        <div class="sidebar w-100" id="sidebar">
+        <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="logo">
                     <div class="logo-img">
@@ -247,101 +231,51 @@
                 </div>
             </header>
 
-            <!-- Hero Section -->
-            <section class="hero-section">
-                <div class="container">
-                    <div class="hero-content position-relative d-none d-md-block">
-                        <div class="hero-text">
-                            <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
-                                <img src="assets/icons/user-icon.svg" width="30" alt="">
-                                <i class="dropdown-toggle"></i>
-                            </button>
-                            <span>Welcome to</span>
-                            <h1 class="hero-title">HealthCentreApp</h1>
-                            <div class="d-flex flex-column flex-lg-row justify-content-between">
-                                <p class="hero-subtitle mb-1">Empowering Citizens Supporting Health</p>
-                                <div class="stats-info">
-                                    <img src="assets/icons/ph_users-four.svg" alt="">
-                                    <span>Total Users: 3612</span>
-                                    <span>|</span>
-                                    <span class="time-date"></span>
-                                </div>
-                            </div>
-
+            <div class="main-content w-100">
+                <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
+                    <img src="assets/icons/user-icon.svg" width="30" alt="">
+                    <i class="dropdown-toggle"></i>
+                </button>
+                <div class="hero-content">
+                    <div class="d-flex about-header-container">
+                        <div class="about-header">
+                            About Us
+                        </div>
+                        <div class="d-md-block d-none about-header-img">
+                            <img src="assets/images/Group 71.svg" alt="">
                         </div>
                     </div>
-
-                    <div class="position-relative d-md-none m-hero">
-                        <div class="m-hero-content ">
-                            <div class="hero-text">
-                                <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
-                                    <img src="assets/icons/user-icon.svg" width="30" alt="">
-                                    <i class="dropdown-toggle"></i>
-                                </button>
-                                <span class="text-center">Welcome to</span>
-                                <h1 class="hero-title">HealthCentreApp</h1>
-                                <div class="d-flex flex-column flex-lg-row justify-content-between">
-                                    <p class="hero-subtitle mb-1">Empowering Citizens Supporting Health</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="stats-info">
-                            <img src="assets/icons/ph_users-four.svg" alt="">
-                            <span>Total Users: 3612</span>
-                            <span>|</span>
-                            <span class="time-date"></span>
-                        </div>
+                
+                    <div class="content-text">
+                        <span class="highlight-text">HealthCentreApp</span> is a uk-based medtech startup on a mission to advance global
+                        health equity. With over 50 years of combined expertise in electronic health records, we're building digital
+                        tools that save lives.
                     </div>
-
-                    <div class="medical mt-5" onclick="findNearbyServices()">
-                        <img src="assets/images/Group 71.svg" alt="">
+                
+                    <div class="content-text">
+                        We're starting with the <span class="highlight-text">gpsmedical public edition</span> – a <span
+                            class="highlight-text">free service</span> that uses gps to instantly show nearby medical services in
+                        emergencies. No sign-up, no barriers – just one click when every second matters.
                     </div>
-
-                    <div class="search-section" id="searchSection">
-                        <input type="text" class="search-input" placeholder="Advance Search">
-                        <i class="fas fa-search search-icon"></i>
+                
+                    <div class="content-text">
+                        Our roadmap includes <span class="highlight-text">careconnect with overseas consultants, ai diagnoser,
+                            remotecare, caremonitors, and digital health records</span> – bringing world-class healthcare within
+                        everyone's reach.
                     </div>
-
-                    <div class="sponsored-section w-100 my-4">
-                        <div class="swiper">
-                            <!-- Additional required wrapper -->
-                            <div class="text-muted text-start mb-3">
-                                <span>Sponsored ads</span>
-                                <span>x</span>
-                            </div>
-                            <div class="swiper-wrapper">
-                                <!-- Slides -->
-                                <!-- <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_1.jpg" alt="images">
-                                </div>
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_2.jpg" alt="images">
-                                </div>
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_3.jpg" alt="images">
-                                </div>
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_4.jpg" alt="images">
-                                </div> -->
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_1.jpg" alt="images">
-                                </div>
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_2.jpg" alt="images">
-                                </div>
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_3.jpg" alt="images">
-                                </div>
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_4.jpg" alt="images">
-                                </div>
-                            </div>
-
-                        </div>
+                
+                    <div class="commitment-text">
+                        Our Commitment: Stop needless deaths by making access to care simple, fast, and free.
+                    </div>
+                
+                    <div class="like-section">
+                        <button class="like-btn" id="likeBtn" onclick="toggleLike()">
+                            <i class="fas fa-thumbs-up" id="likeIcon"></i>
+                            <span id="likeCount">233</span>
+                        </button>
                     </div>
                 </div>
-            </section>
-
+            </div>
             <!-- Footer -->
             <footer class="footer">
                 <div class="container">
@@ -365,86 +299,7 @@
 
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="js/country-states.js"></script>
-    
-    
-    <script>
-        var user_country_code = ""; // Default me koi country selected nahi
 
-        (() => {
-            const country_list = country_and_states.country;
-            const state_list = country_and_states.states;
-
-            const id_state_option = document.getElementById("user-state");
-            const id_country_option = document.getElementById("user-country");
-
-            // Initially disable the state dropdown
-            id_state_option.innerHTML = '<option>select state</option>';
-            id_state_option.setAttribute("disabled", "disabled");
-
-            const create_country_selection = () => {
-                let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
-                for (const country_code in country_list) {
-                    option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
-                }
-                id_country_option.innerHTML = option;
-            };
-
-            const create_states_selection = () => {
-                let selected_country_code = id_country_option.value;
-                let state_names = state_list[selected_country_code];
-
-                if (!state_names) {
-                    id_state_option.innerHTML = '<option>select state</option>';
-                    id_state_option.setAttribute("disabled", "disabled");
-                    return;
-                }
-
-                let option = '<option>select state</option>';
-                state_names.forEach(state => {
-                    option += '<option value="' + state.code + '">' + state.name + '</option>';
-                });
-
-                id_state_option.innerHTML = option;
-                id_state_option.removeAttribute("disabled"); // Enable dropdown when country is selected
-            };
-
-            // Country select change event update state dropdown
-            id_country_option.addEventListener('change', create_states_selection);
-
-            // Initialize country dropdown with placeholder
-            create_country_selection();
-        })();
-
-    </script>
-
-    <script>
-       function updateTime() {
-            const now = new Date();
-            const options = {
-                weekday: "long", day: "numeric", month: "long", year: "numeric",
-                hour: "2-digit", minute: "2-digit", second: "2-digit"
-            };
-            const formatted = now.toLocaleString("en-GB", options);
-
-            document.querySelectorAll(".time-date").forEach((span) => {
-                span.textContent = formatted;
-            });
-        }
-        setInterval(updateTime, 1000);
-        updateTime();
-    </script>
-
-    <script>
-        const swiper = new Swiper('.swiper', {
-            direction: 'horizontal',
-            loop: true,
-            autoplay: {
-                delay: 3000, // 3 second
-                disableOnInteraction: false, // user interact kare to bhi auto chale
-            },
-        });
-    </script>
     <script>
 
         const profileButton = document.querySelectorAll('.profile-button');
@@ -461,10 +316,6 @@
         closeProfileBtn.addEventListener('click', function () {
             profileModal.classList.remove('show');
             document.getElementById('overlay2').classList.remove('show');
-        });
-
-        document.getElementById('searchSection').addEventListener('click', function () {
-            document.getElementById('seach-popup').classList.remove('d-none');
         });
 
         document.querySelector('#seach-popup .btn-close').addEventListener('click', function () {
@@ -488,84 +339,6 @@
             document.getElementById('locationModal').classList.remove('show');
         });
 
-
-        function findNearbyServices() {
-            // Show location permission modal
-            document.getElementById('locationModal').classList.add('show');
-            document.getElementById('overlay').classList.add('show');
-        }
-
-        function allowLocation() {
-            hideLocationModal();
-
-            navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-
-                    console.log('[v0] Location obtained:', latitude, longitude);
-                  
-                    // Simulate finding nearby services
-                    setTimeout(() => {
-                    }, 2000);
-                },
-                function (error) {
-                    console.log('[v0] Location error:', error.message);
-                    let errorMessage = 'Unable to retrieve location. ';
-
-                    switch (error.code) {
-                        case error.PERMISSION_DENIED:
-                            errorMessage += 'Location access denied by user.';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            errorMessage += 'Location information unavailable.';
-                            break;
-                        case error.TIMEOUT:
-                            errorMessage += 'Location request timed out.';
-                            break;
-                        default:
-                            errorMessage += 'An unknown error occurred.';
-                            break;
-                    }
-
-                    showLocationStatus(errorMessage, 'error');
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 60000
-                }
-            );
-        }
-
-        function denyLocation() {
-            hideLocationModal();
-        }
-
-        function hideLocationModal() {
-            document.getElementById('locationModal').classList.remove('show');
-            document.getElementById('overlay').classList.remove('show');
-        }
-
-
-        // Search functionality
-        const searchInput = document.querySelector('.search-input');
-        searchInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                const searchTerm = this.value.trim();
-                if (searchTerm) {
-                    alert(`Searching for: ${searchTerm}`);
-                }
-            }
-        });
-
-        // Close sponsored ads
-        const closeBtn = document.querySelector('.close-btn');
-        closeBtn.addEventListener('click', function () {
-            const sponsoredSection = document.querySelector('.sponsored-section');
-            sponsoredSection.style.display = 'none';
-        });
-
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -577,15 +350,6 @@
                     });
                 }
             });
-        });
-
-        // Add loading animation to medical circle
-        const medicalCircle = document.querySelector('.medical-circle');
-        medicalCircle.addEventListener('click', function () {
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 150);
         });
 
         // Responsive adjustments
