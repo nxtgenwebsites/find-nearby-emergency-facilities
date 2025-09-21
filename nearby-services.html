@@ -376,22 +376,11 @@
         var user_country_code = ""; // Default me koi country selected nahi
 
         (() => {
-            // Add null checks for country_and_states
-            if (!window.country_and_states || !country_and_states.country || !country_and_states.states) {
-                console.warn('Country and states data not loaded properly');
-                return;
-            }
-
             const country_list = country_and_states.country;
             const state_list = country_and_states.states;
 
             const id_state_option = document.getElementById("user-state");
             const id_country_option = document.getElementById("user-country");
-
-            if (!id_state_option || !id_country_option) {
-                console.warn('Country/State select elements not found');
-                return;
-            }
 
             // Initially disable the state dropdown
             id_state_option.innerHTML = '<option>select state</option>';
@@ -399,22 +388,17 @@
 
             const create_country_selection = () => {
                 let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
-                // Add null check for country_list
-                if (country_list && typeof country_list === 'object') {
-                    for (const country_code in country_list) {
-                        if (country_list.hasOwnProperty(country_code)) {
-                            option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
-                        }
-                    }
+                for (const country_code in country_list) {
+                    option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
                 }
                 id_country_option.innerHTML = option;
             };
 
             const create_states_selection = () => {
                 let selected_country_code = id_country_option.value;
-                let state_names = state_list && state_list[selected_country_code] ? state_list[selected_country_code] : null;
+                let state_names = state_list[selected_country_code];
 
-                if (!state_names || !Array.isArray(state_names)) {
+                if (!state_names) {
                     id_state_option.innerHTML = '<option>select state</option>';
                     id_state_option.setAttribute("disabled", "disabled");
                     return;
@@ -422,9 +406,7 @@
 
                 let option = '<option>select state</option>';
                 state_names.forEach(state => {
-                    if (state && state.code && state.name) {
-                        option += '<option value="' + state.code + '">' + state.name + '</option>';
-                    }
+                    option += '<option value="' + state.code + '">' + state.name + '</option>';
                 });
 
                 id_state_option.innerHTML = option;
@@ -438,74 +420,73 @@
             create_country_selection();
         })();
 
-
     </script>
 
     <script>
 
 
-    function openReportModal(locationName) {
-        currentLocation = locationName;
-        const modal = new bootstrap.Modal(document.getElementById('reportModal'));
-        modal.show();
-    }
-
-    // Handle report form submission
-    document.getElementById('reportForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Validate form
-        const subject = document.getElementById('subject').value;
-        const details = document.getElementById('details').value;
-        const actionRequired = document.getElementById('actionRequired').value;
-        const userRole = document.getElementById('userRole').value;
-
-        if (!subject || !details || !actionRequired || !userRole) {
-            alert('Please fill in all required fields');
-            return;
+        function openReportModal(locationName) {
+            currentLocation = locationName;
+            const modal = new bootstrap.Modal(document.getElementById('reportModal'));
+            modal.show();
         }
 
-        // Close report modal and open details modal
-        const reportModal = bootstrap.Modal.getInstance(document.getElementById('reportModal'));
-        reportModal.hide();
+        // Handle report form submission
+        document.getElementById('reportForm').addEventListener('submit', function (e) {
+            e.preventDefault();
 
-        setTimeout(() => {
-            const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
-            detailsModal.show();
-        }, 300);
-    });
+            // Validate form
+            const subject = document.getElementById('subject').value;
+            const details = document.getElementById('details').value;
+            const actionRequired = document.getElementById('actionRequired').value;
+            const userRole = document.getElementById('userRole').value;
 
-    // Handle details form submission
-    document.getElementById('detailsForm').addEventListener('submit', function (e) {
-        e.preventDefault();
+            if (!subject || !details || !actionRequired || !userRole) {
+                alert('Please fill in all required fields');
+                return;
+            }
 
-        // Validate form
-        const firstName = document.getElementById('firstName').value;
-        const lastName = document.getElementById('lastName').value;
-        const email = document.getElementById('email').value;
-        const confirmEmail = document.getElementById('confirmEmail').value;
-        const contactNumber = document.getElementById('contactNumber').value;
+            // Close report modal and open details modal
+            const reportModal = bootstrap.Modal.getInstance(document.getElementById('reportModal'));
+            reportModal.hide();
 
-        if (!firstName || !lastName || !email || !confirmEmail || !contactNumber) {
-            alert('Please fill in all required fields');
-            return;
-        }
+            setTimeout(() => {
+                const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+                detailsModal.show();
+            }, 300);
+        });
 
-        if (email !== confirmEmail) {
-            alert('Email addresses do not match');
-            return;
-        }
+        // Handle details form submission
+        document.getElementById('detailsForm').addEventListener('submit', function (e) {
+            e.preventDefault();
 
-        // Simulate form submission
-        alert('Thank you! Your report has been submitted successfully.');
+            // Validate form
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const confirmEmail = document.getElementById('confirmEmail').value;
+            const contactNumber = document.getElementById('contactNumber').value;
 
-        // Close modal and reset forms
-        const detailsModal = bootstrap.Modal.getInstance(document.getElementById('detailsModal'));
-        detailsModal.hide();
+            if (!firstName || !lastName || !email || !confirmEmail || !contactNumber) {
+                alert('Please fill in all required fields');
+                return;
+            }
 
-        document.getElementById('reportForm').reset();
-        document.getElementById('detailsForm').reset();
-    });
+            if (email !== confirmEmail) {
+                alert('Email addresses do not match');
+                return;
+            }
+
+            // Simulate form submission
+            alert('Thank you! Your report has been submitted successfully.');
+
+            // Close modal and reset forms
+            const detailsModal = bootstrap.Modal.getInstance(document.getElementById('detailsModal'));
+            detailsModal.hide();
+
+            document.getElementById('reportForm').reset();
+            document.getElementById('detailsForm').reset();
+        });
 
 
         const profileButton = document.querySelectorAll('.profile-button');
@@ -547,6 +528,10 @@
                 if (title && title.tagName.toLowerCase() === "h5") {
                     title.outerHTML = `<h4 class="mb-0">${title.innerText}</h4>`;
                 }
+
+                const hospitalName = title.innerText;
+                highlightMarker(hospitalName, true);
+                showMarkerPopup(hospitalName);
             } else {
                 if (details) details.classList.add("d-none");
                 if (reportBtn) reportBtn.classList.add("d-none");
@@ -556,7 +541,80 @@
                 if (title && title.tagName.toLowerCase() === "h4") {
                     title.outerHTML = `<h5 class="mb-0">${title.innerText}</h5>`;
                 }
+
+                const hospitalName = title.innerText;
+                highlightMarker(hospitalName, false);
+                infoWindow.close();
             }
+        }
+
+        function showMarkerPopup(hospitalName) {
+            const marker = hospitalMarkers.find(m => m.title === hospitalName);
+            if (marker) {
+                // Find hospital data for detailed popups
+                const hospital = lastHospitalResults.find(h => h.name === hospitalName);
+                if (hospital) {
+                    const rating = hospital.rating ? hospital.rating.toFixed(1) : 'N/A';
+                    const isOpen = hospital.business_status === 'OPERATIONAL' ?
+                        '<span style="color: green;">Open Now</span>' :
+                        '<span style="color: red;">Closed</span>';
+
+                    infoWindow.setContent(`
+                        <div style="max-width: 250px; padding: 10px;">
+                            <div style="text-align: center; margin-bottom: 10px;">
+                                <h6 style="margin: 0; color: #EA4335; font-weight: bold;">${hospitalName}</h6>
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <i class="fas fa-map-marker-alt" style="color: #EA4335; width: 16px;"></i>
+                                <span style="font-size: 13px;">${hospital.vicinity || 'Address not available'}</span>
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <i class="fas fa-star" style="color: #ffc107; width: 16px;"></i>
+                                <span style="font-size: 13px;">Rating: ${rating}</span>
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <i class="fas fa-clock" style="color: #28a745; width: 16px;"></i>
+                                <span style="font-size: 13px;">${isOpen}</span>
+                            </div>
+                            <div style="text-align: center; margin-top: 10px;">
+                                <small style="color: #666;">Click to view details</small>
+                            </div>
+                        </div>
+                    `);
+                    infoWindow.open(map, marker);
+                }
+            }
+        }
+
+        function toggleCardFromMarker(hospitalName) {
+            const cards = document.querySelectorAll('.health-center-card');
+            cards.forEach(card => {
+                const title = card.querySelector('h5, h4');
+                if (title && title.innerText === hospitalName) {
+                    toggleExpand(card);
+                    // Scroll to the card
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        }
+
+        function highlightMarker(hospitalName, highlight) {
+            hospitalMarkers.forEach(marker => {
+                if (marker.title === hospitalName) {
+                    const pinElement = marker.content.querySelector('.gm-ui-hover-effect');
+                    if (highlight) {
+                        // Highlight the marker
+                        marker.content.style.transform = 'scale(1.2)';
+                        marker.content.style.zIndex = '1000';
+                        marker.content.style.filter = 'drop-shadow(0 0 10px #007bff)';
+                    } else {
+                        // Remove highlight
+                        marker.content.style.transform = 'scale(1)';
+                        marker.content.style.zIndex = 'auto';
+                        marker.content.style.filter = 'none';
+                    }
+                }
+            });
         }
     </script>
 
@@ -732,146 +790,146 @@
             `;
         }
 
-            async function loadNearbyHospitals(latitude, longitude, searchQuery = '') {
-                try {
-                    const includedTypes = [
-                        'hospital', 'health', 'doctor', 'pharmacy', 'dentist', 'medical_clinic',
-                        'medical_store', 'health_center', 'maternal_care', 'emergency_room',
-                        'clinic', 'urgent_care', 'Maternity Centre', 'Rehabilitation Center',
-                        'Medical Center', 'Surgical Center', 'Diagnostic Center', 'Blood Bank',
-                        'Mental Health Center', 'Specialty Hospital', 'General Hospital',
-                        "Children's Hospital", 'lab', 'medical_lab', 'medical_laboratory',
-                        'health_lab', 'health_laboratory', 'chemist', 'pharmacy_store', 'drugstore',
-                        'medical_supply_store', 'medical_equipment_store', 'health_supply_store',
-                        'health_equipment_store'
-                    ];
+        async function loadNearbyHospitals(latitude, longitude, searchQuery = '') {
+            try {
+                const includedTypes = [
+                    'hospital', 'health', 'doctor', 'pharmacy', 'dentist', 'medical_clinic',
+                    'medical_store', 'health_center', 'maternal_care', 'emergency_room',
+                    'clinic', 'urgent_care', 'Maternity Centre', 'Rehabilitation Center',
+                    'Medical Center', 'Surgical Center', 'Diagnostic Center', 'Blood Bank',
+                    'Mental Health Center', 'Specialty Hospital', 'General Hospital',
+                    "Children's Hospital", 'lab', 'medical_lab', 'medical_laboratory',
+                    'health_lab', 'health_laboratory', 'chemist', 'pharmacy_store', 'drugstore',
+                    'medical_supply_store', 'medical_equipment_store', 'health_supply_store',
+                    'health_equipment_store'
+                ];
 
-                    const { Place } = await google.maps.importLibrary("places");
+                const { Place } = await google.maps.importLibrary("places");
 
-                    const requests = includedTypes.map(type => {
-                        const request = {
-                            // ❌ Removed "placeId" (invalid field)
-                            fields: [
-                                'displayName',
-                                'location',
-                                'rating',
-                                'userRatingCount',
-                                'businessStatus',
-                                'formattedAddress',
-                                'types',
-                                'id' // ✅ optional unique identifier
-                            ],
-                            locationRestriction: {
-                                center: { lat: latitude, lng: longitude },
-                                radius: 5000
-                            },
-                            rankPreference: 'DISTANCE',
-                            language: 'en-US',
-                            includedTypes: [type]
-                        };
+                const requests = includedTypes.map(type => {
+                    const request = {
+                        // ❌ Removed "placeId" (invalid field)
+                        fields: [
+                            'displayName',
+                            'location',
+                            'rating',
+                            'userRatingCount',
+                            'businessStatus',
+                            'formattedAddress',
+                            'types',
+                            'id' // ✅ optional unique identifier
+                        ],
+                        locationRestriction: {
+                            center: { lat: latitude, lng: longitude },
+                            radius: 35000
+                        },
+                        rankPreference: 'DISTANCE',
+                        language: 'en-US',
+                        includedTypes: [type]
+                    };
 
-                        if (searchQuery && searchQuery.trim()) {
-                            request.query = searchQuery.trim();
-                        }
-
-                        return Place.searchNearby(request).catch(err => {
-                            console.warn('searchNearby failed for type', type, err);
-                            return { places: [] };
-                        });
-                    });
-
-                    const settled = await Promise.all(requests);
-
-                    let places = [];
-                    settled.forEach(res => {
-                        if (res && Array.isArray(res.places)) places.push(...res.places);
-                    });
-
-                    // Deduplicate by id or name+lat+lng
-                    const uniqueMap = new Map();
-                    for (const place of places) {
-                        const placeId = place.id || place.place_id || null;
-                        const latVal = place.location?.lat ?? null;
-                        const lngVal = place.location?.lng ?? null;
-                        const key = placeId || `${place.displayName || place.name || 'unknown'}|${latVal}|${lngVal}`;
-
-                        if (!uniqueMap.has(key)) uniqueMap.set(key, place);
+                    if (searchQuery && searchQuery.trim()) {
+                        request.query = searchQuery.trim();
                     }
 
-                    const mergedPlaces = Array.from(uniqueMap.values());
-
-                    const results = mergedPlaces.map(place => {
-                        const locLat = place.location?.lat ?? null;
-                        const locLng = place.location?.lng ?? null;
-
-                        const latNum = (typeof locLat === 'function') ? locLat() : locLat;
-                        const lngNum = (typeof locLng === 'function') ? locLng() : locLng;
-
-                        const safeName = place.displayName || place.name || 'Unknown';
-                        const safeAddress = place.formattedAddress || place.address || place.vicinity || '';
-                        const safeTypes = Array.isArray(place.types) ? place.types : (place.categories || []);
-
-                        const out = {
-                            id: place.id || null, // ✅ use "id" instead of placeId
-                            name: safeName,
-                            geometry: {
-                                location: {
-                                    lat: () => (latNum ?? 0),
-                                    lng: () => (lngNum ?? 0)
-                                }
-                            },
-                            rating: place.rating ?? null,
-                            vicinity: safeAddress,
-                            types: safeTypes,
-                            business_status: place.businessStatus || place.business_status || null
-                        };
-
-                        if (latNum !== null && lngNum !== null && !Number.isNaN(latNum) && !Number.isNaN(lngNum)) {
-                            out.distance = calculateDistance(latitude, longitude, Number(latNum), Number(lngNum));
-                        } else {
-                            out.distance = null;
-                        }
-
-                        return out;
+                    return Place.searchNearby(request).catch(err => {
+                        console.warn('searchNearby failed for type', type, err);
+                        return { places: [] };
                     });
+                });
 
-                    results.sort((a, b) => {
-                        const da = a.distance ?? Infinity;
-                        const db = b.distance ?? Infinity;
-                        return da - db;
-                    });
+                const settled = await Promise.all(requests);
 
-                    allHospitals = results;
-                    filteredHospitals = results;
-                    currentPage = 1;
+                let places = [];
+                settled.forEach(res => {
+                    if (res && Array.isArray(res.places)) places.push(...res.places);
+                });
 
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('error').style.display = 'none';
-                    document.getElementById('healthCenters').innerHTML = '';
+                // Deduplicate by id or name+lat+lng
+                const uniqueMap = new Map();
+                for (const place of places) {
+                    const placeId = place.id || place.place_id || null;
+                    const latVal = place.location?.lat ?? null;
+                    const lngVal = place.location?.lng ?? null;
+                    const key = placeId || `${place.displayName || place.name || 'unknown'}|${latVal}|${lngVal}`;
 
-                    const resultCountEl = document.getElementById('resultCount');
-                    if (resultCountEl) resultCountEl.textContent = results.length;
+                    if (!uniqueMap.has(key)) uniqueMap.set(key, place);
+                }
 
-                    displayPaginatedHospitals();
-                    renderPagination();
-                } catch (error) {
-                    console.error('Error loading hospitals (combined):', error);
-                    allHospitals = [];
-                    filteredHospitals = [];
-                    currentPage = 1;
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('error').style.display = 'block';
-                    document.getElementById('healthCenters').innerHTML = '';
-                    const resultCountEl = document.getElementById('resultCount');
-                    if (resultCountEl) resultCountEl.textContent = '0';
-                    document.getElementById('error').innerHTML = `
+                const mergedPlaces = Array.from(uniqueMap.values());
+
+                const results = mergedPlaces.map(place => {
+                    const locLat = place.location?.lat ?? null;
+                    const locLng = place.location?.lng ?? null;
+
+                    const latNum = (typeof locLat === 'function') ? locLat() : locLat;
+                    const lngNum = (typeof locLng === 'function') ? locLng() : locLng;
+
+                    const safeName = place.displayName || place.name || 'Unknown';
+                    const safeAddress = place.formattedAddress || place.address || place.vicinity || '';
+                    const safeTypes = Array.isArray(place.types) ? place.types : (place.categories || []);
+
+                    const out = {
+                        id: place.id || null, // ✅ use "id" instead of placeId
+                        name: safeName,
+                        geometry: {
+                            location: {
+                                lat: () => (latNum ?? 0),
+                                lng: () => (lngNum ?? 0)
+                            }
+                        },
+                        rating: place.rating ?? null,
+                        vicinity: safeAddress,
+                        types: safeTypes,
+                        business_status: place.businessStatus || place.business_status || null
+                    };
+
+                    if (latNum !== null && lngNum !== null && !Number.isNaN(latNum) && !Number.isNaN(lngNum)) {
+                        out.distance = calculateDistance(latitude, longitude, Number(latNum), Number(lngNum));
+                    } else {
+                        out.distance = null;
+                    }
+
+                    return out;
+                });
+
+                results.sort((a, b) => {
+                    const da = a.distance ?? Infinity;
+                    const db = b.distance ?? Infinity;
+                    return da - db;
+                });
+
+                allHospitals = results;
+                filteredHospitals = results;
+                currentPage = 1;
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'none';
+                document.getElementById('healthCenters').innerHTML = '';
+
+                const resultCountEl = document.getElementById('resultCount');
+                if (resultCountEl) resultCountEl.textContent = results.length;
+
+                displayPaginatedHospitals();
+                renderPagination();
+            } catch (error) {
+                console.error('Error loading hospitals (combined):', error);
+                allHospitals = [];
+                filteredHospitals = [];
+                currentPage = 1;
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('healthCenters').innerHTML = '';
+                const resultCountEl = document.getElementById('resultCount');
+                if (resultCountEl) resultCountEl.textContent = '0';
+                document.getElementById('error').innerHTML = `
             <h5>Error Loading Health Services</h5>
             <p>Unable to load nearby medical services. Please try again later.</p>`;
-                    renderPagination();
-                }
+                renderPagination();
             }
+        }
 
-            
+
         const searchForm = document.getElementById('searchForm');
         if (searchForm) {
             searchForm.addEventListener("submit", async (e) => {
@@ -1065,6 +1123,8 @@
                     return;
                 }
 
+                lastHospitalResults = hospitals;
+
                 hospitals.forEach(hospital => {
                     if (!hospital || !hospital.geometry || !hospital.geometry.location) {
                         return;
@@ -1087,28 +1147,10 @@
                         content: hospitalPin.element
                     });
 
-                    // Calculate distance for popup
-                    let distance = 'N/A';
-                    if (userLocation && hospital.distance !== undefined) {
-                        distance = `${hospital.distance.toFixed(1)} miles`;
-                    }
-
-                    const rating = hospital.rating ? `${hospital.rating}/5` : 'No rating';
-                    const isOpen = hospital.business_status === 'OPERATIONAL' ? 'Open' : 'Check status';
                     const hospitalName = hospital.name || 'Unknown Hospital';
-                    const vicinity = hospital.vicinity || 'Address not available';
 
                     marker.addListener("click", () => {
-                        infoWindow.setContent(`
-                            <div style="text-align: center;">
-                                <strong>${hospitalName}</strong><br>
-                                <i class="fas fa-map-marker-alt"></i> ${vicinity}<br>
-                                <i class="fas fa-star"></i> ${rating}<br>
-                                <i class="fas fa-clock"></i> ${isOpen}<br>
-                                <i class="fas fa-route"></i> ${distance}
-                            </div>
-                        `);
-                        infoWindow.open(map, marker);
+                        toggleCardFromMarker(hospitalName);
                     });
 
                     hospitalMarkers.push(marker);
@@ -1221,8 +1263,6 @@
                 renderPagination();
             }
         }
-
-
     </script>
 
     <!-- Updated Google Maps API with Places library -->
