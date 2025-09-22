@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Centre App</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/edition.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay2"></div>
+
+    <!-- Added location permission modal -->
+    <div class="location-modal " id="profileModal">
+        <h3>Coming Soon!</h3>
+        <p>User profile feature isn’t available yet!</p>
+        <div class="location-buttons">
+            <button class="btn-location btn-allow" id="closeProfileBtn">
+                Go back
+            </button>
+        </div>
+    </div>
+
+    <!-- Added search popup modal -->
+    <div class="popup-overlay d-none" id="seach-popup">
+        <div class="seacrch-card">
+            <div class=" d-flex justify-content-between align-items-center py-3">
+                <h5 class="modal-title">Search Medical Services</h5>
+                <button type="button" class="btn-close"></button>
+            </div>
+            <form id="searchForm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <select class="form-select" id="user-country" name="country">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="state" class="form-label">State</label>
+                        <select class="form-select" id="user-state" name="state">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3 city-inp">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" name="city" placeholder="Type here" />
+                    </div>
+                    <div class="col-6 mb-3 services-type">
+                        <label for="services-type" class="form-label">Type location</label>
+                        <input class="form-control" type="text" id="services-type" placeholder="Type here" />
+                        <i class="fa fa-search"></i>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+
+    <!-- Search Modal -->
+    <div id="searchModal d-block" class="modal">
+        <div class="bg-white rounded-lg p-6 max-w-2xl w-full shadow-xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-semibold text-teal-600">Search Medical Services</h3>
+                <button id="closeSearchBtn" class="text-gray-400 hover:text-gray-600">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                    <div class="relative">
+                        <select class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 appearance-none">
+                            <option>Select</option>
+                            <option>Pakistan</option>
+                            <option>India</option>
+                            <option>Bangladesh</option>
+                        </select>
+                        <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" width="20"
+                            height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                    <div class="relative">
+                        <select class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 appearance-none">
+                            <option>Select</option>
+                            <option>Punjab</option>
+                            <option>Sindh</option>
+                            <option>KPK</option>
+                        </select>
+                        <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" width="20"
+                            height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                    <div class="relative">
+                        <select class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 appearance-none">
+                            <option>Select</option>
+                            <option>Lahore</option>
+                            <option>Karachi</option>
+                            <option>Islamabad</option>
+                        </select>
+                        <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" width="20"
+                            height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                    <div class="relative">
+                        <select class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 appearance-none">
+                            <option>Select</option>
+                            <option>Hospital</option>
+                            <option>Clinic</option>
+                            <option>Pharmacy</option>
+                        </select>
+                        <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" width="20"
+                            height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <button class="px-8 py-2 bg-teal-100 text-teal-700 rounded-lg hover:bg-teal-200 transition-colors">
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex w-100">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-img">
+                        <img src="assets/images/logo.svg" alt="">
+                    </div>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <img src="assets/icons/home.svg" />
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="about-us.html" class="nav-link">
+                        <img src="assets/icons/info.svg" />
+                        <span>About Us</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="contect-us.html" class="nav-link">
+                        <img src="assets/icons/mail.svg" />
+                        <span>Contact Us</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="editions.html" class="nav-link active">
+                        <img src="assets/icons/book.svg" />
+                        <span>Editions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <img src="assets/icons/star.svg" />
+                        <span>Reviews</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <img src="assets/icons/ph_handshake.svg" />
+                        <span>Partnerships</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <img src="assets/icons/settings.svg" />
+                        <span>System</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content w-100">
+            <!-- Header -->
+            <header class="header d-lg-none">
+                <a href="index.html" class="mobile-logo">
+                    <img src="assets/images/logo.svg">
+                </a>
+                <div class="header-right">
+                    <div class="user profile-button">
+                        <img src="assets/icons/user-icon.svg" alt="">
+                    </div>
+                    <button class="menu-toggle" id="menuToggle">
+                        <img src="assets/icons/bars.svg" alt="">
+                    </button>
+                </div>
+            </header>
+
+
+            <div class="main-content w-100">
+                <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
+                    <img src="assets/icons/user-icon.svg" width="30" alt="">
+                    <i class="dropdown-toggle"></i>
+                </button>
+
+                <div class="hero-content">
+                    <div class="d-flex about-header-container">
+                        <div class="about-header">
+                            Editions
+                        </div>
+                        <div class="d-md-block d-none about-header-img">
+                            <img src="assets/images/Group 71.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="container-fluid px-0">
+                        <div class="container-fluid px-0">
+                            <!-- Header Section -->
+                            <div class="header-section">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h2 class="header-subtitle">Introducing HealthCentreApp</h2>
+                                            <p class="header-description">
+                                                <strong>Your digital health companion — Built for access. Powered by
+                                                    purpose.</strong>
+                                            </p>
+                                            <p class="header-description">
+                                                <strong>HealthCentreApp</strong> is a powerful digital platform designed
+                                                to make healthcare
+                                                accessible, efficient, and secure — no matter where you are. Whether
+                                                you're in a bustling city
+                                                or a remote village, the app helps you find medical services nearby,
+                                                keep your health data
+                                                organised, and connect with medical professionals both locally and
+                                                globally.
+                                            </p>
+                                            <p class="header-description">
+                                                We're starting with our <strong>free editions</strong>, available across
+                                                africa, with additional
+                                                advanced options for those who want more features. Together, these six
+                                                carefully designed
+                                                editions support individuals, families, communities, and national health
+                                                systems.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modified main content structure for split-screen layout -->
+                            <div class="container" id="content-container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="editions-container">
+                                            <!-- Cards Section (Left Side) -->
+                                            <div class="cards-section">
+                                                <div class="edition-card" data-edition="gps-public">
+                                                    <div class="card-title">GPSMedical Public Edition (Free)</div>
+                                                    <div class="card-subtitle"></div>
+                                                    <i class="fas fa-arrow-right card-arrow"></i>
+                                                </div>
+
+                                                <div class="edition-card" data-edition="gps-personal">
+                                                    <div class="card-title">GPSMedical Personal Edition</div>
+                                                    <div class="card-subtitle">(Free)</div>
+                                                    <i class="fas fa-arrow-right card-arrow"></i>
+                                                </div>
+
+                                                <div class="edition-card" data-edition="digital-standard">
+                                                    <div class="card-title">Digital Health Standard Edition</div>
+                                                    <div class="card-subtitle">(Subscription)</div>
+                                                    <i class="fas fa-arrow-right card-arrow"></i>
+                                                </div>
+
+                                                <div class="edition-card" data-edition="digital-premium">
+                                                    <div class="card-title">Digital Health Premium Edition</div>
+                                                    <div class="card-subtitle">(Subscription)</div>
+                                                    <i class="fas fa-arrow-right card-arrow"></i>
+                                                </div>
+
+                                                <div class="edition-card" data-edition="digital-community">
+                                                    <div class="card-title">Digital Health Community Edition</div>
+                                                    <div class="card-subtitle">(Subscription)</div>
+                                                    <i class="fas fa-arrow-right card-arrow"></i>
+                                                </div>
+
+                                                <div class="edition-card" data-edition="national-health">
+                                                    <div class="card-title">National Health Edition</div>
+                                                    <div class="card-subtitle"></div>
+                                                    <i class="fas fa-arrow-right card-arrow"></i>
+                                                </div>
+                                            </div>
+
+                                            <!-- Detail Section (Right Side) -->
+                                            <div class="detail-section" id="detailSection">
+                                                <div id="detail-gps-public" class="detail-panel">
+                                                    <button class="close-btn" onclick="closeDetail()">&times;</button>
+                                                    <h3 class="detail-title">GPSMedical Public Edition (Free)</h3>
+                                                    <p class="detail-description">
+                                                        Designed for anyone, anywhere — no registration required. With
+                                                        just one click, you can
+                                                        discover nearby hospitals, clinics, pharmacies, and labs using
+                                                        your phone's location.
+                                                        Ideal for emergencies and everyday health needs.
+                                                    </p>
+                                                    <!-- <div class="contact-section">
+                                                        <div class="contact-title">Contact Us For More Info</div>
+                                                        <div class="contact-info">AFRICAHEALTH.COM | +44 123 456 789
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+
+                                                <div id="detail-gps-personal" class="detail-panel">
+                                                    <button class="close-btn" onclick="closeDetail()">&times;</button>
+                                                    <h3 class="detail-title">GPSMedical Personal Edition (Free)</h3>
+                                                    <p class="detail-description">
+                                                        Enhanced personal health management with user accounts, health
+                                                        records storage, and
+                                                        personalized recommendations. Perfect for individuals who want
+                                                        to track their health
+                                                        journey.
+                                                    </p>
+                                                    <!-- <div class="contact-section">
+                                                        <div class="contact-title">Contact Us For More Info</div>
+                                                        <div class="contact-info">AFRICAHEALTH.COM | +44 123 456 789
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+
+                                                <div id="detail-digital-standard" class="detail-panel">
+                                                    <button class="close-btn" onclick="closeDetail()">&times;</button>
+                                                    <h3 class="detail-title">Digital Health Standard Edition
+                                                        (Subscription)</h3>
+                                                    <p class="detail-description">
+                                                        Advanced features including telemedicine consultations,
+                                                        prescription management, health
+                                                        analytics, and priority support. Ideal for individuals and
+                                                        families seeking
+                                                        comprehensive health management.
+                                                    </p>
+                                                    <!-- <div class="contact-section">
+                                                        <div class="contact-title">Contact Us For More Info</div>
+                                                        <div class="contact-info">AFRICAHEALTH.COM | +44 123 456 789
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+
+                                                <div id="detail-digital-premium" class="detail-panel">
+                                                    <button class="close-btn" onclick="closeDetail()">&times;</button>
+                                                    <h3 class="detail-title">Digital Health Premium Edition
+                                                        (Subscription)</h3>
+                                                    <p class="detail-description">
+                                                        Premium health services with AI-powered health insights,
+                                                        specialist consultations,
+                                                        health insurance integration, and 24/7 medical support. The
+                                                        ultimate health companion
+                                                        for those who want the best care.
+                                                    </p>
+                                                    <!-- <div class="contact-section">
+                                                        <div class="contact-title">Contact Us For More Info</div>
+                                                        <div class="contact-info">AFRICAHEALTH.COM | +44 123 456 789
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+
+                                                <div id="detail-digital-community" class="detail-panel">
+                                                    <button class="close-btn" onclick="closeDetail()">&times;</button>
+                                                    <h3 class="detail-title">Digital Health Community Edition
+                                                        (Subscription)</h3>
+                                                    <p class="detail-description">
+                                                        Designed for healthcare organizations, clinics, and community
+                                                        health programs. Includes
+                                                        patient management systems, community health analytics, and
+                                                        multi-user access controls.
+                                                    </p>
+                                                    <!-- <div class="contact-section">
+                                                        <div class="contact-title">Contact Us For More Info</div>
+                                                        <div class="contact-info">AFRICAHEALTH.COM | +44 123 456 789
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+
+                                                <div id="detail-national-health" class="detail-panel">
+                                                    <button class="close-btn" onclick="closeDetail()">&times;</button>
+                                                    <h3 class="detail-title">National Health Edition</h3>
+                                                    <p class="detail-description">
+                                                        Enterprise-level solution for national health systems,
+                                                        government agencies, and large
+                                                        healthcare networks. Includes population health management,
+                                                        policy analytics, and
+                                                        nationwide health monitoring capabilities.
+                                                    </p>
+                                                    <div class="contact-section">
+                                                        <div class="contact-title">Contact Us For More Info</div>
+                                                        <div class="contact-info">AFRICAHEALTH.COM | +44 123 456 789
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer -->
+                <footer class="footer">
+                    <div class="container">
+                        <div class="footer-content">
+                            <div class="footer-text">
+                                © 2025 HealthCentreApp.com- All Rights Reserved.
+                            </div>
+                            <div class="footer-links">
+                                <a href="#">Privacy Policy</a>
+                                <span>|</span>
+                                <a href="#">Terms & Conditions</a>
+                                <a href="#" class="social">
+                                    <img src="assets/icons/facebook 1.svg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <script src="js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+        <script>
+            document.querySelectorAll('.edition-card').forEach(card => {
+                card.addEventListener('click', function () {
+                    const edition = this.getAttribute('data-edition');
+                    const detailPanel = document.getElementById(`detail-${edition}`);
+                    const detailSection = document.getElementById('detailSection');
+
+                    // Close all other detail panels and remove active class
+                    document.querySelectorAll('.detail-panel').forEach(panel => {
+                        panel.style.display = 'none';
+                    });
+                    document.querySelectorAll('.edition-card').forEach(c => {
+                        c.classList.remove('active');
+                    });
+
+                    // Show selected detail panel and add active class
+                    if (detailPanel) {
+                        detailPanel.style.display = 'block';
+                        detailSection.classList.add('show');
+                        this.classList.add('active');
+                    }
+                });
+            });
+
+            // Close detail panel function
+            function closeDetail() {
+                document.querySelectorAll('.detail-panel').forEach(panel => {
+                    panel.style.display = 'none';
+                });
+                document.querySelectorAll('.edition-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                document.getElementById('detailSection').classList.remove('show');
+            }
+
+            // Close detail panel when clicking outside
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest('.edition-card') && !e.target.closest('.detail-section')) {
+                    closeDetail();
+                }
+            });
+
+            // Handle escape key to close detail panel
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    closeDetail();
+                }
+            });
+        </script>
+
+        <script>
+
+            const profileButton = document.querySelectorAll('.profile-button');
+            const profileModal = document.getElementById('profileModal');
+            const closeProfileBtn = document.getElementById('closeProfileBtn');
+
+            profileButton.forEach(button => {
+                button.addEventListener('click', function () {
+                    profileModal.classList.add('show');
+                    document.getElementById('overlay2').classList.add('show');
+                });
+            });
+
+            closeProfileBtn.addEventListener('click', function () {
+                profileModal.classList.remove('show');
+                document.getElementById('overlay2').classList.remove('show');
+            });
+
+            document.querySelector('#seach-popup .btn-close').addEventListener('click', function () {
+                document.getElementById('seach-popup').classList.add('d-none');
+            });
+
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+
+            menuToggle.addEventListener('click', function () {
+                sidebar.classList.toggle('show');
+                overlay.classList.toggle('show');
+            });
+
+            overlay.addEventListener('click', function () {
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+                // Close location modal if open
+                document.getElementById('locationModal').classList.remove('show');
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Responsive adjustments
+            function handleResize() {
+                if (window.innerWidth >= 992) {
+                    sidebar.classList.remove('show');
+                    overlay.classList.remove('show');
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+
+            // Initialize
+            handleResize();
+        </script>
+</body>
+
+</html>

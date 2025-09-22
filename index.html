@@ -204,7 +204,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="editions.html" class="nav-link">
                         <img src="assets/icons/book.svg" />
                         <span>Editions</span>
                     </a>
@@ -419,6 +419,26 @@
     </script>
 
     <script>
+
+    const advanceSearch = document.getElementById('searchForm');
+    advanceSearch.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const countryElement = document.getElementById('user-country');
+        const stateElement = document.getElementById('user-state');
+        const city = document.getElementById('city').value;
+        const servicesType = document.getElementById('services-type').value;
+
+        // text lena sirf country aur state ka
+        const country = countryElement.options[countryElement.selectedIndex].text;
+        const state = stateElement.options[stateElement.selectedIndex].text;
+
+        localStorage.setItem('searchData', JSON.stringify({ country, state, city, servicesType }));
+        window.location.href = '/nearby-services.html';
+    });
+
+
+
        function updateTime() {
             const now = new Date();
             const options = {
