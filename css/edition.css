@@ -35,6 +35,10 @@ body {
     margin-bottom: 1rem;
 }
 
+.header-description.headline{
+    color: #377F7E;
+    font-size: 18px;
+}
 .header-description {
     color: var(--text-dark);
     line-height: 1.6;
@@ -218,11 +222,11 @@ body {
 
 .main-content {
     padding-bottom: 0 !important;
-    max-height: 120vh !important;
-    min-height: 110% !important;
+    max-height: auto !important;
+    min-height: auto !important;
 }
 .sidebar {
-    min-height: 131.5vh !important;
+    min-height: auto !important;
 }
 
 
@@ -274,8 +278,16 @@ body {
 
     .main-content {
         padding-bottom: 0 !important;
-        max-height: 140vh !important;
-        min-height: 110% !important;
+        max-height: auto !important;
+        min-height: auto !important;
     }
 }
 
+.footer {
+    position: unset;
+}
+
+.profile-button {
+    z-index: 10 !important;
+  }
+  
