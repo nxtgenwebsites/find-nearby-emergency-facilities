@@ -89,6 +89,7 @@
 
 .stats-info {
   opacity: 0.8;
+  /* margin-top: -15px !important; */
   font-size: 17px;
 }
 
@@ -99,7 +100,7 @@
 }
 
 .medical img {
-  max-width: 320px;
+  max-width: 290px;
   width: 100%;
   margin-bottom: 10px;
   object-fit: cover;
@@ -348,7 +349,7 @@
 
 .swiper {
   /* max-width: ; */
-  width: 50%;
+  width: 45% !important;
   height: auto !important;
 }
 
@@ -376,3 +377,4 @@
 /* object-fit: cover; */
 /* border-radius: 10px; */
 /* } */
+

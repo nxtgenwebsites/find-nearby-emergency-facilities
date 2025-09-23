@@ -23,9 +23,9 @@
         <h3>Coming Soon!</h3>
         <p>User profile feature isn’t available yet!</p>
         <div class="location-buttons">
-                <button class="btn-location btn-allow" id="closeProfileBtn">
-                    Go back
-                </button>
+            <button class="btn-location btn-allow" id="closeProfileBtn">
+                Go back
+            </button>
         </div>
     </div>
 
@@ -176,7 +176,7 @@
 
     <div class="d-flex w-100">
         <!-- Sidebar -->
-        <div class="sidebar w-100" id="sidebar">
+        <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="logo">
                     <div class="logo-img">
@@ -249,7 +249,7 @@
 
             <!-- Hero Section -->
             <section class="hero-section">
-                <div class="container">
+                <div class="container h-100">
                     <div class="hero-content position-relative d-none d-md-block">
                         <div class="hero-text">
                             <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
@@ -263,6 +263,7 @@
                                 <div class="stats-info">
                                     <img src="assets/icons/ph_users-four.svg" alt="">
                                     <span>Total Users: 3612</span>
+                                 
                                     <span>|</span>
                                     <span class="time-date"></span>
                                 </div>
@@ -288,55 +289,52 @@
                         <div class="stats-info">
                             <img src="assets/icons/ph_users-four.svg" alt="">
                             <span>Total Users: 3612</span>
-                            <span>|</span>
+                            <br>
+                            <!-- <span>|</span> -->
                             <span class="time-date"></span>
                         </div>
                     </div>
+                    <div class="center-container">
+                        <div class="medical mt-5" onclick="findNearbyServices()">
+                            <img src="assets/images/Group 71.svg" alt="">
+                        </div>
 
-                    <div class="medical mt-5" onclick="findNearbyServices()">
-                        <img src="assets/images/Group 71.svg" alt="">
-                    </div>
+                        <div class="search-section" id="searchSection">
+                            <input type="text" class="search-input" placeholder="Advance Search" />
+                            <i class="fas fa-search search-icon"></i>
+                        </div>
 
-                    <div class="search-section" id="searchSection">
-                        <input type="text" class="search-input" placeholder="Advance Search">
-                        <i class="fas fa-search search-icon"></i>
-                    </div>
+                        <div class="sponsored-section w-100 my-4">
+                            <div class="swiper">
+                                <div class="swiper-wrapper">
+                                    <!-- Slides -->
+                                    <!-- <div class="swiper-slide text-black pb-5">
+                                        <img src="assets/images/add_1.jpg" alt="images">
+                                    </div>
+                                    <div class="swiper-slide text-black pb-5">
+                                        <img src="assets/images/add_2.jpg" alt="images">
+                                    </div>
+                                    <div class="swiper-slide text-black pb-5">
+                                        <img src="assets/images/add_3.jpg" alt="images">
+                                    </div>
+                                    <div class="swiper-slide text-black pb-5">
+                                        <img src="assets/images/add_4.jpg" alt="images">
+                                    </div> -->
+                                    <div class="swiper-slide text-black pb-5">
+                                        <img src="assets/images/add_1.jpg" alt="images">
+                                    </div>
+                                    <div class="swiper-slide text-black pb-5">
+                                        <img src="assets/images/add_2.jpg" alt="images">
+                                    </div>
+                                    <div class="swiper-slide text-black pb-5">
+                                        <img src="assets/images/add_3.jpg" alt="images">
+                                    </div>
+                                    <div class="swiper-slide text-black pb-5">
+                                        <img src="assets/images/add_4.jpg" alt="images">
+                                    </div>
+                                </div>
 
-                    <div class="sponsored-section w-100 my-4">
-                        <div class="swiper">
-                            <!-- Additional required wrapper -->
-                            <div class="text-muted text-start mb-3">
-                                <span>Sponsored ads</span>
-                                <span>x</span>
                             </div>
-                            <div class="swiper-wrapper">
-                                <!-- Slides -->
-                                <!-- <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_1.jpg" alt="images">
-                                </div>
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_2.jpg" alt="images">
-                                </div>
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_3.jpg" alt="images">
-                                </div>
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_4.jpg" alt="images">
-                                </div> -->
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_1.jpg" alt="images">
-                                </div>
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_2.jpg" alt="images">
-                                </div>
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_3.jpg" alt="images">
-                                </div>
-                                <div class="swiper-slide text-black pb-5">
-                                    <img src="assets/images/add_4.jpg" alt="images">
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -366,8 +364,8 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/country-states.js"></script>
-    
-    
+
+
     <script>
         var user_country_code = ""; // Default me koi country selected nahi
 
@@ -420,26 +418,26 @@
 
     <script>
 
-    const advanceSearch = document.getElementById('searchForm');
-    advanceSearch.addEventListener('submit', function (event) {
-        event.preventDefault();
+        const advanceSearch = document.getElementById('searchForm');
+        advanceSearch.addEventListener('submit', function (event) {
+            event.preventDefault();
 
-        const countryElement = document.getElementById('user-country');
-        const stateElement = document.getElementById('user-state');
-        const city = document.getElementById('city').value;
-        const servicesType = document.getElementById('services-type').value;
+            const countryElement = document.getElementById('user-country');
+            const stateElement = document.getElementById('user-state');
+            const city = document.getElementById('city').value;
+            const servicesType = document.getElementById('services-type').value;
 
-        // text lena sirf country aur state ka
-        const country = countryElement.options[countryElement.selectedIndex].text;
-        const state = stateElement.options[stateElement.selectedIndex].text;
+            // text lena sirf country aur state ka
+            const country = countryElement.options[countryElement.selectedIndex].text;
+            const state = stateElement.options[stateElement.selectedIndex].text;
 
-        localStorage.setItem('searchData', JSON.stringify({ country, state, city, servicesType }));
-        window.location.href = '/nearby-services.html';
-    });
+            localStorage.setItem('searchData', JSON.stringify({ country, state, city, servicesType }));
+            window.location.href = '/nearby-services.html';
+        });
 
 
 
-       function updateTime() {
+        function updateTime() {
             const now = new Date();
             const options = {
                 weekday: "long", day: "numeric", month: "long", year: "numeric",
@@ -524,7 +522,7 @@
                     const longitude = position.coords.longitude;
 
                     console.log('[v0] Location obtained:', latitude, longitude);
-                  
+
                     // Simulate finding nearby services
                     setTimeout(() => {
                     }, 2000);

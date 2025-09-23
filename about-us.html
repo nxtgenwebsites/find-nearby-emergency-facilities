@@ -242,7 +242,7 @@
                             About Us
                         </div>
                         <div class="d-md-block d-none about-header-img">
-                            <img src="assets/images/Group 71.svg" alt="">
+                            <img src="assets/images/Group 91.png" alt="">
                         </div>
                     </div>
                 
@@ -265,13 +265,19 @@
                     </div>
                 
                     <div class="commitment-text">
-                        Our Commitment: Stop needless deaths by making access to care simple, fast, and free.
+                        Our Commitment: 
+                        <span>
+                            Stop needless deaths by making access to care simple, fast, and free.
+                        </span>
                     </div>
                 
                     <div class="like-section">
-                        <button class="like-btn" id="likeBtn" onclick="toggleLike()">
-                            <i class="fas fa-thumbs-up" id="likeIcon"></i>
-                            <span id="likeCount">233</span>
+                        <button class="like-btn" id="likeBtn">
+                            <!-- <i class="fas fa-thumbs-up" id="likeIcon"></i> -->
+                            <div class="thumb-icon">
+                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                            </div>
+                            <span id="likeCount" class="mx-1">0</span>
                         </button>
                     </div>
                 </div>
@@ -301,6 +307,13 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
+    let likeCount = 0;
+
+    document.getElementById('likeBtn').addEventListener("click", () => {
+        likeCount++; // increase like count
+        document.getElementById('likeCount').innerHTML = likeCount; // update value
+    });
+
 
         const profileButton = document.querySelectorAll('.profile-button');
         const profileModal = document.getElementById('profileModal');

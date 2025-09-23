@@ -143,6 +143,9 @@
                 flex-direction: column;
                 gap: 5px;
             }
+            .medical img {
+                max-width: 200px;
+            }
         }
         
         @media (max-width: 576px) {

@@ -8,7 +8,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <!-- Removed Leaflet CSS and added Google Maps -->
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/nearby-services.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -149,7 +148,6 @@
                 </div>
             </div>
 
-
             <!-- Content Grid -->
             <div class="content-grid">
                 <!-- Results Section -->
@@ -187,6 +185,7 @@
         </main>
 
     </div>
+
     <!-- Added search popup modal -->
     <div class="popup-overlay d-none" id="seach-popup">
         <div class="seacrch-card">
@@ -230,6 +229,8 @@
             </form>
         </div>
     </div>
+
+    <!-- ... existing modals code ... -->
 
     <!-- Report Location Modal -->
     <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
@@ -368,9 +369,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Removed Leaflet and axios, added Google Maps -->
     <script src="js/country-states.js"></script>
-
 
     <script>
         var user_country_code = ""; // Default me koi country selected nahi
@@ -423,7 +422,51 @@
     </script>
 
     <script>
+        let isGoogleMapsLoaded = false;
+        let googleMapsLoadPromise = null;
+        let mapInitializationAttempts = 0;
+        const MAX_INIT_ATTEMPTS = 3;
 
+        function ensureGoogleMapsLoaded() {
+            if (googleMapsLoadPromise) {
+                return googleMapsLoadPromise;
+            }
+
+            googleMapsLoadPromise = new Promise((resolve, reject) => {
+                // Check if already loaded
+                if (typeof google !== 'undefined' && google.maps && google.maps.Map) {
+                    isGoogleMapsLoaded = true;
+                    resolve();
+                    return;
+                }
+
+                let checkAttempts = 0;
+                const maxChecks = 100; // 10 seconds total
+                
+                const checkInterval = setInterval(() => {
+                    checkAttempts++;
+                    
+                    if (typeof google !== 'undefined' && google.maps && google.maps.Map) {
+                        isGoogleMapsLoaded = true;
+                        clearInterval(checkInterval);
+                        resolve();
+                    } else if (checkAttempts >= maxChecks) {
+                        clearInterval(checkInterval);
+                        reject(new Error('Google Maps API failed to load within timeout'));
+                    }
+                }, 100);
+            });
+
+            return googleMapsLoadPromise;
+        }
+
+        function isGoogleMapsReady() {
+            return typeof google !== 'undefined' && 
+                   google.maps && 
+                   google.maps.Map && 
+                   google.maps.places && 
+                   google.maps.Geocoder;
+        }
 
         function openReportModal(locationName) {
             currentLocation = locationName;
@@ -488,7 +531,6 @@
             document.getElementById('detailsForm').reset();
         });
 
-
         const profileButton = document.querySelectorAll('.profile-button');
         const profileModal = document.getElementById('profileModal');
         const closeProfileBtn = document.getElementById('closeProfileBtn');
@@ -544,16 +586,20 @@
 
                 const hospitalName = title.innerText;
                 highlightMarker(hospitalName, false);
-                infoWindow.close();
+                if (typeof infoWindow !== 'undefined' && infoWindow) {
+                    infoWindow.close();
+                }
             }
         }
 
         function showMarkerPopup(hospitalName) {
+            if (typeof hospitalMarkers === 'undefined' || !hospitalMarkers) return;
+
             const marker = hospitalMarkers.find(m => m.title === hospitalName);
-            if (marker) {
+            if (marker && typeof lastHospitalResults !== 'undefined') {
                 // Find hospital data for detailed popups
                 const hospital = lastHospitalResults.find(h => h.name === hospitalName);
-                if (hospital) {
+                if (hospital && typeof infoWindow !== 'undefined' && infoWindow) {
                     const rating = hospital.rating ? hospital.rating.toFixed(1) : 'N/A';
                     const isOpen = hospital.business_status === 'OPERATIONAL' ?
                         '<span style="color: green;">Open Now</span>' :
@@ -588,9 +634,10 @@
         }
 
         function highlightMarker(hospitalName, highlight) {
+            if (typeof hospitalMarkers === 'undefined' || !hospitalMarkers) return;
+
             hospitalMarkers.forEach(marker => {
-                if (marker.title === hospitalName) {
-                    const pinElement = marker.content.querySelector('.gm-ui-hover-effect');
+                if (marker.title === hospitalName && marker.content) {
                     if (highlight) {
                         // Highlight the marker
                         marker.content.style.transform = 'scale(1.2)';
@@ -620,9 +667,17 @@
         const limit = 20;
         let lastHospitalResults = []; // Store the last fetched hospital results for marker popups
 
-        // Initialize Google Map
         async function initMap() {
             try {
+                mapInitializationAttempts++;
+                console.log(`[v0] Map initialization attempt ${mapInitializationAttempts}`);
+
+                await ensureGoogleMapsLoaded();
+
+                if (!isGoogleMapsReady()) {
+                    throw new Error('Google Maps API components not fully loaded');
+                }
+
                 const { Map } = await google.maps.importLibrary("maps");
                 const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
@@ -635,15 +690,37 @@
 
                 infoWindow = new google.maps.InfoWindow();
 
-                // Get user location and load hospitals automatically
+                isGoogleMapsLoaded = true;
+                console.log('[v0] Google Maps initialized successfully');
+                
                 getCurrentUserLocation();
+
+                const advanceSearch = JSON.parse(localStorage.getItem('searchData') || 'null');
+                if (advanceSearch) {
+                    console.log('[v0] Found advance search data, executing searchLocation2');
+                    setTimeout(() => {
+                        searchLocation2();
+                    }, 2000); // Increased delay for better reliability
+                }
+
             } catch (error) {
-                console.error('Error initializing map:', error);
+                console.error('[v0] Error initializing map:', error);
+                
+                if (mapInitializationAttempts < MAX_INIT_ATTEMPTS) {
+                    console.log(`[v0] Retrying map initialization in 2 seconds...`);
+                    setTimeout(() => {
+                        initMap();
+                    }, 2000);
+                    return;
+                }
+
+                // Show error after all attempts failed
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('error').style.display = 'block';
                 document.getElementById('error').innerHTML = `
                     <h5>Map Loading Error</h5>
-                    <p>Unable to load Google Maps. Please check your internet connection.</p>
+                    <p>Unable to load Google Maps. Please check your internet connection and try again.</p>
+                    <button class="btn btn-primary" onclick="location.reload()">Retry</button>
                 `;
             }
         }
@@ -691,7 +768,6 @@
 
         // Calculate distance between two points in miles
         function calculateDistance(lat1, lon1, lat2, lon2) {
-
             const R = 3959; // Earth's radius in miles
             const dLat = (lat2 - lat1) * Math.PI / 180;
             const dLon = (lon2 - lon1) * Math.PI / 180;
@@ -703,14 +779,21 @@
             return distance;
         }
 
-        // Get current user location
         function getCurrentUserLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(async (position) => {
                     try {
+                        await ensureGoogleMapsLoaded();
+
+                        if (!isGoogleMapsReady()) {
+                            throw new Error('Google Maps API not ready for location operations');
+                        }
+
                         const lat = position.coords.latitude;
                         const lon = position.coords.longitude;
                         userLocation = { lat, lon };
+
+                        console.log('[v0] User location obtained:', lat, lon);
 
                         const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
@@ -754,15 +837,15 @@
                         loadNearbyHospitals(lat, lon);
 
                     } catch (error) {
-                        console.error('Error setting up user location:', error);
-                        handleLocationError();
+                        console.error('[v0] Error setting up user location:', error);
+                        handleLocationError('Error setting up location');
                     }
                 }, (error) => {
-                    console.warn('Geolocation error:', error);
-                    handleLocationError();
+                    console.warn('[v0] Geolocation error:', error);
+                    handleLocationError('Location access denied');
                 }, {
                     enableHighAccuracy: true,
-                    timeout: 10000,
+                    timeout: 15000, // Increased timeout
                     maximumAge: 60000
                 });
             } else {
@@ -771,17 +854,27 @@
         }
 
         function handleLocationError(message = 'Location access required') {
+            console.error('[v0] Location error:', message);
             document.getElementById('loading').style.display = 'none';
             document.getElementById('error').style.display = 'block';
             document.getElementById('healthCenters').innerHTML = '';
             document.getElementById('error').innerHTML = `
                 <h5>Location Access Required</h5>
                 <p>Please enable location services to find nearby hospitals.</p>
+                <button class="btn btn-primary" onclick="getCurrentUserLocation()">Try Again</button>
             `;
         }
 
         async function loadNearbyHospitals(latitude, longitude, searchQuery = '', serviceType = '') {
             try {
+                console.log('[v0] Loading nearby hospitals:', { latitude, longitude, searchQuery, serviceType });
+                
+                await ensureGoogleMapsLoaded();
+
+                if (!isGoogleMapsReady()) {
+                    throw new Error('Google Maps API not ready for places operations');
+                }
+
                 const includedTypes = [
                     'hospital', 'health', 'doctor', 'pharmacy', 'dentist', 'medical_clinic',
                     'medical_store', 'health_center', 'maternal_care', 'emergency_room',
@@ -825,7 +918,7 @@
                     }
 
                     return Place.searchNearby(request).catch(err => {
-                        console.warn('searchNearby failed for type', type, err);
+                        console.warn('[v0] searchNearby failed for type', type, err);
                         return { places: [] };
                     });
                 });
@@ -836,6 +929,8 @@
                 settled.forEach(res => {
                     if (res && Array.isArray(res.places)) places.push(...res.places);
                 });
+
+                console.log('[v0] Found places before deduplication:', places.length);
 
                 // Deduplicate by id or name+lat+lng
                 const uniqueMap = new Map();
@@ -868,6 +963,8 @@
                         return true;
                     }
                 });
+
+                console.log('[v0] Places after deduplication:', filteredPlaces.length);
 
                 // Helper function to get place details
                 const getPlaceDetails = (placeId) => {
@@ -907,7 +1004,7 @@
                                         openingHours: openingHours
                                     });
                                 } else {
-                                    console.warn('Failed to get place details for placeId:', placeId, status);
+                                    console.warn('[v0] Failed to get place details for placeId:', placeId, status);
                                     resolve({ phone: "N/A", openNow: null, openingHours: null });
                                 }
                             }
@@ -966,26 +1063,43 @@
 
                 if (serviceType && serviceType.trim()) {
                     const serviceTypeLower = serviceType.toLowerCase().trim();
+                    console.log('[v0] Filtering by service type:', serviceTypeLower);
 
                     filteredResults = results.filter(hospital => {
-                        const nameMatch = hospital.name?.toLowerCase().includes(serviceTypeLower);
+                        if (!hospital) return false;
 
-                        // types safe check
-                        const typeMatch = Array.isArray(hospital.types) && hospital.types.some(type =>
-                            type.toLowerCase().includes(serviceTypeLower) ||
-                            serviceTypeLower.includes(type.toLowerCase())
-                        );
+                        // Check name match
+                        const nameMatch = hospital.name && hospital.name.toLowerCase().includes(serviceTypeLower);
 
-                        return nameMatch || typeMatch;
+                        // Check types match with enhanced logic
+                        const typeMatch = Array.isArray(hospital.types) && hospital.types.some(type => {
+                            const typeLower = type.toLowerCase();
+                            return typeLower.includes(serviceTypeLower) || 
+                                   serviceTypeLower.includes(typeLower) ||
+                                   // Additional matching for common medical terms
+                                   (serviceTypeLower.includes('hospital') && typeLower.includes('hospital')) ||
+                                   (serviceTypeLower.includes('clinic') && typeLower.includes('clinic')) ||
+                                   (serviceTypeLower.includes('pharmacy') && typeLower.includes('pharmacy')) ||
+                                   (serviceTypeLower.includes('doctor') && typeLower.includes('doctor'));
+                        });
+
+                        // Check vicinity/address match
+                        const addressMatch = hospital.vicinity && hospital.vicinity.toLowerCase().includes(serviceTypeLower);
+
+                        return nameMatch || typeMatch || addressMatch;
                     });
-                }
 
+                    console.log('[v0] Filtered results count:', filteredResults.length);
+                }
 
                 filteredResults.sort((a, b) => {
                     const da = a.distance ?? Infinity;
                     const db = b.distance ?? Infinity;
                     return da - db;
                 });
+
+                // Take only first 5 results as requested
+                filteredResults = filteredResults.slice(0, 5);
 
                 allHospitals = filteredResults;
                 filteredHospitals = filteredResults;
@@ -998,11 +1112,13 @@
                 const resultCountEl = document.getElementById('resultCount');
                 if (resultCountEl) resultCountEl.textContent = filteredResults.length;
 
+                console.log('[v0] Final results to display:', filteredResults.length);
+
                 displayPaginatedHospitals();
                 renderPagination();
 
             } catch (error) {
-                console.error('Error loading hospitals (combined):', error);
+                console.error('[v0] Error loading hospitals:', error);
                 allHospitals = [];
                 filteredHospitals = [];
                 currentPage = 1;
@@ -1012,316 +1128,283 @@
                 const resultCountEl = document.getElementById('resultCount');
                 if (resultCountEl) resultCountEl.textContent = '0';
                 document.getElementById('error').innerHTML = `
-            <h5>Error Loading Health Services</h5>
-            <p>Unable to load nearby medical services. Please try again later.</p>`;
+                    <h5>Error Loading Health Services</h5>
+                    <p>Unable to load nearby medical services. Please try again later.</p>
+                    <button class="btn btn-primary" onclick="location.reload()">Retry</button>
+                `;
                 renderPagination();
             }
         }
 
         const searchForm = document.getElementById('searchForm');
-        const advanceSearch = JSON.parse(localStorage.getItem('searchData'));
-
 
         async function searchLocation2() {
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('error').style.display = 'none';
+            try {
+                console.log('[v0] Starting searchLocation2');
+                
+                await ensureGoogleMapsLoaded();
 
-            const userData = {
-                country: advanceSearch.country || '',
-                state: advanceSearch.state || '',
-                city: advanceSearch.city || '',
-                service: advanceSearch.servicesType || ''
-            };
-
-            console.log("userData from localStorage:", userData);
-
-
-            if (!userData.country) {
-                alert("Country is required");
-                document.getElementById('loading').style.display = 'none';
-                return;
-            }
-
-            let query = '';
-            if (userData.city) {
-                query = `${userData.city}, ${userData.state}, ${userData.country}`;
-            } else if (userData.state) {
-                query = `${userData.state}, ${userData.country}`;
-            } else {
-                query = userData.country;
-            }
-
-            const geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ address: query }, async (results, status) => {
-
-                if (status === 'OK' && results && results[0]) {
-                    const location = results[0].geometry.location;
-                    const lat = location.lat();
-                    const lng = location.lng();
-                    console.log("Geocoded location:", lat, lng);
-
-                    // Remove old user marker if exists
-                    if (window.userMarker) {
-                        window.userMarker.setMap(null);
-                    }
-
-                    // Try using AdvancedMarkerElement; fallback to google.maps.Marker
-                    let marker;
-                    try {
-                        const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
-                        const userPin = new PinElement({
-                            background: "#4285F4",
-                            borderColor: "#ffffff",
-                            glyphColor: "#ffffff"
-                        });
-
-                        marker = new AdvancedMarkerElement({
-                            map: map,
-                            position: { lat: lat, lng: lng },
-                            title: "Your Selected Location",
-                            content: userPin.element
-                        });
-                    } catch (err) {
-                        console.warn("AdvancedMarkerElement not available, using basic Marker", err);
-                        marker = new google.maps.Marker({
-                            map: map,
-                            position: { lat: lat, lng: lng },
-                            title: "Your Selected Location"
-                        });
-                    }
-
-                    window.userMarker = marker;
-
-                    // Center & zoom map
-                    let zoomLevel = 10;
-                    if (userData.city) {
-                        zoomLevel = 13;
-                    } else if (userData.state) {
-                        zoomLevel = 8;
-                    } else {
-                        zoomLevel = 6;
-                    }
-
-                    map.setCenter({ lat: lat, lng: lng });
-                    map.setZoom(zoomLevel);
-
-                    const userLocationEl = document.getElementById('user-location');
-                    if (userLocationEl) {
-                        userLocationEl.innerText = `Your Selected Location: ${results[0].formatted_address}`;
-                    }
-
-                    const searchPopup = document.getElementById('seach-popup');
-                    if (searchPopup) {
-                        searchPopup.classList.add('d-none');
-                    }
-
-                    // Load hospitals
-                    const hospitals = await loadNearbyHospitals(lat, lng, userData.service, userData.service);
-
-                    // Clear old hospital markers
-                    if (!window.hospitalMarkers) window.hospitalMarkers = [];
-                    window.hospitalMarkers.forEach(m => m.setMap(null));
-                    window.hospitalMarkers = [];
-
-                    // Add hospital markers
-                    for (const hosp of hospitals) {
-                        if (hosp.lat == null || hosp.lng == null) {
-                            console.warn("Hospital has no lat/lng:", hosp);
-                            continue;
-                        }
-                        let hospMarker;
-                        try {
-                            const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
-                            const pin = new PinElement({
-                                background: "#FF0000",
-                                borderColor: "#ffffff",
-                                glyphColor: "#ffffff"
-                            });
-                            hospMarker = new AdvancedMarkerElement({
-                                map: map,
-                                position: { lat: hosp.lat, lng: hosp.lng },
-                                title: hosp.name || "Hospital",
-                                content: pin.element
-                            });
-                        } catch (err) {
-                            // fallback
-                            hospMarker = new google.maps.Marker({
-                                map: map,
-                                position: { lat: hosp.lat, lng: hosp.lng },
-                                title: hosp.name || "Hospital"
-                            });
-                        }
-                        // InfoWindow
-                        const infoWindow = new google.maps.InfoWindow({
-                            content: `<div><strong>${hosp.name || ''}</strong><br>${hosp.address || ''}</div>`
-                        });
-                        hospMarker.addListener('click', () => {
-                            infoWindow.open(map, hospMarker);
-                        });
-                        window.hospitalMarkers.push(hospMarker);
-                    }
-
-                    document.getElementById('loading').style.display = 'none';
-
-                } else {
-                    document.getElementById('loading').style.display = 'none';
-                    alert('Location not found. Please try a different search.');
+                if (!isGoogleMapsReady()) {
+                    throw new Error('Google Maps API not ready for search operations');
                 }
-            });
 
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('error').style.display = 'none';
+
+                const advanceSearch = JSON.parse(localStorage.getItem('searchData') || 'null');
+
+                if (!advanceSearch) {
+                    console.warn('[v0] No advance search data found');
+                    document.getElementById('loading').style.display = 'none';
+                    return;
+                }
+
+                const userData = {
+                    country: advanceSearch.country || '',
+                    state: advanceSearch.state || '',
+                    city: advanceSearch.city || '',
+                    service: advanceSearch.servicesType || ''
+                };
+
+                console.log("[v0] userData from localStorage:", userData);
+
+                if (!userData.country) {
+                    alert("Country is required");
+                    document.getElementById('loading').style.display = 'none';
+                    return;
+                }
+
+                let query = '';
+                if (userData.city) {
+                    query = `${userData.city}, ${userData.state}, ${userData.country}`;
+                } else if (userData.state) {
+                    query = `${userData.state}, ${userData.country}`;
+                } else {
+                    query = userData.country;
+                }
+
+                console.log('[v0] Geocoding query:', query);
+
+                const geocoder = new google.maps.Geocoder();
+
+                geocoder.geocode({ address: query }, async (results, status) => {
+                    try {
+                        if (status === 'OK' && results && results[0]) {
+                            const location = results[0].geometry.location;
+                            const lat = location.lat();
+                            const lng = location.lng();
+                            console.log("[v0] Geocoded location:", lat, lng);
+
+                            // Remove old user marker if exists
+                            if (userMarker) {
+                                userMarker.map = null;
+                            }
+
+                            // Try using AdvancedMarkerElement; fallback to google.maps.Marker
+                            let marker;
+                            try {
+                                const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+                                const userPin = new PinElement({
+                                    background: "#4285F4",
+                                    borderColor: "#ffffff",
+                                    glyphColor: "#ffffff"
+                                });
+
+                                marker = new AdvancedMarkerElement({
+                                    map: map,
+                                    position: { lat: lat, lng: lng },
+                                    title: "Your Selected Location",
+                                    content: userPin.element
+                                });
+                            } catch (err) {
+                                console.warn("[v0] AdvancedMarkerElement not available, using basic Marker", err);
+                                marker = new google.maps.Marker({
+                                    map: map,
+                                    position: { lat: lat, lng: lng },
+                                    title: "Your Selected Location"
+                                });
+                            }
+
+                            userMarker = marker;
+
+                            // Center & zoom map
+                            let zoomLevel = 10;
+                            if (userData.city) {
+                                zoomLevel = 13;
+                            } else if (userData.state) {
+                                zoomLevel = 8;
+                            } else {
+                                zoomLevel = 6;
+                            }
+
+                            map.setCenter({ lat: lat, lng: lng });
+                            map.setZoom(zoomLevel);
+
+                            const userLocationEl = document.getElementById('user-location');
+                            if (userLocationEl) {
+                                userLocationEl.innerText = `Your Selected Location: ${results[0].formatted_address}`;
+                            }
+
+                            const searchPopup = document.getElementById('seach-popup');
+                            if (searchPopup) {
+                                searchPopup.classList.add('d-none');
+                            }
+
+                            console.log('[v0] Loading hospitals with service filter:', userData.service);
+                            await loadNearbyHospitals(lat, lng, '', userData.service);
+
+                            document.getElementById('loading').style.display = 'none';
+
+                        } else {
+                            console.error('[v0] Geocoding failed:', status);
+                            document.getElementById('loading').style.display = 'none';
+                            alert('Location not found. Please try a different search.');
+                        }
+                    } catch (error) {
+                        console.error('[v0] Error in geocoding callback:', error);
+                        document.getElementById('loading').style.display = 'none';
+                        alert('Error processing location. Please try again.');
+                    }
+                });
+
+            } catch (error) {
+                console.error('[v0] Error in searchLocation2:', error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').innerHTML = `
+                    <h5>Search Error</h5>
+                    <p>Unable to process your search. Please try again.</p>
+                    <button class="btn btn-primary" onclick="searchLocation2()">Retry</button>
+                `;
+            }
         }
 
         async function searchLocation(e) {
             e.preventDefault();
 
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('error').style.display = 'none';
+            try {
+                console.log('[v0] Starting searchLocation');
+                
+                await ensureGoogleMapsLoaded();
 
-            const userData = {
-                country: document.getElementById('user-country')?.value || '',
-                state: document.getElementById('user-state')?.value || '',
-                city: document.getElementById('city')?.value || '',
-                service: document.getElementById('services-type')?.value || ''
-            };
-
-            if (!userData.country) {
-                alert("Country is required");
-                document.getElementById('loading').style.display = 'none';
-                return;
-            }
-
-            let query = '';
-            if (userData.city) {
-                query = `${userData.city}, ${userData.state}, ${userData.country}`;
-            } else if (userData.state) {
-                query = `${userData.state}, ${userData.country}`;
-            } else {
-                query = userData.country;
-            }
-
-            const geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ address: query }, async (results, status) => {
-
-                if (status === 'OK' && results && results[0]) {
-                    const location = results[0].geometry.location;
-                    const lat = location.lat();
-                    const lng = location.lng();
-                    console.log("Geocoded location:", lat, lng);
-
-                    // Remove old user marker if exists
-                    if (window.userMarker) {
-                        window.userMarker.setMap(null);
-                    }
-
-                    // Try using AdvancedMarkerElement; fallback to google.maps.Marker
-                    let marker;
-                    try {
-                        const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
-                        const userPin = new PinElement({
-                            background: "#4285F4",
-                            borderColor: "#ffffff",
-                            glyphColor: "#ffffff"
-                        });
-
-                        marker = new AdvancedMarkerElement({
-                            map: map,
-                            position: { lat: lat, lng: lng },
-                            title: "Your Selected Location",
-                            content: userPin.element
-                        });
-                    } catch (err) {
-                        console.warn("AdvancedMarkerElement not available, using basic Marker", err);
-                        marker = new google.maps.Marker({
-                            map: map,
-                            position: { lat: lat, lng: lng },
-                            title: "Your Selected Location"
-                        });
-                    }
-
-                    window.userMarker = marker;
-
-                    // Center & zoom map
-                    let zoomLevel = 10;
-                    if (userData.city) {
-                        zoomLevel = 13;
-                    } else if (userData.state) {
-                        zoomLevel = 8;
-                    } else {
-                        zoomLevel = 6;
-                    }
-
-                    map.setCenter({ lat: lat, lng: lng });
-                    map.setZoom(zoomLevel);
-
-                    const userLocationEl = document.getElementById('user-location');
-                    if (userLocationEl) {
-                        userLocationEl.innerText = `Your Selected Location: ${results[0].formatted_address}`;
-                    }
-
-                    const searchPopup = document.getElementById('seach-popup');
-                    if (searchPopup) {
-                        searchPopup.classList.add('d-none');
-                    }
-
-                    // Load hospitals
-                    const hospitals = await loadNearbyHospitals(lat, lng, userData.service, userData.service);
-
-                    // Clear old hospital markers
-                    if (!window.hospitalMarkers) window.hospitalMarkers = [];
-                    window.hospitalMarkers.forEach(m => m.setMap(null));
-                    window.hospitalMarkers = [];
-
-                    // Add hospital markers
-                    for (const hosp of hospitals) {
-                        if (hosp.lat == null || hosp.lng == null) {
-                            console.warn("Hospital has no lat/lng:", hosp);
-                            continue;
-                        }
-                        let hospMarker;
-                        try {
-                            const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
-                            const pin = new PinElement({
-                                background: "#FF0000",
-                                borderColor: "#ffffff",
-                                glyphColor: "#ffffff"
-                            });
-                            hospMarker = new AdvancedMarkerElement({
-                                map: map,
-                                position: { lat: hosp.lat, lng: hosp.lng },
-                                title: hosp.name || "Hospital",
-                                content: pin.element
-                            });
-                        } catch (err) {
-                            // fallback
-                            hospMarker = new google.maps.Marker({
-                                map: map,
-                                position: { lat: hosp.lat, lng: hosp.lng },
-                                title: hosp.name || "Hospital"
-                            });
-                        }
-                        // InfoWindow
-                        const infoWindow = new google.maps.InfoWindow({
-                            content: `<div><strong>${hosp.name || ''}</strong><br>${hosp.address || ''}</div>`
-                        });
-                        hospMarker.addListener('click', () => {
-                            infoWindow.open(map, hospMarker);
-                        });
-                        window.hospitalMarkers.push(hospMarker);
-                    }
-
-                    document.getElementById('loading').style.display = 'none';
-
-                } else {
-                    document.getElementById('loading').style.display = 'none';
-                    alert('Location not found. Please try a different search.');
+                if (!isGoogleMapsReady()) {
+                    throw new Error('Google Maps API not ready for search operations');
                 }
-            });
 
-        }
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('error').style.display = 'none';
 
+                const userData = {
+                    country: document.getElementById('user-country')?.value || '',
+                    state: document.getElementById('user-state')?.value || '',
+                    city: document.getElementById('city')?.value || '',
+                    service: document.getElementById('services-type')?.value || ''
+                };
 
-        if (advanceSearch) {
-            searchLocation2();
+                console.log("[v0] userData from popup form:", userData);
+
+                if (!userData.country) {
+                    alert("Country is required");
+                    document.getElementById('loading').style.display = 'none';
+                    return;
+                }
+
+                let query = '';
+                if (userData.city) {
+                    query = `${userData.city}, ${userData.state}, ${userData.country}`;
+                } else if (userData.state) {
+                    query = `${userData.state}, ${userData.country}`;
+                } else {
+                    query = userData.country;
+                }
+
+                console.log('[v0] Geocoding query:', query);
+
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ address: query }, async (results, status) => {
+                    try {
+                        if (status === 'OK' && results && results[0]) {
+                            const location = results[0].geometry.location;
+                            const lat = location.lat();
+                            const lng = location.lng();
+                            console.log("[v0] Geocoded location:", lat, lng);
+
+                            // Remove old user marker if exists
+                            if (userMarker) {
+                                userMarker.map = null;
+                            }
+
+                            // Try using AdvancedMarkerElement; fallback to google.maps.Marker
+                            let marker;
+                            try {
+                                const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+                                const userPin = new PinElement({
+                                    background: "#4285F4",
+                                    borderColor: "#ffffff",
+                                    glyphColor: "#ffffff"
+                                });
+
+                                marker = new AdvancedMarkerElement({
+                                    map: map,
+                                    position: { lat: lat, lng: lng },
+                                    title: "Your Selected Location",
+                                    content: userPin.element
+                                });
+                            } catch (err) {
+                                console.warn("[v0] AdvancedMarkerElement not available, using basic Marker", err);
+                                marker = new google.maps.Marker({
+                                    map: map,
+                                    position: { lat: lat, lng: lng },
+                                    title: "Your Selected Location"
+                                });
+                            }
+
+                            userMarker = marker;
+
+                            // Center & zoom map
+                            let zoomLevel = 10;
+                            if (userData.city) {
+                                zoomLevel = 13;
+                            } else if (userData.state) {
+                                zoomLevel = 8;
+                            } else {
+                                zoomLevel = 6;
+                            }
+
+                            map.setCenter({ lat: lat, lng: lng });
+                            map.setZoom(zoomLevel);
+
+                            const userLocationEl = document.getElementById('user-location');
+                            if (userLocationEl) {
+                                userLocationEl.innerText = `Your Selected Location: ${results[0].formatted_address}`;
+                            }
+
+                            const searchPopup = document.getElementById('seach-popup');
+                            if (searchPopup) {
+                                searchPopup.classList.add('d-none');
+                            }
+
+                            console.log('[v0] Loading hospitals with service filter:', userData.service);
+                            await loadNearbyHospitals(lat, lng, '', userData.service);
+
+                            document.getElementById('loading').style.display = 'none';
+
+                        } else {
+                            console.error('[v0] Geocoding failed:', status);
+                            document.getElementById('loading').style.display = 'none';
+                            alert('Location not found. Please try a different search.');
+                        }
+                    } catch (error) {
+                        console.error('[v0] Error in geocoding callback:', error);
+                        document.getElementById('loading').style.display = 'none';
+                        alert('Error processing location. Please try again.');
+                    }
+                });
+            } catch (error) {
+                console.error('[v0] Error in searchLocation:', error);
+                document.getElementById('loading').style.display = 'none';
+                alert('Error processing search. Please try again.');
+            }
         }
 
         if (searchForm) {
@@ -1332,7 +1415,6 @@
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
             const hospitalsToShow = filteredHospitals.slice(startIndex, endIndex);
-
 
             displayHospitals(hospitalsToShow);
             addHospitalMarkers(hospitalsToShow);
@@ -1421,7 +1503,7 @@
                     <strong>Distance:</strong> ${distance}
                 </div>
                 <button class="report-btn d-none"
-                    onclick="event.stopPropagation(); openReportModal('${hospitalName.replace(/'/g, "\\'")}')">Report</button>
+                    onclick="event.stopPropagation(); openReportModal('${hospitalName.replace(/'/g, "\\\\\\\\'")}')">Report</button>
             </div>
 <div class="mt-3 d-flex justify-content-between align-items-center like-container">
     <div class="action-like d-flex gap-1" style="cursor: pointer;">
@@ -1445,6 +1527,13 @@
 
         async function addHospitalMarkers(hospitals) {
             try {
+                await ensureGoogleMapsLoaded();
+
+                if (!isGoogleMapsReady()) {
+                    console.warn('[v0] Google Maps API not ready for markers');
+                    return;
+                }
+
                 const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
 
                 // Clear existing hospital markers
@@ -1492,7 +1581,7 @@
                     hospitalMarkers.push(marker);
                 });
             } catch (error) {
-                console.error('Error adding hospital markers:', error);
+                console.error('[v0] Error adding hospital markers:', error);
             }
         }
 
@@ -1507,21 +1596,30 @@
             }
         }
 
-        // Handle API load errors
         window.gm_authFailure = function () {
+            console.error('[v0] Google Maps API authentication failed');
             const loadingEl = document.getElementById("loading");
             if (loadingEl) {
-                loadingEl.innerHTML = "Google Maps API authentication failed. Please check your API key.";
+                loadingEl.style.display = 'none';
+            }
+            const errorEl = document.getElementById("error");
+            if (errorEl) {
+                errorEl.style.display = 'block';
+                errorEl.innerHTML = `
+                    <h5>Google Maps API Error</h5>
+                    <p>Authentication failed. Please check your API key and try again.</p>
+                    <button class="btn btn-primary" onclick="location.reload()">Retry</button>
+                `;
             }
         };
 
         // Add global error handler
         window.addEventListener('error', function (e) {
-            console.error('Global error:', e.error);
+            console.error('[v0] Global error:', e.error);
         });
 
         window.addEventListener('unhandledrejection', function (e) {
-            console.error('Unhandled promise rejection:', e.reason);
+            console.error('[v0] Unhandled promise rejection:', e.reason);
         });
     </script>
 
@@ -1599,6 +1697,11 @@
                 renderPagination();
             }
         }
+
+        window.addEventListener("beforeunload", () => {
+                localStorage.removeItem("searchData");
+            });
+            
     </script>
 
     <!-- Updated Google Maps API with Places library -->
