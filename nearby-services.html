@@ -442,10 +442,10 @@
 
                 let checkAttempts = 0;
                 const maxChecks = 100; // 10 seconds total
-                
+
                 const checkInterval = setInterval(() => {
                     checkAttempts++;
-                    
+
                     if (typeof google !== 'undefined' && google.maps && google.maps.Map) {
                         isGoogleMapsLoaded = true;
                         clearInterval(checkInterval);
@@ -461,11 +461,11 @@
         }
 
         function isGoogleMapsReady() {
-            return typeof google !== 'undefined' && 
-                   google.maps && 
-                   google.maps.Map && 
-                   google.maps.places && 
-                   google.maps.Geocoder;
+            return typeof google !== 'undefined' &&
+                google.maps &&
+                google.maps.Map &&
+                google.maps.places &&
+                google.maps.Geocoder;
         }
 
         function openReportModal(locationName) {
@@ -692,7 +692,7 @@
 
                 isGoogleMapsLoaded = true;
                 console.log('[v0] Google Maps initialized successfully');
-                
+
                 getCurrentUserLocation();
 
                 const advanceSearch = JSON.parse(localStorage.getItem('searchData') || 'null');
@@ -705,7 +705,7 @@
 
             } catch (error) {
                 console.error('[v0] Error initializing map:', error);
-                
+
                 if (mapInitializationAttempts < MAX_INIT_ATTEMPTS) {
                     console.log(`[v0] Retrying map initialization in 2 seconds...`);
                     setTimeout(() => {
@@ -868,7 +868,7 @@
         async function loadNearbyHospitals(latitude, longitude, searchQuery = '', serviceType = '') {
             try {
                 console.log('[v0] Loading nearby hospitals:', { latitude, longitude, searchQuery, serviceType });
-                
+
                 await ensureGoogleMapsLoaded();
 
                 if (!isGoogleMapsReady()) {
@@ -1074,13 +1074,13 @@
                         // Check types match with enhanced logic
                         const typeMatch = Array.isArray(hospital.types) && hospital.types.some(type => {
                             const typeLower = type.toLowerCase();
-                            return typeLower.includes(serviceTypeLower) || 
-                                   serviceTypeLower.includes(typeLower) ||
-                                   // Additional matching for common medical terms
-                                   (serviceTypeLower.includes('hospital') && typeLower.includes('hospital')) ||
-                                   (serviceTypeLower.includes('clinic') && typeLower.includes('clinic')) ||
-                                   (serviceTypeLower.includes('pharmacy') && typeLower.includes('pharmacy')) ||
-                                   (serviceTypeLower.includes('doctor') && typeLower.includes('doctor'));
+                            return typeLower.includes(serviceTypeLower) ||
+                                serviceTypeLower.includes(typeLower) ||
+                                // Additional matching for common medical terms
+                                (serviceTypeLower.includes('hospital') && typeLower.includes('hospital')) ||
+                                (serviceTypeLower.includes('clinic') && typeLower.includes('clinic')) ||
+                                (serviceTypeLower.includes('pharmacy') && typeLower.includes('pharmacy')) ||
+                                (serviceTypeLower.includes('doctor') && typeLower.includes('doctor'));
                         });
 
                         // Check vicinity/address match
@@ -1098,8 +1098,7 @@
                     return da - db;
                 });
 
-                // Take only first 5 results as requested
-                filteredResults = filteredResults.slice(0, 5);
+                // filteredResults = filteredResults.slice(0, 5);
 
                 allHospitals = filteredResults;
                 filteredHospitals = filteredResults;
@@ -1141,7 +1140,7 @@
         async function searchLocation2() {
             try {
                 console.log('[v0] Starting searchLocation2');
-                
+
                 await ensureGoogleMapsLoaded();
 
                 if (!isGoogleMapsReady()) {
@@ -1284,7 +1283,7 @@
 
             try {
                 console.log('[v0] Starting searchLocation');
-                
+
                 await ensureGoogleMapsLoaded();
 
                 if (!isGoogleMapsReady()) {
@@ -1699,9 +1698,9 @@
         }
 
         window.addEventListener("beforeunload", () => {
-                localStorage.removeItem("searchData");
-            });
-            
+            localStorage.removeItem("searchData");
+        });
+
     </script>
 
     <!-- Updated Google Maps API with Places library -->
