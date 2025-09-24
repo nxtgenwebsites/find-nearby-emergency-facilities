@@ -1,6 +1,18 @@
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-dark);
+    background: url('../assets/images/bg.png');
+    background-size: cover;
+   min-height: 100vh;
+   position: relative;
+   width: 100%;
+   overflow-x: hidden;
+   background-attachment: fixed;
+  }
+  
 
 .main-content {
-    background-color: #e8f4f8;
+    background-color: #e8f4f82c;
     /* width: 100% !important; */
     min-height: 100% !important;
     width: 100% !important;
@@ -27,8 +39,8 @@
 
 .content-text {
     color: #4a5568;
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 19px;
+    line-height: 30px;
     margin-bottom: 25px;
     text-align: justify;
 }
