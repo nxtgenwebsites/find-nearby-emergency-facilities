@@ -155,7 +155,7 @@
         
         @media (max-width: 576px) {
             .footer-text {
-                font-size: 14px;
+                font-size: 13px !important;
             }
             .footer-links {
                 font-size: 14px;
