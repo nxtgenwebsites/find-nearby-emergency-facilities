@@ -93,10 +93,23 @@
   }
   
   .edition-card:hover {
-    background-color: var(--card-hover);
+    background-color: var(--primary-color);
+    color: white !important;
     border-color: var(--primary-color);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+  }
+  
+  .edition-card:hover .card-title {
+    color: white;
+  }
+  
+  .edition-card:hover .card-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .edition-card:hover .card-arrow {
+    color: white !important;
   }
   
   .edition-card.active {
@@ -114,6 +127,7 @@
   .edition-card.active .card-subtitle {
     color: rgba(255, 255, 255, 0.8);
   }
+
   
   .card-title {
     font-size: 1.4rem;

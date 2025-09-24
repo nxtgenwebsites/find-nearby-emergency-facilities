@@ -100,7 +100,7 @@
 }
 
 .medical img {
-  max-width: 290px;
+  max-width: 170px;
   width: 100%;
   margin-bottom: 10px;
   object-fit: cover;
@@ -349,7 +349,7 @@
 
 .swiper {
   /* max-width: ; */
-  width: 45% !important;
+  width: 32% !important;
   height: auto !important;
 }
 
