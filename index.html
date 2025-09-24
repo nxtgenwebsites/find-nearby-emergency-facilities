@@ -73,9 +73,17 @@
                         <input type="text" class="form-control" id="city" name="city" placeholder="Type here" />
                     </div>
                     <div class="col-6 mb-3 services-type">
-                        <label for="services-type" class="form-label">Type location</label>
-                        <input class="form-control" type="text" id="services-type" placeholder="Type here" />
-                        <i class="fa fa-search"></i>
+                        <label for="services-type" class="form-label">Type Facility</label>
+                        <select class="form-select" id="services-type" name="state">
+                            <option value="" disabled selected>Select a facility type</option>
+                            <option value="hospitals">Hospitals</option>
+                            <option value="doctor">Doctor</option>
+                            <option value="health">Health Center</option>
+                            <option value="pharmacy">Pharmacy</option>
+                            <option value="drugstore">Drugstore</option>
+                            <option value="store">Medical Store</option>
+                            <option value="veterinary_care">Veterinary Care</option>
+                        </select>
                     </div>
                 </div>
                 <div class="text-center">
@@ -295,7 +303,7 @@
                         </div>
                     </div>
                     <div class="center-container">
-                        <div class="medical mt-5" onclick="findNearbyServices()">
+                        <div class="medical mt-4" onclick="findNearbyServices()">
                             <img src="assets/images/Group 71.svg" alt="">
                         </div>
 
@@ -418,22 +426,34 @@
 
     <script>
 
-        const advanceSearch = document.getElementById('searchForm');
-        advanceSearch.addEventListener('submit', function (event) {
-            event.preventDefault();
+    const advanceSearch = document.getElementById('searchForm');
+    advanceSearch.addEventListener('submit', function (event) {
+        event.preventDefault();
 
-            const countryElement = document.getElementById('user-country');
-            const stateElement = document.getElementById('user-state');
-            const city = document.getElementById('city').value;
-            const servicesType = document.getElementById('services-type').value;
+        const countryElement = document.getElementById('user-country');
+        const stateElement = document.getElementById('user-state');
+        const city = document.getElementById('city').value;
+        const servicesType = document.getElementById('services-type').value;
 
-            // text lena sirf country aur state ka
-            const country = countryElement.options[countryElement.selectedIndex].text;
-            const state = stateElement.options[stateElement.selectedIndex].text;
+        // Get selected text
+        const country = countryElement.options[countryElement.selectedIndex].text.trim();
+        const state = stateElement.options[stateElement.selectedIndex].text.trim();
 
-            localStorage.setItem('searchData', JSON.stringify({ country, state, city, servicesType }));
-            window.location.href = '/nearby-services.html';
-        });
+        // Validation for required fields
+        if (!country || country === "Select Country") {
+            alert("Please select a country.");
+            return;
+        }
+        if (!state || state === "Select State") {
+            alert("Please select a state.");
+            return;
+        }
+
+        // Save data if valid
+        localStorage.setItem('searchData', JSON.stringify({ country, state, city, servicesType }));
+        window.location.href = '/nearby-services.html';
+    });
+
 
 
 

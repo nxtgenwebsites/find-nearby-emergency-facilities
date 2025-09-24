@@ -58,7 +58,7 @@
                         <input type="text" class="form-control" id="city" name="city" placeholder="Type here" />
                     </div>
                     <div class="col-6 mb-3 services-type">
-                        <label for="services-type" class="form-label">Type location</label>
+                        <label for="services-type" class="form-label">Type facility</label>
                         <input class="form-control" type="text" id="services-type" placeholder="Type here" />
                         <i class="fa fa-search"></i>
                     </div>
@@ -69,11 +69,9 @@
             </form>
         </div>
     </div>
-    </div>
-
 
     <!-- Search Modal -->
-    <div id="searchModal d-block" class="modal">
+    <div id="searchModal" class="modal">
         <div class="bg-white rounded-lg p-6 max-w-2xl w-full shadow-xl">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-semibold text-teal-600">Search Medical Services</h3>
@@ -232,7 +230,6 @@
                 </div>
             </header>
 
-
             <div class="main-content w-100">
                 <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
                     <img src="assets/icons/user-icon.svg" width="30" alt="">
@@ -283,62 +280,134 @@
                                 </div>
                             </div>
 
-                            <!-- Modified main content structure for split-screen layout -->
+                            <!-- Modified main content structure for mobile accordion layout -->
                             <div class="container" id="content-container">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="editions-container">
-                                            <!-- Cards Section (Left Side) -->
+                                            <!-- Cards Section with inline details for mobile -->
                                             <div class="cards-section">
-                                                <div class="edition-card" data-edition="gps-public">
-                                                    <div class="card-title">GPSMedical Public Edition (Free)</div>
-                                                    <div class="card-subtitle"></div>
-                                                    <i class="fas fa-arrow-right card-arrow"></i>
+                                                <!-- Modified each card to include its own detail section for mobile accordion behavior -->
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="gps-public">
+                                                        <div class="card-title">GPSMedical Public Edition (Free)</div>
+                                                        <div class="card-subtitle"></div>
+                                                        <i class="fas fa-arrow-right card-arrow"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-gps-public">
+                                                        <div class="mobile-detail-content">
+                                                            <h3 class="detail-title">GPSMedical Public Edition (Free)
+                                                            </h3>
+                                                            <p class="detail-description">
+                                                                Designed for anyone, anywhere — no registration required. With just one click, you can discover nearby hospitals,
+                                                                clinics, pharmacies, and labs using your phone’s location. Ideal for emergencies and everyday health needs.
+                                                            </p>
+                                                            <h3 class="detail-title mt-2 fw-bold">Contact Us for more info</h3>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <div class="edition-card" data-edition="gps-personal">
-                                                    <div class="card-title">GPSMedical Personal Edition</div>
-                                                    <div class="card-subtitle">(Free)</div>
-                                                    <i class="fas fa-arrow-right card-arrow"></i>
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="gps-personal">
+                                                        <div class="card-title">GPSMedical Personal Edition</div>
+                                                        <div class="card-subtitle">(Free)</div>
+                                                        <i class="fas fa-arrow-right card-arrow"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-gps-personal">
+                                                        <div class="mobile-detail-content">
+                                                            <h3 class="detail-title">GPSMedical Personal Edition (Free)
+                                                            </h3>
+                                                            <p class="detail-description">
+                                                                Designed for anyone, anywhere — no registration required. With just one click, you can discover nearby hospitals,
+                                                                clinics, pharmacies, and labs using your phone’s location. Ideal for emergencies and everyday health needs.
+                                                            </p>
+                                                            <h3 class="detail-title mt-2 fw-bold">Contact Us for more info</h3>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <div class="edition-card" data-edition="digital-standard">
-                                                    <div class="card-title">Digital Health Standard Edition</div>
-                                                    <div class="card-subtitle">(Subscription)</div>
-                                                    <i class="fas fa-arrow-right card-arrow"></i>
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="digital-standard">
+                                                        <div class="card-title">Digital Health Standard Edition</div>
+                                                        <div class="card-subtitle">(Subscription)</div>
+                                                        <i class="fas fa-arrow-right card-arrow"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-digital-standard">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <div class="contact-title">Contact Us For Info
+                                                                </div>
+                                                                <div class="contact-info">abc@gmail.com | +44 123 456 456</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <div class="edition-card" data-edition="digital-premium">
-                                                    <div class="card-title">Digital Health Premium Edition</div>
-                                                    <div class="card-subtitle">(Subscription)</div>
-                                                    <i class="fas fa-arrow-right card-arrow"></i>
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="digital-premium">
+                                                        <div class="card-title">Digital Health Premium Edition</div>
+                                                        <div class="card-subtitle">(Subscription)</div>
+                                                        <i class="fas fa-arrow-right card-arrow"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-digital-premium">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <div class="contact-title">Contact Us For More Info
+                                                                </div>
+                                                                <div class="contact-info">AFRICAHEALTH.COM | +44 123 456
+                                                                    789</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <div class="edition-card" data-edition="digital-community">
-                                                    <div class="card-title">Digital Health Community Edition</div>
-                                                    <div class="card-subtitle">(Subscription)</div>
-                                                    <i class="fas fa-arrow-right card-arrow"></i>
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="digital-community">
+                                                        <div class="card-title">Digital Health Community Edition</div>
+                                                        <div class="card-subtitle">(Subscription)</div>
+                                                        <i class="fas fa-arrow-right card-arrow"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-digital-community">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <div class="contact-title">Contact Us For More Info
+                                                                </div>
+                                                                <div class="contact-info">AFRICAHEALTH.COM | +44 123 456
+                                                                    789</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <div class="edition-card" data-edition="national-health">
-                                                    <div class="card-title">National Health Edition</div>
-                                                    <div class="card-subtitle"></div>
-                                                    <i class="fas fa-arrow-right card-arrow"></i>
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="national-health">
+                                                        <div class="card-title">National Health Edition</div>
+                                                        <div class="card-subtitle"></div>
+                                                        <i class="fas fa-arrow-right card-arrow"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-national-health">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <div class="contact-title">Contact Us For More Info
+                                                                </div>
+                                                                <div class="contact-info">AFRICAHEALTH.COM | +44 123 456
+                                                                    789</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <!-- Detail Section (Right Side) -->
+                                            <!-- Detail Section (Right Side for Desktop) -->
                                             <div class="detail-section" id="detailSection">
                                                 <div id="detail-gps-public" class="detail-panel">
                                                     <button class="close-btn" onclick="closeDetail()">&times;</button>
-                                                    <h3 class="detail-title">GPSMedical Public Edition (Free)</h3>
+                                                    <h3 class="detail-title text-muted">GPSMedical Public Edition (Free)</h3>
                                                     <p class="detail-description">
-                                                        Designed for anyone, anywhere — no registration required. With
-                                                        just one click, you can
-                                                        discover nearby hospitals, clinics, pharmacies, and labs using
-                                                        your phone's location.
-                                                        Ideal for emergencies and everyday health needs.
+                                                        Designed for anyone, anywhere — no registration required. With just one click, you can discover nearby hospitals,
+                                                        clinics, pharmacies, and labs using your phone’s location. Ideal for emergencies and everyday health needs.
                                                     </p>
+                                                    <h5 class="detail-title2 fw-bold">Contact Us for more info</h5>
                                                     <!-- <div class="contact-section">
                                                         <div class="contact-title">Contact Us For More Info</div>
                                                         <div class="contact-info">AFRICAHEALTH.COM | +44 123 456 789
@@ -350,12 +419,10 @@
                                                     <button class="close-btn" onclick="closeDetail()">&times;</button>
                                                     <h3 class="detail-title">GPSMedical Personal Edition (Free)</h3>
                                                     <p class="detail-description">
-                                                        Enhanced personal health management with user accounts, health
-                                                        records storage, and
-                                                        personalized recommendations. Perfect for individuals who want
-                                                        to track their health
-                                                        journey.
+                                                        Designed for anyone, anywhere — no registration required. With just one click, you can discover nearby hospitals,
+                                                        clinics, pharmacies, and labs using your phone’s location. Ideal for emergencies and everyday health needs.
                                                     </p>
+                                                    <h5 class="detail-title2 fw-bold">Contact Us for more info</h5>
                                                     <!-- <div class="contact-section">
                                                         <div class="contact-title">Contact Us For More Info</div>
                                                         <div class="contact-info">AFRICAHEALTH.COM | +44 123 456 789
@@ -365,20 +432,12 @@
 
                                                 <div id="detail-digital-standard" class="detail-panel">
                                                     <button class="close-btn" onclick="closeDetail()">&times;</button>
-                                                    <h3 class="detail-title">Digital Health Standard Edition
-                                                        (Subscription)</h3>
-                                                    <p class="detail-description">
-                                                        Advanced features including telemedicine consultations,
-                                                        prescription management, health
-                                                        analytics, and priority support. Ideal for individuals and
-                                                        families seeking
-                                                        comprehensive health management.
-                                                    </p>
-                                                    <!-- <div class="contact-section">
+                                                    
+                                                    <div class="contact-section">
                                                         <div class="contact-title">Contact Us For More Info</div>
                                                         <div class="contact-info">AFRICAHEALTH.COM | +44 123 456 789
                                                         </div>
-                                                    </div> -->
+                                                    </div>
                                                 </div>
 
                                                 <div id="detail-digital-premium" class="detail-panel">
@@ -465,27 +524,100 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
         <script>
+            function isMobile() {
+                return window.innerWidth <= 991.98;
+            }
+
             document.querySelectorAll('.edition-card').forEach(card => {
-                card.addEventListener('click', function () {
-                    const edition = this.getAttribute('data-edition');
-                    const detailPanel = document.getElementById(`detail-${edition}`);
-                    const detailSection = document.getElementById('detailSection');
+                // Desktop hover behavior
+                card.addEventListener('mouseenter', function () {
+                    if (!isMobile()) {
+                        const edition = this.getAttribute('data-edition');
+                        const detailPanel = document.getElementById(`detail-${edition}`);
+                        const detailSection = document.getElementById('detailSection');
 
-                    // Close all other detail panels and remove active class
-                    document.querySelectorAll('.detail-panel').forEach(panel => {
-                        panel.style.display = 'none';
-                    });
-                    document.querySelectorAll('.edition-card').forEach(c => {
-                        c.classList.remove('active');
-                    });
+                        // Close all other detail panels and remove active class
+                        document.querySelectorAll('.detail-panel').forEach(panel => {
+                            panel.style.display = 'none';
+                        });
+                        document.querySelectorAll('.edition-card').forEach(c => {
+                            c.classList.remove('active');
+                        });
 
-                    // Show selected detail panel and add active class
-                    if (detailPanel) {
-                        detailPanel.style.display = 'block';
-                        detailSection.classList.add('show');
-                        this.classList.add('active');
+                        // Show selected detail panel and add active class
+                        if (detailPanel) {
+                            detailPanel.style.display = 'block';
+                            detailSection.classList.add('show');
+                            this.classList.add('active');
+                        }
                     }
                 });
+
+                // Hide on mouse leave
+                card.addEventListener('mouseleave', function () {
+                    if (!isMobile()) {
+                        const edition = this.getAttribute('data-edition');
+                        const detailPanel = document.getElementById(`detail-${edition}`);
+                        const detailSection = document.getElementById('detailSection');
+
+                        if (detailPanel) {
+                            detailPanel.style.display = 'none';
+                            detailSection.classList.remove('show');
+                            this.classList.remove('active');
+                        }
+                    }
+                });
+
+                // Modified mobile click behavior to use individual accordion sections
+                card.addEventListener('click', function () {
+                    if (isMobile()) {
+                        const edition = this.getAttribute('data-edition');
+                        const mobileDetail = document.getElementById(`mobile-detail-${edition}`);
+                        const cardArrow = this.querySelector('.card-arrow');
+
+                        // Check if this card is already active (accordion behavior)
+                        const isActive = this.classList.contains('active');
+
+                        // Close all other mobile details and remove active class
+                        document.querySelectorAll('.mobile-detail').forEach(detail => {
+                            detail.classList.remove('show');
+                        });
+                        document.querySelectorAll('.edition-card').forEach(c => {
+                            c.classList.remove('active');
+                        });
+
+                        // If it wasn't active, show it (accordion open)
+                        if (!isActive && mobileDetail) {
+                            mobileDetail.classList.add('show');
+                            this.classList.add('active');
+                        }
+                    } else {
+                        // Desktop click behavior (same as hover)
+                        const edition = this.getAttribute('data-edition');
+                        const detailPanel = document.getElementById(`detail-${edition}`);
+                        const detailSection = document.getElementById('detailSection');
+
+                        document.querySelectorAll('.detail-panel').forEach(panel => {
+                            panel.style.display = 'none';
+                        });
+                        document.querySelectorAll('.edition-card').forEach(c => {
+                            c.classList.remove('active');
+                        });
+
+                        if (detailPanel) {
+                            detailPanel.style.display = 'block';
+                            detailSection.classList.add('show');
+                            this.classList.add('active');
+                        }
+                    }
+                });
+            });
+
+            document.querySelector('.editions-container').addEventListener('mouseleave', function () {
+                if (!isMobile()) {
+                    // Optional: Keep the last hovered panel open, or uncomment below to close on mouse leave
+                    // closeDetail();
+                }
             });
 
             // Close detail panel function
@@ -493,15 +625,18 @@
                 document.querySelectorAll('.detail-panel').forEach(panel => {
                     panel.style.display = 'none';
                 });
+                document.querySelectorAll('.mobile-detail').forEach(detail => {
+                    detail.classList.remove('show');
+                });
                 document.querySelectorAll('.edition-card').forEach(card => {
                     card.classList.remove('active');
+                    const arrow = card.querySelector('.card-arrow');
                 });
                 document.getElementById('detailSection').classList.remove('show');
             }
 
-            // Close detail panel when clicking outside
             document.addEventListener('click', function (e) {
-                if (!e.target.closest('.edition-card') && !e.target.closest('.detail-section')) {
+                if (isMobile() && !e.target.closest('.card-wrapper') && !e.target.closest('.detail-section')) {
                     closeDetail();
                 }
             });
@@ -512,10 +647,14 @@
                     closeDetail();
                 }
             });
+
+            window.addEventListener('resize', function () {
+                // Close details when switching between mobile/desktop
+                closeDetail();
+            });
         </script>
 
         <script>
-
             const profileButton = document.querySelectorAll('.profile-button');
             const profileModal = document.getElementById('profileModal');
             const closeProfileBtn = document.getElementById('closeProfileBtn');
@@ -550,7 +689,7 @@
                 sidebar.classList.remove('show');
                 overlay.classList.remove('show');
                 // Close location modal if open
-                document.getElementById('locationModal').classList.remove('show');
+                document.getElementById('profileModal').classList.remove('show');
             });
 
             // Smooth scrolling for anchor links
@@ -579,6 +718,7 @@
             // Initialize
             handleResize();
         </script>
+    </div>
 </body>
 
 </html>

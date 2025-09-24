@@ -145,6 +145,15 @@
     .main-content .hero-content { 
         min-height: 100vh !important;
     }
+    .main-content .main-content{
+        position: unset;
+        min-height: 100vh;
+        padding: 20px 30px;
+    }
+
+    .footer{
+        bottom: -77px !important;
+    }
 
     .about-header{
         margin-top: 10px !important;
@@ -154,10 +163,7 @@
     .main-content .hero-content {
         padding: 0 0px;
     }
-    .main-content {
-        padding: 20px 30px;
-    }
-    
+
     .about-header {
         font-size: 2rem;
         padding: 15px 20px;
@@ -203,3 +209,7 @@
   }
 
  
+  .footer-links a {
+    white-space: nowrap;
+  }
+  

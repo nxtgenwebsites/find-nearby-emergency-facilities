@@ -218,9 +218,17 @@
                         <input type="text" class="form-control" id="city" name="city" placeholder="Type here" />
                     </div>
                     <div class="col-12 mb-3 services-type">
-                        <label for="services-type" class="form-label">Type location</label>
-                        <input class="form-control" type="text" id="services-type" placeholder="Type here" />
-                        <i class="fa fa-search"></i>
+                        <label for="services-type" class="form-label">Type Facility</label>
+                        <select class="form-select" id="services-type" name="state">
+                            <option value="" disabled selected>Select a facility type</option>
+                            <option value="hospitals">Hospitals</option>
+                            <option value="doctor">Doctor</option>
+                            <option value="health">Health Center</option>
+                            <option value="pharmacy">Pharmacy</option>
+                            <option value="drugstore">Drugstore</option>
+                            <option value="store">Medical Store</option>
+                            <option value="veterinary_care">Veterinary Care</option>
+                        </select>
                     </div>
                 </div>
                 <div class="text-center">
@@ -1659,7 +1667,7 @@
             const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
             paginationDiv.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex flex-column row-gap-3  flex-md-row justify-content-between align-items-center mb-3">
                     <div class="d-flex align-items-center">
                         <span class="me-2">Results per page:</span>
                         <select class="form-select form-select-sm" style="width: 70px;" onchange="changeItemsPerPage(this.value)">
