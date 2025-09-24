@@ -192,7 +192,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="contect-us.html" class="nav-link active">
+                    <a href="contact-us.html" class="nav-link active">
                         <img src="assets/icons/mail.svg" />
                         <span>Contact Us</span>
                     </a>
@@ -310,12 +310,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="country" class="form-label">Country</label>
-                                        <select class="form-select" id="country" name="country">
+                                        <select class="form-select" id="user-country2" name="country">
                                             <option value="">Nigeria</option>
-                                            <option value="US">United States</option>
-                                            <option value="UK">United Kingdom</option>
-                                            <option value="CA">Canada</option>
-                                            <option value="NG">Nigeria</option>
                                         </select>
                                     </div>
                                 </div>
@@ -347,9 +343,21 @@
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="form-check d-flex align-items-center">
-                                        <button type="submit" class="btn btn-submit" id="submitBtn">Submit</button>
-                                    </div>
+                                    <div class="row g-2 align-items-center w-100">
+                                        <!-- Fake reCAPTCHA (full width) -->
+                                        <div class="col-6">
+                                            <div class="fake-recaptcha d-flex align-items-center w-100">
+                                                <input type="checkbox" id="fakeCaptcha" />
+                                                <label for="fakeCaptcha" class="mb-0 ms-2">I am not a robot</label>
+                                                <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA" class="ms-auto" />
+                                            </div>
+                                            <div id="captchaError" class="form-text text-danger mt-1" style="display:none;">Please check the captcha.</div>
+                                        </div>
+                                    
+                                        <!-- Submit button (full width) -->
+                                        <div class="col-6 ps-4">
+                                            <button type="submit" class="btn btn-submit" id="submitBtn">Submit</button>
+                                        </div>                              </div>
                                 </div>
                             </div>
                         </div>
@@ -379,6 +387,26 @@
 
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/country-states.js"></script>
+    
+    
+    <script>
+        (() => {
+            const country_list = country_and_states.country; // yaha tumhari countries ki list hogi
+            const id_country_option = document.getElementById("user-country2");
+
+            const create_country_selection = () => {
+                let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
+                for (const country_code in country_list) {
+                    option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
+                }
+                id_country_option.innerHTML = option;
+            };
+
+            // Initialize country dropdown
+            create_country_selection();
+        })();
+    </script>
 
     <script>
         const profileButton = document.querySelectorAll('.profile-button');
