@@ -181,7 +181,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="contact-us.html" class="nav-link">
+                    <a href="contect-us.html" class="nav-link">
                         <img src="assets/icons/mail.svg" />
                         <span>Contact Us</span>
                     </a>
@@ -414,7 +414,7 @@
 
                                                 <div id="detail-gps-personal" class="detail-panel">
                                                     <button class="close-btn" onclick="closeDetail()">&times;</button>
-                                                    <h3 class="detail-title">GPSMedical Personal Edition (Free)</h3>
+                                                    <h3 class="detail-title text-muted">GPSMedical Personal Edition (Free)</h3>
                                                     <p class="detail-description">
                                                         Designed for anyone, anywhere — no registration required. With just one click, you can discover nearby hospitals,
                                                         clinics, pharmacies, and labs using your phone’s location. Ideal for emergencies and everyday health needs.
@@ -525,91 +525,48 @@
                 return window.innerWidth <= 991.98; 
             }
 
-            document.querySelectorAll('.edition-card').forEach(card => {
-                // Desktop hover behavior
-                card.addEventListener('click', function () {
-                    if (!isMobile()) {
-                        const edition = this.getAttribute('data-edition');
-                        const detailPanel = document.getElementById(`detail-${edition}`);
-                        const detailSection = document.getElementById('detailSection');
+                document.querySelectorAll('.edition-card').forEach(card => {
+                    // Desktop hover behavior
+                    card.addEventListener('mouseenter', function () {   // ✅ sahi event
+                        if (!isMobile()) {
+                            const edition = this.getAttribute('data-edition');
+                            const detailPanel = document.getElementById(`detail-${edition}`);
+                            const detailSection = document.getElementById('detailSection');
 
-                        // Close all other detail panels and remove active class
-                        document.querySelectorAll('.detail-panel').forEach(panel => {
-                            panel.style.display = 'none';
-                        });
-                        document.querySelectorAll('.edition-card').forEach(c => {
-                            c.classList.remove('active');
-                        });
+                            // Close all other detail panels and remove active class
+                            document.querySelectorAll('.detail-panel').forEach(panel => {
+                                panel.style.display = 'none';
+                            });
+                            document.querySelectorAll('.edition-card').forEach(c => {
+                                c.classList.remove('active');
+                            });
 
-                        // Show selected detail panel and add active class
-                        if (detailPanel) {
-                            detailPanel.style.display = 'block';
-                            detailSection.classList.add('show');
-                            this.classList.add('active');
+                            // Show selected detail panel and add active class
+                            if (detailPanel) {
+                                detailPanel.style.display = 'block';
+                                detailSection.classList.add('show');
+                                this.classList.add('active');
+                            }
                         }
-                    }
+                    });
+
+                    // Hide on mouse leave
+                    card.addEventListener('mouseleave', function () {
+                        if (!isMobile()) {
+                            const edition = this.getAttribute('data-edition');
+                            const detailPanel = document.getElementById(`detail-${edition}`);
+                            const detailSection = document.getElementById('detailSection');
+
+                            if (detailPanel) {
+                                detailPanel.style.display = 'none';
+                                detailSection.classList.remove('show');
+                                this.classList.remove('active');
+                            }
+                        }
+                    });
                 });
 
-                // Hide on mouse leave
-                // card.addEventListener('mouseleave', function () {
-                //     if (!isMobile()) {
-                //         const edition = this.getAttribute('data-edition');
-                //         const detailPanel = document.getElementById(`detail-${edition}`);
-                //         const detailSection = document.getElementById('detailSection');
-
-                //         if (detailPanel) {
-                //             detailPanel.style.display = 'none';
-                //             detailSection.classList.remove('show');
-                //             this.classList.remove('active');
-                //         }
-                //     }
-                // });
-
-                // Modified mobile click behavior to use individual accordion sections
-                card.addEventListener('click', function () {
-                    if (isMobile()) {
-                        const edition = this.getAttribute('data-edition');
-                        const mobileDetail = document.getElementById(`mobile-detail-${edition}`);
-                        const cardArrow = this.querySelector('.card-arrow');
-
-                        // Check if this card is already active (accordion behavior)
-                        const isActive = this.classList.contains('active');
-
-                        // Close all other mobile details and remove active class
-                        document.querySelectorAll('.mobile-detail').forEach(detail => {
-                            detail.classList.remove('show');
-                        });
-                        document.querySelectorAll('.edition-card').forEach(c => {
-                            c.classList.remove('active');
-                        });
-
-                        // If it wasn't active, show it (accordion open)
-                        if (!isActive && mobileDetail) {
-                            mobileDetail.classList.add('show');
-                            this.classList.add('active');
-                        }
-                    } else {
-                        // Desktop click behavior (same as hover)
-                        const edition = this.getAttribute('data-edition');
-                        const detailPanel = document.getElementById(`detail-${edition}`);
-                        const detailSection = document.getElementById('detailSection');
-
-                        document.querySelectorAll('.detail-panel').forEach(panel => {
-                            panel.style.display = 'none';
-                        });
-                        document.querySelectorAll('.edition-card').forEach(c => {
-                            c.classList.remove('active');
-                        });
-
-                        if (detailPanel) {
-                            detailPanel.style.display = 'block';
-                            detailSection.classList.add('show');
-                            this.classList.add('active');
-                        }
-                    }
-                });
-            });
-
+                
             document.querySelector('.editions-container').addEventListener('mouseleave', function () {
                 if (!isMobile()) {
                     // Optional: Keep the last hovered panel open, or uncomment below to close on mouse leave
