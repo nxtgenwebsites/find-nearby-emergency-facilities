@@ -84,7 +84,7 @@
     background: white;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 1.5rem;
+    padding: 14px;
     margin-bottom: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -93,6 +93,7 @@
   }
   
   .edition-card:hover {
+
     background-color: var(--primary-color);
     color: white !important;
     border-color: var(--primary-color);
@@ -175,7 +176,7 @@
   /* Modified detail panel styles for right-side display */
   .detail-panel {
     background: white;
-    border: 1px solid #e2e8f0;
+    border: 0.5px solid var(--primary-color);
     border-radius: 12px;
     padding: 2rem;
     height: 100%;
@@ -323,7 +324,7 @@
     }
   
     .edition-card {
-      padding: 1rem;
+      padding: 10px !important;
       margin-bottom: 0;
       border-radius: 12px 12px 0 0;
     }
