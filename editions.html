@@ -181,7 +181,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="contect-us.html" class="nav-link">
+                    <a href="contact-us.html" class="nav-link">
                         <img src="assets/icons/mail.svg" />
                         <span>Contact Us</span>
                     </a>
@@ -516,57 +516,75 @@
 
         <script>
             function isMobile() {
-                return window.innerWidth <= 991.98; 
+                return window.innerWidth <= 991.98;
             }
 
-                document.querySelectorAll('.edition-card').forEach(card => {
-                    // Desktop hover behavior
-                    card.addEventListener('mouseenter', function () {   // ✅ sahi event
-                        if (!isMobile()) {
-                            const edition = this.getAttribute('data-edition');
-                            const detailPanel = document.getElementById(`detail-${edition}`);
-                            const detailSection = document.getElementById('detailSection');
+            document.querySelectorAll('.edition-card').forEach(card => {
+                card.addEventListener('click', function () {
+                    if (isMobile()) {
+                        const edition = this.getAttribute('data-edition');
+                        const mobileDetail = document.getElementById(`mobile-detail-${edition}`);
+                        const arrow = this.querySelector('.card-arrow');
 
-                            // Close all other detail panels and remove active class
-                            document.querySelectorAll('.detail-panel').forEach(panel => {
-                                panel.style.display = 'none';
-                            });
-                            document.querySelectorAll('.edition-card').forEach(c => {
-                                c.classList.remove('active');
-                            });
+                        // Check if this card is currently active
+                        const isCurrentlyActive = this.classList.contains('active');
 
-                            // Show selected detail panel and add active class
-                            if (detailPanel) {
-                                detailPanel.style.display = 'block';
-                                detailSection.classList.add('show');
-                                this.classList.add('active');
-                            }
+                        // Close all other mobile details and remove active class
+                        document.querySelectorAll('.mobile-detail').forEach(detail => {
+                            detail.classList.remove('show');
+                        });
+                        document.querySelectorAll('.edition-card').forEach(c => {
+                            c.classList.remove('active');
+                        });
+
+                        // If this card wasn't active, open it
+                        if (!isCurrentlyActive && mobileDetail) {
+                            mobileDetail.classList.add('show');
+                            this.classList.add('active');
                         }
-                    });
-
-                    // Hide on mouse leave
-                    card.addEventListener('mouseleave', function () {
-                        if (!isMobile()) {
-                            const edition = this.getAttribute('data-edition');
-                            const detailPanel = document.getElementById(`detail-${edition}`);
-                            const detailSection = document.getElementById('detailSection');
-
-                            if (detailPanel) {
-                                detailPanel.style.display = 'none';
-                                detailSection.classList.remove('show');
-                                this.classList.remove('active');
-                            }
-                        }
-                    });
+                    }
                 });
 
-                
-            document.querySelector('.editions-container').addEventListener('mouseleave', function () {
-                if (!isMobile()) {
-                    // Optional: Keep the last hovered panel open, or uncomment below to close on mouse leave
-                    // closeDetail();
-                }
+                // Desktop hover behavior
+                card.addEventListener('mouseenter', function () {   // ✅ sahi event
+                    if (!isMobile()) {
+                        const edition = this.getAttribute('data-edition');
+                        const detailPanel = document.getElementById(`detail-${edition}`);
+                        const detailSection = document.getElementById('detailSection');
+
+                        // Close all other detail panels and remove active class
+                        document.querySelectorAll('.detail-panel').forEach(panel => {
+                            panel.style.display = 'none';
+                        });
+                        document.querySelectorAll('.edition-card').forEach(c => {
+                            c.classList.remove('active');
+                        });
+
+                        // Show selected detail panel and add active class
+                        if (detailPanel) {
+                            detailPanel.style.display = 'block';
+                            detailSection.classList.add('show');
+                            this.classList.add('active');
+                        }
+                    }
+                });
+
+                // Hide on mouse leave
+                card.addEventListener('mouseleave', function () {
+                    if (!isMobile()) {
+                        const edition = this.getAttribute('data-edition');
+                        const detailPanel = document.getElementById(`detail-${edition}`);
+                        const detailSection = document.getElementById('detailSection');
+
+                        if (detailPanel) {
+                            detailPanel.style.display = 'none';
+                            detailSection.classList.remove('show');
+                            this.classList.remove('active');
+                        }
+                    }
+                });
             });
+
 
             // Close detail panel function
             function closeDetail() {
@@ -601,6 +619,7 @@
                 closeDetail();
             });
         </script>
+
 
         <script>
             const profileButton = document.querySelectorAll('.profile-button');
