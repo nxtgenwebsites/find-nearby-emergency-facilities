@@ -1637,6 +1637,22 @@
         document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
     }
 
+           // Mobile menu toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+
+            menuToggle.addEventListener('click', function () {
+                sidebar.classList.toggle('show');
+                overlay.classList.toggle('show');
+            });
+            overlay.addEventListener('click', function () {
+                    sidebar.classList.remove('show');
+                    overlay.classList.remove('show');
+                    // Close location modal if open
+                    document.getElementById('locationModal').classList.remove('show');
+                });
+                
         const searchSection = document.getElementById('searchSection');
         if (searchSection) {
             searchSection.addEventListener('click', function () {
