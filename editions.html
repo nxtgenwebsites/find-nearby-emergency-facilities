@@ -208,20 +208,20 @@
                         <span>Editions</span>
                     </a>
                 </li>
-                <li class="nav-item no-page">
+                <li class="nav-item" onclick="commingSoon('Reviews page')">
                     <a href="#" class="nav-link">
                         <img src="assets/icons/star.svg" />
                         <span>Reviews</span>
                     </a>
                 </li>
                 <li class="nav-item no-page">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" onclick="commingSoon('Partnerships page')">
                         <img src="assets/icons/ph_handshake.svg" />
                         <span>Partnerships</span>
                     </a>
                 </li>
                 <li class="nav-item no-page">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" onclick="commingSoon('System page')">
                         <img src="assets/icons/settings.svg" />
                         <span>System</span>
                     </a>
@@ -517,9 +517,8 @@
                                 <a href="#">Privacy Policy</a>
                                 <span>|</span>
                                 <a href="#">Terms & Conditions</a>
-                                <a href="#" class="social">
-                                    <img src="assets/icons/facebook 1.svg" alt="">
-                                </a>
+                                <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social" style="cursor: pointer;">
+                                    <img src="assets/icons/facebook 1.svg" alt=""></a>
                             </div>
                         </div>
                     </div>
@@ -532,14 +531,11 @@
 
         <script>
 
-    const noPage = document.querySelectorAll('.no-page');
-
-    noPage.forEach(button => {
-        button.addEventListener('click', function () {
-            profileModal.classList.add('show');
-            document.getElementById('overlay2').classList.add('show');
-        });
-    });
+    function commingSoon(text) {
+        profileModal.classList.add('show');
+        document.getElementById('overlay2').classList.add('show');
+        document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
+    }
 
             function isMobile() {
                 return window.innerWidth <= 991.98;
