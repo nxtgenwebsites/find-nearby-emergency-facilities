@@ -330,10 +330,14 @@ textarea::-webkit-scrollbar-thumb:hover {
   .form-section label {
     margin-top: 10px;
   }
+  .btn-submit {
+    padding: 8px 20px;
+}
 }
 
 .form-section:nth-child(1) {
   padding-right: 20px;
+  padding-bottom: 0;
 }
 
 .form-section:nth-child(2) {
