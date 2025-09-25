@@ -419,6 +419,7 @@
   .mobile-detail .mobile-detail-content .detail-title.mt-2.fw-bold{
     /* display: none; */
     font-size: 16px !important;
+    margin-bottom: 0 !important;
   }
 }
 @media (max-width: 600px) {
@@ -432,7 +433,7 @@
         font-size: 1.1rem !important;
     }
     .mobile-detail-content .contact-section {
-      background: #e8f1f5;
+      background: white;
     }
       
   .card-subtitle {
@@ -456,4 +457,19 @@
         bottom: -150px !important;
         left: 0 !important;
     }
+}
+
+
+.mobile-detail.show .contact-section{
+  padding: 0 !important;
+}
+.mobile-detail.show {
+  background: white;
+  border: 0.5px solid var(--primary-color);
+  border-radius: 12px;
+  padding: 0.5rem !important;
+  /* height: 100%; */
+  margin-top: 10px;
+  /* display: none; */
+  top: 0;
 }
