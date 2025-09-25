@@ -178,7 +178,7 @@
     background: white;
     border: 0.5px solid var(--primary-color);
     border-radius: 12px;
-    padding: 2rem;
+    padding: 1rem;
     height: 100%;
     display: none;
     top: 0;
@@ -385,10 +385,14 @@
 
 
 .mobile-detail-content .contact-section {
-    background-color: #e7f1f6;
     padding: 10px 8px !important;
     border-radius: 8px;
     border-left: none !important;
+}
+
+.contact-info a{
+  color: #4f4f4f;
+  text-decoration: none;
 }
 
 @media (max-width: 991px) {
@@ -406,7 +410,9 @@
         padding-right: 0rem;
         font-size: 1.1rem !important;
     }
-
+    .mobile-detail-content .contact-section {
+      background: #e8f1f5;
+    }
       
   .card-subtitle {
     font-size: 15px;
