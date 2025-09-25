@@ -19,6 +19,22 @@
     <div class="overlay" id="overlay"></div>
     <div class="overlay" id="overlay2"></div>
 
+    <div class="location-modal " id="locationModal">
+        <h4>Confirm to Continue</h4>
+        <p class="mt-3">By continuing to use this service you agree to our Terms & Conditions.</p>
+        <div class="location-buttons">
+            <button class="btn-location btn-deny " onclick="denyLocation()">
+                Disagree
+            </button>
+            <a href="nearby-services.html">
+                <button class="btn-location btn-allow">
+                    Agree
+                </button>
+            </a>
+        </div>
+    </div>
+
+
     <!-- Formspree Success Popup -->
     <div class="formspree-popup" id="formspreePopup">
         <div class="formspree-popup-content">
@@ -203,19 +219,19 @@
                         <span>Editions</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item no-page">
                     <a href="#" class="nav-link">
                         <img src="assets/icons/star.svg" />
                         <span>Reviews</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item no-page">
                     <a href="#" class="nav-link">
                         <img src="assets/icons/ph_handshake.svg" />
                         <span>Partnerships</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item no-page">
                     <a href="#" class="nav-link">
                         <img src="assets/icons/settings.svg" />
                         <span>System</span>
@@ -250,7 +266,7 @@
                     <div class="about-header">
                         Contact Us
                     </div>
-                    <div class="d-md-block d-none about-header-img">
+                    <div class="d-md-block d-none about-header-img"  onclick="findNearbyServices()">
                         <img src="assets/images/Group 91.png" alt="">
                     </div>
                 </div>
@@ -409,6 +425,17 @@
     </script>
 
     <script>
+
+const noPage = document.querySelectorAll('.no-page');
+
+    noPage.forEach(button => {
+        button.addEventListener('click', function () {
+            profileModal.classList.add('show');
+            document.getElementById('overlay2').classList.add('show');
+        });
+    });
+
+    
         const profileButton = document.querySelectorAll('.profile-button');
         const profileModal = document.getElementById('profileModal');
         const closeProfileBtn = document.getElementById('closeProfileBtn');
@@ -428,6 +455,66 @@
         document.querySelector('#seach-popup .btn-close').addEventListener('click', function () {
             document.getElementById('seach-popup').classList.add('d-none');
         });
+
+        function findNearbyServices() {
+                // Show location permission modal
+                document.getElementById('locationModal').classList.add('show');
+                document.getElementById('overlay').classList.add('show');
+            }
+
+            function allowLocation() {
+                hideLocationModal();
+
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        console.log('[v0] Location obtained:', latitude, longitude);
+
+                        // Simulate finding nearby services
+                        setTimeout(() => {
+                        }, 2000);
+                    },
+                    function (error) {
+                        console.log('[v0] Location error:', error.message);
+                        let errorMessage = 'Unable to retrieve location. ';
+
+                        switch (error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage += 'Location access denied by user.';
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage += 'Location information unavailable.';
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage += 'Location request timed out.';
+                                break;
+                            default:
+                                errorMessage += 'An unknown error occurred.';
+                                break;
+                        }
+
+                        showLocationStatus(errorMessage, 'error');
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 60000
+                    }
+                );
+            }
+
+            function denyLocation() {
+                hideLocationModal();
+            }
+
+            function hideLocationModal() {
+                document.getElementById('locationModal').classList.remove('show');
+                document.getElementById('overlay').classList.remove('show');
+            }
+        
+
 
         // Formspree Integration
         function closeFormspreePopup() {
