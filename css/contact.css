@@ -215,6 +215,7 @@ textarea::-webkit-scrollbar-thumb:hover {
 
 .about-header-container img {
   transform: translateY(-45%) !important;
+  right: -5px !important;
 }
 
 /* Formspree Success Popup Styles */
