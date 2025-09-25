@@ -438,7 +438,8 @@
   }
 
   .mobile-detail .mobile-detail-content .detail-title:nth-child(1){
-    display: none;
+    /* display: none; */
+    margin-bottom: 5px;
   }
   .mobile-detail .mobile-detail-content .detail-title.mt-2.fw-bold{
     /* display: none; */
