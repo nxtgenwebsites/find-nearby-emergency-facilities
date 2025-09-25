@@ -171,15 +171,30 @@ body {
     .about-header{
         margin-top: 10px !important;
     }
+    .about-header-container img {
+        position: absolute;
+        right: -20px;
+        top: 50%;  
+        transform: translateY(-65%);
+        cursor: pointer;
+        height: 100px;
+        width: 100px;
+        padding: 15px;
+        /* padding-left: 30px; */
+        border-radius: 50%;
+        background: #e1eef4;
+    }
 }
 @media (max-width: 768px) {
     .main-content .hero-content {
         padding: 0 0px;
     }
-
+    .content-text {
+        font-size: 16px;
+    }
     .about-header {
-        font-size: 2rem;
-        padding: 15px 20px;
+        font-size: 1.8rem;
+        padding: 8px 20px;
     }
     
     .floating-btn {

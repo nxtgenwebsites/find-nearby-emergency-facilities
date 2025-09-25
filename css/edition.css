@@ -396,7 +396,21 @@
 
 @media (max-width: 991px) {
   .edition-card {
-    width: 100% !important;
+    width: 85% !important;
+  }
+  .edition-card:hover{
+    width: 85% !important;
+  }
+  .mobile-detail-content {
+    padding: 0;
+  }
+  .detail-description {
+    color: var(--text-light);
+    line-height: 1.4;
+    font-size: 14px;
+  }
+  .main-content .main-content {
+    padding: 20px 15px;
   }
 }
 @media (max-width: 600px) {
@@ -416,6 +430,17 @@
   .card-subtitle {
     font-size: 15px;
   }
+  .card-title {
+    font-size: 16px !important;
+  }
+  .card-arrow {
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+}
+.edition-card:hover .card-arrow, .edition-card.active .card-arrow {
+  /* color: var(--primary-color); */
+  transform: translateY(-75%) translateX(0px) !important;
+}
 }
 
 @media (max-width: 992px) {
