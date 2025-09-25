@@ -405,13 +405,25 @@
     padding: 0;
   }
   .detail-description {
-    color: var(--text-light);
+    color: black;
     line-height: 1.4;
     font-size: 14px;
   }
   .main-content .main-content {
     padding: 20px 15px;
   }
+
+  .mobile-detail-content  ul li{
+        margin-top: 10px;
+        font-size: 14px;
+    }
+    .mobile-detail-content  ul {
+        padding-left: 18px !important;
+    }
+
+    .contact-title{
+      font-size: 14px !important;
+    }
 
   .mobile-detail .mobile-detail-content .detail-title:nth-child(1){
     display: none;
