@@ -412,6 +412,14 @@
   .main-content .main-content {
     padding: 20px 15px;
   }
+
+  .mobile-detail .mobile-detail-content .detail-title:nth-child(1){
+    display: none;
+  }
+  .mobile-detail .mobile-detail-content .detail-title.mt-2.fw-bold{
+    /* display: none; */
+    font-size: 16px !important;
+  }
 }
 @media (max-width: 600px) {
     .card-title{

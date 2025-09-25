@@ -42,7 +42,7 @@ body {
     font-size: 19px;
     line-height: 30px;
     margin-bottom: 25px;
-    text-align: justify;
+    text-align: left !important;
 }
 .about-header-container {
     position: relative;
