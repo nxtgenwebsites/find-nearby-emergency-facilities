@@ -270,7 +270,7 @@
                                 <div class="stats-info">
                                     <img src="assets/icons/ph_users-four.svg" alt="">
                                     <span>Total Visitors: 3612</span>
-                                 
+
                                     <span>|</span>
                                     <span class="time-date"></span>
                                 </div>
@@ -311,7 +311,8 @@
                         </div>
 
                         <div class="search-section" id="searchSection">
-                            <input type="text" class="search-input" placeholder="Find specific Medical Services Near You" />
+                            <input type="text" class="search-input"
+                                placeholder="Find specific Medical Services Near You" />
                             <i class="fas fa-search search-icon"></i>
                         </div>
 
@@ -373,10 +374,29 @@
                 </div>
             </section>
 
+            <!-- Footer -->
+            <footer class="footer d-none d-lg-block ">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-text">
+                            © 2025 HealthCentreApp.com- All Rights Reserved.
+                        </div>
+                        <div class="footer-links d-none d-lg-block">
+                            <a href="privacy-policy.html">Privacy Policy</a>
+                            <span>|</span>
+                            <a href="terms-and-conditions.html">Terms & Conditions</a>
+                            <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social"
+                                style="cursor: pointer;">
+                                <img src="assets/icons/facebook 1.svg" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer d-block d-lg-none">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-text">
@@ -386,7 +406,8 @@
                     <a href="privacy-policy.html">Privacy Policy</a>
                     <span>|</span>
                     <a href="terms-and-conditions.html">Terms & Conditions</a>
-                    <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social" style="cursor: pointer;">
+                    <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social"
+                        style="cursor: pointer;">
                         <img src="assets/icons/facebook 1.svg" alt="">
                     </a>
                 </div>
@@ -450,40 +471,40 @@
     </script>
 
     <script>
-            function commingSoon(text) {
-                profileModal.classList.add('show');
-                document.getElementById('overlay2').classList.add('show');
-                document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
+        function commingSoon(text) {
+            profileModal.classList.add('show');
+            document.getElementById('overlay2').classList.add('show');
+            document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
+        }
+
+
+        const advanceSearch = document.getElementById('searchForm');
+        advanceSearch.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const countryElement = document.getElementById('user-country');
+            const stateElement = document.getElementById('user-state');
+            const city = document.getElementById('city').value;
+            const servicesType = document.getElementById('services-type').value;
+
+            // Get selected text
+            const country = countryElement.options[countryElement.selectedIndex].text.trim();
+            const state = stateElement.options[stateElement.selectedIndex].text.trim();
+
+            // Validation for required fields
+            if (!country || country === "Select Country") {
+                alert("Please select a country.");
+                return;
+            }
+            if (!state || state === "Select State") {
+                alert("Please select a state.");
+                return;
             }
 
-
-    const advanceSearch = document.getElementById('searchForm');
-    advanceSearch.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const countryElement = document.getElementById('user-country');
-        const stateElement = document.getElementById('user-state');
-        const city = document.getElementById('city').value;
-        const servicesType = document.getElementById('services-type').value;
-
-        // Get selected text
-        const country = countryElement.options[countryElement.selectedIndex].text.trim();
-        const state = stateElement.options[stateElement.selectedIndex].text.trim();
-
-        // Validation for required fields
-        if (!country || country === "Select Country") {
-            alert("Please select a country.");
-            return;
-        }
-        if (!state || state === "Select State") {
-            alert("Please select a state.");
-            return;
-        }
-
-        // Save data if valid
-        localStorage.setItem('searchData', JSON.stringify({ country, state, city, servicesType }));
-        window.location.href = '/nearby-services.html';
-    });
+            // Save data if valid
+            localStorage.setItem('searchData', JSON.stringify({ country, state, city, servicesType }));
+            window.location.href = '/nearby-services.html';
+        });
 
 
 
@@ -517,7 +538,7 @@
     <script>
 
         const noPage = document.querySelectorAll('.no-page');
-     
+
         noPage.forEach(button => {
             button.addEventListener('click', function () {
                 profileModal.classList.add('show');
