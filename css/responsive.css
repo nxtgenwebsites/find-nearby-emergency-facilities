@@ -103,6 +103,10 @@
     bottom: 0;
     margin-top: -50px;
   }
+  .medical img {
+    max-width: 350px;
+    margin-bottom: 30px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -149,7 +153,8 @@
     gap: 5px;
   }
   .medical img {
-    max-width: 150px;
+    max-width: 250px;
+    margin-bottom: 30px;
   }
 }
 
@@ -164,7 +169,7 @@
     width: 25px;
   }
   .swiper {
-    width: 75% !important;
+    width: 70% !important;
     height: auto !important;
   }
   .m-hero-content {
