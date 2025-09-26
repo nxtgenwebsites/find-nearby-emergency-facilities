@@ -325,7 +325,7 @@
     .edition-card {
       padding: 10px !important;
       margin-bottom: 0;
-      border-radius: 12px 12px 0 0;
+      border-radius: 12px !important;
     }
   
     .edition-card.active {
