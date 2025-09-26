@@ -415,8 +415,9 @@ body{
       min-height: auto !important;
   }
   footer{
-    position: unset !important;
+    position: absolute !important;
     margin-top: 0 !important;
+    bottom: 0 !important;
   }
 }
 
