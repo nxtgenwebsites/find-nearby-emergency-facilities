@@ -121,10 +121,10 @@ body {
 
 .health-center-card .tags-container .service-tag{ 
     background: #3681861A !important;
-    color: #6B6B6B !important;
+    color: #000000 !important;
 }
     .health-center-card.expanded .tags-container .service-tag{ 
-        background: #FFFFFF45 !important;
+        background: #ffffff1f!important;
         color: #FFFFFF !important;
     }
 
@@ -159,7 +159,7 @@ body {
 }
 
 .health-center-card.expanded{
-    background: #635BFF !important;
+    background: #494cfa!important;
     color: white;
     border-radius: 15px;
     padding: 25px;
@@ -608,25 +608,25 @@ transition: all 0.3s ease;
   .map-details-popup h6{
     font-weight: 600 !important;
     font-size: 18px !important;
-    color: #1f2937 !important;
+    color: #000000 !important;
   }
 
   .map-details-popup span{
     font-weight: 400 !important;
     font-size: 16px !important;
-    color: #474747 !important;
+    color: #000000 !important;
   }
 
   .hospital-name{
     font-size: 18px !important;
     font-weight: 600;
-    color: #474747 !important;
+    color: #000000 !important;
 }
 
 .health-center-card h5 {
     font-size: 18px !important;
     font-weight: 600;
-    color: #474747 !important;
+    color: #000000 !important;
 
 }
 .health-center-card h4 {

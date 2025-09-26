@@ -105,7 +105,7 @@
             <!-- Header Section -->
             <div class="header-section">
                 <div class="d-flex flex-column-reverse mb-4">
-                    <div>
+                    <div class="d-none d-lg-block">
                         <h6 class="mb-1 result-text">We
                             <span class="fw-bold text-black">
                                 found <span id="resultCount">0</span> nearby
@@ -123,12 +123,24 @@
                     </div>
                 </div>
 
-                <div class="row row-gap-3">
+                <div class="row row-gap-3 flex-column-reverse flex-md-row">
                     <div class="col-12 col-md-4 ">
                         <div class="search-container">
                             <i class="fas fa-search search-icon"></i>
                             <input type="text" class="form-control search-input" id="hospitalSearch"
                                 placeholder="Search hospitals..." class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-12 d-lg-none">
+                        <div>
+                            <h6 class="mb-1 result-text">We
+                                <span class="fw-bold text-black">
+                                    found <span id="resultCount2">0</span> nearby
+                                </span>
+                                medical
+                                services
+                                to your current location
+                            </h6>
                         </div>
                     </div>
                     <div class="col-12 col-md-8">
@@ -218,7 +230,7 @@
                         <input type="text" class="form-control" id="city" name="city" placeholder="Type here" />
                     </div>
                     <div class="col-12 mb-3 services-type">
-                        <label for="services-type" class="form-label">Type Facility</label>
+                        <label for="services-type" class="form-label">Facility Type</label>
                         <select class="form-select" id="services-type" name="state">
                             <option value="" disabled selected>Select a facility type</option>
                             <option value="hospitals">Hospitals</option>
@@ -252,34 +264,34 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="reportForm">
+                    <form id="reportForm" action="https://formspree.io/f/xnngnyoo" method="POST">
                         <div class="mb-3">
                             <label for="subject" class="form-label">Subject/Headline</label>
-                            <input type="text" class="form-control" id="subject" placeholder="Max 25 characters"
-                                maxlength="25">
+                            <input type="text" class="form-control" id="subject" name="subject"
+                                placeholder="Max 25 characters" maxlength="25" required>
                         </div>
                         <div class="mb-3">
                             <label for="details" class="form-label">Details</label>
-                            <textarea class="form-control" id="details" rows="4" placeholder="Max 250 characters"
-                                maxlength="250"></textarea>
+                            <textarea class="form-control" id="details" name="details" rows="4"
+                                placeholder="Max 250 characters" maxlength="250" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="actionRequired" class="form-label">Action required</label>
-                            <select class="form-select" id="actionRequired">
+                            <select class="form-select" id="actionRequired" name="actionRequired" required>
                                 <option value="">Select</option>
                                 <option value="Correction">Correction</option>
                                 <option value="Remove">Remove</option>
                                 <option value="Investigate">Investigate</option>
-                                <option value="other">Other</option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
                         <div class="mb-4">
                             <label for="userRole" class="form-label">Your role</label>
-                            <select class="form-select" id="userRole">
+                            <select class="form-select" id="userRole" name="userRole" required>
                                 <option value="">Select</option>
-                                <option value="user">User</option>
-                                <option value="owner">Owner</option>
-                                <option value="other">Other</option>
+                                <option value="User">User</option>
+                                <option value="Owner">Owner</option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
                         <div class="text-center">
@@ -308,31 +320,35 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="title" class="form-label">Title</label>
-                                <select class="form-select" id="title">
+                                <select class="form-select" id="title" name="title" required>
                                     <option value="">Select</option>
                                     <option value="Mr">Mr</option>
                                     <option value="Mrs">Mrs</option>
-                                    <option value="Dr">Dr</option>
-                                    <option value="Ms">Ms</option>
                                     <option value="Miss">Miss</option>
+                                    <option value="Ms">Ms</option>
                                     <option value="Prof">Prof</option>
-                                    <option value="HRH">HRH</option>
-                                    <option value="REV">REV</option>
+                                    <option value="Rev">Rev</option>
+                                    <option value="Alhj">Alhj</option>
+                                    <option value="Mlm">Mlm</option>
+                                    <option value="Hon">Hon</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="John">
+                                <input type="text" class="form-control" id="firstName" name="firstName"
+                                    placeholder="John" required>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Doe">
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Doe"
+                                    required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="country" class="form-label">Country</label>
-                                <select class="form-select" id="country">
+                                <select class="form-select" id="user-country-2" name="country" required>
                                     <option value="">Select</option>
                                     <option value="Nigeria">Nigeria</option>
                                     <option value="South Africa">South Africa</option>
@@ -341,31 +357,39 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="contactNumber" class="form-label">Contact number</label>
-                                <input type="tel" class="form-control" id="contactNumber" placeholder="+00 xx xxxxx">
+                                <input type="tel" class="form-control" id="contactNumber" name="contactNumber"
+                                    placeholder="+00 xx xxxxx" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="confirmNumber" class="form-label">Confirm number</label>
-                                <input type="tel" class="form-control" id="confirmNumber" placeholder="+00 xx xxxxx">
+                                <input type="tel" class="form-control" id="confirmNumber" name="confirmNumber"
+                                    placeholder="+00 xx xxxxx" required>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="abc@gmail.com">
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="abc@gmail.com" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="confirmEmail" class="form-label">Confirm Email</label>
-                                <input type="email" class="form-control" id="confirmEmail" placeholder="abc@gmail.com">
+                                <input type="email" class="form-control" id="confirmEmail" name="confirmEmail"
+                                    placeholder="abc@gmail.com" required>
                             </div>
                         </div>
+
                         <div class="mb-4">
                             <label for="reasonToReport" class="form-label">Reason to report (Optional)</label>
-                            <textarea class="form-control" id="reasonToReport" rows="3"
+                            <textarea class="form-control" id="reasonToReport" name="reasonToReport" rows="3"
                                 placeholder="Describe"></textarea>
                         </div>
+
                         <div class="text-center">
                             <button type="submit" class="btn details-send-btn px-4">Send</button>
                         </div>
@@ -426,6 +450,92 @@
             create_country_selection();
         })();
 
+        (() => {
+            const country_list = country_and_states.country;
+            const id_country_option = document.getElementById("user-country-2");
+
+            const create_country_selection = () => {
+                let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder
+                for (const country_code in country_list) {
+                    let country_name = country_list[country_code];
+                    option += '<option value="' + country_name + '">' + country_name + '</option>';
+                }
+                id_country_option.innerHTML = option;
+            };
+
+            // Initialize country dropdown
+            create_country_selection();
+        })();
+
+        document.getElementById("detailsForm").addEventListener("submit", async function (e) {
+
+            e.preventDefault();
+
+            const form = e.target;
+            const contact = document.getElementById("contactNumber").value.trim();
+            const confirmContact = document.getElementById("confirmNumber").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const confirmEmail = document.getElementById("confirmEmail").value.trim();
+
+            // Check phone numbers match
+            if (contact !== confirmContact) {
+                alert("❌ Contact number and confirm number do not match!");
+                return;
+            }
+
+            // Check emails match
+            if (email !== confirmEmail) {
+                alert("❌ Email and confirm email do not match!");
+                return;
+            }
+
+            const data = new FormData(form);
+
+            try {
+                const response = await fetch("https://formspree.io/f/mwprpjrq", {
+                    method: "POST",
+                    body: data,
+                    headers: { "Accept": "application/json" }
+                });
+
+                if (response.ok) {
+                    alert("✅ Your form has been sent successfully!");
+                    form.reset();
+                } else {
+                    alert("❌ Oops! Something went wrong. Please try again.");
+                }
+            } catch (error) {
+                alert("⚠️ Network error. Please check your connection.");
+            }
+        });
+        const form = document.getElementById("reportForm");
+        const detailsForm = document.getElementById("detailsForm");
+        const popup2 = document.getElementById("popup2");
+
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            detailsForm.style.display = "block"; // show loading popup
+
+            try {
+                const res = await fetch(form.action, {
+                    method: "POST",
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (res.ok) {
+                    detailsForm.classList.add("d-block"); // success popup
+                    alert("✅ Your form has been sent successfully!");
+                    form.reset(); // reset form
+                } else {
+                    alert("Error! Please try again ❌");
+                }
+            } catch (err) {
+                popup1.style.display = "none";
+                alert("Something went wrong!");
+            }
+        });
     </script>
 
     <script>
@@ -526,10 +636,6 @@
                 alert('Email addresses do not match');
                 return;
             }
-
-            // Simulate form submission
-            alert('Thank you! Your report has been submitted successfully.');
-
             // Close modal and reset forms
             const detailsModal = bootstrap.Modal.getInstance(document.getElementById('detailsModal'));
             detailsModal.hide();
@@ -765,8 +871,13 @@
 
             // Update result count
             const resultCountEl = document.getElementById('resultCount');
+            const resultCountEl2 = document.getElementById('resultCount2');
             if (resultCountEl) {
                 resultCountEl.textContent = filteredHospitals.length;
+            }
+
+            if (resultCountEl2) {
+                resultCountEl2.textContent = filteredHospitals.length;
             }
 
             displayPaginatedHospitals();
@@ -1116,7 +1227,10 @@
                 document.getElementById('healthCenters').innerHTML = '';
 
                 const resultCountEl = document.getElementById('resultCount');
+                const resultCountEl2 = document.getElementById('resultCount2');
                 if (resultCountEl) resultCountEl.textContent = filteredResults.length;
+
+                if (resultCountEl2) resultCountEl2.textContent = filteredResults.length;
 
                 console.log('[v0] Final results to display:', filteredResults.length);
 
@@ -1132,10 +1246,13 @@
                 document.getElementById('error').style.display = 'block';
                 document.getElementById('healthCenters').innerHTML = '';
                 const resultCountEl = document.getElementById('resultCount');
+                const resultCountEl2 = document.getElementById('resultCount2');
                 if (resultCountEl) resultCountEl.textContent = '0';
+                if (resultCountEl2) resultCountEl.textContent = '0';
+
                 document.getElementById('error').innerHTML = `
                     <h5>Error Loading Health Services</h5>
-                    <p>Unable to load nearby medical services. Please try again later.</p>
+                    <p>Unable to load nearby facility services. Please try again later.</p>
                     <button class="btn btn-primary" onclick="location.reload()">Retry</button>
                 `;
                 renderPagination();
@@ -1474,7 +1591,7 @@
         <div class="d-flex justify-content-between align-items-start mb-3">
             <h5 class="mb-0 w-75 hospital-name">${hospitalName}</h5>
             <div class="text-end small-distance">
-                <small class="text-muted"><i class="fas fa-route me-1"></i>${distance}</small>
+                <small class="text-black"><i class="fas fa-route me-1"></i>${distance}</small>
             </div>
         </div>
         
@@ -1527,7 +1644,6 @@
 `;
 
                 hospitalList.innerHTML += hospitalCard;
-
             });
         }
 
@@ -1631,28 +1747,28 @@
 
     <script>
 
-    function commingSoon(text) {
-        profileModal.classList.add('show');
-        document.getElementById('overlay2').classList.add('show');
-        document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
-    }
+        function commingSoon(text) {
+            profileModal.classList.add('show');
+            document.getElementById('overlay2').classList.add('show');
+            document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
+        }
 
-           // Mobile menu toggle
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
 
-            menuToggle.addEventListener('click', function () {
-                sidebar.classList.toggle('show');
-                overlay.classList.toggle('show');
-            });
-            overlay.addEventListener('click', function () {
-                    sidebar.classList.remove('show');
-                    overlay.classList.remove('show');
-                    // Close location modal if open
-                    document.getElementById('locationModal').classList.remove('show');
-                });
-                
+        menuToggle.addEventListener('click', function () {
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        });
+        overlay.addEventListener('click', function () {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+            // Close location modal if open
+            document.getElementById('locationModal').classList.remove('show');
+        });
+
         const searchSection = document.getElementById('searchSection');
         if (searchSection) {
             searchSection.addEventListener('click', function () {
@@ -1699,13 +1815,14 @@
                         </select>
                     </div>
                     <div class="d-flex align-items-center">
-                        <span class="me-3">${startItem}-${endItem} of ${totalItems}</span>
                         <div class="btn-group" role="group">
+                            <span class="me-3 mx-4 d-none d-lg-block">${startItem}-${endItem} of ${totalItems}</span>
                             <button type="button" class="btn btn-outline-secondary btn-sm" 
-                                    onclick="changePage(${currentPage - 1})" 
-                                    ${currentPage === 1 ? 'disabled' : ''}>
-                                <i class="fas fa-chevron-left"></i>
+                            onclick="changePage(${currentPage - 1})" 
+                            ${currentPage === 1 ? 'disabled' : ''}>
+                            <i class="fas fa-chevron-left"></i>
                             </button>
+                            <span class="me-3 mt-1 mx-4 d-block d-lg-none">${startItem}-${endItem} of ${totalItems}</span>
                             <button type="button" class="btn btn-outline-secondary btn-sm" 
                                     onclick="changePage(${currentPage + 1})" 
                                     ${currentPage === totalPages ? 'disabled' : ''}>
@@ -1740,4 +1857,3 @@
 </body>
 
 </html>
-
