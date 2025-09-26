@@ -9,7 +9,7 @@
 body{
   min-height: auto !important;
   position: relative;
-  height: 95vh;
+  height: 93.3vh;
   /* overflow: hidden; */
 }
 
@@ -420,6 +420,7 @@ body{
     position: absolute !important;
     margin-top: 0 !important;
     bottom: 0px !important;
+    /* height: 40px; */
   }
 }
 
