@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Centre App</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/terms-&-conditions.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay2"></div>
+
+    <div class="location-modal " id="locationModal">
+        <h4>Confirm to Continue</h4>
+        <p class="mt-3">By continuing to use this service you agree to our Terms & Conditions.</p>
+        <div class="location-buttons">
+            <button class="btn-location btn-deny " onclick="denyLocation()">
+                Disagree
+            </button>
+            <a href="nearby-services.html">
+                <button class="btn-location btn-allow">
+                    Agree
+                </button>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Added location permission modal -->
+    <div class="location-modal " id="profileModal">
+        <h3>Coming Soon!</h3>
+        <p>User profile feature isn’t available yet!</p>
+        <div class="location-buttons">
+            <button class="btn-location btn-allow" id="closeProfileBtn">
+                Go back
+            </button>
+        </div>
+    </div>
+
+    <!-- Added search popup modal -->
+    <div class="popup-overlay d-none" id="seach-popup">
+        <div class="seacrch-card">
+            <div class=" d-flex justify-content-between align-items-center py-3">
+                <h5 class="modal-title">Search Medical Services</h5>
+                <button type="button" class="btn-close"></button>
+            </div>
+            <form id="searchForm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <select class="form-select" id="user-country" name="country">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="state" class="form-label">State</label>
+                        <select class="form-select" id="user-state" name="state">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3 city-inp">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" name="city" placeholder="Type here" />
+                    </div>
+                    <div class="col-6 mb-3 services-type">
+                        <label for="services-type" class="form-label">Type facility</label>
+                        <input class="form-control" type="text" id="services-type" placeholder="Type here" />
+                        <i class="fa fa-search"></i>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="searchModal" class="modal">
+        <div class="bg-white rounded-lg p-6 max-w-2xl w-full shadow-xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-semibold text-teal-600">Search Medical Services</h3>
+                <button id="closeSearchBtn" class="text-gray-400 hover:text-gray-600">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                    <div class="relative">
+                        <select class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 appearance-none">
+                            <option>Select</option>
+                            <option>Pakistan</option>
+                            <option>India</option>
+                            <option>Bangladesh</option>
+                        </select>
+                        <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" width="20"
+                            height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                    <div class="relative">
+                        <select class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 appearance-none">
+                            <option>Select</option>
+                            <option>Punjab</option>
+                            <option>Sindh</option>
+                            <option>KPK</option>
+                        </select>
+                        <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" width="20"
+                            height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                    <div class="relative">
+                        <select class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 appearance-none">
+                            <option>Select</option>
+                            <option>Lahore</option>
+                            <option>Karachi</option>
+                            <option>Islamabad</option>
+                        </select>
+                        <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" width="20"
+                            height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                    <div class="relative">
+                        <select class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 appearance-none">
+                            <option>Select</option>
+                            <option>Hospital</option>
+                            <option>Clinic</option>
+                            <option>Pharmacy</option>
+                        </select>
+                        <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" width="20"
+                            height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <button class="px-8 py-2 bg-teal-100 text-teal-700 rounded-lg hover:bg-teal-200 transition-colors">
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex w-100">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-img">
+                        <img src="assets/images/logo.svg" alt="">
+                    </div>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <img src="assets/icons/home.svg" />
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="about-us.html" class="nav-link">
+                        <img src="assets/icons/info.svg" />
+                        <span>About Us</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact-us.html" class="nav-link">
+                        <img src="assets/icons/mail.svg" />
+                        <span>Contact Us</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="editions.html" class="nav-link active">
+                        <img src="assets/icons/book.svg" />
+                        <span>Editions</span>
+                    </a>
+                </li>
+                <li class="nav-item" onclick="commingSoon('Reviews page')">
+                    <a href="#" class="nav-link">
+                        <img src="assets/icons/star.svg" />
+                        <span>Reviews</span>
+                    </a>
+                </li>
+                <li class="nav-item no-page">
+                    <a href="#" class="nav-link" onclick="commingSoon('Partnerships page')">
+                        <img src="assets/icons/ph_handshake.svg" />
+                        <span>Partnerships</span>
+                    </a>
+                </li>
+                <li class="nav-item no-page">
+                    <a href="#" class="nav-link" onclick="commingSoon('System page')">
+                        <img src="assets/icons/settings.svg" />
+                        <span>System</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content w-100">
+            <!-- Header -->
+            <header class="header d-lg-none">
+                <a href="index.html" class="mobile-logo">
+                    <img src="assets/images/logo.svg">
+                </a>
+                <div class="header-right">
+                    <div class="user profile-button">
+                        <img src="assets/icons/user-icon.svg" alt="">
+                    </div>
+                    <button class="menu-toggle" id="menuToggle">
+                        <img src="assets/icons/bars.svg" alt="">
+                    </button>
+                </div>
+            </header>
+
+            <div class="main-content w-100">
+                <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
+                    <img src="assets/icons/user-icon.svg" width="30" alt="">
+                    <i class="dropdown-toggle"></i>
+                </button>
+
+                <div class="hero-content">
+                    <div class="d-flex about-header-container">
+                        <div class="about-header">
+                            Terms & Conditions
+                        </div>
+                        <div class="d-md-block about-header-img" onclick="findNearbyServices()">
+                            <img src="assets/images/Group 91.png" alt="">
+                        </div>
+                    </div>
+                    <div class="container-fluid px-0">
+                        <div class="container-fluid px-0">
+                            <!-- Header Section -->
+                            <div class="header-section">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h2 class="header-subtitle">By using 
+                                                <strong>
+                                                    HealthCentreApp GPSMedical Public Edition
+                                                </strong>
+                                                , you agree to the following:
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modified main content structure for mobile accordion layout -->
+                            <div class="container" id="content-container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="editions-container">
+                                            <!-- Cards Section with inline details for mobile -->
+                                            <div class="cards-section">
+                                                <!-- Modified each card to include its own detail section for mobile accordion behavior -->
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="card-1">
+                                                        <div class="card-title">Service Scope</div>
+                                                        <div class="card-subtitle"></div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-card-1">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="row ">
+                                                                <div
+                                                                    class="col-4 d-flex justify-content-center align-items-center">
+                                                                    <div class="m-card-icon">
+                                                                        <img src="assets/icons/f7_scope.svg" alt="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-8">
+                                                                    <h3 class="detail-title">Service Scope
+                                                                    </h3>
+                                                                    <ul class="number-list">
+                                                                        <li>
+                                                                            <p class="detail-description">
+                                                                                This edition is provided free of charge
+                                                                                and is intended to help users locate
+                                                                                nearby medical services in emergencies
+                                                                                using GPS technology.
+                                                                            </p>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Modified each card to include its own detail section for mobile accordion behavior -->
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="card-2">
+                                                        <div class="card-title">Accuracy of GPS Data </div>
+                                                        <div class="card-subtitle"></div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-card-2">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="row ">
+                                                                <div
+                                                                    class="col-4 d-flex justify-content-center align-items-center">
+                                                                    <div class="m-card-icon">
+                                                                        <img src="assets/icons/Vector (1).svg" alt="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-8">
+                                                                    <h3 class="detail-title">Accuracy of GPS Data
+                                                                    </h3>
+                                                                    <ul class="number-list">
+                                                                        <li>
+                                                                            <p class="detail-description">
+                                                                                While we strive to provide accurate and
+                                                                                up-to-date location data, we cannot
+                                                                                guarantee
+                                                                                that all information (including
+                                                                                distances, availability, or service
+                                                                                details) will always be correct or
+                                                                                complete.
+                                                                            </p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p class="detail-description">
+                                                                                Users are encouraged to verify service
+                                                                                locations before relying solely on the
+                                                                                app for
+                                                                                urgent medical decisions.
+                                                                            </p>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Modified each card to include its own detail section for mobile accordion behavior -->
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="card-3">
+                                                        <div class="card-title">Confidentiality & User Data                                                        </div>
+                                                        <div class="card-subtitle"></div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-card-3">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="row ">
+                                                                <div
+                                                                    class="col-4 d-flex justify-content-center align-items-center">
+                                                                    <div class="m-card-icon">
+                                                                        <img src="assets/icons/Vector (2).svg" alt="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-8">
+                                                                    <h3 class="detail-title">Confidentiality & User Data
+                                                                    </h3>
+                                                                    <ul class="number-list">
+                                                                        <li>
+                                                                            <p class="detail-description">
+                                                                                The Public Edition does not require registration. Any data captured (such as location information) is used
+                                                                                <strong>
+                                                                                    only for the
+                                                                                    purpose of showing nearby medical services.
+                                                                                </strong>
+                                                                            </p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p class="detail-description">
+                                                                                We do not sell, share, or disclose personal or location data to third parties.
+                                                                            </p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p class="detail-description">
+                                                                                All data handling complies with applicable data protection regulations, including GDPR.
+
+                                                                            </p>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Modified each card to include its own detail section for mobile accordion behavior -->
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="card-4">
+                                                        <div class="card-title">imitation of Liability
+                                                        </div>
+                                                        <div class="card-subtitle"></div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-card-4">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="row ">
+                                                                <div
+                                                                    class="col-4 d-flex justify-content-center align-items-center">
+                                                                    <div class="m-card-icon">
+                                                                        <img src="assets/icons/majesticons_restricted.svg" alt="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-8">
+                                                                    <h3 class="detail-title">imitation of Liability
+                                                                    </h3>
+                                                                    <ul class="number-list">
+                                                                        <li>
+                                                                            <p class="detail-description">
+                                                                                HealthCentreApp is not responsible for any direct or indirect losses, delays, or outcomes resulting from reliance on the
+                                                                                GPSMedical Public Edition. The app is an aid, not a substitute for professional medical advice or emergency services.
+                                                                            </p>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Modified each card to include its own detail section for mobile accordion behavior -->
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="card-5">
+                                                        <div class="card-title">Updates
+                                                        </div>
+                                                        <div class="card-subtitle"></div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-card-5">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="row ">
+                                                                <div
+                                                                    class="col-4 d-flex justify-content-center align-items-center">
+                                                                    <div class="m-card-icon">
+                                                                        <img src="assets/icons/radix-icons_update.svg" alt="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-8">
+                                                                    <h3 class="detail-title">Updates
+                                                                    </h3>
+                                                                    <ul class="number-list">
+                                                                        <li>
+                                                                            <p class="detail-description">
+                                                                                These terms may be updated from time to time. Continued use of the app constitutes acceptance of the latest version.
+                                                                            </p>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Detail Section (Right Side for Desktop) -->
+                                            <div class="detail-section" id="detailSection">
+                                                <div id="detail-card-1" class="detail-panel">
+                                                    <div class="mobile-detail-content">
+                                                        <div class="row ">
+                                                            <div class="col-4 d-flex justify-content-center align-items-center">
+                                                                <div class="m-card-icon">
+                                                                    <img src="assets/icons/f7_scope.svg" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <h3 class="detail-title">Service Scope
+                                                                </h3>
+                                                                <ul class="number-list">
+                                                                    <li>
+                                                                        <p class="detail-description">
+                                                                            This edition is provided free of charge
+                                                                            and is intended to help users locate
+                                                                            nearby medical services in emergencies
+                                                                            using GPS technology.
+                                                                        </p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="detail-card-2" class="detail-panel">
+                                                    <div class="mobile-detail-content">
+                                                        <div class="row ">
+                                                            <div class="col-4 d-flex justify-content-center align-items-center">
+                                                                <div class="m-card-icon">
+                                                                    <img src="assets/icons/Vector (1).svg" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <h3 class="detail-title">Accuracy of GPS Data
+                                                                </h3>
+                                                                <ul class="number-list">
+                                                                    <li>
+                                                                        <p class="detail-description">
+                                                                            While we strive to provide accurate and
+                                                                            up-to-date location data, we cannot
+                                                                            guarantee
+                                                                            that all information (including
+                                                                            distances, availability, or service
+                                                                            details) will always be correct or
+                                                                            complete.
+                                                                        </p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <p class="detail-description">
+                                                                            Users are encouraged to verify service
+                                                                            locations before relying solely on the
+                                                                            app for
+                                                                            urgent medical decisions.
+                                                                        </p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="detail-card-3" class="detail-panel">
+                                                    <div class="mobile-detail-content">
+                                                        <div class="row ">
+                                                            <div class="col-4 d-flex justify-content-center align-items-center">
+                                                                <div class="m-card-icon">
+                                                                    <img src="assets/icons/Vector (2).svg" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <h3 class="detail-title">Confidentiality & User Data
+                                                                </h3>
+                                                                <ul class="number-list">
+                                                                    <li>
+                                                                        <p class="detail-description">
+                                                                            The Public Edition does not require registration. Any data captured (such as location
+                                                                            information) is used
+                                                                            <strong>
+                                                                                only for the
+                                                                                purpose of showing nearby medical services.
+                                                                            </strong>
+                                                                        </p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <p class="detail-description">
+                                                                            We do not sell, share, or disclose personal or location data to third parties.
+                                                                        </p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <p class="detail-description">
+                                                                            All data handling complies with applicable data protection regulations, including GDPR.
+                                                    
+                                                                        </p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="detail-card-4" class="detail-panel">
+                                                    <div class="mobile-detail-content">
+                                                        <div class="row ">
+                                                            <div class="col-4 d-flex justify-content-center align-items-center">
+                                                                <div class="m-card-icon">
+                                                                    <img src="assets/icons/majesticons_restricted.svg" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <h3 class="detail-title">imitation of Liability
+                                                                </h3>
+                                                                <ul class="number-list">
+                                                                    <li>
+                                                                        <p class="detail-description">
+                                                                            HealthCentreApp is not responsible for any direct or indirect losses, delays, or outcomes
+                                                                            resulting from reliance on the
+                                                                            GPSMedical Public Edition. The app is an aid, not a substitute for professional medical advice
+                                                                            or emergency services.
+                                                                        </p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="detail-card-5" class="detail-panel">
+                                                    <div class="mobile-detail-content">
+                                                        <div class="row ">
+                                                            <div class="col-4 d-flex justify-content-center align-items-center">
+                                                                <div class="m-card-icon">
+                                                                    <img src="assets/icons/radix-icons_update.svg" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <h3 class="detail-title">Updates
+                                                                </h3>
+                                                                <ul class="number-list">
+                                                                    <li>
+                                                                        <p class="detail-description">
+                                                                            These terms may be updated from time to time. Continued use of the app constitutes acceptance of
+                                                                            the latest version.
+                                                                        </p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer -->
+                <footer class="footer">
+                    <div class="container">
+                        <div class="footer-content">
+                            <div class="footer-text">
+                                © 2025 HealthCentreApp.com- All Rights Reserved.
+                            </div>
+                            <div class="footer-links">
+                                <a href="privacy-policy.html">Privacy Policy</a>
+                                <span>|</span>
+                                <a href="#">Terms & Conditions</a>
+                                <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social"
+                                    style="cursor: pointer;">
+                                    <img src="assets/icons/facebook 1.svg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <script src="js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+        <script>
+
+            function commingSoon(text) {
+                profileModal.classList.add('show');
+                document.getElementById('overlay2').classList.add('show');
+                document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
+            }
+
+            function isMobile() {
+                return window.innerWidth <= 991.98;
+            }
+
+            document.querySelectorAll('.edition-card').forEach(card => {
+                card.addEventListener('click', function () {
+                    if (isMobile()) {
+                        const edition = this.getAttribute('data-edition');
+                        const mobileDetail = document.getElementById(`mobile-detail-${edition}`);
+                        const arrow = this.querySelector('.card-arrow');
+
+                        // Check if this card is currently active
+                        const isCurrentlyActive = this.classList.contains('active');
+
+                        // Close all other mobile details and remove active class
+                        document.querySelectorAll('.mobile-detail').forEach(detail => {
+                            detail.classList.remove('show');
+                        });
+                        document.querySelectorAll('.edition-card').forEach(c => {
+                            c.classList.remove('active');
+                        });
+
+                        // If this card wasn't active, open it
+                        if (!isCurrentlyActive && mobileDetail) {
+                            mobileDetail.classList.add('show');
+                            this.classList.add('active');
+                        }
+                    }
+                });
+
+                // Desktop hover behavior
+                card.addEventListener('mouseenter', function () {   // ✅ sahi event
+                    if (!isMobile()) {
+                        const edition = this.getAttribute('data-edition');
+                        const detailPanel = document.getElementById(`detail-${edition}`);
+                        const detailSection = document.getElementById('detailSection');
+
+                        // Close all other detail panels and remove active class
+                        document.querySelectorAll('.detail-panel').forEach(panel => {
+                            panel.style.display = 'none';
+                        });
+                        document.querySelectorAll('.edition-card').forEach(c => {
+                            c.classList.remove('active');
+                        });
+
+                        // Show selected detail panel and add active class
+                        if (detailPanel) {
+                            detailPanel.style.display = 'block';
+                            detailSection.classList.add('show');
+                            this.classList.add('active');
+                        }
+                    }
+                });
+
+                // Hide on mouse leave
+                card.addEventListener('mouseleave', function () {
+                    if (!isMobile()) {
+                        const edition = this.getAttribute('data-edition');
+                        const detailPanel = document.getElementById(`detail-${edition}`);
+                        const detailSection = document.getElementById('detailSection');
+
+                        if (detailPanel) {
+                            detailPanel.style.display = 'none';
+                            detailSection.classList.remove('show');
+                            this.classList.remove('active');
+                        }
+                    }
+                });
+            });
+
+
+            function findNearbyServices() {
+                // Show location permission modal
+                document.getElementById('locationModal').classList.add('show');
+                document.getElementById('overlay').classList.add('show');
+            }
+
+            function allowLocation() {
+                hideLocationModal();
+
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        console.log('[v0] Location obtained:', latitude, longitude);
+
+                        // Simulate finding nearby services
+                        setTimeout(() => {
+                        }, 2000);
+                    },
+                    function (error) {
+                        console.log('[v0] Location error:', error.message);
+                        let errorMessage = 'Unable to retrieve location. ';
+
+                        switch (error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage += 'Location access denied by user.';
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage += 'Location information unavailable.';
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage += 'Location request timed out.';
+                                break;
+                            default:
+                                errorMessage += 'An unknown error occurred.';
+                                break;
+                        }
+
+                        showLocationStatus(errorMessage, 'error');
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 60000
+                    }
+                );
+            }
+
+            function denyLocation() {
+                hideLocationModal();
+            }
+
+            function hideLocationModal() {
+                document.getElementById('locationModal').classList.remove('show');
+                document.getElementById('overlay').classList.remove('show');
+            }
+
+            // Close detail panel function
+            function closeDetail() {
+                document.querySelectorAll('.detail-panel').forEach(panel => {
+                    panel.style.display = 'none';
+                });
+                document.querySelectorAll('.mobile-detail').forEach(detail => {
+                    detail.classList.remove('show');
+                });
+                document.querySelectorAll('.edition-card').forEach(card => {
+                    card.classList.remove('active');
+                    const arrow = card.querySelector('.card-arrow');
+                });
+                document.getElementById('detailSection').classList.remove('show');
+            }
+
+            document.addEventListener('click', function (e) {
+                if (isMobile() && !e.target.closest('.card-wrapper') && !e.target.closest('.detail-section')) {
+                    closeDetail();
+                }
+            });
+
+            // Handle escape key to close detail panel
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    closeDetail();
+                }
+            });
+
+            window.addEventListener('resize', function () {
+                // Close details when switching between mobile/desktop
+                closeDetail();
+            });
+        </script>
+
+
+        <script>
+            const profileButton = document.querySelectorAll('.profile-button');
+            const profileModal = document.getElementById('profileModal');
+            const closeProfileBtn = document.getElementById('closeProfileBtn');
+
+            profileButton.forEach(button => {
+                button.addEventListener('click', function () {
+                    profileModal.classList.add('show');
+                    document.getElementById('overlay2').classList.add('show');
+                });
+            });
+
+            closeProfileBtn.addEventListener('click', function () {
+                profileModal.classList.remove('show');
+                document.getElementById('overlay2').classList.remove('show');
+            });
+
+            document.querySelector('#seach-popup .btn-close').addEventListener('click', function () {
+                document.getElementById('seach-popup').classList.add('d-none');
+            });
+
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+
+            menuToggle.addEventListener('click', function () {
+                sidebar.classList.toggle('show');
+                overlay.classList.toggle('show');
+            });
+
+            overlay.addEventListener('click', function () {
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+                // Close location modal if open
+                document.getElementById('profileModal').classList.remove('show');
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Responsive adjustments
+            function handleResize() {
+                if (window.innerWidth >= 992) {
+                    sidebar.classList.remove('show');
+                    overlay.classList.remove('show');
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+
+            // Initialize
+            handleResize();
+        </script>
+    </div>
+</body>
+
+</html>
