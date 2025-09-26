@@ -6,6 +6,11 @@
   --dark-gray: #4f4f4f;
 }
 
+body{
+  min-height: auto !important;
+  overflow: hidden;
+}
+
 .hero-content {
   background: white;
   color: black;
@@ -404,3 +409,15 @@
 .pages-link span{
   color: #646464;
 }
+
+@media (max-width: 991px) {
+  .main-content {
+      min-height: auto !important;
+  }
+  footer{
+    position: unset !important;
+    margin-top: 0 !important;
+  }
+}
+
+
