@@ -419,7 +419,7 @@ body{
   footer{
     position: absolute !important;
     margin-top: 0 !important;
-    bottom: -5px !important;
+    bottom: 0px !important;
   }
 }
 
