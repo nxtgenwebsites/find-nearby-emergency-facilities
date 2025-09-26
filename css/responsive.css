@@ -154,7 +154,7 @@
   }
   .medical img {
     max-width: 250px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 }
 
@@ -169,9 +169,13 @@
     width: 25px;
   }
   .swiper {
-    width: 70% !important;
+    width: 60% !important;
     height: auto !important;
   }
+  .swiper  .swiper-slide{
+    padding-bottom: 0 !important;
+  }
+
   .m-hero-content {
     padding: 10px !important;
   }
@@ -180,4 +184,9 @@
     width: 90% !important;
     margin: auto !important;
   }
+  #searchSection input{
+    font-size: 14px;
+  }
 }
+
+

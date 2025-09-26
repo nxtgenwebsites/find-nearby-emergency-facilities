@@ -379,19 +379,28 @@
 /* border-radius: 10px; */
 /* } */
 
+.pages-link h5{
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
 .pages-link button{
-  border: none;
-  padding: 0;
+  border: 2px solid #377F7E80;
+  padding: 5px 12px;
+  border-radius: 5px;
+  margin-top: 10px;
   background: transparent;
   color: #646464;
-  margin-top: 15px;
   font-size: 16px ;
-  margin-bottom: 5px;
 }
 
 .pages-link a{
  margin-top: 50px  !important;
   font-size: 14px  !important;
-  color: #646464;;
   text-decoration: none;
+  margin-bottom: 0;
+  color: #646464;
+}
+.pages-link span{
+  color: #646464;
 }
