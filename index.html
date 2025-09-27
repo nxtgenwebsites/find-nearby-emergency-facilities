@@ -269,7 +269,7 @@
                                 <p class="hero-subtitle mb-1">Empowering Citizens Supporting Health</p>
                                 <div class="stats-info">
                                     <img src="assets/icons/ph_users-four.svg" alt="">
-                                    <span>Total Visitors: 3612</span>
+                                    <span>Total Visitors: <span id="visitorCount"></span></span>
 
                                     <span>|</span>
                                     <span class="time-date"></span>
@@ -295,7 +295,7 @@
                         </div>
                         <div class="stats-info">
                             <img src="assets/icons/ph_users-four.svg" alt="">
-                            <span>Total Visitors: 3612</span>
+                            <span>Total Visitors: <span id="m-visitorCount"></span></span>
                             <br>
                             <!-- <span>|</span> -->
                             <span class="time-date"></span>
@@ -312,7 +312,7 @@
 
                         <div class="search-section" id="searchSection">
                             <input type="text" class="search-input"
-                                placeholder="Find specific Medical Services Near You" />
+                                placeholder="Find Specific Medical Services near you" />
                             <i class="fas fa-search search-icon"></i>
                         </div>
 
@@ -471,6 +471,33 @@
     </script>
 
     <script>
+
+window.addEventListener("load", async () => {
+        try {
+            await fetch("https://find-nearby-emergency-facilities-ba.vercel.app/api/visitor/visit");  // Increase counter  // Call total fetcher
+        } catch (err) {
+            console.error("Visit API error:", err);
+        }
+    });
+
+
+        // Function jo total visitors fetch karega
+            async function getTotalVisitors() {
+                try {
+                    const res = await fetch("https://find-nearby-emergency-facilities-ba.vercel.app/api/visitor/total");
+                    const data = await res.json();
+                    console.log(data);
+                    
+                    document.getElementById("visitorCount").innerText = data.totalVisitors;
+                    document.getElementById("m-visitorCount").innerText = data.totalVisitors;
+                } catch (err) {
+                    console.error("Total visitors fetch error:", err);
+                }
+            }
+
+            getTotalVisitors()
+
+
         function commingSoon(text) {
             profileModal.classList.add('show');
             document.getElementById('overlay2').classList.add('show');

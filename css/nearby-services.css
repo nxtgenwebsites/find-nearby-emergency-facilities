@@ -106,9 +106,17 @@ body {
     object-fit: cover;
 }
 
+.health-center-card .btn-close{
+    display: none;
+}
+
+.health-center-card.expanded .btn-close{
+    display: block !important;
+}
+
 .health-center-card {
     background: white;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e1e1e1;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 15px;
@@ -262,7 +270,6 @@ body {
 
 #reportModal .modal-content {
     /* display: none; */
-    border-radius: 30px 0 0px 30px;
 }
 
 #detailsModal  .modal-header {
@@ -583,7 +590,7 @@ transition: all 0.3s ease;
 
   #user-location {
     font-weight: 500 !important; 
-    width: 90%;
+    width: 100%;
     /* color: #368186; */
   }
 
@@ -635,4 +642,28 @@ transition: all 0.3s ease;
   }
   .health-center-card.expanded h4 {
     font-size: 18px !important;
+  }
+
+
+  /* Slide modal from right */
+.modal-dialog-right {
+    position: fixed;
+    right: 0;
+    margin: 0;
+    height: 100%;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+  }
+  
+  .modal.fade .modal-dialog-right {
+    transform: translateX(100%);
+  }
+  
+  .modal.fade.show .modal-dialog-right {
+    transform: translateX(0);
+  }
+
+  .modal-dialog-right {
+    max-width: 400px; /* control width */
+    width: 100%;
   }

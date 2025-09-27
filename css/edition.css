@@ -339,6 +339,20 @@
     .footer {
       margin: 0 !important;
     }
+    .like-btn .thumb-icon {
+      margin-top: 7px !important;
+      width: 27px !important;
+      height: 27px !important;
+    }
+    .like-btn .thumb-icon img{
+      width: 15px !important;
+      height: 27px !important;
+    }
+    .detail-title {
+      /* margin-top: 0.5rem; */
+      margin-bottom: 0 !important;
+
+    }
   }
   
   /* Enhanced desktop hover behavior */
@@ -359,7 +373,6 @@
     .mobile-detail {
       display: none;
     }
-    
 }
 
 .footer {
@@ -425,9 +438,6 @@
       font-size: 14px !important;
     }
 
-  .mobile-detail .mobile-detail-content .detail-title:nth-child(1){
-    display: none;
-  }
   .mobile-detail .mobile-detail-content .detail-title.mt-2.fw-bold{
     /* display: none; */
     font-size: 16px !important;
@@ -448,8 +458,13 @@
     
     .detail-title {
         padding-right: 0rem;
-        font-size: 1.1rem !important;
+        font-size: 15px !important;
     }
+
+    .detail-description{
+      margin-bottom: 0.5rem;
+    }
+
     .mobile-detail-content .contact-section {
       background: white;
     }
@@ -490,4 +505,40 @@
   margin-top: 10px;
   /* display: none; */
   top: 0;
+}
+
+.like-section {
+  margin-top: 0px !important;
+}
+
+.like-btn {
+  border: none;
+  color:  #4F4F4F;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.like-btn .thumb-icon {
+  background: #36818633;
+  /* padding: 5px ; */
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  border-radius: 50%;
+}
+.like-btn .thumb-icon img{
+  width: 18px;
+  height: 35px;
+}
+
+.likeCount {
+  color: #4F4F4F !important;
 }

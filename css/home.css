@@ -22,7 +22,7 @@ body{
 
 .m-hero-content {
   width: 100%;
-  background: linear-gradient(275.72deg, #c8cbd7 2.1%, #2c6f91 104.49%);
+  background: #368186;
   color: white;
   padding: 20px 40px;
   text-align: center !important;
@@ -38,6 +38,7 @@ body{
 }
 
 .m-hero-content .hero-subtitle {
+  margin-bottom: 0 !important;
   text-align: center;
   color: white;
 }
@@ -166,7 +167,7 @@ body{
 }
 
 .search-input::placeholder {
-  color: #999;
+  color: #000000;
 }
 
 .search-icon {
