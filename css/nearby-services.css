@@ -107,10 +107,11 @@ body {
 }
 
 .health-center-card .btn-close{
+    opacity: 1 !important;
     display: none;
 }
 
-.health-center-card.expanded .btn-close{
+.health-center-card.expanded .btn-close {
     display: block !important;
 }
 
@@ -119,21 +120,26 @@ body {
     background: none;
     padding: 0;
     margin: auto;
+    font-size: 16px !important;
     border: none;
     color: #000000;
     font-weight: 500;
     text-decoration: underline;
+    transition: 0.2s linear;
 }
+    .health-center-card .view-details-btn:hover{
+        color: #494cfa;
+    }
 
 .health-center-card.expanded .view-details-btn{
     display: none !important;
 }
 
-.health-center-card .like-card-container{
+.health-center-card .action-like2{
     display: block;
 }
 
-.health-center-card.expanded .like-card-container{
+.health-center-card.expanded .action-like2{
     display: none !important;
 }
 
