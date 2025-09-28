@@ -277,7 +277,6 @@ textarea::-webkit-scrollbar-thumb:hover {
 }
 
 .btn-submit.loading {
-  background: #6c757d;
   cursor: not-allowed;
 }
 

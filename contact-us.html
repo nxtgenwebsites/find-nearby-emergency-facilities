@@ -266,7 +266,7 @@
                     <div class="about-header">
                         Contact Us
                     </div>
-                    <div class="d-md-block about-header-img"  onclick="findNearbyServices()">
+                    <div class="d-md-block about-header-img" onclick="findNearbyServices()">
                         <img src="assets/images/Group 91.png" alt="">
                     </div>
                 </div>
@@ -348,21 +348,22 @@
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="row row-gap-3 g-2 align-items-center w-100">
+                                    <div class="row g-2 align-items-center w-100">
                                         <!-- Fake reCAPTCHA (full width) -->
-                                        <div class="col-12 col-sm-6">
-                                            <div class="fake-recaptcha d-flex align-items-center w-100">
-                                                <input type="checkbox" id="fakeCaptcha" required/>
-                                                <label for="fakeCaptcha" class="mb-0 ms-2">I am not a robot</label>
-                                                <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA" class="ms-auto" />
+                                        <div class="col-12">
+                                            <!-- Google reCAPTCHA widget -->
+                                            <div class=" mb-3">
+                                                <div class="g-recaptcha d-inline-block"
+                                                    data-sitekey="6Ld5ktcrAAAAANPFa47jZzTKRLpgLbTGX5fzYDJu"></div>
                                             </div>
-                                            <div id="captchaError" class="form-text text-danger mt-1" style="display:none;">Please check the captcha.</div>
                                         </div>
-                                    
+
                                         <!-- Submit button (full width) -->
-                                        <div class="col-12 col-sm-6 ps-sm-4">
-                                            <button type="submit" class="btn btn-submit w-auto" id="submitBtn">Submit</button>
-                                        </div>                              </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-submit w-auto"
+                                                id="submitBtn">Submit</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -380,7 +381,8 @@
                         <a href="privacy-policy.html">Privacy Policy</a>
                         <span>|</span>
                         <a href="terms-and-conditions.html">Terms & Conditions</a>
-                        <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social" style="cursor: pointer;">
+                        <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social"
+                            style="cursor: pointer;">
                             <img src="assets/icons/facebook 1.svg" alt="">
                         </a>
                     </div>
@@ -389,12 +391,12 @@
         </footer>
     </div>
     </div>
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/country-states.js"></script>
-    
-    
+
+
     <script>
         (() => {
             const country_list = country_and_states.country; // yaha tumhari countries ki list hogi
@@ -415,13 +417,13 @@
 
     <script>
 
-    function commingSoon(text) {
-        profileModal.classList.add('show');
-        document.getElementById('overlay2').classList.add('show');
-        document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
-    }
+        function commingSoon(text) {
+            profileModal.classList.add('show');
+            document.getElementById('overlay2').classList.add('show');
+            document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
+        }
 
-    
+
         const profileButton = document.querySelectorAll('.profile-button');
         const profileModal = document.getElementById('profileModal');
         const closeProfileBtn = document.getElementById('closeProfileBtn');
@@ -443,63 +445,63 @@
         });
 
         function findNearbyServices() {
-                // Show location permission modal
-                document.getElementById('locationModal').classList.add('show');
-                document.getElementById('overlay').classList.add('show');
-            }
+            // Show location permission modal
+            document.getElementById('locationModal').classList.add('show');
+            document.getElementById('overlay').classList.add('show');
+        }
 
-            function allowLocation() {
-                hideLocationModal();
+        function allowLocation() {
+            hideLocationModal();
 
-                navigator.geolocation.getCurrentPosition(
-                    function (position) {
-                        const latitude = position.coords.latitude;
-                        const longitude = position.coords.longitude;
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
 
-                        console.log('[v0] Location obtained:', latitude, longitude);
+                    console.log('[v0] Location obtained:', latitude, longitude);
 
-                        // Simulate finding nearby services
-                        setTimeout(() => {
-                        }, 2000);
-                    },
-                    function (error) {
-                        console.log('[v0] Location error:', error.message);
-                        let errorMessage = 'Unable to retrieve location. ';
+                    // Simulate finding nearby services
+                    setTimeout(() => {
+                    }, 2000);
+                },
+                function (error) {
+                    console.log('[v0] Location error:', error.message);
+                    let errorMessage = 'Unable to retrieve location. ';
 
-                        switch (error.code) {
-                            case error.PERMISSION_DENIED:
-                                errorMessage += 'Location access denied by user.';
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                errorMessage += 'Location information unavailable.';
-                                break;
-                            case error.TIMEOUT:
-                                errorMessage += 'Location request timed out.';
-                                break;
-                            default:
-                                errorMessage += 'An unknown error occurred.';
-                                break;
-                        }
-
-                        showLocationStatus(errorMessage, 'error');
-                    },
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 60000
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage += 'Location access denied by user.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage += 'Location information unavailable.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage += 'Location request timed out.';
+                            break;
+                        default:
+                            errorMessage += 'An unknown error occurred.';
+                            break;
                     }
-                );
-            }
 
-            function denyLocation() {
-                hideLocationModal();
-            }
+                    showLocationStatus(errorMessage, 'error');
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 60000
+                }
+            );
+        }
 
-            function hideLocationModal() {
-                document.getElementById('locationModal').classList.remove('show');
-                document.getElementById('overlay').classList.remove('show');
-            }
-        
+        function denyLocation() {
+            hideLocationModal();
+        }
+
+        function hideLocationModal() {
+            document.getElementById('locationModal').classList.remove('show');
+            document.getElementById('overlay').classList.remove('show');
+        }
+
 
 
         // Formspree Integration
@@ -510,7 +512,6 @@
         // Handle form submission with Formspree
         document.getElementById('contactForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-
             const form = e.target;
             const submitBtn = document.getElementById('submitBtn');
             const formData = new FormData(form);
@@ -518,16 +519,9 @@
             // Validate email confirmation
             const email = document.getElementById('email').value;
             const confirmEmail = document.getElementById('confirmEmail').value;
-            const contactNumber = document.getElementById('contactNumber').value;
-            const confirmNumber = document.getElementById('confirmNumber').value;
 
             if (email !== confirmEmail) {
                 alert('Email addresses do not match!');
-                return;
-            }
-
-            if (contactNumber && confirmNumber && contactNumber !== confirmNumber) {
-                alert('Contact numbers do not match!');
                 return;
             }
 

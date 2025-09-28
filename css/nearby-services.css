@@ -114,9 +114,32 @@ body {
     display: block !important;
 }
 
+.health-center-card .view-details-btn{
+    display: block;
+    background: none;
+    padding: 0;
+    margin: auto;
+    border: none;
+    color: #000000;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.health-center-card.expanded .view-details-btn{
+    display: none !important;
+}
+
+.health-center-card .like-card-container{
+    display: block;
+}
+
+.health-center-card.expanded .like-card-container{
+    display: none !important;
+}
+
 .health-center-card {
     background: white;
-    border: 1px solid #e1e1e1;
+    border: 0.5px solid #494cfa;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 15px;
@@ -666,4 +689,57 @@ transition: all 0.3s ease;
   .modal-dialog-right {
     max-width: 400px; /* control width */
     width: 100%;
+  }
+
+  /* Formspree Success Popup Styles */
+.formspree-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .formspree-popup.show {
+    display: flex;
+  }
+  
+  .formspree-popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .formspree-popup-content h3 {
+    color: #29343d;
+    font-size: 18px !important;
+    margin-bottom: 15px;
+  }
+  
+  .formspree-popup-content p {
+    margin-bottom: 20px;
+    font-size: 16px !important;
+    color: #29343d;
+  }
+  
+  .formspree-popup-close {
+    background: #3681861a;
+    color: #368186;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .formspree-popup-close:hover {
+    background: #3681861a;
   }
