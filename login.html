@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
@@ -38,9 +39,9 @@
         <h3>Coming Soon!</h3>
         <p>User profile feature isn’t available yet!</p>
         <div class="location-buttons">
-                <button class="btn-location btn-allow" id="closeProfileBtn">
-                    Go back
-                </button>
+            <button class="btn-location btn-allow" id="closeProfileBtn">
+                Go back
+            </button>
         </div>
     </div>
 
@@ -191,7 +192,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="about-us.html" class="nav-link active">
+                    <a href="about-us.html" class="nav-link">
                         <img src="assets/icons/info.svg" />
                         <span>About Us</span>
                     </a>
@@ -251,49 +252,45 @@
                     <img src="assets/icons/user-icon.svg" width="30" alt="">
                     <i class="dropdown-toggle"></i>
                 </button>
-                <div class="hero-content">
-                    <div class="d-flex about-header-container">
-                        <div class="about-header">
-                            About Us
+                <div class="login-container">
+                    <div class="auth-border">
+                        <div class="login-card">
+                            <h3 class="text-center mb-4">HealthCentreApp</h3>
+                            <form>
+                                <!-- Email -->
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                                </div>
+
+                                <!-- Password -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password"
+                                        placeholder="Enter your password">
+                                </div>
+
+                                <!-- Forgot Password -->
+                                <div class="mb-3 text-end extra-links">
+                                    <a href="#">Forgot password?</a>
+                                </div>
+                                <!-- Google reCAPTCHA widget -->
+                                <div class=" mb-3">
+                                    <div class="g-recaptcha d-inline-block" data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m"></div>
+                                </div>
+                                <!-- Login Button -->
+                                <div class="d-grid mb-3">
+                                    <button type="submit" class="btn btn-primary btn-custom">Login</button>
+                                </div>
+
+                                <!-- Signup -->
+                                <p class="text-center mb-0 extra-links">
+                                    Don’t have an account? <a href="signup.html">Sign Up</a>
+                                </p>
+                            </form>
                         </div>
-                        <div class="d-md-block about-header-img" onclick="findNearbyServices()">
-                            <img src="assets/images/Group 91.png" alt="">
-                        </div>
                     </div>
-                
-                    <div class="content-text">
-                        <span class="highlight-text">HealthCentreApp</span> is a uk-based medtech startup on a mission to advance global
-                        health equity. With over 50 years of combined expertise in electronic health records, we're building digital
-                        tools that save lives.
-                    </div>
-                
-                    <div class="content-text">
-                        We're starting with the <span class="highlight-text">GPSMedical Public Edition</span> – a <span
-                            class="highlight-text">free service</span> that uses gps to instantly show nearby medical services in
-                        emergencies. No sign-up, no barriers – just one click when every second matters.
-                    </div>
-                
-                    <div class="content-text">
-                        Our roadmap includes <span class="highlight-text">careconnect with overseas consultants, ai diagnoser,
-                            remotecare, caremonitors, and digital health records</span> – bringing world-class healthcare within
-                        everyone's reach.
-                    </div>
-                
-                    <div class="commitment-text">
-                        Our Commitment: 
-                        <span>
-                            Stop needless deaths by making access to care simple, fast, and free.
-                        </span>
-                    </div>
-                
-                    <div class="like-section">
-                        <button class="like-btn" id="likeBtn">
-                            <div class="thumb-icon">
-                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                            </div>
-                            <span id="likeCount" class="mx-1">0</span>
-                        </button>
-                    </div>
+
                 </div>
             </div>
             <!-- Footer -->
@@ -307,7 +304,8 @@
                             <a href="privacy-policy.html">Privacy Policy</a>
                             <span>|</span>
                             <a href="terms-and-conditions.html">Terms & Conditions</a>
-                            <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social" style="cursor: pointer;">
+                            <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social"
+                                style="cursor: pointer;">
                                 <img src="assets/icons/facebook 1.svg" alt="">
                             </a>
                         </div>
@@ -317,25 +315,26 @@
         </div>
     </div>
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
 
-const noPage = document.querySelectorAll('.no-page');
+        const noPage = document.querySelectorAll('.no-page');
 
         function commingSoon(text) {
             profileModal.classList.add('show');
             document.getElementById('overlay2').classList.add('show');
             document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
         }
-    
-    let likeCount = 0;
 
-    document.getElementById('likeBtn').addEventListener("click", () => {
-        likeCount++; // increase like count
-        document.getElementById('likeCount').innerHTML = likeCount; // update value
-    });
+        let likeCount = 0;
+
+        document.getElementById('likeBtn').addEventListener("click", () => {
+            likeCount++; // increase like count
+            document.getElementById('likeCount').innerHTML = likeCount; // update value
+        });
 
 
         function findNearbyServices() {
@@ -395,7 +394,7 @@ const noPage = document.querySelectorAll('.no-page');
             document.getElementById('locationModal').classList.remove('show');
             document.getElementById('overlay').classList.remove('show');
         }
-    
+
 
 
         const profileButton = document.querySelectorAll('.profile-button');

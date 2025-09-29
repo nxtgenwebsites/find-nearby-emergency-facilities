@@ -1,0 +1,75 @@
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-container {
+width: 100%;
+
+}
+.profile-btn {
+    top: 30px;
+}
+.login-card {
+    background: #fff;
+    width: 100% !important;
+    margin: auto;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .auth-border {
+    background: #0b6fc01e;
+    padding: 25px;
+    border-radius: 30px;
+    max-width: 630px;
+    margin: auto;
+}
+
+  .login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  .login-card h3 {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .form-control {
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  .btn-custom {
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 600;
+  }
+
+  .extra-links a {
+    font-size: 0.9rem;
+    color: #6c63ff;
+  }
+
+  .extra-links a:hover {
+    text-decoration: underline;
+  }
+
+  .btn-custom {
+    background: #368186 !important;
+    border: 0;
+  }
+
+  @media (max-width: 991px) {
+    .main-content {
+      display: block;
+    }
+    .login-container {
+      padding: 50px 0px;
+    }
+  }

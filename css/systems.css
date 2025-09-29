@@ -1,0 +1,91 @@
+.data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.data-row h6{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.data-row button {
+    background: #85858526;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 12px;
+}
+
+.links-container {
+    margin-top: 70px;
+}
+
+.links-container h6{
+    font-size: 23px;
+    font-weight: 700;
+    color: #4F4F4F;
+}
+
+.links-container .buttons-container {
+    margin-top: 20px;
+}
+
+.links-container .buttons-container .disabled-btn{
+    background: #aaaaaa26;
+    border: 2px solid #5a5a5a80;
+    border-radius: 5px;
+    padding: 6px 14px;
+}
+
+.links-container .buttons-container .active-btn{
+    background: #3681861A;
+    border: 2px solid #368186;
+    color: #368186;
+    border-radius: 5px;
+    padding: 6px 14px;
+}
+
+.links-container .buttons-container {
+    display: flex;
+    gap: 15px;
+}
+
+
+.profile-btn {
+    z-index: 100;
+}
+
+@media (max-width: 550px) {
+    .links-container .buttons-container button,
+    .links-container .buttons-container a {
+        flex: 1 1 calc(50% - 15px); /* 2 buttons per row */
+        font-size: 14px;
+    }
+    .data-row h6 {
+        font-size: 13px;
+    }
+    .data-row button {
+        font-size: 13px;
+    }
+
+    .links-container .buttons-container {
+        display: flex;
+        flex-wrap: wrap; /* allow wrapping */
+        gap: 15px;
+    }
+    
+    .links-container .buttons-container button,
+    .links-container .buttons-container a {
+        font-size: 14px;
+        flex: 1; /* equal width */
+        min-width: max-content; /* prevent shrink too small */
+    }
+    
+}
+
+@media (max-width: 992px) {
+    .main-content .hero-content {
+        min-height: 77vh !important;
+    }
+}

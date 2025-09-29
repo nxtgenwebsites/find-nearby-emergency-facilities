@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/systems.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 
@@ -38,9 +39,9 @@
         <h3>Coming Soon!</h3>
         <p>User profile feature isn’t available yet!</p>
         <div class="location-buttons">
-                <button class="btn-location btn-allow" id="closeProfileBtn">
-                    Go back
-                </button>
+            <button class="btn-location btn-allow" id="closeProfileBtn">
+                Go back
+            </button>
         </div>
     </div>
 
@@ -191,7 +192,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="about-us.html" class="nav-link active">
+                    <a href="about-us.html" class="nav-link">
                         <img src="assets/icons/info.svg" />
                         <span>About Us</span>
                     </a>
@@ -221,7 +222,7 @@
                     </a>
                 </li>
                 <li class="nav-item no-page">
-                    <a href="systems.html" class="nav-link">
+                    <a href="systems.html" class="nav-link active">
                         <img src="assets/icons/settings.svg" />
                         <span>System</span>
                     </a>
@@ -254,45 +255,56 @@
                 <div class="hero-content">
                     <div class="d-flex about-header-container">
                         <div class="about-header">
-                            About Us
+                            Systems
                         </div>
                         <div class="d-md-block about-header-img" onclick="findNearbyServices()">
                             <img src="assets/images/Group 91.png" alt="">
                         </div>
                     </div>
-                
-                    <div class="content-text">
-                        <span class="highlight-text">HealthCentreApp</span> is a uk-based medtech startup on a mission to advance global
-                        health equity. With over 50 years of combined expertise in electronic health records, we're building digital
-                        tools that save lives.
-                    </div>
-                
-                    <div class="content-text">
-                        We're starting with the <span class="highlight-text">GPSMedical Public Edition</span> – a <span
-                            class="highlight-text">free service</span> that uses gps to instantly show nearby medical services in
-                        emergencies. No sign-up, no barriers – just one click when every second matters.
-                    </div>
-                
-                    <div class="content-text">
-                        Our roadmap includes <span class="highlight-text">careconnect with overseas consultants, ai diagnoser,
-                            remotecare, caremonitors, and digital health records</span> – bringing world-class healthcare within
-                        everyone's reach.
-                    </div>
-                
-                    <div class="commitment-text">
-                        Our Commitment: 
-                        <span>
-                            Stop needless deaths by making access to care simple, fast, and free.
-                        </span>
-                    </div>
-                
-                    <div class="like-section">
-                        <button class="like-btn" id="likeBtn">
-                            <div class="thumb-icon">
-                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                    <div class="">
+                        <div class="">
+                            <div class="row row-gap-4">
+                                <div class="col-12 col-md-6">
+                                    <div class="data-row first-row">
+                                        <h6>Edition</h6>
+                                        <button>GPSMedical public Edition (free)</button>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="data-row">
+                                        <h6>Date</h6>
+                                        <button>September 10, 2025; 02:23:12</button>
+                                    </div>
+                                </div>
                             </div>
-                            <span id="likeCount" class="mx-1">0</span>
-                        </button>
+                            <div class="row mt-4 row-gap-4">
+                                <div class="col-12 col-md-6">
+                                    <div class="data-row">
+                                        <h6>Release</h6>
+                                        <button>Abc_xyz</button>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="data-row">
+                                        <h6>Version</h6>
+                                        <button>1.05</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="links-container">
+                                <h6>Quick Links</h6>
+                                <div class="buttons-container">
+                                    <button disabled class="disabled-btn">Pin</button>
+                                    <button disabled class="disabled-btn">Password</button>
+                                    <a href="privacy-policy.html">
+                                        <button class="active-btn">Privacy</button>
+                                    </a>
+                                    <a href="terms-and-conditions.html">
+                                        <button class="active-btn">Terms & Conditions</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -307,7 +319,8 @@
                             <a href="privacy-policy.html">Privacy Policy</a>
                             <span>|</span>
                             <a href="terms-and-conditions.html">Terms & Conditions</a>
-                            <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social" style="cursor: pointer;">
+                            <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social"
+                                style="cursor: pointer;">
                                 <img src="assets/icons/facebook 1.svg" alt="">
                             </a>
                         </div>
@@ -322,21 +335,13 @@
 
     <script>
 
-const noPage = document.querySelectorAll('.no-page');
+        const noPage = document.querySelectorAll('.no-page');
 
         function commingSoon(text) {
             profileModal.classList.add('show');
             document.getElementById('overlay2').classList.add('show');
             document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
         }
-    
-    let likeCount = 0;
-
-    document.getElementById('likeBtn').addEventListener("click", () => {
-        likeCount++; // increase like count
-        document.getElementById('likeCount').innerHTML = likeCount; // update value
-    });
-
 
         function findNearbyServices() {
             // Show location permission modal
@@ -395,7 +400,7 @@ const noPage = document.querySelectorAll('.no-page');
             document.getElementById('locationModal').classList.remove('show');
             document.getElementById('overlay').classList.remove('show');
         }
-    
+
 
 
         const profileButton = document.querySelectorAll('.profile-button');
