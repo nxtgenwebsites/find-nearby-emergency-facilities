@@ -95,7 +95,7 @@
                 </div>
             </div>
 
-            <button class="submit-btn">Submit</button>
+            <button class="submit-btn" id="submit-review">Submit</button>
         </div>
     </div>
 
@@ -653,6 +653,9 @@
             reviewPopup.classList.remove('d-none')
         });
 
+        document.getElementById('submit-review').addEventListener("click", () => {
+                reviewPopup.classList.add('d-none')
+        });
         reviewPopup.addEventListener("click", (e) => {
             if (e.target === reviewPopup) {
                 reviewPopup.classList.add('d-none')

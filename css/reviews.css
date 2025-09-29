@@ -270,19 +270,14 @@ footer {
   
   .submit-btn {
     display: block;
-    margin: 20px auto 0;
-    background: #0a6c5e !important;
-    color: #fff !important;
+    background: #3681861A !important;
+    color: #368186;
     border: none;
     padding: 12px 35px;
     border-radius: 8px;
     font-weight: 600;
     transition: 0.3s;
   }
-  .submit-btn:hover {
-    background: #0f8a72 !important;
-  }
-  
   /* 🔥 Mobile optimization */
   @media (max-width: 576px) {
     .review-popup {
