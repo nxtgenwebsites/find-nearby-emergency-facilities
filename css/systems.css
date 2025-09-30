@@ -36,9 +36,11 @@
     border: 2px solid #5a5a5a80;
     border-radius: 5px;
     padding: 6px 14px;
+    width: 180px;
 }
 
 .links-container .buttons-container .active-btn{
+    width: 180px;
     background: #3681861A;
     border: 2px solid #368186;
     color: #368186;
@@ -78,10 +80,15 @@
     .links-container .buttons-container button,
     .links-container .buttons-container a {
         font-size: 14px;
-        flex: 1; /* equal width */
-        min-width: max-content; /* prevent shrink too small */
     }
     
+    .links-container .buttons-container .disabled-btn{
+        width: 100% !important;
+    }
+    
+    .links-container .buttons-container .active-btn{
+        width: 100% !important;
+    }
 }
 
 @media (max-width: 992px) {

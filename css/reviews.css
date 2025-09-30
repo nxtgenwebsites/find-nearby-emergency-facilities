@@ -278,6 +278,45 @@ footer {
     font-weight: 600;
     transition: 0.3s;
   }
+
+  .star-rating { 
+    display:flex; 
+    gap:18px; 
+    align-items:flex-start; 
+  }
+
+  .s-container {
+    text-align:center; 
+    cursor:pointer;
+    transition: transform 0.2s ease;
+  }
+  .s-container:hover { transform: scale(1.1); }
+  .emoji-icon { 
+    width:40px; 
+    height:40px; 
+    display:block; 
+    margin:auto;
+  }
+  .s-container span { 
+    margin-top:6px; 
+    display:block; 
+    font-size:14px; 
+    font-weight:500;
+  }
+  
+
+  .review-close{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+  }
+  .review-close button{
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    color: #272727;
+  }
+
   /* 🔥 Mobile optimization */
   @media (max-width: 576px) {
     .review-popup {
@@ -290,5 +329,14 @@ footer {
       gap: 10px;
       justify-content: center;
     }
+    .star-rating { 
+      gap: 5px; 
+    }
+    .emoji-icon { 
+      width: 25px !important; 
+      height:25px !important;  
+    }
+    .s-container span { 
+      font-size: 12px; 
+    }
   }
-  
