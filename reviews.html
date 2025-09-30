@@ -22,96 +22,95 @@
     <div class="review-popup-overly d-none" id="add-review">
         <div class="review-popup">
             <h1>Write a New Review</h1>
-    
+
             <div class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label">Your Name *</label>
-                    <input type="text" class="form-control" id="reviewName" placeholder="Enter your full name" required>
+                    <input type="text" class="form-control" placeholder="Enter your full name">
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Email Address *</label>
-                    <input type="email" class="form-control" id="reviewEmail" placeholder="your.email@example.com" required>
+                    <input type="email" class="form-control" placeholder="your.email@example.com">
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Country</label>
-                    <input type="text" class="form-control" id="reviewCountry" placeholder="Country">
+                    <input type="text" class="form-control" placeholder="Country">
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">City</label>
-                    <input type="text" class="form-control" id="reviewCity" placeholder="City">
+                    <input type="text" class="form-control" placeholder="City">
                 </div>
                 <div class="col-12">
                     <label class="form-label">Review Title *</label>
-                    <input type="text" class="form-control" id="reviewTitle" placeholder="Summarize your experience"
-                        required>
+                    <input type="text" class="form-control" placeholder="Summarize your experience in a few words">
                 </div>
                 <div class="col-12">
                     <label class="form-label">Your Review *</label>
-                    <textarea class="form-control" id="reviewText" rows="4" maxlength="500"
-                        placeholder="Tell others about your experience..." required></textarea>
-                    <small class="text-muted" id="charCount">0 / 500 characters</small>
+                    <textarea class="form-control" rows="4" maxlength="500"
+                        placeholder="Tell others about your experience..."></textarea>
+                    <small class="text-muted">0 / 500 characters</small>
                 </div>
             </div>
-    
-            <!-- Rating -->
+
             <div class="mt-3">
                 <label class="form-label">Your Rating *</label>
                 <div class="rating-label" id="ratingLabel">Click on a star to rate your experience</div>
-                <div class="star-rating" id="ratingContainer">
-                    <div class="s-container" data-value="1">
+                <div class="star-rating">
+                    <div class="s-container  s-container-1">
                         <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f61e.svg" alt="Poor"
                             class="emoji-icon">
                         <span>Poor</span>
                     </div>
-                    <div class="s-container" data-value="2">
+                
+                    <div class="s-container s-container-2">
                         <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f615.svg" alt="Fair"
                             class="emoji-icon">
                         <span>Fair</span>
                     </div>
-                    <div class="s-container" data-value="3">
+                
+                    <div class="s-container s-container-3">
                         <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f642.svg" alt="Good"
                             class="emoji-icon">
                         <span>Good</span>
                     </div>
-                    <div class="s-container" data-value="4">
+                
+                    <div class="s-container s-container-4">
                         <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f600.svg" alt="Very Good"
                             class="emoji-icon">
                         <span>Very Good</span>
                     </div>
-                    <div class="s-container" data-value="5">
+                
+                    <div class="s-container s-container-5">
                         <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f929.svg" alt="Excellent"
                             class="emoji-icon">
                         <span>Excellent</span>
                     </div>
                 </div>
+                  
             </div>
-    
-            <!-- Terms -->
+
             <div class="form-check mt-3">
                 <input class="form-check-input" type="checkbox" id="termsCheck">
                 <label class="form-check-label">
-                    I agree to the <a href="terms-and-conditions.html">Terms</a> and <a
-                        href="privacy-policy.html">Privacy</a>
+                    I agree to the <a href="terms-and-conditions.html">Terms of Service</a> and <a
+                        href="privacy-policy.html">Privacy Policy</a>
                 </label>
             </div>
-    
-            <!-- Close Btn -->
+
             <div class="review-close" id="review-close">
                 <button><i class="fa fa-close"></i></button>
             </div>
-    
-            <!-- Captcha -->
             <div class="mt-3">
-                <div class="g-recaptcha" data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m"></div>
+                <!-- Google reCAPTCHA widget -->
+                <div class=" mb-3">
+                    <div class="g-recaptcha d-inline-block" data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m">
+                    </div>
+                </div>
             </div>
-    
-            <!-- Submit -->
-            <button class="submit-btn mt-3" id="submit-review">Submit</button>
-    
-            <!-- Status Msg -->
-            <div id="statusMessage" class="mt-2"></div>
+
+            <button class="submit-btn" id="submit-review">Submit</button>
         </div>
-        </div>
+    </div>
 
     <div class="location-modal " id="locationModal">
         <h4>Confirm to Continue</h4>
@@ -661,72 +660,14 @@
 
     <script>
 
-    let selectedRating = 0;
-
-    // Character Counter
-    document.getElementById("reviewText").addEventListener("input", function () {
-        document.getElementById("charCount").innerText = `${this.value.length} / 500 characters`;
-    });
-
-    // Rating Click
-    document.querySelectorAll(".s-container").forEach(item => {
-        item.addEventListener("click", () => {
-            selectedRating = item.dataset.value;
-            document.getElementById("ratingLabel").innerText = `You selected: ${selectedRating} star(s)`;
-        });
-    });
-
-    // Submit Review
-    document.getElementById("submit-review").addEventListener("click", async () => {
-        const name = document.getElementById("reviewName").value.trim();
-        const email = document.getElementById("reviewEmail").value.trim();
-        const country = document.getElementById("reviewCountry").value.trim();
-        const city = document.getElementById("reviewCity").value.trim();
-        const title = document.getElementById("reviewTitle").value.trim();
-        const review = document.getElementById("reviewText").value.trim();
-        const terms = document.getElementById("termsCheck").checked;
-        const captcha = grecaptcha.getResponse();
-
-        if (!name || !email || !title || !review || !selectedRating) {
-            return showMessage("❌ Please fill all required fields and select rating", "red");
-        }
-        if (!terms) {
-            return showMessage("❌ You must agree to terms", "red");
-        }
-        if (!captcha) {
-            return showMessage("❌ Please verify reCAPTCHA", "red");
-        }
-
-        const data = { name, email, country, city, title, review, rating: selectedRating, captcha };
-
-        try {
-            const res = await fetch("https://formspree.io/f/meorglob", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            });
-
-            const result = await res.json();
-            if (result.success) {
-                showMessage("✅ Review submitted successfully!", "green");
-            } else {
-                showMessage("❌ Error: " + result.message, "red");
-            }
-        } catch (err) {
-            showMessage("⚠️ Server error!", "red");
-        }
-    });
-
-    function showMessage(msg, color) {
-        const el = document.getElementById("statusMessage");
-        el.innerText = msg;
-        el.style.color = color;
-    }
-
         const reviewPopup = document.getElementById('add-review');
 
         document.getElementById('add-review-btn').addEventListener("click", () => {
             reviewPopup.classList.remove('d-none')
+        });
+
+        document.getElementById('submit-review').addEventListener("click", () => {
+                reviewPopup.classList.add('d-none')
         });
 
         document.getElementById('review-close').addEventListener("click", () => {
