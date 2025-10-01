@@ -83,6 +83,10 @@ body {
     margin-top: 40px;
 }
 
+.profile-btn {
+    z-index: 100;
+  }
+
 .like-btn {
     /* background-color: #4299e1; */
     border: none;

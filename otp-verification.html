@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/systems.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 
@@ -222,7 +222,7 @@
                     </a>
                 </li>
                 <li class="nav-item no-page">
-                    <a href="systems.html" class="nav-link active">
+                    <a href="#" class="nav-link" onclick="commingSoon('System Page')">
                         <img src="assets/icons/settings.svg" />
                         <span>System</span>
                     </a>
@@ -252,60 +252,32 @@
                     <img src="assets/icons/user-icon.svg" width="30" alt="">
                     <i class="dropdown-toggle"></i>
                 </button>
-                <div class="hero-content">
-                    <div class="d-flex about-header-container">
-                        <div class="about-header">
-                            Systems
-                        </div>
-                        <div class="d-md-block about-header-img" onclick="findNearbyServices()">
-                            <img src="assets/images/Group 91.png" alt="">
-                        </div>
+                <div class="login-container">
+                    <div class="auth-border">
+                        <div class="login-card">
+                            <h3 class="text-center mb-3">HealthCentreApp</h3>
+                            <p class="otp-text">We have sent a 6-digit verification code to your email/number</p>
+                        
+                            <form id="otpForm">
+                                <div class="otp-inputs">
+                                    <input type="text" maxlength="1" class="form-control otp" />
+                                    <input type="text" maxlength="1" class="form-control otp" />
+                                    <input type="text" maxlength="1" class="form-control otp" />
+                                    <input type="text" maxlength="1" class="form-control otp" />
+                                    <input type="text" maxlength="1" class="form-control otp" />
+                                    <input type="text" maxlength="1" class="form-control otp" />
+                                </div>
+                        
+                                <div class="d-grid mb-3">
+                                    <button type="submit" class="btn btn-primary btn-custom">Verify OTP</button>
+                                </div>
+                        
+                                <p class="text-center extra-links mb-0">
+                                    Didn’t receive the code? <a href="#">Resend</a>
+                                </p>
+                            </form>                  </div>
                     </div>
-                    <div class="">
-                        <div class="">
-                            <div class="row row-gap-4">
-                                <div class="col-12 col-md-6">
-                                    <div class="data-row first-row">
-                                        <h6>Edition</h6>
-                                        <button>GPSMedical public Edition (free)</button>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="data-row">
-                                        <h6>Date</h6>
-                                        <button>September 10, 2025; 02:23:12</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-4 row-gap-4">
-                                <div class="col-12 col-md-6">
-                                    <div class="data-row">
-                                        <h6>Release</h6>
-                                        <button>Abc_xyz</button>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="data-row">
-                                        <h6>Version</h6>
-                                        <button>1.05</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="links-container">
-                                <h6>Quick Links</h6>
-                                <div class="buttons-container">
-                                    <button disabled class="disabled-btn">Pin</button>
-                                    <button disabled class="disabled-btn">Password</button>
-                                    <a href="privacy-policy.html">
-                                        <button class="active-btn">Privacy</button>
-                                    </a>
-                                    <a href="terms-and-conditions.html">
-                                        <button class="active-btn">Terms & Conditions</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <!-- Footer -->
@@ -330,6 +302,7 @@
         </div>
     </div>
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -342,6 +315,14 @@
             document.getElementById('overlay2').classList.add('show');
             document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
         }
+
+        let likeCount = 0;
+
+        document.getElementById('likeBtn').addEventListener("click", () => {
+            likeCount++; // increase like count
+            document.getElementById('likeCount').innerHTML = likeCount; // update value
+        });
+
 
         function findNearbyServices() {
             // Show location permission modal

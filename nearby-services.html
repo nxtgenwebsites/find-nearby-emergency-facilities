@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="commingSoon('Reviews Page')">
+                   <a href="#" class="nav-link" onclick="commingSoon('Reviews Page')">
                         <img src="assets/icons/star.svg" />
                         <span>Reviews</span>
                     </a>
@@ -110,8 +110,7 @@
                             <span class="fw-bold text-black">
                                 found <span id="resultCount">0</span> nearby
                             </span>
-                            faciliy
-                            services
+                            Medical Services
                             to your current location
                         </h6>
                     </div>
@@ -137,8 +136,7 @@
                                 <span class="fw-bold text-black">
                                     found <span id="resultCount2">0</span> nearby
                                 </span>
-                                faciliy
-                                services
+                                Medical Services
                                 to your current location
                             </h6>
                         </div>
@@ -1057,16 +1055,13 @@
                 }
 
                 const includedTypes = [
-                    'hospital', 'health', 'doctor', 'pharmacy', 'dentist', 'medical_clinic',
-                    'medical_store', 'health_center', 'maternal_care', 'emergency_room',
-                    'clinic', 'urgent_care', 'Maternity Centre', 'Rehabilitation Center',
-                    'Medical Center', 'Surgical Center', 'Diagnostic Center', 'Blood Bank',
-                    'Mental Health Center', 'Specialty Hospital', 'General Hospital',
-                    "Children's Hospital", 'lab', 'medical_lab', 'medical_laboratory',
-                    'health_lab', 'health_laboratory', 'chemist', 'pharmacy_store', 'drugstore',
-                    'medical_supply_store', 'medical_equipment_store', 'health_supply_store',
-                    'health_equipment_store'
+                    "hospital",
+                    "doctor",
+                    "pharmacy",
+                    "dentist",
+                    "drugstore"
                 ];
+
 
                 const { Place } = await google.maps.importLibrary("places");
                 // Need a service instance to call getDetails

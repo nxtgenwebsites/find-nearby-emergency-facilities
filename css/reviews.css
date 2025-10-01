@@ -216,6 +216,20 @@ footer {
     box-shadow: 0 0 0 2px rgba(10, 108, 94, 0.2);
   }
   
+
+  .review-popup select {
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: all 0.2s;
+  }
+  
+  .review-popup select:focus {
+    border-color: #0a6c5e;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(10, 108, 94, 0.2);
+  }
+  
   .form-check-label {
     font-size: 14px;
     font-weight: 400;

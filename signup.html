@@ -210,7 +210,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="commingSoon('Reviews Page')">
+                   <a href="#" class="nav-link" onclick="commingSoon('Reviews Page')">
                         <img src="assets/icons/star.svg" />
                         <span>Reviews</span>
                     </a>
@@ -256,7 +256,9 @@
                     <div class="auth-border">
                         <div class="login-card">
                             <h3 class="text-center mb-4">HealthCentreApp</h3>
-                            <form>
+                
+                            <!-- Step 1: Signup Form -->
+                            <form id="signupForm">
                                 <!-- First & Last Name -->
                                 <div class="row mb-3">
                                     <div class="col-md-6">
@@ -268,80 +270,224 @@
                                         <input type="text" class="form-control" id="lastName" placeholder="Last Name">
                                     </div>
                                 </div>
-                            
+                
                                 <!-- Email -->
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email address</label>
                                     <input type="email" class="form-control" id="email" placeholder="Enter your email">
                                 </div>
-                            
+                
                                 <!-- Confirm Email -->
                                 <div class="mb-3">
                                     <label for="confirmEmail" class="form-label">Confirm Email</label>
                                     <input type="email" class="form-control" id="confirmEmail" placeholder="Re-enter your email">
                                 </div>
-                            
+                
                                 <!-- Password -->
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
                                     <input type="password" class="form-control" id="password" placeholder="Enter your password">
                                 </div>
-                            
+                
                                 <!-- Confirm Password -->
                                 <div class="mb-3">
                                     <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter your password">
+                                    <input type="password" class="form-control" id="confirmPassword"
+                                        placeholder="Re-enter your password">
                                 </div>
-                            
-
-                                                                <!-- Google reCAPTCHA widget -->
-                                                                <div class=" mb-3">
-                                                                    <div class="g-recaptcha d-inline-block" data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m"></div>              </div>
-
-                                                                    
-                                <!-- Signup Button -->
+                
+                                <!-- Google reCAPTCHA widget -->
+                                <div class="mb-3">
+                                    <div class="g-recaptcha d-inline-block" data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m">
+                                    </div>
+                                </div>
+                
+                                <!-- Proceed Button -->
                                 <div class="d-grid mb-3">
-                                    <button type="submit" class="btn btn-success btn-custom">Sign Up</button>
+                                    <button type="button" class="btn btn-success btn-custom" id="proceedBtn">Proceed</button>
                                 </div>
-                            
+                
                                 <!-- Already Account -->
                                 <p class="text-center mb-0 extra-links">
                                     Already have an account? <a href="login.html">Login</a>
                                 </p>
                             </form>
-                              
+                
+                            <!-- Step 2: Next of Kin Form (Hidden Initially) -->
+                            <form id="nextOfKinForm" style="display: none;">
+                                <h4 class="mb-3">Next of Kin</h4>
+                
+                                <!-- Title -->
+                                <div class="mb-3">
+                                    <label class="form-label">Title</label>
+                                    <input type="text" class="form-control" placeholder="Same as on contact form">
+                                </div>
+                
+                                <!-- First name & Surname -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" class="form-control" placeholder="First name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Surname</label>
+                                        <input type="text" class="form-control" placeholder="Surname">
+                                    </div>
+                                </div>
+                
+                                <!-- Relationship Dropdown -->
+                                <div class="mb-3">
+                                    <label class="form-label">Relationship</label>
+                                    <select class="form-select" id="relationship">
+                                        <option value="">Select</option>
+                                        <option>Spouse</option>
+                                        <option>Parents</option>
+                                        <option>Child</option>
+                                        <option>Sibling</option>
+                                        <option>Relative</option>
+                                        <option>Friend</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                
+                                <!-- Extra Input for "Other" -->
+                                <div class="mb-3" id="otherRelationshipDiv" style="display:none;">
+                                    <label class="form-label">Specify Relationship</label>
+                                    <input type="text" class="form-control" placeholder="Enter relationship">
+                                </div>
+                
+                                <!-- Email -->
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" placeholder="Enter email">
+                                </div>
+                
+                                <div class="mb-3">
+                                    <label class="form-label">Confirm Email</label>
+                                    <input type="email" class="form-control" placeholder="Re-enter email">
+                                </div>
+                
+                                <!-- Country -->
+                                <div class="mb-3">
+                                    <label class="form-label">Country</label>
+                                    <input type="text" class="form-control" placeholder="Enter country">
+                                </div>
+                
+                                <!-- WhatsApp Number -->
+                                <div class="mb-3">
+                                    <label class="form-label">WhatsApp Number</label>
+                                    <input type="text" class="form-control" placeholder="+44(0)123456789">
+                                </div>
+                
+                                <div class="mb-3">
+                                    <label class="form-label">Confirm WhatsApp Number</label>
+                                    <input type="text" class="form-control" placeholder="+44(0)123456789">
+                                </div>
+                
+                                <!-- Final Submit -->
+                                <div class="d-grid mb-3">
+                                    <button type="submit" class="btn btn-custom text-white">Submit</button>
+                                </div>
+                            </form>
+                
                         </div>
-                    </div>
-
-                </div>
+                    </div>   
+                    <!-- Footer -->
+                    <footer class="footer">
+                        <div class="container">
+                            <div class="footer-content">
+                                <div class="footer-text">
+                                    © 2025 HealthCentreApp.com- All Rights Reserved.
+                                </div>
+                                <div class="footer-links">
+                                    <a href="privacy-policy.html">Privacy Policy</a>
+                                    <span>|</span>
+                                    <a href="terms-and-conditions.html">Terms & Conditions</a>
+                                    <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social"
+                                        style="cursor: pointer;">
+                                        <img src="assets/icons/facebook 1.svg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                         </div>
             </div>
-            <!-- Footer -->
-            <footer class="footer">
-                <div class="container">
-                    <div class="footer-content">
-                        <div class="footer-text">
-                            © 2025 HealthCentreApp.com- All Rights Reserved.
-                        </div>
-                        <div class="footer-links">
-                            <a href="privacy-policy.html">Privacy Policy</a>
-                            <span>|</span>
-                            <a href="terms-and-conditions.html">Terms & Conditions</a>
-                            <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social"
-                                style="cursor: pointer;">
-                                <img src="assets/icons/facebook 1.svg" alt="">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
+    <script src="js/country-states.js"></script>
+    
     <script>
+
+        var user_country_code = ""; // Default me koi country selected nahi
+
+        (() => {
+            const country_list = country_and_states.country;
+            const state_list = country_and_states.states;
+
+            const id_state_option = document.getElementById("user-state");
+            const id_country_option = document.getElementById("user-country-2");
+
+            // Initially disable the state dropdown
+            id_state_option.innerHTML = '<option>select state</option>';
+            id_state_option.setAttribute("disabled", "disabled");
+
+            const create_country_selection = () => {
+                let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
+                for (const country_code in country_list) {
+                    option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
+                }
+                id_country_option.innerHTML = option;
+            };
+
+            const create_states_selection = () => {
+                let selected_country_code = id_country_option.value;
+                let state_names = state_list[selected_country_code];
+
+                if (!state_names) {
+                    id_state_option.innerHTML = '<option>select state</option>';
+                    id_state_option.setAttribute("disabled", "disabled");
+                    return;
+                }
+
+                let option = '<option>select state</option>';
+                state_names.forEach(state => {
+                    option += '<option value="' + state.code + '">' + state.name + '</option>';
+                });
+
+                id_state_option.innerHTML = option;
+                id_state_option.removeAttribute("disabled"); // Enable dropdown when country is selected
+            };
+
+            // Country select change event update state dropdown
+            id_country_option.addEventListener('change', create_states_selection);
+
+            // Initialize country dropdown with placeholder
+            create_country_selection();
+        })();
+    </script>
+    
+    <script>
+
+    // Proceed button show Next of Kin Form
+    document.getElementById("proceedBtn").addEventListener("click", function () {
+        document.getElementById("signupForm").style.display = "none";
+        document.getElementById("nextOfKinForm").style.display = "block";
+        document.querySelector("footer").style.position = "unset";
+    });
+
+    // Show Other input if "Other" is selected
+    document.getElementById("relationship").addEventListener("change", function () {
+        if (this.value === "Other") {
+            document.getElementById("otherRelationshipDiv").style.display = "block";
+        } else {
+            document.getElementById("otherRelationshipDiv").style.display = "none";
+        }
+    });
 
         const noPage = document.querySelectorAll('.no-page');
 

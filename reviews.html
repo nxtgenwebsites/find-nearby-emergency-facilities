@@ -34,7 +34,9 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Country</label>
-                    <input type="text" class="form-control" placeholder="Country">
+                  <select id="user-country-2"  class="form-select" class="w-100">
+
+                  </select>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">City</label>
@@ -657,7 +659,57 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/country-states.js"></script>
+    
+    <script>
 
+        var user_country_code = ""; // Default me koi country selected nahi
+
+        (() => {
+            const country_list = country_and_states.country;
+            const state_list = country_and_states.states;
+
+            const id_state_option = document.getElementById("user-state");
+            const id_country_option = document.getElementById("user-country-2");
+
+            // Initially disable the state dropdown
+            id_state_option.innerHTML = '<option>select state</option>';
+            id_state_option.setAttribute("disabled", "disabled");
+
+            const create_country_selection = () => {
+                let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
+                for (const country_code in country_list) {
+                    option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
+                }
+                id_country_option.innerHTML = option;
+            };
+
+            const create_states_selection = () => {
+                let selected_country_code = id_country_option.value;
+                let state_names = state_list[selected_country_code];
+
+                if (!state_names) {
+                    id_state_option.innerHTML = '<option>select state</option>';
+                    id_state_option.setAttribute("disabled", "disabled");
+                    return;
+                }
+
+                let option = '<option>select state</option>';
+                state_names.forEach(state => {
+                    option += '<option value="' + state.code + '">' + state.name + '</option>';
+                });
+
+                id_state_option.innerHTML = option;
+                id_state_option.removeAttribute("disabled"); // Enable dropdown when country is selected
+            };
+
+            // Country select change event update state dropdown
+            id_country_option.addEventListener('change', create_states_selection);
+
+            // Initialize country dropdown with placeholder
+            create_country_selection();
+        })();
+    </script>
     <script>
 
         const reviewPopup = document.getElementById('add-review');
