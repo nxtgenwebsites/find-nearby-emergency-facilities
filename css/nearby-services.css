@@ -749,3 +749,16 @@ transition: all 0.3s ease;
   .formspree-popup-close:hover {
     background: #3681861a;
   }
+
+  .directions-btn{
+      border: 1px solid white !important;
+      color: #fff !important;
+      font-size: 14px;
+    padding: 5px 10px;
+    font-weight: 500;
+    transition: 0.2s linear;
+}
+.directions-btn:hover {
+    background: white !important;
+    color: #494cfa !important;
+}
