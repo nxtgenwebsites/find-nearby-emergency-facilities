@@ -256,7 +256,7 @@
                     <div class="auth-border">
                         <div class="login-card">
                             <h3 class="text-center mb-4">HealthCentreApp</h3>
-                            <form>
+                            <form id="login-form">
                                 <!-- Email -->
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email address</label>
@@ -318,8 +318,42 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
+
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+        e.preventDefault(); // form reload hone se bachao
+        
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        // Recaptcha value
+        // const recaptchaToken = grecaptcha.getResponse();
+        // if (!recaptchaToken) {
+        //     alert("Please complete the reCAPTCHA.");
+        //     return;
+        // }
+
+        try {
+            const res = await axios.post("http://localhost:5000/api/login", {
+                email,
+                password,
+                // recaptchaToken
+            });
+
+            // Token ko localStorage me save kar lo
+            localStorage.setItem("token", res.data);
+
+            // Redirect (optional)
+            window.location.href = "/";
+
+        } catch (err) {
+            console.error(err);
+            alert(err.response?.data?.message || "Something went wrong");
+        }
+    });
+
 
         const noPage = document.querySelectorAll('.no-page');
 

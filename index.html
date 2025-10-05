@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -30,20 +31,17 @@
     </div>
 
     <!-- Added location permission modal -->
-    <div class="location-modal " id="locationModal">
-        <h4>Confirm to Continue</h4>
-        <p class="mt-3">By continuing to use this service you agree to our Terms & Conditions.</p>
+    <div class="location-modal" id="locationModal">
+        <h4 class="text-warning">WARNING</h4>
+        <p class="mt-3 mb-0">This Geo Location Service uses Google map and its subject to Google terms and Conditions.</p>
+        <p class="mt-2 mb-0">Also, please ensure you grant Google Location Map access to your current location, otherwise it might give you wrong
+        results.</p>
+        <p class="mt-2"><strong>Do you want to Proceed?</strong></p>
         <div class="location-buttons">
-            <button class="btn-location btn-deny " onclick="denyLocation()">
-                Disagree
-            </button>
-            <a href="nearby-services.html">
-                <button class="btn-location btn-allow">
-                    Agree
-                </button>
-            </a>
+            <button class="btn-location btn-deny" onclick="denyLocation()">No</button>
+            <button class="btn-location btn-allow" id="agreeBtn">Yes</button>
         </div>
-    </div>
+        </div>
 
     <!-- Added search popup modal -->
     <div class="popup-overlay d-none" id="seach-popup">
@@ -92,7 +90,6 @@
         </div>
     </div>
     </div>
-
 
     <!-- Search Modal -->
     <div id="searchModal d-block" class="modal">
@@ -302,19 +299,37 @@
                         </div>
                     </div>
                     <div class="center-container">
-                        <div class="medical mt-4 d-none d-lg-block" onclick="findNearbyServices()">
+                        <div class="medical mt-4 d-none" onclick="findNearbyServices()">
                             <img src="assets/images/Group 71.svg" alt="">
                         </div>
 
-                        <div class="medical mt-4 d-lg-none" onclick="findNearbyServices()">
+                        <div class="medical mt-4 d-none" onclick="findNearbyServices()">
                             <img src="assets/icons/Group 161.svg" alt="">
                         </div>
 
-                        <div class="search-section" id="searchSection">
-                            <input type="text" class="search-input"
-                                placeholder="Find Specific Medical Services near you" />
-                            <i class="fas fa-search search-icon"></i>
-                        </div>
+<!-- Search Section -->
+<div class="search-section mt-4 mt-md-5" id="searchSection">
+    <div class="tags-container" id="tagsContainer">
+        <input type="text" class="search-input" id="searchInput"
+            placeholder="Find Specific Medical Services near you" />
+    </div>
+    <select id="dropdown" class="dropdown">
+        <option value="" selected disabled>Find Specific Medical Services near you</option>
+        <option value="Hospital">Hospital</option>
+        <option value="Health Center">Health Center</option>
+        <option value="Maternity Center">Maternity Center</option>
+        <option value="Doctor">Doctor</option>
+        <option value="Chemist">Chemist</option>
+        <option value="Labs">Labs</option>
+        <option value="Opticians">Opticians</option>
+        <option value="Physiotherapist">Physiotherapist</option>
+        <option value="Mental Health">Mental Health</option>
+        <option value="Psychologists">Psychologists</option>
+    </select>
+    <button class="submit-btn" id="submitBtn">Search</button> 
+</div>
+
+
 
                         <div class="sponsored-section w-100 my-4">
                             <div class="swiper">
@@ -419,6 +434,71 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/country-states.js"></script>
 
+    <script>
+        const dropdown = document.getElementById("dropdown");
+        const tagsContainer = document.getElementById("tagsContainer");
+        const searchInput2 = document.getElementById("searchInput");
+        const submitBtn = document.getElementById("submitBtn");
+        const locationModal = document.getElementById("locationModal");
+        const agreeBtn = document.getElementById("agreeBtn");
+        const overlay2 = document.getElementById("overlay");
+
+        let selectedTag = null;
+        let queryToSearch = "";
+
+        // Dropdown selection logic
+        dropdown.addEventListener("change", function () {
+            const value = this.value;
+            if (value) {
+                if (selectedTag) {
+                    selectedTag.remove();
+                }
+                const tag = document.createElement("span");
+                tag.classList.add("tag");
+                tag.innerHTML = `${value} <i class="fas fa-times"></i>`;
+                tag.querySelector("i").addEventListener("click", () => {
+                    tag.remove();
+                    selectedTag = null;
+                    dropdown.value = "";
+                    dropdown.style.display = "inline-block";
+                    tagsContainer.style.width = "auto";
+                });
+                tagsContainer.insertBefore(tag, searchInput2);
+                selectedTag = tag;
+                searchInput2.value = value;
+                tagsContainer.style.width = "100%";
+                dropdown.style.display = "none";
+            }
+        });
+
+        // Search button click → Show popup & overlay
+        submitBtn.addEventListener("click", function () {
+            queryToSearch = searchInput2.value.trim();
+            if (queryToSearch) {
+                locationModal.classList.add("show");
+                overlay.classList.add("show");
+            } else {
+                alert("Please enter or select a medical service!");
+            }
+        });
+
+        // Agree button → open map
+        agreeBtn.addEventListener("click", function () {
+            locationModal.classList.remove("show");
+            overlay2.classList.remove("show");
+            let url = `https://www.google.com/maps/search/${encodeURIComponent(queryToSearch + " near me")}`;
+            window.open(url, "_blank");
+        });
+
+        // Disagree button → just close popup & overlay
+        function denyLocation() {
+            locationModal.classList.remove("show");
+            overlay2.classList.remove("show");
+        }
+
+        // Click on overlay also closes popup
+        overlay2.addEventListener("click", denyLocation);
+    </script>
 
     <script>
         var user_country_code = ""; // Default me koi country selected nahi
@@ -589,9 +669,9 @@ window.addEventListener("load", async () => {
             document.getElementById('overlay2').classList.remove('show');
         });
 
-        document.getElementById('searchSection').addEventListener('click', function () {
-            document.getElementById('seach-popup').classList.remove('d-none');
-        });
+        // document.getElementById('searchSection').addEventListener('click', function () {
+        //     document.getElementById('seach-popup').classList.remove('d-none');
+        // });
 
         document.querySelector('#seach-popup .btn-close').addEventListener('click', function () {
             document.getElementById('seach-popup').classList.add('d-none');
@@ -675,15 +755,15 @@ window.addEventListener("load", async () => {
 
 
         // Search functionality
-        const searchInput = document.querySelector('.search-input');
-        searchInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                const searchTerm = this.value.trim();
-                if (searchTerm) {
-                    alert(`Searching for: ${searchTerm}`);
-                }
-            }
-        });
+        // const searchInput = document.querySelector('.search-input');
+        // searchInput.addEventListener('keypress', function (e) {
+        //     if (e.key === 'Enter') {
+        //         const searchTerm = this.value.trim();
+        //         if (searchTerm) {
+        //             alert(`Searching for: ${searchTerm}`);
+        //         }
+        //     }
+        // });
 
         // Close sponsored ads
         const closeBtn = document.querySelector('.close-btn');

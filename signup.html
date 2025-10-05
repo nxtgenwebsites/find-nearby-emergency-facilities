@@ -320,7 +320,18 @@
                                 <!-- Title -->
                                 <div class="mb-3">
                                     <label class="form-label">Title</label>
-                                    <input type="text" class="form-control" placeholder="Same as on contact form">
+                                    <select class="form-select" id="user-title" name="title">
+                                        <option value="">Select</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Mrs">Mrs</option>
+                                        <option value="Miss">Miss</option>
+                                        <option value="Ms">Ms</option>
+                                        <option value="Prof">Prof</option>
+                                        <option value="Rev">Rev</option>
+                                        <option value="Alhj">Alhj</option>
+                                        <option value="Mlm">Mlm</option>
+                                        <option value="Hon">Hon</option>
+                                    </select>
                                 </div>
                 
                                 <!-- First name & Surname -->
@@ -420,9 +431,9 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/country-states.js"></script>
-    
-    <script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    <script>
         var user_country_code = ""; // Default me koi country selected nahi
 
         (() => {
@@ -473,12 +484,97 @@
     
     <script>
 
-    // Proceed button show Next of Kin Form
+    let signupData = {}; // Step 1 data store
+
+    // Step 1 (Signup → Next of Kin form pe move)
     document.getElementById("proceedBtn").addEventListener("click", function () {
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const confirmEmail = document.getElementById("confirmEmail").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+        // ✅ Validation
+        if (!firstName || !lastName || !email || !password) {
+            alert("Please fill all required fields.");
+            return;
+        }
+
+        if (email !== confirmEmail) {
+            alert(`Emails do not match!`);
+            return;
+        }
+        
+        if (password !== confirmPassword) {
+            alert(`Passwords do not match!  ${password} ${confirmEmail}`);
+            return;
+        }
+
+        if (password.length < 8) {
+            alert("Password must be at least 8 characters long!");
+            return;
+        }
+
+        // ✅ Step 1 data save
+        signupData = {
+            first_name: firstName,
+            last_name: lastName,
+            email,
+            password
+        };
+
+        // ✅ Show Next of Kin form only if validation passed
         document.getElementById("signupForm").style.display = "none";
         document.getElementById("nextOfKinForm").style.display = "block";
         document.querySelector("footer").style.position = "unset";
     });
+
+    // Step 2 (Final Submit)
+    document.getElementById("nextOfKinForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const title = document.querySelector("#user-title").value.trim();
+        const kinFirst = document.querySelector("#nextOfKinForm input[placeholder='First name']").value.trim();
+        const kinLast = document.querySelector("#nextOfKinForm input[placeholder='Surname']").value.trim();
+        const relationship = document.getElementById("relationship").value;
+        const kinEmail = document.querySelector("#nextOfKinForm input[placeholder='Enter email']").value.trim();
+        const kinConfirmEmail = document.querySelector("#nextOfKinForm input[placeholder='Re-enter email']").value.trim();
+        const country = document.querySelector("#nextOfKinForm input[placeholder='Enter country']").value.trim();
+        const whatsapp = document.querySelector("#nextOfKinForm input[placeholder='+44(0)123456789']").value.trim();
+
+        if (kinEmail !== kinConfirmEmail) {
+            alert("Next of Kin emails do not match!");
+            return;
+        }
+
+        // ✅ Merge next_of_kin into signupData
+        signupData.next_of_kin = [{
+            title,
+            first_name: kinFirst,
+            last_name: kinLast,
+            relationship,
+            email: kinEmail,
+            country,
+            whatsapp_no: whatsapp
+        }];
+
+        try {
+            const response = await axios.post("http://localhost:5000/api/sign_up", signupData);
+
+            alert("Signup successful!");
+            console.log(response.data);
+
+            document.getElementById("signupForm").reset();
+            document.getElementById("nextOfKinForm").reset();
+
+            window.location.href = "login.html";
+        } catch (error) {
+            console.error("Error:", error.response?.data || error.message);
+            alert(error.response?.data?.message || "Signup failed.");
+        }
+    });
+
 
     // Show Other input if "Other" is selected
     document.getElementById("relationship").addEventListener("change", function () {

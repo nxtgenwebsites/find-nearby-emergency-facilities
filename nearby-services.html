@@ -2,30 +2,52 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Health Centre App</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Existing styles and libs -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/nearby-services.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/nearby-services.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <style>
+        /* Ensure map has height */
+        #map {
+            min-height: 380px;
+            height: 100%;
+        }
+
+        .leaflet-container {
+            border-radius: 8px;
+        }
+
+        .map-details-popup h6 {
+            margin: 0;
+        }
+
+        .leaflet-div-icon {
+            background: transparent;
+            border: none;
+        }
+    </style>
 </head>
 
 <body>
     <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
-
     <div class="overlay" id="overlay2"></div>
 
+    <!-- Profile Coming Soon Modal -->
     <div class="location-modal" id="profileModal">
         <h3>Coming Soon!</h3>
         <p>User profile feature isn't available yet!</p>
         <div class="location-buttons">
-            <button class="btn-location btn-allow" id="closeProfileBtn">
-                Go back
-            </button>
+            <button class="btn-location btn-allow" id="closeProfileBtn">Go back</button>
         </div>
     </div>
 
@@ -65,7 +87,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                   <a href="#" class="nav-link" onclick="commingSoon('Reviews Page')">
+                    <a href="#" class="nav-link" onclick="commingSoon('Reviews Page')">
                         <img src="assets/icons/star.svg" />
                         <span>Reviews</span>
                     </a>
@@ -106,12 +128,9 @@
             <div class="header-section">
                 <div class="d-none d-lg-flex flex-column-reverse mb-4">
                     <div class="d-none d-lg-block">
-                        <h6 class="mb-1 result-text">We
-                            <span class="fw-bold text-black">
-                                found <span id="resultCount">0</span> nearby
-                            </span>
-                            Medical Services
-                            to your current location
+                        <h6 class="mb-1 result-text">
+                            We <span class="fw-bold text-black">found <span id="resultCount">0</span> nearby</span>
+                            Medical Services to your current location
                         </h6>
                     </div>
                     <div class="dropdown pb-2">
@@ -132,12 +151,9 @@
                     </div>
                     <div class="col-12 d-lg-none">
                         <div>
-                            <h6 class="mb-1 result-text">We
-                                <span class="fw-bold text-black">
-                                    found <span id="resultCount2">0</span> nearby
-                                </span>
-                                Medical Services
-                                to your current location
+                            <h6 class="mb-1 result-text">
+                                We <span class="fw-bold text-black">found <span id="resultCount2">0</span> nearby</span>
+                                Medical Services to your current location
                             </h6>
                         </div>
                     </div>
@@ -145,7 +161,7 @@
                         <!-- Location Info -->
                         <div class="location-info">
                             <div
-                                class="d-flex flex-column row-gap-3  flex-md-row justify-content-between align-items-center">
+                                class="d-flex flex-column row-gap-3 flex-md-row justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
                                     <img src="assets/icons/select-location.svg" alt="Location Icon" class="me-2"
                                         style="width: 30px; height: 30px;">
@@ -175,9 +191,8 @@
                         </div>
                         <p class="mt-2">Finding nearby hospitals...</p>
                     </div>
-                    <div id="healthCenters">
 
-                    </div>
+                    <div id="healthCenters"></div>
 
                     <!-- Pagination -->
                     <nav aria-label="Health centers pagination">
@@ -193,15 +208,14 @@
                 </div>
             </div>
         </main>
-
     </div>
 
-    <!-- Added search popup modal -->
+    Search popup modal
     <div class="popup-overlay d-none" id="seach-popup">
         <div class="seacrch-card">
             <div class="p-3 position-relative">
                 <h5 class="modal-title text-center">Change location</h5>
-                <button type="button" class="btn-close position-absolute top-0 " style="right: -10px;"></button>
+                <button type="button" class="btn-close position-absolute top-0" style="right: -10px;"></button>
             </div>
             <form id="searchForm">
                 <div class="row mt-3">
@@ -216,7 +230,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="state" class="form-label">State</label>
                         <select class="form-select" id="user-state" name="state">
-                            <option value="">Select</option>.
+                            <option value="">Select</option>
                             <option value="enugu">Enugu</option>
                             <option value="punjab">Punjab</option>
                         </select>
@@ -247,14 +261,10 @@
         </div>
     </div>
 
-    <!-- ... existing modals code ... -->
-
-    <!-- Report Location Modal -->
-    <!-- Modal -->
+    Report Location Modal
     <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Center + Large -->
-            <div class="modal-content p-3"> <!-- Side padding -->
-
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-3">
                 <div class="modal-header">
                     <div class="text">
                         <h5 class="modal-title" id="reportModalLabel">Report this location</h5>
@@ -297,10 +307,12 @@
                                 <option value="Other">Other</option>
                             </select>
                         </div>
-                                                    <!-- Google reCAPTCHA widget -->
-                                                    <div class=" mb-3">
-                                                        <div class="g-recaptcha d-inline-block" data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m"></div>  
-                                                    </div>
+
+                        Google reCAPTCHA (unchanged UI)
+                        <div class="mb-3">
+                            <div class="g-recaptcha d-inline-block"
+                                data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m"></div>
+                        </div>
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary px-4">Submit</button>
@@ -312,17 +324,17 @@
         </div>
     </div>
 
+    Success popup (unchanged UI)
     <div class="formspree-popup" id="formspreePopup">
         <div class="formspree-popup-content">
-            <h3> Submitted Thank You</h3>
+            <h3>Submitted Thank You</h3>
             <p>We will get back to you as soon as possible!</p>
             <button class="formspree-popup-close" onclick="closeFormspreePopup()">Done</button>
         </div>
     </div>
 
-    <!-- Send Details Modal -->
+    Send Details Modal (unchanged UI)
     <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
-        <!-- Centered modal -->
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -333,83 +345,92 @@
                     <p class="text-center text-success mb-3">Thank you for your report, it is receiving attention</p>
                     <p class="text-muted mb-4">Please provide your details below in case we need to check some details
                         with you.</p>
-                        <form id="detailsForm">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="title" class="form-label">Title</label>
-                                    <select class="form-select" id="title" name="title" required>
-                                        <option value="">Select</option>
-                                        <option value="Mr">Mr</option>
-                                        <option value="Mrs">Mrs</option>
-                                        <option value="Miss">Miss</option>
-                                        <option value="Ms">Ms</option>
-                                        <option value="Prof">Prof</option>
-                                        <option value="Rev">Rev</option>
-                                        <option value="Alhj">Alhj</option>
-                                        <option value="Mlm">Mlm</option>
-                                        <option value="Hon">Hon</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="firstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="John" required>
-                                </div>
+
+                    <form id="detailsForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <select class="form-select" id="title" name="title" required>
+                                    <option value="">Select</option>
+                                    <option value="Mr">Mr</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Ms">Ms</option>
+                                    <option value="Prof">Prof</option>
+                                    <option value="Rev">Rev</option>
+                                    <option value="Alhj">Alhj</option>
+                                    <option value="Mlm">Mlm</option>
+                                    <option value="Hon">Hon</option>
+                                </select>
                             </div>
-                        
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="lastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Doe" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="country" class="form-label">Country</label>
-                                    <select class="form-select" id="user-country-2" name="country" required>
-                                        <option value="">Select</option>
-                                        <option value="Nigeria">Nigeria</option>
-                                        <option value="South Africa">South Africa</option>
-                                        <option value="UK">UK</option>
-                                        <option value="America">America</option>
-                                    </select>
-                                </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName"
+                                    placeholder="John" required>
                             </div>
-                        
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="abc@gmail.com" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="confirmEmail" class="form-label">Confirm Email</label>
-                                    <input type="email" class="form-control" id="confirmEmail" name="confirmEmail" placeholder="abc@gmail.com"
-                                        required>
-                                </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Doe"
+                                    required>
                             </div>
-                        
-                            <!-- Google reCAPTCHA widget -->
-                            <div class="text-center mb-3">
-                                <div class="g-recaptcha d-inline-block" data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m"></div>
+                            <div class="col-md-6 mb-3">
+                                <label for="country" class="form-label">Country</label>
+                                <select class="form-select" id="user-country-2" name="country" required>
+                                    <option value="">Select</option>
+                                    <option value="Nigeria">Nigeria</option>
+                                    <option value="South Africa">South Africa</option>
+                                    <option value="UK">UK</option>
+                                    <option value="America">America</option>
+                                </select>
                             </div>
-                        
-                            <div class="text-center">
-                                <button type="submit" class="btn details-send-btn px-4">Send</button>
-                            </div>                 </form>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="abc@gmail.com" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="confirmEmail" class="form-label">Confirm Email</label>
+                                <input type="email" class="form-control" id="confirmEmail" name="confirmEmail"
+                                    placeholder="abc@gmail.com" required>
+                            </div>
+                        </div>
+
+                        Google reCAPTCHA (unchanged UI)
+                        <div class="text-center mb-3">
+                            <div class="g-recaptcha d-inline-block"
+                                data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m"></div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn details-send-btn px-4">Send</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
+    Scripts
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/country-states.js"></script>
 
-    <script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 
-        // Formspree Integration
+    <script>
+        // Formspree popup
         function closeFormspreePopup() {
             document.getElementById('formspreePopup').classList.remove('show');
         }
 
-        var user_country_code = ""; // Default me koi country selected nahi
-
+        // Country + State lists (unchanged UI behavior)
+        var user_country_code = "";
         (() => {
             const country_list = country_and_states.country;
             const state_list = country_and_states.states;
@@ -417,12 +438,11 @@
             const id_state_option = document.getElementById("user-state");
             const id_country_option = document.getElementById("user-country");
 
-            // Initially disable the state dropdown
             id_state_option.innerHTML = '<option>select state</option>';
             id_state_option.setAttribute("disabled", "disabled");
 
             const create_country_selection = () => {
-                let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
+                let option = '<option value="" selected disabled>Select Country</option>';
                 for (const country_code in country_list) {
                     option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
                 }
@@ -445,13 +465,10 @@
                 });
 
                 id_state_option.innerHTML = option;
-                id_state_option.removeAttribute("disabled"); // Enable dropdown when country is selected
+                id_state_option.removeAttribute("disabled");
             };
 
-            // Country select change event update state dropdown
             id_country_option.addEventListener('change', create_states_selection);
-
-            // Initialize country dropdown with placeholder
             create_country_selection();
         })();
 
@@ -460,7 +477,7 @@
             const id_country_option = document.getElementById("user-country-2");
 
             const create_country_selection = () => {
-                let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder
+                let option = '<option value="" selected disabled>Select Country</option>';
                 for (const country_code in country_list) {
                     let country_name = country_list[country_code];
                     option += '<option value="' + country_name + '">' + country_name + '</option>';
@@ -468,25 +485,19 @@
                 id_country_option.innerHTML = option;
             };
 
-            // Initialize country dropdown
             create_country_selection();
         })();
 
+        // Details form submit -> Formspree
         document.getElementById("detailsForm").addEventListener("submit", async function (e) {
-
             e.preventDefault();
-
             const form = e.target;
             const email = document.getElementById("email").value.trim();
             const confirmEmail = document.getElementById("confirmEmail").value.trim();
-
-
-            // Check emails match
             if (email !== confirmEmail) {
                 alert("❌ Email and confirm email do not match!");
                 return;
             }
-
             const data = new FormData(form);
 
             try {
@@ -503,24 +514,22 @@
 
                     document.getElementById('reportForm').reset();
                     document.getElementById('detailsForm').reset();
-                    // Show success popup
-                    document.getElementById('formspreePopup').classList.add('show');
 
+                    document.getElementById('formspreePopup').classList.add('show');
                 } else {
                     alert("❌ Oops! Something went wrong. Please try again.");
                 }
-            } catch (error) {
+            } catch {
                 alert("⚠️ Network error. Please check your connection.");
             }
         });
+
         const form = document.getElementById("reportForm");
         const detailsForm = document.getElementById("detailsForm");
-        const popup2 = document.getElementById("popup2");
 
         form.addEventListener("submit", async function (e) {
             e.preventDefault();
-
-            detailsForm.style.display = "block"; // show loading popup
+            detailsForm.style.display = "block";
 
             try {
                 const res = await fetch(form.action, {
@@ -530,65 +539,15 @@
                 });
 
                 if (res.ok) {
-                    detailsForm.classList.add("d-block"); // success popup
-                    form.reset(); // reset form
-
+                    detailsForm.classList.add("d-block");
+                    form.reset();
                 } else {
                     alert("Error! Please try again ❌");
                 }
-            } catch (err) {
-                popup1.style.display = "none";
+            } catch {
                 alert("Something went wrong!");
             }
         });
-    </script>
-
-    <script>
-        let isGoogleMapsLoaded = false;
-        let googleMapsLoadPromise = null;
-        let mapInitializationAttempts = 0;
-        const MAX_INIT_ATTEMPTS = 3;
-
-        function ensureGoogleMapsLoaded() {
-            if (googleMapsLoadPromise) {
-                return googleMapsLoadPromise;
-            }
-
-            googleMapsLoadPromise = new Promise((resolve, reject) => {
-                // Check if already loaded
-                if (typeof google !== 'undefined' && google.maps && google.maps.Map) {
-                    isGoogleMapsLoaded = true;
-                    resolve();
-                    return;
-                }
-
-                let checkAttempts = 0;
-                const maxChecks = 100; // 10 seconds total
-
-                const checkInterval = setInterval(() => {
-                    checkAttempts++;
-
-                    if (typeof google !== 'undefined' && google.maps && google.maps.Map) {
-                        isGoogleMapsLoaded = true;
-                        clearInterval(checkInterval);
-                        resolve();
-                    } else if (checkAttempts >= maxChecks) {
-                        clearInterval(checkInterval);
-                        reject(new Error('Google Maps API failed to load within timeout'));
-                    }
-                }, 100);
-            });
-
-            return googleMapsLoadPromise;
-        }
-
-        function isGoogleMapsReady() {
-            return typeof google !== 'undefined' &&
-                google.maps &&
-                google.maps.Map &&
-                google.maps.places &&
-                google.maps.Geocoder;
-        }
 
         function openReportModal(locationName) {
             currentLocation = locationName;
@@ -596,11 +555,9 @@
             modal.show();
         }
 
-        // Handle report form submission
         document.getElementById('reportForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Validate form
             const subject = document.getElementById('subject').value;
             const details = document.getElementById('details').value;
             const actionRequired = document.getElementById('actionRequired').value;
@@ -611,7 +568,6 @@
                 return;
             }
 
-            // Close report modal and open details modal
             const reportModal = bootstrap.Modal.getInstance(document.getElementById('reportModal'));
             reportModal.hide();
 
@@ -621,6 +577,7 @@
             }, 300);
         });
 
+        // Profile popover open/close
         const profileButton = document.querySelectorAll('.profile-button');
         const profileModal = document.getElementById('profileModal');
         const closeProfileBtn = document.getElementById('closeProfileBtn');
@@ -640,8 +597,457 @@
                 if (overlay2) overlay2.classList.remove('show');
             });
         }
+    </script>
 
-        // <CHANGE> ensure single expanded card at a time by collapsing others first
+    <script>
+        // Geoapify
+        const GEOAPIFY_API_KEY = "492a0d7f78b44f8186631bf5933d638c";
+        const SEARCH_RADIUS_METERS = 35000; // 35km
+
+        // Map + data state
+        let map;
+        let userMarker;
+        let userCircle; // added: keep a reference to the radius circle
+        let hospitalMarkers = [];
+        let userLocation = null;
+
+        let allHospitals = [];
+        let filteredHospitals = [];
+        let currentPage = 1;
+        let itemsPerPage = 5;
+
+        function stripLeadingName(text, name) {
+            if (!text || !name) return text;
+            const t = String(text).trim();
+            const n = String(name).trim();
+            if (t.toLowerCase().startsWith(n.toLowerCase())) {
+                return t.slice(n.length).replace(/^,?\s*/, "");
+            }
+            return text;
+        }
+
+        function buildAddress(p = {}) {
+            const parts = [];
+            const line1 = [p.housenumber, p.street].filter(Boolean).join(' ').trim();
+            if (line1) parts.push(line1);
+            if (p.district) parts.push(p.district);
+            if (p.city || p.town || p.village) parts.push(p.city || p.town || p.village);
+            if (p.state) parts.push(p.state);
+            if (p.postcode) parts.push(p.postcode);
+            if (p.country) parts.push(p.country);
+
+            let candidate = parts.filter(Boolean).join(', ');
+
+            // Fallbacks: prefer address_line1/2 or formatted, but remove name if it prefixes them
+            if (!candidate) {
+                const options = [p.address_line1, p.address_line2, p.formatted].filter(Boolean);
+                candidate = options.find(Boolean) || '';
+            }
+
+            if (p.name) {
+                candidate = stripLeadingName(candidate, p.name);
+            }
+            return candidate || 'Address not available';
+        }
+
+        function getPhone(p = {}) {
+            const raw = (p.datasource && p.datasource.raw) ? p.datasource.raw : {};
+            const candidates = [
+                p.phone,
+                p.contact && p.contact.phone,
+                raw.phone,
+                raw['contact:phone'],
+                raw['phone:mobile'],
+                raw['phone:fixed_line'],
+                raw['contact_mobile'],
+                raw['contact_phone'],
+            ];
+            let phone = candidates.find(v => v);
+            if (Array.isArray(phone)) phone = phone[0];
+            if (phone && typeof phone === 'object') {
+                const first = Object.values(phone).find(Boolean);
+                if (first) phone = first;
+            }
+            return phone || 'Phone not available';
+        }
+
+        function initMap(lat, lon) {
+            const center = [lat, lon];
+            map = L.map('map').setView(center, 13);
+
+            // Tile layer via Geoapify OSM tiles
+            L.tileLayer(`https://maps.geoapify.com/v1/tile/osm-carto/{z}/{x}/{y}.png?apiKey=${GEOAPIFY_API_KEY}`, {
+                attribution: '&copy; <a href="https://www.geoapify.com/">Geoapify</a> contributors'
+            }).addTo(map);
+
+            userMarker = L.marker(center).addTo(map).bindPopup('<b>You are here</b>').openPopup();
+
+            // Update or create the radius circle
+            if (userCircle) {
+                map.removeLayer(userCircle);
+            }
+            userCircle = L.circle(center, {
+                color: "#d90429",
+                fillColor: "#ef233c",
+                fillOpacity: 0.2,
+                radius: SEARCH_RADIUS_METERS
+            }).addTo(map);
+        }
+
+        function getCurrentUserLocation() {
+            if (!navigator.geolocation) {
+                handleLocationError('Geolocation not supported');
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(async (pos) => {
+                const lat = pos.coords.latitude;
+                const lon = pos.coords.longitude;
+                userLocation = { lat, lon };
+
+                // Set UI
+                const userLocationEl = document.getElementById("user-location");
+                if (userLocationEl) {
+                    userLocationEl.innerText = `Your Current Location is: (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
+                }
+
+                // Init map and load hospitals
+                initMap(lat, lon);
+                await loadNearbyHospitals(lat, lon, "");
+            }, () => {
+                handleLocationError('Location access denied');
+            }, {
+                enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 60000
+            });
+        }
+
+        function handleLocationError(message) {
+            document.getElementById('loading').style.display = 'none';
+            const errorEl = document.getElementById('error');
+            errorEl.style.display = 'block';
+            document.getElementById('healthCenters').innerHTML = '';
+            errorEl.innerHTML = `
+        <h5>Location Access Required</h5>
+        <p>${message}. Please enable location services to find nearby hospitals.</p>
+        <button class="btn btn-primary" onclick="getCurrentUserLocation()">Try Again</button>
+      `;
+        }
+
+        async function geoapifyGeocode(text) {
+            const url = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(text)}&format=json&apiKey=${GEOAPIFY_API_KEY}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            const first = data?.results?.[0];
+            if (!first) return null;
+            return { lat: first.lat, lon: first.lon, formatted: first.formatted };
+        }
+
+        async function loadNearbyHospitals(lat, lon, serviceType = "") {
+            try {
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('error').style.display = 'none';
+
+                // Geoapify Places: hospitals in radius
+                const url =
+                    `https://api.geoapify.com/v2/places?categories=healthcare.hospital&filter=circle:${lon},${lat},${SEARCH_RADIUS_METERS}&bias=proximity:${lon},${lat}&limit=200&apiKey=${GEOAPIFY_API_KEY}`;
+
+                const res = await fetch(url);
+                const data = await res.json();
+
+                const features = Array.isArray(data.features) ? data.features : [];
+
+                // Map to unified hospital objects
+                const mapped = features.map(f => {
+                    const p = f.properties || {};
+                    const hLat = p.lat;
+                    const hLon = p.lon;
+
+                    // Distance in miles
+                    const distanceMiles = (userLocation)
+                        ? haversineMiles(userLocation.lat, userLocation.lon, hLat, hLon)
+                        : null;
+
+                    return {
+                        id: p.place_id || (p.datasource && p.datasource.raw && p.datasource.raw.osm_id) || `${hLat},${hLon}`,
+                        name: p.name || "Unnamed Hospital",
+                        lat: hLat,
+                        lon: hLon,
+                        address: buildAddress(p),            // fixed address
+                        phone: getPhone(p),                  // better phone fallbacks
+                        openingHours: p.opening_hours || "Hours not available",
+                        distance: distanceMiles,
+                        // types to support tag display
+                        types: ["hospital"]
+                    };
+                });
+
+                // Optional additional filter by serviceType (kept same UI logic)
+                let finalList = mapped;
+                if (serviceType && serviceType.trim()) {
+                    const q = serviceType.toLowerCase();
+                    finalList = finalList.filter(h =>
+                        (h.name && h.name.toLowerCase().includes(q)) ||
+                        (h.address && h.address.toLowerCase().includes(q)) ||
+                        (Array.isArray(h.types) && h.types.some(t => t.toLowerCase().includes(q)))
+                    );
+                }
+
+                // Sort by distance asc
+                finalList.sort((a, b) => {
+                    const da = a.distance ?? Infinity;
+                    const db = b.distance ?? Infinity;
+                    return da - db;
+                });
+
+                allHospitals = finalList;
+                filteredHospitals = finalList;
+                currentPage = 1;
+
+                // Update counts/UI
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'none';
+                const rc1 = document.getElementById('resultCount');
+                const rc2 = document.getElementById('resultCount2');
+                if (rc1) rc1.textContent = filteredHospitals.length;
+                if (rc2) rc2.textContent = filteredHospitals.length;
+
+                displayPaginatedHospitals();
+                renderPagination();
+                addHospitalMarkers(filteredHospitals.slice(0, itemsPerPage));
+            } catch (err) {
+                console.error(err);
+                allHospitals = [];
+                filteredHospitals = [];
+                currentPage = 1;
+
+                document.getElementById('loading').style.display = 'none';
+                const errEl = document.getElementById('error');
+                errEl.style.display = 'block';
+                document.getElementById('healthCenters').innerHTML = '';
+                const rc1 = document.getElementById('resultCount');
+                const rc2 = document.getElementById('resultCount2');
+                if (rc1) rc1.textContent = '0';
+                if (rc2) rc2.textContent = '0';
+
+                errEl.innerHTML = `
+          <h5>Error Loading Health Services</h5>
+          <p>Unable to load nearby facility services. Please try again later.</p>
+          <button class="btn btn-primary" onclick="location.reload()">Retry</button>
+        `;
+                renderPagination();
+            }
+        }
+
+        function filterHospitals(searchTerm) {
+            if (!allHospitals.length) return;
+
+            let filtered = allHospitals;
+            if (searchTerm) {
+                filtered = allHospitals.filter(h => {
+                    const name = (h.name || '').toLowerCase();
+                    const address = (h.address || '').toLowerCase();
+                    const types = Array.isArray(h.types) ? h.types.some(t => t.toLowerCase().includes(searchTerm)) : false;
+                    return name.includes(searchTerm) || address.includes(searchTerm) || types;
+                });
+            }
+
+            filteredHospitals = filtered;
+            currentPage = 1;
+
+            const rc1 = document.getElementById('resultCount');
+            const rc2 = document.getElementById('resultCount2');
+            if (rc1) rc1.textContent = filteredHospitals.length;
+            if (rc2) rc2.textContent = filteredHospitals.length;
+
+            displayPaginatedHospitals();
+            renderPagination();
+        }
+
+        function haversineMiles(lat1, lon1, lat2, lon2) {
+            const R = 3959; // miles
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) ** 2 +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) ** 2;
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        // Cards + pagination (UI classes preserved)
+        function displayPaginatedHospitals() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const hospitalsToShow = filteredHospitals.slice(startIndex, endIndex);
+            displayHospitals(hospitalsToShow);
+            addHospitalMarkers(hospitalsToShow);
+        }
+
+        function changeItemsPerPage(newItemsPerPage) {
+            itemsPerPage = parseInt(newItemsPerPage);
+            currentPage = 1;
+            displayPaginatedHospitals();
+            renderPagination();
+        }
+
+        function displayHospitals(hospitals) {
+            const hospitalList = document.getElementById('healthCenters');
+            if (!hospitalList) return;
+            hospitalList.innerHTML = '';
+
+            if (!Array.isArray(hospitals)) return;
+
+            hospitals.forEach(hospital => {
+                const distance = (typeof hospital.distance === 'number')
+                    ? `${hospital.distance.toFixed(1)} miles`
+                    : 'N/A';
+                const hospitalName = hospital.name || 'Unknown Hospital';
+                const address = hospital.address || 'Address not available';
+                const phoneNumber = hospital.phone || 'Phone not available';
+                const openingHours = typeof hospital.openingHours === 'string'
+                    ? hospital.openingHours
+                    : (Array.isArray(hospital.openingHours) ? hospital.openingHours[0] : 'Hours not available');
+                const types = (Array.isArray(hospital.types) ? hospital.types : ['hospital']).join(', ');
+
+                const card = `
+<div class="health-center-card collapsed" style="position: relative;">
+  <button type="button" class="btn-close"
+    style="position:absolute; right:15px; top:15px; z-index:2; filter: invert(1);"
+    onclick="event.stopPropagation(); collapseCard(this.closest('.health-center-card'))"></button>
+
+  <div class="d-flex justify-content-between align-items-start mb-3">
+    <h5 class="mb-0 w-75 hospital-name">${hospitalName}</h5>
+    <div class="text-end small-distance">
+      <small class="text-black"><i class="fas fa-route me-1"></i>${distance}</small>
+    </div>
+  </div>
+
+  <div class="mb-3 tags-container">
+    ${types
+                        .split(', ')
+                        .filter(type => type !== "point_of_interest")
+                        .map(type => `<span class="service-tag">${type.charAt(0).toUpperCase() + type.slice(1)}</span>`)
+                        .join(' ')}
+  </div>
+
+  <div class="mt-3 d-flex justify-content-between align-items-center like-container">
+    <div class="action-like2 d-flex gap-1" style="cursor: pointer;">
+      <img src="assets/icons/like.svg" alt="Rating" class="me-2" style="width:22px; height:22px; filter: invert(1);">
+      <h6>0</h6>
+    </div>
+    <div class="action-like2 d-flex gap-1" style="cursor: pointer;">
+      <img src="assets/icons/dislike.svg" alt="Rating" class="me-2" style="width:22px; height:22px; filter: invert(1);">
+      <h6>0</h6>
+    </div>
+    <div>
+      <button onclick="toggleExpand(this.closest('.health-center-card'))" class="view-details-btn">View Details</button>
+    </div>
+  </div>
+
+  <div class="extra-details d-none">
+    <div class="mb-2">
+      <i class="fas fa-map-marker-alt me-2"></i>
+      <strong>Address:</strong> ${address}
+    </div>
+    <div class="mb-2">
+      <i class="fas fa-phone me-2"></i>
+      <strong>Tel:</strong> ${phoneNumber}
+    </div>
+    <div class="mb-2">
+      <i class="fas fa-clock me-2"></i>
+      <strong>Opening Hours:</strong> ${typeof openingHours === 'string' ? openingHours.replace(/:/, ': ') : openingHours}
+    </div>
+
+    <div class="d-flex justify-content-between w-100 align-content-center">
+      <div>
+        <i class="fas fa-route me-2"></i>
+        <strong>Distance:</strong> ${distance}
+      </div>
+      <button class="report-btn d-none" onclick="event.stopPropagation(); openReportModal('${hospitalName.replace(/'/g, "\\'")}')">Report</button>
+    </div>
+
+    <div class="mt-3 d-flex justify-content-between align-items-center like-container">
+      <div class="action-like d-flex gap-1" data-action="like" style="cursor: pointer;">
+        <img src="assets/icons/like.svg" alt="Rating" class="me-2" style="width:22px; height:22px;">
+        <h6>0</h6>
+      </div>
+      <div class="action-like d-flex gap-1" data-action="dislike" style="cursor: pointer;">
+        <img src="assets/icons/dislike.svg" alt="Rating" class="me-2" style="width:22px; height:22px;">
+        <h6>0</h6>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+                hospitalList.innerHTML += card;
+            });
+        }
+
+        // Marker helpers (Leaflet)
+        function addHospitalMarkers(hospitals) {
+            // Clear existing
+            hospitalMarkers.forEach(m => map.removeLayer(m));
+            hospitalMarkers = [];
+
+            if (!Array.isArray(hospitals)) return;
+
+            const hospitalIcon = L.divIcon({
+                html: '<div style="color:white;background:#EA4335;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;">H</div>',
+                className: "",
+                iconSize: [24, 24],
+                popupAnchor: [0, -10]
+            });
+
+            hospitals.forEach(h => {
+                if (typeof h.lat !== 'number' || typeof h.lon !== 'number') return;
+
+                const marker = L.marker([h.lat, h.lon], { icon: hospitalIcon, title: h.name || 'Hospital' }).addTo(map);
+                marker.bindPopup(`
+          <div style="max-width: 350px; padding: 0 10px;" class="map-details-popup">
+            <div style="margin-bottom: 10px;">
+              <h6 style="margin: 0; color: #368186; font-weight: bold;">${h.name || 'Hospital'}</h6>
+            </div>
+            <div style="margin-bottom: 8px;" class="mt-2">
+              <i class="fas fa-map-marker-alt mx-2" style="color: #368186; font-size: 15px;"></i>
+              <span style="font-size: 17px;">${h.address || 'Address not available'}</span>
+            </div>
+          </div>
+        `);
+
+                marker.on('click', () => {
+                    toggleCardFromMarker(h.name || 'Hospital');
+                });
+
+                hospitalMarkers.push(marker);
+            });
+        }
+
+        function toggleCardFromMarker(hospitalName) {
+            const cards = document.querySelectorAll('.health-center-card');
+            cards.forEach(card => {
+                const title = card.querySelector('h5, h4');
+                if (title && title.innerText === hospitalName) {
+                    toggleExpand(card);
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        }
+
+        function highlightMarker(hospitalName, highlight) {
+            // Optional: could swap icon or style; Leaflet DivIcon element is internal — skip heavy styling changes to keep it robust
+            // This function kept for API-compat; no-op visual tweak
+        }
+
+        function showMarkerPopup(hospitalName) {
+            const marker = hospitalMarkers.find(m => (m.options?.title || '') === hospitalName);
+            if (marker) {
+                marker.openPopup();
+            }
+        }
+
+        // Expand/Collapse cards (UI behavior preserved)
         function collapseCard(card) {
             if (!card) return;
             const details = card.querySelector(".extra-details");
@@ -656,71 +1062,19 @@
                 const name = titleEl.innerText;
                 titleEl.outerHTML = `<h5 class="mb-0">${name}</h5>`;
                 highlightMarker(name, false);
-                if (typeof infoWindow !== 'undefined' && infoWindow) {
-                    infoWindow.close();
-                }
             }
             card.classList.remove("expanded");
         }
 
-        // <CHANGE> updated to collapse other open cards before expanding the current one
         function toggleExpand(card) {
             if (!card) return;
 
-            // Sab expanded cards collapse karo except clicked card
-            document.querySelectorAll(".health-center-card.expanded").forEach(c => {
-                if (c !== card) {
-                    collapseCard(c);
-                }
-            });
-
-            // Agar clicked card already expanded hai to kuch mat karo (toggle off hata diya)
-            if (card.classList.contains("expanded")) return;
-
-            // Expand logic
-            card.classList.add("expanded");
-
-            const details = card.querySelector(".extra-details");
-            const reportBtn = card.querySelector(".report-btn");
-            const distance = card.querySelector(".small-distance");
-            const title = card.querySelector("h5, h4");
-
-            if (details) details.classList.remove("d-none");
-            if (reportBtn) reportBtn.classList.remove("d-none");
-            if (distance) distance.classList.add("d-none");
-
-            if (title && title.tagName.toLowerCase() === "h5") {
-                title.outerHTML = `<h4 class="mb-0">${title.innerText}</h4>`;
-            }
-
-            const hospitalName = title ? title.innerText : "";
-            highlightMarker(hospitalName, true);
-            showMarkerPopup(hospitalName);
-        }
-
-
-        function toggleExpand2(card) {
-            if (!card) return;
-
-            const isExpanded = card.classList.contains("expanded");
-
-            // Agar already expanded hai → collapse karo
-            if (isExpanded) {
-                collapseCard(card);
-                return;
-            }
-
-            // Pehle sab expanded cards collapse karo
             document.querySelectorAll(".health-center-card.expanded").forEach(c => {
                 if (c !== card) collapseCard(c);
             });
 
-            // Ab clicked card expand karo
-            expandCard(card);
-        }
+            if (card.classList.contains("expanded")) return;
 
-        // Expand function
-        function expandCard(card) {
             card.classList.add("expanded");
 
             const details = card.querySelector(".extra-details");
@@ -741,1105 +1095,7 @@
             showMarkerPopup(hospitalName);
         }
 
-        // Collapse function
-        function collapseCard(card) {
-            card.classList.remove("expanded");
-
-            const details = card.querySelector(".extra-details");
-            const reportBtn = card.querySelector(".report-btn");
-            const distance = card.querySelector(".small-distance");
-            const title = card.querySelector("h5, h4");
-
-            if (details) details.classList.add("d-none");
-            if (reportBtn) reportBtn.classList.add("d-none");
-            if (distance) distance.classList.remove("d-none");
-
-            if (title && title.tagName.toLowerCase() === "h4") {
-                title.outerHTML = `<h5 class="mb-0">${title.innerText}</h5>`;
-            }
-
-            const hospitalName = title ? title.innerText : "";
-            highlightMarker(hospitalName, false);
-            if (typeof infoWindow !== "undefined" && infoWindow) {
-                infoWindow.close();
-            }
-        }
-
-
-        function showMarkerPopup(hospitalName) {
-            if (typeof hospitalMarkers === 'undefined' || !hospitalMarkers) return;
-
-            const marker = hospitalMarkers.find(m => m.title === hospitalName);
-            if (marker && typeof lastHospitalResults !== 'undefined') {
-                // Find hospital data for detailed popups
-                const hospital = lastHospitalResults.find(h => h.name === hospitalName);
-                if (hospital && typeof infoWindow !== 'undefined' && infoWindow) {
-                    const rating = hospital.rating ? hospital.rating.toFixed(1) : 'N/A';
-                    const isOpen = hospital.business_status === 'OPERATIONAL' ?
-                        '<span style="color: green;">Open Now</span>' :
-                        '<span style="color: red;">Closed</span>';
-
-                    infoWindow.setContent(`
-                        <div style="max-width: 350px; padding: 0 10px;" class="map-details-popup">
-                            <div style="margin-bottom: 10px;">
-                                <h6 style="margin: 0; color: #368186; font-weight: bold;">${hospitalName}</h6>
-                            </div>
-                            <div style="margin-bottom: 8px;" class="mt-2">
-                                <i class="fas fa-map-marker-alt mx-2" style="color: #368186; font-size: 15px;"></i>
-                                <span style="font-size: 17px;">${hospital.vicinity || 'Address not available'}</span>
-                            </div>
-                        </div>
-                    `);
-                    infoWindow.open(map, marker);
-                }
-            }
-        }
-
-        function toggleCardFromMarker(hospitalName) {
-            const cards = document.querySelectorAll('.health-center-card');
-            cards.forEach(card => {
-                const title = card.querySelector('h5, h4');
-                if (title && title.innerText === hospitalName) {
-                    toggleExpand(card);
-                    // Scroll to the card
-                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            });
-        }
-
-        function highlightMarker(hospitalName, highlight) {
-            if (typeof hospitalMarkers === 'undefined' || !hospitalMarkers) return;
-
-            hospitalMarkers.forEach(marker => {
-                if (marker.title === hospitalName && marker.content) {
-                    if (highlight) {
-                        // Highlight the marker
-                        marker.content.style.transform = 'scale(1.2)';
-                        marker.content.style.zIndex = '1000';
-                        marker.content.style.filter = 'drop-shadow(0 0 10px #007bff)';
-                    } else {
-                        // Remove highlight
-                        marker.content.style.transform = 'scale(1)';
-                        marker.content.style.zIndex = 'auto';
-                        marker.content.style.filter = 'none';
-                    }
-                }
-            });
-        }
-    </script>
-
-    <script>
-        let map;
-        let infoWindow;
-        let userMarker;
-        let hospitalMarkers = [];
-        let userLocation = null;
-        let allHospitals = []; // Store all hospitals for filtering
-        let filteredHospitals = []; // Store filtered hospitals for pagination
-        let currentPage = 1;
-        let itemsPerPage = 5; // Default 5 items per page
-        const limit = 20;
-        let lastHospitalResults = []; // Store the last fetched hospital results for marker popups
-
-        async function initMap() {
-            try {
-                mapInitializationAttempts++;
-                console.log(`[v0] Map initialization attempt ${mapInitializationAttempts}`);
-
-                await ensureGoogleMapsLoaded();
-
-                if (!isGoogleMapsReady()) {
-                    throw new Error('Google Maps API components not fully loaded');
-                }
-
-                const { Map } = await google.maps.importLibrary("maps");
-                const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
-
-                // Default center (Pakistan)
-                map = new Map(document.getElementById("map"), {
-                    center: { lat: 33.6844, lng: 73.0479 },
-                    zoom: 10,
-                    mapId: "DEMO_MAP_ID"
-                });
-
-                infoWindow = new google.maps.InfoWindow();
-
-                isGoogleMapsLoaded = true;
-                console.log('[v0] Google Maps initialized successfully');
-
-                getCurrentUserLocation();
-
-                const advanceSearch = JSON.parse(localStorage.getItem('searchData') || 'null');
-                if (advanceSearch) {
-                    console.log('[v0] Found advance search data, executing searchLocation2');
-                    setTimeout(() => {
-                        searchLocation2();
-                    }, 2000); // Increased delay for better reliability
-                }
-
-            } catch (error) {
-                console.error('[v0] Error initializing map:', error);
-
-                if (mapInitializationAttempts < MAX_INIT_ATTEMPTS) {
-                    console.log(`[v0] Retrying map initialization in 2 seconds...`);
-                    setTimeout(() => {
-                        initMap();
-                    }, 2000);
-                    return;
-                }
-
-                // Show error after all attempts failed
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('error').style.display = 'block';
-                document.getElementById('error').innerHTML = `
-                    <h5>Map Loading Error</h5>
-                    <p>Unable to load Google Maps. Please check your internet connection and try again.</p>
-                    <button class="btn btn-primary" onclick="location.reload()">Retry</button>
-                `;
-            }
-        }
-
-        // Hospital search functionality
-        const hospitalSearchInput = document.getElementById('hospitalSearch');
-
-        if (hospitalSearchInput) {
-            hospitalSearchInput.addEventListener('input', function () {
-                const searchTerm = this.value.toLowerCase().trim();
-                filterHospitals(searchTerm);
-            });
-        }
-
-        function filterHospitals(searchTerm) {
-            if (!allHospitals.length) return;
-
-            let filtered = allHospitals;
-
-            if (searchTerm) {
-                filtered = allHospitals.filter(hospital => {
-                    if (!hospital) return false;
-
-                    const name = hospital.name ? hospital.name.toLowerCase() : '';
-                    const vicinity = hospital.vicinity ? hospital.vicinity.toLowerCase() : '';
-                    const types = hospital.types && Array.isArray(hospital.types) ?
-                        hospital.types.some(type => type.toLowerCase().includes(searchTerm)) : false;
-
-                    return name.includes(searchTerm) || vicinity.includes(searchTerm) || types;
-                });
-            }
-
-            filteredHospitals = filtered;
-            currentPage = 1;
-
-            // Update result count
-            const resultCountEl = document.getElementById('resultCount');
-            const resultCountEl2 = document.getElementById('resultCount2');
-            if (resultCountEl) {
-                resultCountEl.textContent = filteredHospitals.length;
-            }
-
-            if (resultCountEl2) {
-                resultCountEl2.textContent = filteredHospitals.length;
-            }
-
-            displayPaginatedHospitals();
-            renderPagination();
-        }
-
-        // Calculate distance between two points in miles
-        function calculateDistance(lat1, lon1, lat2, lon2) {
-            const R = 3959; // Earth's radius in miles
-            const dLat = (lat2 - lat1) * Math.PI / 180;
-            const dLon = (lon2 - lon1) * Math.PI / 180;
-            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                Math.sin(dLon / 2) * Math.sin(dLon / 2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            const distance = R * c;
-            return distance;
-        }
-
-        function getCurrentUserLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(async (position) => {
-                    try {
-                        await ensureGoogleMapsLoaded();
-
-                        if (!isGoogleMapsReady()) {
-                            throw new Error('Google Maps API not ready for location operations');
-                        }
-
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-                        userLocation = { lat, lon };
-
-                        console.log('[v0] User location obtained:', lat, lon);
-
-                        const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
-
-                        // Remove existing user marker
-                        if (userMarker) {
-                            userMarker.map = null;
-                        }
-
-                        const userPin = new PinElement({
-                            background: "#4285F4",
-                            borderColor: "#ffffff",
-                            glyphColor: "#ffffff"
-                        });
-
-                        userMarker = new AdvancedMarkerElement({
-                            map,
-                            position: { lat, lng: lon },
-                            title: "You are here",
-                            content: userPin.element
-                        });
-
-                        map.setCenter({ lat, lng: lon });
-                        map.setZoom(13);
-
-                        // Get location name using reverse geocoding
-                        const geocoder = new google.maps.Geocoder();
-                        geocoder.geocode({ location: { lat, lng: lon } }, (results, status) => {
-                            const userLocationEl = document.getElementById("user-location");
-                            if (userLocationEl) {
-                                if (status === 'OK' && results && results[0]) {
-                                    userLocationEl.innerText =
-                                        `Your Current Location is: ${results[0].formatted_address}`;
-                                } else {
-                                    userLocationEl.innerText =
-                                        `Your Current Location is: (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
-                                }
-                            }
-                        });
-
-                        // Load hospitals automatically using Google Places
-                        loadNearbyHospitals(lat, lon);
-
-                    } catch (error) {
-                        console.error('[v0] Error setting up user location:', error);
-                        handleLocationError('Error setting up location');
-                    }
-                }, (error) => {
-                    console.warn('[v0] Geolocation error:', error);
-                    handleLocationError('Location access denied');
-                }, {
-                    enableHighAccuracy: true,
-                    timeout: 15000, // Increased timeout
-                    maximumAge: 60000
-                });
-            } else {
-                handleLocationError('Geolocation not supported');
-            }
-        }
-
-        function handleLocationError(message = 'Location access required') {
-            console.error('[v0] Location error:', message);
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('error').style.display = 'block';
-            document.getElementById('healthCenters').innerHTML = '';
-            document.getElementById('error').innerHTML = `
-                <h5>Location Access Required</h5>
-                <p>Please enable location services to find nearby hospitals.</p>
-                <button class="btn btn-primary" onclick="getCurrentUserLocation()">Try Again</button>
-            `;
-        }
-
-        async function loadNearbyHospitals(latitude, longitude, searchQuery = '', serviceType = '') {
-            try {
-                console.log('[v0] Loading nearby hospitals:', { latitude, longitude, searchQuery, serviceType });
-
-                await ensureGoogleMapsLoaded();
-
-                if (!isGoogleMapsReady()) {
-                    throw new Error('Google Maps API not ready for places operations');
-                }
-
-                const includedTypes = [
-                    "hospital",
-                    "doctor",
-                    "pharmacy",
-                    "dentist",
-                    "drugstore"
-                ];
-
-
-                const { Place } = await google.maps.importLibrary("places");
-                // Need a service instance to call getDetails
-                const mapDiv = document.createElement("div");
-                const service = new google.maps.places.PlacesService(mapDiv);
-
-                const requests = includedTypes.map(type => {
-                    const request = {
-                        fields: [
-                            'displayName',
-                            'location',
-                            'rating',
-                            'userRatingCount',
-                            'businessStatus',
-                            'formattedAddress',
-                            'types',
-                            'id'
-                        ],
-                        locationRestriction: {
-                            center: { lat: latitude, lng: longitude },
-                            radius: 35000
-                        },
-                        rankPreference: 'DISTANCE',
-                        language: 'en-US',
-                        includedTypes: [type]
-                    };
-
-                    if (searchQuery && searchQuery.trim()) {
-                        request.query = searchQuery.trim();
-                    }
-
-                    return Place.searchNearby(request).catch(err => {
-                        console.warn('[v0] searchNearby failed for type', type, err);
-                        return { places: [] };
-                    });
-                });
-
-                const settled = await Promise.all(requests);
-
-                let places = [];
-                settled.forEach(res => {
-                    if (res && Array.isArray(res.places)) places.push(...res.places);
-                });
-
-                console.log('[v0] Found places before deduplication:', places.length);
-
-                // Deduplicate by id or name+lat+lng
-                const uniqueMap = new Map();
-                for (const place of places) {
-                    const placeId = place.id || place.place_id || null;
-                    const latVal = place.Fg?.location?.lat ?? null;
-                    const lngVal = place.Fg?.location?.lng ?? null;
-                    const key = placeId || `${place.displayName || place.name || 'unknown'}|${latVal}|${lngVal}`;
-
-                    if (!uniqueMap.has(key)) {
-                        uniqueMap.set(key, place);
-                    }
-                }
-
-                const mergedPlaces = Array.from(uniqueMap.values());
-
-                // Filter duplicates by location lat/lng
-                const seen = new Set();
-                const filteredPlaces = mergedPlaces.filter(place => {
-                    const locLat = place.Fg?.location?.lat ?? null;
-                    const locLng = place.Fg?.location?.lng ?? null;
-
-                    if (locLat === null || locLng === null) return false;
-
-                    const key = `${locLat},${locLng}`;
-                    if (seen.has(key)) {
-                        return false;
-                    } else {
-                        seen.add(key);
-                        return true;
-                    }
-                });
-
-                console.log('[v0] Places after deduplication:', filteredPlaces.length);
-
-                // Helper function to get place details
-                const getPlaceDetails = (placeId) => {
-                    return new Promise((resolve) => {
-                        if (!placeId) {
-                            resolve({ phone: "N/A", openNow: null, openingHours: null });
-                            return;
-                        }
-
-                        service.getDetails(
-                            {
-                                placeId: placeId,
-                                fields: [
-                                    'opening_hours',
-                                    'utc_offset_minutes',
-                                    'international_phone_number',
-                                    'formatted_phone_number'
-                                ]
-                            },
-                            (placeResult, status) => {
-                                if (status === google.maps.places.PlacesServiceStatus.OK && placeResult) {
-                                    const phone = placeResult.international_phone_number
-                                        || placeResult.formatted_phone_number
-                                        || "N/A";
-
-                                    const isOpenNow = placeResult.opening_hours?.isOpen() ?? null;
-
-                                    // Get opening hours
-                                    let openingHours = null;
-                                    if (placeResult.opening_hours && placeResult.opening_hours.weekday_text) {
-                                        openingHours = placeResult.opening_hours.weekday_text;
-                                    }
-
-                                    resolve({
-                                        phone: phone,
-                                        openNow: isOpenNow,
-                                        openingHours: openingHours
-                                    });
-                                } else {
-                                    console.warn('[v0] Failed to get place details for placeId:', placeId, status);
-                                    resolve({ phone: "N/A", openNow: null, openingHours: null });
-                                }
-                            }
-                        );
-                    });
-                };
-
-                // Fetch details for all places
-                const detailsPromises = filteredPlaces.map(place => {
-                    const placeId = place.id || place.place_id || null;
-                    return getPlaceDetails(placeId);
-                });
-
-                const detailsResults = await Promise.all(detailsPromises);
-
-                // Map results with details
-                const results = filteredPlaces.map((place, index) => {
-                    const details = detailsResults[index];
-                    const locLat = place.Fg?.location?.lat ?? null;
-                    const locLng = place.Fg?.location?.lng ?? null;
-                    const latNum = (typeof locLat === 'function') ? locLat() : locLat;
-                    const lngNum = (typeof locLng === 'function') ? locLng() : locLng;
-
-                    const safeName = place.displayName || place.name || 'Unknown';
-                    const safeAddress = place.formattedAddress || place.address || place.vicinity || '';
-                    const safeTypes = Array.isArray(place.types) ? place.types : (place.categories || []);
-
-                    const out = {
-                        id: place.id || null,
-                        name: safeName,
-                        geometry: {
-                            location: {
-                                lat: () => (latNum ?? 0),
-                                lng: () => (lngNum ?? 0)
-                            }
-                        },
-                        rating: place.rating ?? null,
-                        vicinity: safeAddress,
-                        types: safeTypes,
-                        business_status: place.businessStatus || place.business_status || null,
-                        phone: details.phone,
-                        openNow: details.openNow,
-                        openingHours: details.openingHours
-                    };
-
-                    if (latNum !== null && lngNum !== null && !Number.isNaN(latNum) && !Number.isNaN(lngNum)) {
-                        out.distance = calculateDistance(latitude, longitude, Number(latNum), Number(lngNum));
-                    } else {
-                        out.distance = null;
-                    }
-
-                    return out;
-                });
-
-                let filteredResults = results;
-
-                if (serviceType && serviceType.trim()) {
-                    const serviceTypeLower = serviceType.toLowerCase().trim();
-                    console.log('[v0] Filtering by service type:', serviceTypeLower);
-
-                    filteredResults = results.filter(hospital => {
-                        if (!hospital) return false;
-
-                        // Check name match
-                        const nameMatch = hospital.name && hospital.name.toLowerCase().includes(serviceTypeLower);
-
-                        // Check types match with enhanced logic
-                        const typeMatch = Array.isArray(hospital.types) && hospital.types.some(type => {
-                            const typeLower = type.toLowerCase();
-                            return typeLower.includes(serviceTypeLower) ||
-                                serviceTypeLower.includes(typeLower) ||
-                                // Additional matching for common medical terms
-                                (serviceTypeLower.includes('hospital') && typeLower.includes('hospital')) ||
-                                (serviceTypeLower.includes('clinic') && typeLower.includes('clinic')) ||
-                                (serviceTypeLower.includes('pharmacy') && typeLower.includes('pharmacy')) ||
-                                (serviceTypeLower.includes('doctor') && typeLower.includes('doctor'));
-                        });
-
-                        // Check vicinity/address match
-                        const addressMatch = hospital.vicinity && hospital.vicinity.toLowerCase().includes(serviceTypeLower);
-
-                        return nameMatch || typeMatch || addressMatch;
-                    });
-
-                    console.log('[v0] Filtered results count:', filteredResults.length);
-                }
-
-                filteredResults.sort((a, b) => {
-                    const da = a.distance ?? Infinity;
-                    const db = b.distance ?? Infinity;
-                    return da - db;
-                });
-
-                // filteredResults = filteredResults.slice(0, 5);
-
-                allHospitals = filteredResults;
-                filteredHospitals = filteredResults;
-                currentPage = 1;
-
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('error').style.display = 'none';
-                document.getElementById('healthCenters').innerHTML = '';
-
-                const resultCountEl = document.getElementById('resultCount');
-                const resultCountEl2 = document.getElementById('resultCount2');
-                if (resultCountEl) resultCountEl.textContent = filteredResults.length;
-
-                if (resultCountEl2) resultCountEl2.textContent = filteredResults.length;
-
-                console.log('[v0] Final results to display:', filteredResults.length);
-
-                displayPaginatedHospitals();
-                renderPagination();
-
-            } catch (error) {
-                console.error('[v0] Error loading hospitals:', error);
-                allHospitals = [];
-                filteredHospitals = [];
-                currentPage = 1;
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('error').style.display = 'block';
-                document.getElementById('healthCenters').innerHTML = '';
-                const resultCountEl = document.getElementById('resultCount');
-                const resultCountEl2 = document.getElementById('resultCount2');
-                if (resultCountEl) resultCountEl.textContent = '0';
-                if (resultCountEl2) resultCountEl.textContent = '0';
-
-                document.getElementById('error').innerHTML = `
-                    <h5>Error Loading Health Services</h5>
-                    <p>Unable to load nearby facility services. Please try again later.</p>
-                    <button class="btn btn-primary" onclick="location.reload()">Retry</button>
-                `;
-                renderPagination();
-            }
-        }
-
-        const searchForm = document.getElementById('searchForm');
-
-        async function searchLocation2() {
-            try {
-                console.log('[v0] Starting searchLocation2');
-
-                await ensureGoogleMapsLoaded();
-
-                if (!isGoogleMapsReady()) {
-                    throw new Error('Google Maps API not ready for search operations');
-                }
-
-                document.getElementById('loading').style.display = 'block';
-                document.getElementById('error').style.display = 'none';
-
-                const advanceSearch = JSON.parse(localStorage.getItem('searchData') || 'null');
-
-                if (!advanceSearch) {
-                    console.warn('[v0] No advance search data found');
-                    document.getElementById('loading').style.display = 'none';
-                    return;
-                }
-
-                const userData = {
-                    country: advanceSearch.country || '',
-                    state: advanceSearch.state || '',
-                    city: advanceSearch.city || '',
-                    service: advanceSearch.servicesType || ''
-                };
-
-                console.log("[v0] userData from localStorage:", userData);
-
-                if (!userData.country) {
-                    alert("Country is required");
-                    document.getElementById('loading').style.display = 'none';
-                    return;
-                }
-
-                let query = '';
-                if (userData.city) {
-                    query = `${userData.city}, ${userData.state}, ${userData.country}`;
-                } else if (userData.state) {
-                    query = `${userData.state}, ${userData.country}`;
-                } else {
-                    query = userData.country;
-                }
-
-                console.log('[v0] Geocoding query:', query);
-
-                const geocoder = new google.maps.Geocoder();
-
-                geocoder.geocode({ address: query }, async (results, status) => {
-                    try {
-                        if (status === 'OK' && results && results[0]) {
-                            const location = results[0].geometry.location;
-                            const lat = location.lat();
-                            const lng = location.lng();
-                            console.log("[v0] Geocoded location:", lat, lng);
-
-                            // Remove old user marker if exists
-                            if (userMarker) {
-                                userMarker.map = null;
-                            }
-
-                            // Try using AdvancedMarkerElement; fallback to google.maps.Marker
-                            let marker;
-                            try {
-                                const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
-                                const userPin = new PinElement({
-                                    background: "#4285F4",
-                                    borderColor: "#ffffff",
-                                    glyphColor: "#ffffff"
-                                });
-
-                                marker = new AdvancedMarkerElement({
-                                    map: map,
-                                    position: { lat: lat, lng: lng },
-                                    title: "Your Selected Location",
-                                    content: userPin.element
-                                });
-                            } catch (err) {
-                                console.warn("[v0] AdvancedMarkerElement not available, using basic Marker", err);
-                                marker = new google.maps.Marker({
-                                    map: map,
-                                    position: { lat: lat, lng: lng },
-                                    title: "Your Selected Location"
-                                });
-                            }
-
-                            userMarker = marker;
-
-                            // Center & zoom map
-                            let zoomLevel = 10;
-                            if (userData.city) {
-                                zoomLevel = 13;
-                            } else if (userData.state) {
-                                zoomLevel = 8;
-                            } else {
-                                zoomLevel = 6;
-                            }
-
-                            map.setCenter({ lat: lat, lng: lng });
-                            map.setZoom(zoomLevel);
-
-                            const userLocationEl = document.getElementById('user-location');
-                            if (userLocationEl) {
-                                userLocationEl.innerText = `Your Selected Location: ${results[0].formatted_address}`;
-                            }
-
-                            const searchPopup = document.getElementById('seach-popup');
-                            if (searchPopup) {
-                                searchPopup.classList.add('d-none');
-                            }
-
-                            console.log('[v0] Loading hospitals with service filter:', userData.service);
-                            await loadNearbyHospitals(lat, lng, '', userData.service);
-
-                            document.getElementById('loading').style.display = 'none';
-
-                        } else {
-                            console.error('[v0] Geocoding failed:', status);
-                            document.getElementById('loading').style.display = 'none';
-                            alert('Location not found. Please try a different search.');
-                        }
-                    } catch (error) {
-                        console.error('[v0] Error in geocoding callback:', error);
-                        document.getElementById('loading').style.display = 'none';
-                        alert('Error processing location. Please try again.');
-                    }
-                });
-
-            } catch (error) {
-                console.error('[v0] Error in searchLocation2:', error);
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('error').style.display = 'block';
-                document.getElementById('error').innerHTML = `
-                    <h5>Search Error</h5>
-                    <p>Unable to process your search. Please try again.</p>
-                    <button class="btn btn-primary" onclick="searchLocation2()">Retry</button>
-                `;
-            }
-        }
-
-        async function searchLocation(e) {
-            e.preventDefault();
-
-            try {
-                console.log('[v0] Starting searchLocation');
-
-                await ensureGoogleMapsLoaded();
-
-                if (!isGoogleMapsReady()) {
-                    throw new Error('Google Maps API not ready for search operations');
-                }
-
-                document.getElementById('loading').style.display = 'block';
-                document.getElementById('error').style.display = 'none';
-
-                const userData = {
-                    country: document.getElementById('user-country')?.value || '',
-                    state: document.getElementById('user-state')?.value || '',
-                    city: document.getElementById('city')?.value || '',
-                    service: document.getElementById('services-type')?.value || ''
-                };
-
-                console.log("[v0] userData from popup form:", userData);
-
-                if (!userData.country) {
-                    alert("Country is required");
-                    document.getElementById('loading').style.display = 'none';
-                    return;
-                }
-
-                let query = '';
-                if (userData.city) {
-                    query = `${userData.city}, ${userData.state}, ${userData.country}`;
-                } else if (userData.state) {
-                    query = `${userData.state}, ${userData.country}`;
-                } else {
-                    query = userData.country;
-                }
-
-                console.log('[v0] Geocoding query:', query);
-
-                const geocoder = new google.maps.Geocoder();
-                geocoder.geocode({ address: query }, async (results, status) => {
-                    try {
-                        if (status === 'OK' && results && results[0]) {
-                            const location = results[0].geometry.location;
-                            const lat = location.lat();
-                            const lng = location.lng();
-                            console.log("[v0] Geocoded location:", lat, lng);
-
-                            // Remove old user marker if exists
-                            if (userMarker) {
-                                userMarker.map = null;
-                            }
-
-                            // Try using AdvancedMarkerElement; fallback to google.maps.Marker
-                            let marker;
-                            try {
-                                const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
-                                const userPin = new PinElement({
-                                    background: "#4285F4",
-                                    borderColor: "#ffffff",
-                                    glyphColor: "#ffffff"
-                                });
-
-                                marker = new AdvancedMarkerElement({
-                                    map: map,
-                                    position: { lat: lat, lng: lng },
-                                    title: "Your Selected Location",
-                                    content: userPin.element
-                                });
-                            } catch (err) {
-                                console.warn("[v0] AdvancedMarkerElement not available, using basic Marker", err);
-                                marker = new google.maps.Marker({
-                                    map: map,
-                                    position: { lat: lat, lng: lng },
-                                    title: "Your Selected Location"
-                                });
-                            }
-
-                            userMarker = marker;
-
-                            // Center & zoom map
-                            let zoomLevel = 10;
-                            if (userData.city) {
-                                zoomLevel = 13;
-                            } else if (userData.state) {
-                                zoomLevel = 8;
-                            } else {
-                                zoomLevel = 6;
-                            }
-
-                            map.setCenter({ lat: lat, lng: lng });
-                            map.setZoom(zoomLevel);
-
-                            const userLocationEl = document.getElementById('user-location');
-                            if (userLocationEl) {
-                                userLocationEl.innerText = `Your Selected Location: ${results[0].formatted_address}`;
-                            }
-
-                            const searchPopup = document.getElementById('seach-popup');
-                            if (searchPopup) {
-                                searchPopup.classList.add('d-none');
-                            }
-
-                            console.log('[v0] Loading hospitals with service filter:', userData.service);
-                            await loadNearbyHospitals(lat, lng, '', userData.service);
-
-                            document.getElementById('loading').style.display = 'none';
-
-                        } else {
-                            console.error('[v0] Geocoding failed:', status);
-                            document.getElementById('loading').style.display = 'none';
-                            alert('Location not found. Please try a different search.');
-                        }
-                    } catch (error) {
-                        console.error('[v0] Error in geocoding callback:', error);
-                        document.getElementById('loading').style.display = 'none';
-                        alert('Error processing location. Please try again.');
-                    }
-                });
-            } catch (error) {
-                console.error('[v0] Error in searchLocation:', error);
-                document.getElementById('loading').style.display = 'none';
-                alert('Error processing search. Please try again.');
-            }
-        }
-
-        if (searchForm) {
-            searchForm.addEventListener("submit", searchLocation);
-        }
-
-        function displayPaginatedHospitals() {
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const hospitalsToShow = filteredHospitals.slice(startIndex, endIndex);
-
-            displayHospitals(hospitalsToShow);
-            addHospitalMarkers(hospitalsToShow);
-        }
-
-        function changeItemsPerPage(newItemsPerPage) {
-            itemsPerPage = parseInt(newItemsPerPage);
-            currentPage = 1; // Reset to first page
-            displayPaginatedHospitals();
-            renderPagination();
-        }
-
-        // Display hospitals in cards
-        function displayHospitals(hospitals) {
-            const hospitalList = document.getElementById('healthCenters');
-            if (!hospitalList) return;
-
-            hospitalList.innerHTML = '';
-
-            if (!hospitals || !Array.isArray(hospitals)) {
-                return;
-            }
-
-            hospitals.forEach(hospital => {
-                if (!hospital || !hospital.geometry || !hospital.geometry.location) {
-                    return;
-                }
-
-                const hospitalLat = hospital.geometry.location.lat();
-                const hospitalLon = hospital.geometry.location.lng();
-
-                let distance = 'N/A';
-                if (userLocation && hospital.distance !== undefined) {
-                    distance = `${hospital.distance.toFixed(1)} miles`;
-                }
-
-                // Get additional details with null checks
-                const rating = hospital.rating ? `${hospital.rating}/5` : 'No rating';
-                const isOpen = hospital.business_status === 'OPERATIONAL' ? 'Open' : 'Check status';
-                const address = hospital.vicinity || 'Address not available';
-                const types = hospital.types && Array.isArray(hospital.types) ? hospital.types.join(', ') : 'Hospital';
-                const hospitalName = hospital.name || 'Unknown Hospital';
-
-                // Get phone number and opening hours
-                const phoneNumber = hospital.phone && hospital.phone !== 'N/A' ? hospital.phone : 'Phone not available';
-                const openingHours = hospital.openingHours && Array.isArray(hospital.openingHours) ? hospital.openingHours[0] : 'Hours not available';
-                const openStatus = hospital.openNow === true ? 'Currently Open' : hospital.openNow === false ? 'Currently Closed' : 'Hours Unknown';
-
-                // <CHANGE> add close (X) button at top right; keep classes same and use inline style for positioning
-                const hospitalCard = `
-<div class="health-center-card collapsed" style="position: relative;">
-    <button type="button" class="btn-close"
-        style="position:absolute; right:15px; top:15px; z-index:2; filter: invert(1);"
-        onclick="event.stopPropagation(); collapseCard(this.closest('.health-center-card'))"></button>
-
-        <div class="d-flex justify-content-between align-items-start mb-3">
-            <h5 class="mb-0 w-75 hospital-name">${hospitalName}</h5>
-            <div class="text-end small-distance">
-                <small class="text-black"><i class="fas fa-route me-1"></i>${distance}</small>
-            </div>
-        </div>
-        
-        <div class="mb-3 tags-container">
-            ${types
-                        .split(', ')
-                        .filter(type => type !== "point_of_interest")
-                        .map(type =>
-                            `<span class="service-tag">${type.charAt(0).toUpperCase() + type.slice(1)}</span>`
-                        )
-                        .join(' ')}
-        </div>
-
-        
-       <div class="mt-3 d-flex justify-content-between align-items-center like-container">
-                <div class="action-like2 d-flex gap-1" style="cursor: pointer;">
-                    <img src="assets/icons/like.svg" alt="Rating" class="me-2" style="width:22px; height:22px; filter: invert(1);">
-                    <h6>0</h6>
-                </div>
-                <div class="action-like2 d-flex gap-1"  style="cursor: pointer;">
-                    <img src="assets/icons/dislike.svg" alt="Rating" class="me-2" style="width:22px; height:22px; filter: invert(1);">
-                    <h6>0</h6>
-                </div>
-                <div>
-             <button onclick="toggleExpand(this.closest('.health-center-card'))" class="view-details-btn">View Details</button>
-                  </div>
-            </div>
-
-
-        <div class="extra-details d-none">
-            <div class="mb-2">
-                <i class="fas fa-map-marker-alt me-2"></i>
-                <strong>Address:</strong> ${address}
-            </div>
-            <div class="mb-2">
-                <i class="fas fa-phone me-2"></i>
-                <strong>Tel:</strong> ${phoneNumber}
-            </div>
-            <div class="mb-2">
-                <i class="fas fa-clock me-2"></i>
-                <strong>Opening Hours:</strong> ${openingHours.replace(/:/, ': ')}
-            </div>
-
-            <div class="d-flex justify-content-between w-100 align-content-center">
-                <div>
-                    <i class="fas fa-route me-2"></i>
-                    <strong>Distance:</strong> ${distance}
-                </div>
-                <button class="report-btn d-none"
-                    onclick="event.stopPropagation(); openReportModal('${hospitalName.replace(/'/g, "\\\\\\\\'")}')">Report</button>
-            </div>
-
-             <CHANGE>
-            <div class="mt-3 d-flex justify-content-between align-items-center like-container">
-                <div class="action-like d-flex gap-1" data-action="like" style="cursor: pointer;">
-                    <img src="assets/icons/like.svg" alt="Rating" class="me-2" style="width:22px; height:22px;">
-                    <h6>0</h6>
-                </div>
-                <div class="action-like d-flex gap-1" data-action="dislike" style="cursor: pointer;">
-                    <img src="assets/icons/dislike.svg" alt="Rating" class="me-2" style="width:22px; height:22px;">
-                    <h6>0</h6>
-                </div>
-            </div>
-
-        </div>
-    </div>
-`;
-
-                hospitalList.innerHTML += hospitalCard;
-            });
-        }
-
-        async function addHospitalMarkers(hospitals) {
-            try {
-                await ensureGoogleMapsLoaded();
-
-                if (!isGoogleMapsReady()) {
-                    console.warn('[v0] Google Maps API not ready for markers');
-                    return;
-                }
-
-                const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
-
-                // Clear existing hospital markers
-                hospitalMarkers.forEach(marker => {
-                    if (marker && marker.map) {
-                        marker.map = null;
-                    }
-                });
-                hospitalMarkers = [];
-
-                if (!hospitals || !Array.isArray(hospitals)) {
-                    return;
-                }
-
-                lastHospitalResults = hospitals;
-
-                hospitals.forEach(hospital => {
-                    if (!hospital || !hospital.geometry || !hospital.geometry.location) {
-                        return;
-                    }
-
-                    const hospitalLat = hospital.geometry.location.lat();
-                    const hospitalLon = hospital.geometry.location.lng();
-
-                    const hospitalPin = new PinElement({
-                        background: "#EA4335",
-                        borderColor: "#ffffff",
-                        glyphColor: "#ffffff",
-                        glyph: "H"
-                    });
-
-                    const marker = new AdvancedMarkerElement({
-                        map,
-                        position: { lat: hospitalLat, lng: hospitalLon },
-                        title: hospital.name || 'Hospital',
-                        content: hospitalPin.element
-                    });
-
-                    const hospitalName = hospital.name || 'Unknown Hospital';
-
-                    marker.addListener("click", () => {
-                        toggleCardFromMarker(hospitalName);
-                    });
-
-                    hospitalMarkers.push(marker);
-                });
-            } catch (error) {
-                console.error('[v0] Error adding hospital markers:', error);
-            }
-        }
-
-        // Get directions function
-        function getDirections(lat, lon) {
-            if (userLocation) {
-                const url = `https://www.google.com/maps/dir/${userLocation.lat},${userLocation.lon}/${lat},${lon}`;
-                window.open(url, '_blank');
-            } else {
-                const url = `https://www.google.com/maps/dir//${lat},${lon}`;
-                window.open(url, '_blank');
-            }
-        }
-
-        window.gm_authFailure = function () {
-            console.error('[v0] Google Maps API authentication failed');
-            const loadingEl = document.getElementById("loading");
-            if (loadingEl) {
-                loadingEl.style.display = 'none';
-            }
-            const errorEl = document.getElementById("error");
-            if (errorEl) {
-                errorEl.style.display = 'block';
-                errorEl.innerHTML = `
-                    <h5>Google Maps API Error</h5>
-                    <p>Authentication failed. Please check your API key and try again.</p>
-                    <button class="btn btn-primary" onclick="location.reload()">Retry</button>
-                `;
-            }
-        };
-
-        // Add global error handler
-        window.addEventListener('error', function (e) {
-            console.error('[v0] Global error:', e.error);
-        });
-
-        window.addEventListener('unhandledrejection', function (e) {
-            console.error('[v0] Unhandled promise rejection:', e.reason);
-        });
-
-        // <CHANGE> close card handler for the X button
-        function closeCard(btn) {
-            const card = btn.closest('.health-center-card');
-            if (!card) return;
-            const titleEl = card.querySelector('h5, h4');
-            const name = titleEl ? titleEl.innerText : '';
-            if (name) {
-                highlightMarker(name, false);
-            }
-            if (typeof infoWindow !== 'undefined' && infoWindow) {
-                infoWindow.close();
-            }
-            card.remove();
-        }
-
-        // <CHANGE> like/dislike counters click handler (per card, independent)
+        // Like/dislike counters (unchanged behavior)
         document.addEventListener('click', function (e) {
             const actionEl = e.target.closest('.action-like');
             if (!actionEl) return;
@@ -1849,52 +1105,8 @@
             const current = parseInt(countEl.textContent || '0', 10) || 0;
             countEl.textContent = current + 1;
         });
-    </script>
 
-    <script>
-
-        function commingSoon(text) {
-            profileModal.classList.add('show');
-            document.getElementById('overlay2').classList.add('show');
-            document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
-        }
-
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-
-        menuToggle.addEventListener('click', function () {
-            sidebar.classList.toggle('show');
-            overlay.classList.toggle('show');
-        });
-        overlay.addEventListener('click', function () {
-            sidebar.classList.remove('show');
-            overlay.classList.remove('show');
-            // Close location modal if open
-            document.getElementById('locationModal').classList.remove('show');
-        });
-
-        const searchSection = document.getElementById('searchSection');
-        if (searchSection) {
-            searchSection.addEventListener('click', function () {
-                const searchPopup = document.getElementById('seach-popup');
-                if (searchPopup) {
-                    searchPopup.classList.remove('d-none');
-                }
-            });
-        }
-
-        const closeBtn = document.querySelector('#seach-popup .btn-close');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', function () {
-                const searchPopup = document.getElementById('seach-popup');
-                if (searchPopup) {
-                    searchPopup.classList.add('d-none');
-                }
-            });
-        }
-
+        // Pagination (UI preserved)
         function renderPagination() {
             const paginationDiv = document.getElementById('pagination');
             if (!paginationDiv) return;
@@ -1912,28 +1124,19 @@
 
             paginationDiv.innerHTML = `
     <div class="d-flex flex-column mt-4 flex-md-row justify-content-between align-items-center mb-3">
-        <div class="d-flex align-items-center w-100 justify-content-between justify-content-lg-center" style="gap: 20px;">
-            <!-- Left Arrow -->
-            <button type="button" class="btn btn-outline-secondary btn-sm"
-                onclick="changePage(${currentPage - 1})"
-                ${currentPage === 1 ? 'disabled' : ''}>
-                <i class="fas fa-chevron-left"></i>
-            </button>
-
-            <!-- Results Text -->
-            <span class="mx-3">${startItem}-${endItem} of ${totalItems}</span>
-
-            <!-- Right Arrow -->
-            <button type="button" class="btn btn-outline-secondary btn-sm"
-                onclick="changePage(${currentPage + 1})"
-                ${currentPage === totalPages ? 'disabled' : ''}>
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
+      <div class="d-flex align-items-center w-100 justify-content-between justify-content-lg-center" style="gap: 20px;">
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+          onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <span class="mx-3">${startItem}-${endItem} of ${totalItems}</span>
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+          onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
     </div>
-`;
-
-
+    `;
         }
 
         function changePage(newPage) {
@@ -1945,16 +1148,120 @@
             }
         }
 
+        // Mobile menu and search popup (unchanged UI behavior)
+        function commingSoon(text) {
+            profileModal.classList.add('show');
+            document.getElementById('overlay2').classList.add('show');
+            document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
+        }
+
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuToggle.addEventListener('click', function () {
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        });
+        overlay.addEventListener('click', function () {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+            const locModal = document.getElementById('locationModal');
+            if (locModal) locModal.classList.remove('show');
+        });
+
+        const searchSection = document.getElementById('searchSection');
+        if (searchSection) {
+            searchSection.addEventListener('click', function () {
+                const searchPopup = document.getElementById('seach-popup');
+                if (searchPopup) searchPopup.classList.remove('d-none');
+            });
+        }
+
+        const closeBtn = document.querySelector('#seach-popup .btn-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function () {
+                const searchPopup = document.getElementById('seach-popup');
+                if (searchPopup) searchPopup.classList.add('d-none');
+            });
+        }
+
+        // Search submit -> Geoapify geocoding + load hospitals
+        const searchForm = document.getElementById('searchForm');
+        if (searchForm) {
+            searchForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                try {
+                    document.getElementById('loading').style.display = 'block';
+                    document.getElementById('error').style.display = 'none';
+
+                    const country = document.getElementById('user-country')?.value || '';
+                    const state = document.getElementById('user-state')?.value || '';
+                    const city = document.getElementById('city')?.value || '';
+                    const service = document.getElementById('services-type')?.value || '';
+
+                    if (!country) {
+                        alert("Country is required");
+                        document.getElementById('loading').style.display = 'none';
+                        return;
+                    }
+
+                    let query = '';
+                    if (city) query = `${city}, ${state}, ${country}`;
+                    else if (state) query = `${state}, ${country}`;
+                    else query = country;
+
+                    const geo = await geoapifyGeocode(query);
+                    if (!geo) {
+                        document.getElementById('loading').style.display = 'none';
+                        alert('Location not found. Please try a different search.');
+                        return;
+                    }
+
+                    if (userMarker) map.removeLayer(userMarker);
+                    userMarker = L.marker([geo.lat, geo.lon]).addTo(map).bindPopup('<b>Your selected location</b>').openPopup();
+
+                    if (userCircle) { map.removeLayer(userCircle); }
+                    userCircle = L.circle([geo.lat, geo.lon], {
+                        color: "#d90429",
+                        fillColor: "#ef233c",
+                        fillOpacity: 0.2,
+                        radius: SEARCH_RADIUS_METERS
+                    }).addTo(map);
+
+                    // Zoom adjustments by specificity
+                    let zoomLevel = 10;
+                    if (city) zoomLevel = 13;
+                    else if (state) zoomLevel = 8;
+                    else zoomLevel = 6;
+
+                    map.setView([geo.lat, geo.lon], zoomLevel);
+
+                    const userLocationEl = document.getElementById('user-location');
+                    if (userLocationEl) {
+                        userLocationEl.innerText = `Your Selected Location: ${geo.formatted || `${geo.lat}, ${geo.lon}`}`;
+                    }
+
+                    const searchPopup = document.getElementById('seach-popup');
+                    if (searchPopup) searchPopup.classList.add('d-none');
+
+                    userLocation = { lat: geo.lat, lon: geo.lon };
+                    await loadNearbyHospitals(geo.lat, geo.lon, service);
+                    document.getElementById('loading').style.display = 'none';
+                } catch {
+                    document.getElementById('loading').style.display = 'none';
+                    alert('Error processing search. Please try again.');
+                }
+            });
+        }
+
         window.addEventListener("beforeunload", () => {
             localStorage.removeItem("searchData");
         });
 
+        // Boot: get user location, then load map + hospitals
+        getCurrentUserLocation();
     </script>
-
-    <!-- Updated Google Maps API with Places library -->
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwuos0yjEDV1ouNOsg7tvqVmQ6UGRqoSU&libraries=places,marker&callback=initMap&loading=async">
-        </script>
 </body>
 
 </html>
