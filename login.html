@@ -350,6 +350,7 @@
 
             // Token ko localStorage me save kar lo
             localStorage.setItem("token", res.data);
+            localStorage.setItem("uid", res.data.user.id);
 
             // Redirect (optional)
             window.location.href = "/";
