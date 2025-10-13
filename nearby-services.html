@@ -585,9 +585,7 @@
         if (profileButton && profileModal && closeProfileBtn) {
             profileButton.forEach(button => {
                 button.addEventListener('click', function () {
-                    profileModal.classList.add('show');
-                    const overlay2 = document.getElementById('overlay2');
-                    if (overlay2) overlay2.classList.add('show');
+                    location.href = 'profile.html';
                 });
             });
 
