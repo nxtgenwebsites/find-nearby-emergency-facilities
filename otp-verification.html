@@ -385,8 +385,14 @@
             const otp = Array.from(otpInputs).map(input => input.value).join('');
 
             if (otp.length < 6) {
-                alert('Please enter all 6 digits of the OTP.');
-                return;
+                toastr.error('Please enter all 6 digits of the OTP.', "Error", {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "2000",
+                    "extendedTimeOut": "1000",
+                })
             }
 
             try {
@@ -397,11 +403,24 @@
 
                 localStorage.removeItem('email');
                 localStorage.removeItem('name');
-                location.href = '/';
+                const forgotPass = localStorage.getItem('forgotPass');
+                if (forgotPass) {
+                    localStorage.removeItem('forgotPass');
+                    location.href = 'new-password.html';
+                }else{
+                    location.href = '/';
+                }
 
             } catch (error) {
                 const errMsg = error.response?.data?.message || 'Failed to verify OTP.';
-                alert(errMsg);
+                toastr.error(errMsg || "Something went wrong", "Error", {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "2000",
+                    "extendedTimeOut": "1000",
+                })
             }
         });
     </script>
