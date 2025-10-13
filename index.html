@@ -666,7 +666,12 @@ window.addEventListener("load", async () => {
 
         profileButton.forEach(button => {
             button.addEventListener('click', function () {
+                        const uid = localStorage.getItem('uid');
+            if (uid) { 
                 location.href = 'profile.html';
+            }else{
+                location.href = 'login.html';    
+            }
             });
         });
 

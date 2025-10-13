@@ -675,8 +675,12 @@
 
         profileButton.forEach(button => {
             button.addEventListener('click', function () {
-                profileModal.classList.add('show');
-                document.getElementById('overlay2').classList.add('show');
+                const uid = localStorage.getItem('uid');
+                if (uid) {
+                    location.href = 'profile.html';
+                } else {
+                    location.href = 'login.html';
+                }
             });
         });
 
