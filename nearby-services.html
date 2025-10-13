@@ -210,7 +210,7 @@
         </main>
     </div>
 
-    Search popup modal
+    <!-- Search popup modal -->
     <div class="popup-overlay d-none" id="seach-popup">
         <div class="seacrch-card">
             <div class="p-3 position-relative">
@@ -324,7 +324,7 @@
         </div>
     </div>
 
-    Success popup (unchanged UI)
+    <!-- Success popup (unchanged UI) -->
     <div class="formspree-popup" id="formspreePopup">
         <div class="formspree-popup-content">
             <h3>Submitted Thank You</h3>
@@ -333,7 +333,7 @@
         </div>
     </div>
 
-    Send Details Modal (unchanged UI)
+    <!-- Send Details Modal (unchanged UI) -->
     <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -416,7 +416,7 @@
         </div>
     </div>
 
-    Scripts
+    <!-- Scripts -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/country-states.js"></script>
@@ -601,7 +601,7 @@
 
     <script>
         // Geoapify
-        const GEOAPIFY_API_KEY = "492a0d7f78b44f8186631bf5933d638c";
+        const GEOAPIFY_API_KEY = "a475cbbc91c74896aeeac6b34a227603";
         const SEARCH_RADIUS_METERS = 2000; // 35km
 
         // Map + data state
@@ -706,10 +706,45 @@
                 userLocation = { lat, lon };
 
                 // Set UI
-                const userLocationEl = document.getElementById("user-location");
-                if (userLocationEl) {
-                    userLocationEl.innerText = `Your Current Location is: (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
-                }
+                navigator.geolocation.getCurrentPosition(async position => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    try {
+                        const response = await fetch(
+                            `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
+                            { headers: { 'User-Agent': 'location-app' } }
+                        );
+                        const data = await response.json();
+
+                        const address = data.address;
+                        let shortAddress = '';
+
+                        if (address.city) shortAddress += address.city;
+                        else if (address.town) shortAddress += address.town;
+                        else if (address.village) shortAddress += address.village;
+
+                        if (address.state) shortAddress += `, ${address.state}`;
+                        if (address.country) shortAddress += `, ${address.country}`;
+
+                        const userLocationEl = document.getElementById('user-location');
+                        if (userLocationEl) {
+                            userLocationEl.innerText = `Your Selected Location: ${shortAddress || data.display_name}`;
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        const userLocationEl = document.getElementById('user-location');
+                        if (userLocationEl) {
+                            userLocationEl.innerText = 'Unable to fetch address.';
+                        }
+                    }
+                }, () => {
+                    const userLocationEl = document.getElementById('user-location');
+                    if (userLocationEl) {
+                        userLocationEl.innerText = 'Location access denied.';
+                    }
+                });
+
 
                 // Init map and load hospitals
                 initMap(lat, lon);
@@ -1233,10 +1268,55 @@
 
                     map.setView([geo.lat, geo.lon], zoomLevel);
 
-                    const userLocationEl = document.getElementById('user-location');
-                    if (userLocationEl) {
-                        userLocationEl.innerText = `Your Selected Location: ${geo.formatted || `${geo.lat}, ${geo.lon}`}`;
-                    }
+                    navigator.geolocation.getCurrentPosition(async position => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+
+                        // Fetch address from coordinates
+                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+                        const data = await response.json();
+
+                        navigator.geolocation.getCurrentPosition(async position => {
+                            const lat = position.coords.latitude;
+                            const lon = position.coords.longitude;
+
+                            try {
+                                const response = await fetch(
+                                    `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
+                                    { headers: { 'User-Agent': 'location-app' } }
+                                );
+                                const data = await response.json();
+
+                                const address = data.address;
+                                let shortAddress = '';
+
+                                if (address.city) shortAddress += address.city;
+                                else if (address.town) shortAddress += address.town;
+                                else if (address.village) shortAddress += address.village;
+
+                                if (address.state) shortAddress += `, ${address.state}`;
+                                if (address.country) shortAddress += `, ${address.country}`;
+
+                                const userLocationEl = document.getElementById('user-location');
+                                if (userLocationEl) {
+                                    userLocationEl.innerText = `Your Selected Location: ${shortAddress || data.display_name}`;
+                                }
+                            } catch (error) {
+                                console.error(error);
+                                const userLocationEl = document.getElementById('user-location');
+                                if (userLocationEl) {
+                                    userLocationEl.innerText = 'Unable to fetch address.';
+                                }
+                            }
+                        }, () => {
+                            const userLocationEl = document.getElementById('user-location');
+                            if (userLocationEl) {
+                                userLocationEl.innerText = 'Location access denied.';
+                            }
+                        });
+
+                    });
+
 
                     const searchPopup = document.getElementById('seach-popup');
                     if (searchPopup) searchPopup.classList.add('d-none');

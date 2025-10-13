@@ -284,10 +284,20 @@
   }
   
   .mobile-detail.show {
-    max-height: 500px;
+    max-height: 1730px;
     padding: 0;
   }
   
+  .contact-section li strong{
+    /* display: none ; */
+    color: black !important;
+  }
+  .contact-section li {
+    /* display: none !important; */
+    font-weight: 400;
+    color: #3f3f3f !important;
+  }
+
   .mobile-detail-content {
     padding: 1.5rem;
   }

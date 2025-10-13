@@ -299,16 +299,16 @@
                         </div>
                     </div>
                     <div class="center-container">
-                        <div class="medical mt-4 d-none" onclick="findNearbyServices()">
+                        <div class="medical mt-4 d-none d-md-block " onclick="findNearbyServices()">
                             <img src="assets/images/Group 71.svg" alt="">
                         </div>
 
-                        <div class="medical mt-4 d-none" onclick="findNearbyServices()">
+                        <div class="medical mt-4 d-md-none" onclick="findNearbyServices()">
                             <img src="assets/icons/Group 161.svg" alt="">
                         </div>
 
 <!-- Search Section -->
-<div class="search-section mt-4 mt-md-5" id="searchSection">
+<div class="search-section" id="searchSection">
     <div class="tags-container" id="tagsContainer">
         <input type="text" class="search-input" id="searchInput"
             placeholder="Find Specific Medical Services near you" />
@@ -484,10 +484,17 @@
 
         // Agree button → open map
         agreeBtn.addEventListener("click", function () {
-            locationModal.classList.remove("show");
-            overlay2.classList.remove("show");
-            let url = `https://www.google.com/maps/search/${encodeURIComponent(queryToSearch + " near me")}`;
-            window.open(url, "_blank");
+            if (queryToSearch === "") {
+                locationModal.classList.remove("show");
+                overlay2.classList.remove("show");
+                let url = `https://www.google.com/maps/search/hospitals+near+me`;
+                window.open(url, "_blank");
+            }else{
+                locationModal.classList.remove("show");
+                overlay2.classList.remove("show");
+                let url = `https://www.google.com/maps/search/${encodeURIComponent(queryToSearch + " near me")}`;
+                window.open(url, "_blank");
+            }
         });
 
         // Disagree button → just close popup & overlay

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -19,112 +20,122 @@
     <div class="overlay" id="overlay"></div>
     <div class="overlay" id="overlay2"></div>
 
+    <!-- Formspree Success Popup -->
+    <div class="formspree-popup" id="formspreePopup">
+        <div class="formspree-popup-content">
+            <h3>Review Submitted</h3>
+            <p>Thank you! Your review has been submitted successfully.</p>
+            <button class="formspree-popup-close" onclick="closeFormspreePopup()">Done</button>
+        </div>
+    </div>
+
     <div class="review-popup-overly d-none" id="add-review">
         <div class="review-popup">
             <h1>Write a New Review</h1>
 
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label class="form-label">Your Name *</label>
-                    <input type="text" class="form-control" placeholder="Enter your full name">
+            <form id="reviewForm" action="https://formspree.io/f/xjkaolra" method="POST">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Your Name *</label>
+                        <input type="text" class="form-control" name="name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-control" name="email" required
+                            placeholder="your.email@example.com">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Country</label>
+                        <select id="user-country-2" class="form-select" name="country"></select>
+                    </div>
+                    <div class="col-md-6 d-none">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-control" name="city" placeholder="City">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Review Title *</label>
+                        <input type="text" class="form-control" name="title" required
+                            placeholder="Summarize your experience in a few words">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Your Review *</label>
+                        <textarea class="form-control" name="review" rows="4" maxlength="500" required
+                            placeholder="Tell others about your experience..."></textarea>
+                        <small class="text-muted" id="charCount">0 / 500 characters</small>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label class="form-label">Email Address *</label>
-                    <input type="email" class="form-control" placeholder="your.email@example.com">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Country</label>
-                  <select id="user-country-2"  class="form-select" class="w-100">
 
-                  </select>
+                <div class="mt-3">
+                    <label class="form-label">Your Rating *</label>
+                    <div class="rating-label" id="ratingLabel">Click on a star to rate your experience</div>
+                    <div class="star-rating">
+                        <div class="s-container s-container-1" data-value="Poor">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f61e.svg"
+                                alt="Poor" class="emoji-icon">
+                            <span>Poor</span>
+                        </div>
+                        <div class="s-container s-container-2" data-value="Fair">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f615.svg"
+                                alt="Fair" class="emoji-icon">
+                            <span>Fair</span>
+                        </div>
+                        <div class="s-container s-container-3" data-value="Good">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f642.svg"
+                                alt="Good" class="emoji-icon">
+                            <span>Good</span>
+                        </div>
+                        <div class="s-container s-container-4" data-value="Very Good">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f600.svg"
+                                alt="Very Good" class="emoji-icon">
+                            <span>Very Good</span>
+                        </div>
+                        <div class="s-container s-container-5" data-value="Excellent">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f929.svg"
+                                alt="Excellent" class="emoji-icon">
+                            <span>Excellent</span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="rating" id="ratingInput" required>
                 </div>
-                <div class="col-md-6">
-                    <label class="form-label">City</label>
-                    <input type="text" class="form-control" placeholder="City">
-                </div>
-                <div class="col-12">
-                    <label class="form-label">Review Title *</label>
-                    <input type="text" class="form-control" placeholder="Summarize your experience in a few words">
-                </div>
-                <div class="col-12">
-                    <label class="form-label">Your Review *</label>
-                    <textarea class="form-control" rows="4" maxlength="500"
-                        placeholder="Tell others about your experience..."></textarea>
-                    <small class="text-muted">0 / 500 characters</small>
-                </div>
-            </div>
 
-            <div class="mt-3">
-                <label class="form-label">Your Rating *</label>
-                <div class="rating-label" id="ratingLabel">Click on a star to rate your experience</div>
-                <div class="star-rating">
-                    <div class="s-container  s-container-1">
-                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f61e.svg" alt="Poor"
-                            class="emoji-icon">
-                        <span>Poor</span>
-                    </div>
-                
-                    <div class="s-container s-container-2">
-                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f615.svg" alt="Fair"
-                            class="emoji-icon">
-                        <span>Fair</span>
-                    </div>
-                
-                    <div class="s-container s-container-3">
-                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f642.svg" alt="Good"
-                            class="emoji-icon">
-                        <span>Good</span>
-                    </div>
-                
-                    <div class="s-container s-container-4">
-                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f600.svg" alt="Very Good"
-                            class="emoji-icon">
-                        <span>Very Good</span>
-                    </div>
-                
-                    <div class="s-container s-container-5">
-                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f929.svg" alt="Excellent"
-                            class="emoji-icon">
-                        <span>Excellent</span>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                    <label class="form-check-label">
+                        I agree to the <a href="terms-and-conditions.html">Terms of Service</a> and <a
+                            href="privacy-policy.html">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <div class="mt-3">
+                    <!-- Google reCAPTCHA -->
+                    <div class="mb-3">
+                        <div class="g-recaptcha d-inline-block" data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m">
+                        </div>
                     </div>
                 </div>
-                  
-            </div>
 
-            <div class="form-check mt-3">
-                <input class="form-check-input" type="checkbox" id="termsCheck">
-                <label class="form-check-label">
-                    I agree to the <a href="terms-and-conditions.html">Terms of Service</a> and <a
-                        href="privacy-policy.html">Privacy Policy</a>
-                </label>
-            </div>
+                <button type="submit" class="submit-btn" id="submit-review">Submit</button>
+            </form>
 
             <div class="review-close" id="review-close">
                 <button><i class="fa fa-close"></i></button>
             </div>
-            <div class="mt-3">
-                <!-- Google reCAPTCHA widget -->
-                <div class=" mb-3">
-                    <div class="g-recaptcha d-inline-block" data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m">
-                    </div>
-                </div>
-            </div>
-
-            <button class="submit-btn" id="submit-review">Submit</button>
         </div>
     </div>
 
     <div class="location-modal " id="locationModal">
-        <h4>Confirm to Continue</h4>
-        <p class="mt-3">By continuing to use this service you agree to our Terms & Conditions.</p>
+        <h4 class="text-danger"> <strong>WARNING</strong></h4>
+        <p class="mt-3 mb-0">This Geo Location Service uses Google map and its subject to Google terms and Conditions.
+        </p>
+        <p class="mt-2 mb-0">Also, please ensure you grant Google Location Map access to your current location,
+            otherwise it
+            might give you wrong
+            results.</p>
+        <p class="mt-2"><strong>Do you want to Proceed?</strong></p>
         <div class="location-buttons">
-            <button class="btn-location btn-deny " onclick="denyLocation()">
-                Disagree
-            </button>
-            <a href="nearby-services.html">
-                <button class="btn-location btn-allow">
-                    Agree
-                </button>
+            <button class="btn-location btn-deny" onclick="denyLocation()">No</button>
+            <a href="https://www.google.com/maps/search/hospitals+near+me" target="_blank">
+                <button class="btn-location btn-allow">Yes</button>
             </a>
         </div>
     </div>
@@ -317,7 +328,7 @@
                     </a>
                 </li>
                 <li class="nav-item no-page">
-                    <a href="#" class="nav-link" onclick="commingSoon('System Page')">
+                    <a href="/systems.html" class="nav-link">
                         <img src="assets/icons/settings.svg" />
                         <span>System</span>
                     </a>
@@ -366,11 +377,10 @@
                                 <div class="review-card">
                                     <div class="user-info">
                                         <div class="user-profile">
-                                            <h6>SJ</h6>
+                                            <h6>CO</h6>
                                         </div>
                                         <div class="details">
-                                            <h6>Sarah Johnson</h6>
-                                            <p>📍 New York, NY</p>
+                                            <h6>Chiamaka Okoro</h6>
                                         </div>
                                     </div>
                                     <div class="user-review">
@@ -382,15 +392,13 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <div class="">
-                                            <p>March 15, 2024</p>
+                                            <p>1 October 2025</p>
                                         </div>
                                     </div>
                                     <div class="review-text">
-                                        <p>Absolutely incredible service! The app went above and beyond my expectations.
-                                            The
-                                            attention to detail and professionalism was outstanding. Couldn't be happier
-                                            with
-                                            results!</p>
+                                        <p>“I tested the GPSMedical Free Edition today and was amazed how quickly it
+                                            found the nearest clinic when my sister fainted. Clear, accurate, and fast.
+                                            Every Nigerian family should have this.”</p>
                                     </div>
                                     <div class="likes-container">
                                         <button class="like-btn" id="likeBtn">
@@ -399,7 +407,6 @@
                                             </div>
                                             <span id="likeCount" class="mx-1">0</span>
                                         </button>
-
                                         <div class="verified-badge">
                                             <span>✓ Verified</span>
                                         </div>
@@ -410,11 +417,10 @@
                                 <div class="review-card">
                                     <div class="user-info">
                                         <div class="user-profile">
-                                            <h6>SJ</h6>
+                                            <h6>DO</h6>
                                         </div>
                                         <div class="details">
-                                            <h6>Sarah Johnson</h6>
-                                            <p>📍 New York, NY</p>
+                                            <h6>David O’Connor</h6>
                                         </div>
                                     </div>
                                     <div class="user-review">
@@ -426,15 +432,13 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <div class="">
-                                            <p>March 15, 2024</p>
+                                            <p>1 October 2025</p>
                                         </div>
                                     </div>
                                     <div class="review-text">
-                                        <p>Absolutely incredible service! The app went above and beyond my expectations.
-                                            The
-                                            attention to detail and professionalism was outstanding. Couldn't be happier
-                                            with
-                                            results!</p>
+                                        <p>“I’m impressed by how easy the interface is to navigate. I especially like
+                                            the location services - the map loads quickly even on mobile data. Looking
+                                            forward to the full DigitalHealth launch.”</p>
                                     </div>
                                     <div class="likes-container">
                                         <button class="like-btn" id="likeBtn">
@@ -443,7 +447,6 @@
                                             </div>
                                             <span id="likeCount" class="mx-1">0</span>
                                         </button>
-
                                         <div class="verified-badge">
                                             <span>✓ Verified</span>
                                         </div>
@@ -454,11 +457,10 @@
                                 <div class="review-card">
                                     <div class="user-info">
                                         <div class="user-profile">
-                                            <h6>SJ</h6>
+                                            <h6>LM</h6>
                                         </div>
                                         <div class="details">
-                                            <h6>Sarah Johnson</h6>
-                                            <p>📍 New York, NY</p>
+                                            <h6>Luca Moretti</h6>
                                         </div>
                                     </div>
                                     <div class="user-review">
@@ -470,15 +472,12 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <div class="">
-                                            <p>March 15, 2024</p>
+                                            <p>2 October 2025</p>
                                         </div>
                                     </div>
                                     <div class="review-text">
-                                        <p>Absolutely incredible service! The app went above and beyond my expectations.
-                                            The
-                                            attention to detail and professionalism was outstanding. Couldn't be happier
-                                            with
-                                            results!</p>
+                                        <p>“The app feels professional. I appreciate the clean design and quick loading
+                                            pages. Adding local pharmacies would make it even better.”</p>
                                     </div>
                                     <div class="likes-container">
                                         <button class="like-btn" id="likeBtn">
@@ -487,7 +486,6 @@
                                             </div>
                                             <span id="likeCount" class="mx-1">0</span>
                                         </button>
-
                                         <div class="verified-badge">
                                             <span>✓ Verified</span>
                                         </div>
@@ -498,11 +496,10 @@
                                 <div class="review-card">
                                     <div class="user-info">
                                         <div class="user-profile">
-                                            <h6>SJ</h6>
+                                            <h6>IU</h6>
                                         </div>
                                         <div class="details">
-                                            <h6>Sarah Johnson</h6>
-                                            <p>📍 New York, NY</p>
+                                            <h6>Ifeanyi Udeh</h6>
                                         </div>
                                     </div>
                                     <div class="user-review">
@@ -514,15 +511,12 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <div class="">
-                                            <p>March 15, 2024</p>
+                                            <p>3 October 2025</p>
                                         </div>
                                     </div>
                                     <div class="review-text">
-                                        <p>Absolutely incredible service! The app went above and beyond my expectations.
-                                            The
-                                            attention to detail and professionalism was outstanding. Couldn't be happier
-                                            with
-                                            results!</p>
+                                        <p>“I live in a small town outside Enugu, and this app actually shows the
+                                            nearest hospitals correctly. It’s a big deal and will save lives.”</p>
                                     </div>
                                     <div class="likes-container">
                                         <button class="like-btn" id="likeBtn">
@@ -531,7 +525,6 @@
                                             </div>
                                             <span id="likeCount" class="mx-1">0</span>
                                         </button>
-
                                         <div class="verified-badge">
                                             <span>✓ Verified</span>
                                         </div>
@@ -542,11 +535,10 @@
                                 <div class="review-card">
                                     <div class="user-info">
                                         <div class="user-profile">
-                                            <h6>SJ</h6>
+                                            <h6>SM</h6>
                                         </div>
                                         <div class="details">
-                                            <h6>Sarah Johnson</h6>
-                                            <p>📍 New York, NY</p>
+                                            <h6>Sarah Müller</h6>
                                         </div>
                                     </div>
                                     <div class="user-review">
@@ -558,15 +550,12 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <div class="">
-                                            <p>March 15, 2024</p>
+                                            <p>3 October 2025</p>
                                         </div>
                                     </div>
                                     <div class="review-text">
-                                        <p>Absolutely incredible service! The app went above and beyond my expectations.
-                                            The
-                                            attention to detail and professionalism was outstanding. Couldn't be happier
-                                            with
-                                            results!</p>
+                                        <p>“The symptom report feature mentioned looks very useful. I think the idea of
+                                            sharing it with family or a doctor directly is genius.”</p>
                                     </div>
                                     <div class="likes-container">
                                         <button class="like-btn" id="likeBtn">
@@ -575,7 +564,6 @@
                                             </div>
                                             <span id="likeCount" class="mx-1">0</span>
                                         </button>
-
                                         <div class="verified-badge">
                                             <span>✓ Verified</span>
                                         </div>
@@ -586,11 +574,10 @@
                                 <div class="review-card">
                                     <div class="user-info">
                                         <div class="user-profile">
-                                            <h6>SJ</h6>
+                                            <h6>KA</h6>
                                         </div>
                                         <div class="details">
-                                            <h6>Sarah Johnson</h6>
-                                            <p>📍 New York, NY</p>
+                                            <h6>Kunle Ajayi</h6>
                                         </div>
                                     </div>
                                     <div class="user-review">
@@ -602,15 +589,13 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <div class="">
-                                            <p>March 15, 2024</p>
+                                            <p>4 October 2025</p>
                                         </div>
                                     </div>
                                     <div class="review-text">
-                                        <p>Absolutely incredible service! The app went above and beyond my expectations.
-                                            The
-                                            attention to detail and professionalism was outstanding. Couldn't be happier
-                                            with
-                                            results!</p>
+                                        <p>“This is long overdue. I used the location finder during an emergency and it
+                                            worked flawlessly. The Sponsored Ads are also a smart way to support the
+                                            platform.”</p>
                                     </div>
                                     <div class="likes-container">
                                         <button class="like-btn" id="likeBtn">
@@ -619,7 +604,203 @@
                                             </div>
                                             <span id="likeCount" class="mx-1">0</span>
                                         </button>
-
+                                        <div class="verified-badge">
+                                            <span>✓ Verified</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="review-card">
+                                    <div class="user-info">
+                                        <div class="user-profile">
+                                            <h6>CE</h6>
+                                        </div>
+                                        <div class="details">
+                                            <h6>Chinenye Eze</h6>
+                                        </div>
+                                    </div>
+                                    <div class="user-review">
+                                        <div class="">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="">
+                                            <p>5 October 2025</p>
+                                        </div>
+                                    </div>
+                                    <div class="review-text">
+                                        <p>“I’ve tried a few health apps before, but this one loads quickly and doesn’t
+                                            drain my battery. I like that I can check nearby health centres instantly.”
+                                        </p>
+                                    </div>
+                                    <div class="likes-container">
+                                        <button class="like-btn" id="likeBtn">
+                                            <div class="thumb-icon">
+                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                            </div>
+                                            <span id="likeCount" class="mx-1">0</span>
+                                        </button>
+                                        <div class="verified-badge">
+                                            <span>✓ Verified</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="review-card">
+                                    <div class="user-info">
+                                        <div class="user-profile">
+                                            <h6>GA</h6>
+                                        </div>
+                                        <div class="details">
+                                            <h6>Grace Adeniran</h6>
+                                        </div>
+                                    </div>
+                                    <div class="user-review">
+                                        <div class="">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="">
+                                            <p>6 October 2025</p>
+                                        </div>
+                                    </div>
+                                    <div class="review-text">
+                                        <p>“I manage a community health outreach and plan to use this app to guide
+                                            people to local services. The Corporate and Community Access idea is very
+                                            welcome.”</p>
+                                    </div>
+                                    <div class="likes-container">
+                                        <button class="like-btn" id="likeBtn">
+                                            <div class="thumb-icon">
+                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                            </div>
+                                            <span id="likeCount" class="mx-1">0</span>
+                                        </button>
+                                        <div class="verified-badge">
+                                            <span>✓ Verified</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="review-card">
+                                    <div class="user-info">
+                                        <div class="user-profile">
+                                            <h6>EN</h6>
+                                        </div>
+                                        <div class="details">
+                                            <h6>Elena Novak</h6>
+                                        </div>
+                                    </div>
+                                    <div class="user-review">
+                                        <div class="">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="">
+                                            <p>7 October 2025</p>
+                                        </div>
+                                    </div>
+                                    <div class="review-text">
+                                        <p>“The Free Edition works well. Hoping that the DigitalHealth Standard features
+                                            will include easy document upload and chat functions soon.”</p>
+                                    </div>
+                                    <div class="likes-container">
+                                        <button class="like-btn" id="likeBtn">
+                                            <div class="thumb-icon">
+                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                            </div>
+                                            <span id="likeCount" class="mx-1">0</span>
+                                        </button>
+                                        <div class="verified-badge">
+                                            <span>✓ Verified</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="review-card">
+                                    <div class="user-info">
+                                        <div class="user-profile">
+                                            <h6>TS</h6>
+                                        </div>
+                                        <div class="details">
+                                            <h6>Tunde Salami</h6>
+                                        </div>
+                                    </div>
+                                    <div class="user-review">
+                                        <div class="">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="">
+                                            <p>9 October 2025</p>
+                                        </div>
+                                    </div>
+                                    <div class="review-text">
+                                        <p>“This a great idea to create local economy”</p>
+                                    </div>
+                                    <div class="likes-container">
+                                        <button class="like-btn" id="likeBtn">
+                                            <div class="thumb-icon">
+                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                            </div>
+                                            <span id="likeCount" class="mx-1">0</span>
+                                        </button>
+                                        <div class="verified-badge">
+                                            <span>✓ Verified</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="review-card">
+                                    <div class="user-info">
+                                        <div class="user-profile">
+                                            <h6>TJ</h6>
+                                        </div>
+                                        <div class="details">
+                                            <h6>Tom Jenkins</h6>
+                                        </div>
+                                    </div>
+                                    <div class="user-review">
+                                        <div class="">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="">
+                                            <p>12 October 2025</p>
+                                        </div>
+                                    </div>
+                                    <div class="review-text">
+                                        <p>“As someone working in public health analytics, I find HealthCentreApp’s
+                                            structure quite impressive. The National Edition could be a game changer if
+                                            adopted widely.”</p>
+                                    </div>
+                                    <div class="likes-container">
+                                        <button class="like-btn" id="likeBtn">
+                                            <div class="thumb-icon">
+                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                            </div>
+                                            <span id="likeCount" class="mx-1">0</span>
+                                        </button>
                                         <div class="verified-badge">
                                             <span>✓ Verified</span>
                                         </div>
@@ -627,10 +808,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="mt-5 text-center result-container">
-                        <button class="loadmore-btn">Load more reviews</button>
-                        <p class="mt-4">Showing 5 of 847 total reviews</p>
                     </div>
                 </div>
             </div>
@@ -660,7 +837,62 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/country-states.js"></script>
-    
+
+
+    <script>
+
+    // Formspree Integration
+    function closeFormspreePopup() {
+        document.getElementById('formspreePopup').classList.remove('show');
+    }
+
+        // Character counter
+        const textarea = document.querySelector('textarea[name="review"]');
+        const charCount = document.getElementById('charCount');
+        textarea.addEventListener('input', () => {
+            charCount.textContent = `${textarea.value.length} / 500 characters`;
+        });
+
+        // Rating selection
+        const stars = document.querySelectorAll('.s-container');
+        const ratingInput = document.getElementById('ratingInput');
+        const ratingLabel = document.getElementById('ratingLabel');
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                stars.forEach(s => s.classList.remove('active'));
+                star.classList.add('active');
+                ratingInput.value = star.dataset.value;
+                ratingLabel.textContent = `You rated: ${star.dataset.value}`;
+            });
+        });
+
+        // Form submission success message
+        document.getElementById('reviewForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            document.getElementById('add-review').classList.add('d-none');
+            document.getElementById('formspreePopup').classList.add('show');
+            
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+            
+            if (response.ok) {
+                form.reset();
+                ratingLabel.textContent = 'Click on a star to rate your experience';
+                stars.forEach(s => s.classList.remove('active'));
+            } else {
+                alert('Something went wrong. Please try again.');
+            }
+        });
+    </script>
+
+
     <script>
 
         var user_country_code = ""; // Default me koi country selected nahi
@@ -718,12 +950,10 @@
             reviewPopup.classList.remove('d-none')
         });
 
-        document.getElementById('submit-review').addEventListener("click", () => {
-                reviewPopup.classList.add('d-none')
-        });
+
 
         document.getElementById('review-close').addEventListener("click", () => {
-                reviewPopup.classList.add('d-none')
+            reviewPopup.classList.add('d-none')
         });
 
         reviewPopup.addEventListener("click", (e) => {

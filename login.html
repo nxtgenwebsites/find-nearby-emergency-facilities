@@ -8,6 +8,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/about.css">
@@ -272,7 +275,7 @@
 
                                 <!-- Forgot Password -->
                                 <div class="mb-3 text-end extra-links">
-                                    <a href="#">Forgot password?</a>
+                                    <a href="forgot-password.html">Forgot password?</a>
                                 </div>
                                 <!-- Google reCAPTCHA widget -->
                                 <div class=" mb-3">
@@ -319,7 +322,10 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
 
     document.getElementById("login-form").addEventListener("submit", async (e) => {
@@ -336,7 +342,7 @@
         // }
 
         try {
-            const res = await axios.post("http://localhost:5000/api/login", {
+            const res = await axios.post("https://find-nearby-emergency-facilities-ba.vercel.app/api/auth/login", {
                 email,
                 password,
                 // recaptchaToken
@@ -350,7 +356,14 @@
 
         } catch (err) {
             console.error(err);
-            alert(err.response?.data?.message || "Something went wrong");
+            toastr.error(err.response?.data?.message || "Something went wrong", "Error", {
+                "closeButton": true,
+                "progressBar": true,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "1000",
+            })
         }
     });
 

@@ -444,7 +444,9 @@ body{
   padding: 8px 15px;
   max-width: 470px;
   margin: 50px auto;
+  margin-top: 0 !important;
 }
+
 .search-input {
   display: none;
   flex: 1;

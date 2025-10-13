@@ -12,6 +12,18 @@
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/edition.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <style>
+        .detail-panel a{
+            font-size: 16px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .detail-panel p:has(a) {
+            width: 70% !important;
+}
+
+    </style>
 </head>
 
 <body>
@@ -20,16 +32,16 @@
     <div class="overlay" id="overlay2"></div>
 
     <div class="location-modal " id="locationModal">
-        <h4>Confirm to Continue</h4>
-        <p class="mt-3">By continuing to use this service you agree to our Terms & Conditions.</p>
+        <h4 class="text-danger"> <strong>WARNING</strong></h4>
+        <p class="mt-3 mb-0">This Geo Location Service uses Google map and its subject to Google terms and Conditions.</p>
+        <p class="mt-2 mb-0">Also, please ensure you grant Google Location Map access to your current location, otherwise it
+            might give you wrong
+            results.</p>
+        <p class="mt-2"><strong>Do you want to Proceed?</strong></p>
         <div class="location-buttons">
-            <button class="btn-location btn-deny " onclick="denyLocation()">
-                Disagree
-            </button>
-            <a href="nearby-services.html">
-                <button class="btn-location btn-allow">
-                    Agree
-                </button>
+            <button class="btn-location btn-deny" onclick="denyLocation()">No</button>
+            <a href="https://www.google.com/maps/search/hospitals+near+me" target="_blank">
+                <button class="btn-location btn-allow">Yes</button>
             </a>
         </div>
     </div>
@@ -209,19 +221,19 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                   <a href="#" class="nav-link" onclick="commingSoon('Reviews Page')">
+                   <a href="/reviews.html" class="nav-link">
                         <img src="assets/icons/star.svg" />
                         <span>Reviews</span>
                     </a>
                 </li>
-                <li class="nav-item no-page">
+                <li class="nav-item">
                     <a href="partnerships.html" class="nav-link active">
                         <img src="assets/icons/ph_handshake.svg" />
                         <span>Partnerships</span>
                     </a>
                 </li>
-                <li class="nav-item no-page">
-                    <a href="#" class="nav-link" onclick="commingSoon('System Page')">
+                <li class="nav-item">
+                    <a href="/systems.html" class="nav-link">
                         <img src="assets/icons/settings.svg" />
                         <span>System</span>
                     </a>
@@ -268,8 +280,13 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-12">
+                                            <p class="header-description headline mt-0 mb-2">
+                                                <strong>HealthCentreApp Partnership Models</strong>
+                                            </p>
                                             <p class="header-description">
                                                 Collaborate with Us to Expand Access, Empower Citizens & Strengthen Health Systems. 
+                                                </p>
+                                                <p class="header-description">
                                                  <strong>HealthCentreApp</strong> offers a range of
                                                 partnership models tailored for individuals, communities, organisations, and institutions that share our mission of
                                                 delivering digital health access across Africa. We believe health transformation is most powerful when it’s
@@ -303,22 +320,24 @@
                                                                 community leaders who want to:
                                                                     <ul>
                                                                         <li>
-                                                                            Spread awareness about free access to medical services
+                                                                            Promote digital health adoption across their network
                                                                         </li>
                                                                         <li>
-                                                                            Earn rewards through structured referral challenges
+                                                                            Support others in accessing modern healthcare services
                                                                         </li>
                                                                         <li>
-                                                                            Build long-term income from paid plan upgrades (subject to conditions)
+                                                                            Earn rewards and build long-term income through our structured referral programs
                                                                         </li>
                                                                     </ul>
-                                                                    <p>Includes participation in our Referral Champion Program and future monetisation schemes (BMP/GMP).
+                                                                    <p>
                                                                     </p>
                                                                 </div>
                                                                 <div class="d-flex justify-content-between align-items-center">
-                                                                    <a href="contact-us.html" class="text-decoration-none detail-title fw-bold" style="font-size: 1.3rem;">
-                                                                        Contact us for more
-                                                                        info.</a>
+                                                                    <p>
+                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                            Contact Us</a>
+                                                                            to learn more about becoming a Referral Partner.
+                                                                    </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
@@ -335,31 +354,32 @@
 
                                                 <div class="card-wrapper">
                                                     <div class="edition-card" data-edition="card-2">
-                                                        <div class="card-title">Certified Digital Health Practitioners (CdHPs)</div>
+                                                        <div class="card-title">Silver Monetisation Program (SMP)</div>
                                                         <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
                                                         <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
                                                     </div>
                                                     <div class="mobile-detail" id="mobile-detail-card-2">
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
-                                                                <div class="contact-title">Healthcare professionals or trained volunteers can support others in using HealthCentreApp effectively. You’ll receive
-                                                                training and access to tools that allow you to:
+                                                                <div class="contact-title">Available to all subscribed users.
                                                                     <ul>
                                                                         <li>
-                                                                            Support up to 50 citizens in your local area
+                                                                            Earn 25% of every subscription fee from users you invite
                                                                         </li>
                                                                         <li>
-                                                                            Help people with triage requests and digital health tools
+                                                                            Earn 25% of the revenue from Sponsored Ads you create and publish
                                                                         </li>
                                                                         <li>
-                                                                            Earn recognition and income as a community digital health leader
+                                                                            Automatically included for all DigitalHealth Standard subscribers
                                                                         </li>
                                                                     </ul>
                                                                 </div>
                                                                 <div class="d-flex justify-content-between align-items-center">
-                                                                    <a href="contact-us.html" class="text-decoration-none detail-title fw-bold" style="font-size: 1.3rem;">
-                                                                        Contact us for more
-                                                                        info.</a>
+                                                                    <p>
+                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                            Contact Us</a>
+                                                                        to learn more about becoming a Referral Partner.
+                                                                    </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
@@ -368,42 +388,44 @@
                                                                             <span class="mx-1 like-count">0</span>
                                                                         </button>
                                                                     </div>
-                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="card-wrapper">
                                                     <div class="edition-card" data-edition="card-3">
-                                                        <div class="card-title">Corporate & NGO Partners                                                        </div>
+                                                        <div class="card-title">Gold Monetisation Program (GMP)</div>
                                                         <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
                                                         <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
                                                     </div>
                                                     <div class="mobile-detail" id="mobile-detail-card-3">
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
-                                                                <div class="contact-title">Ideal for organisations looking to support health access through:
+                                                                <div class="contact-title">Available to Premium Edition subscribers who complete the Certified Digital Health Practitioner (CdHP) training.
                                                                     <ul>
                                                                         <li>
-                                                                            Bulk sponsorship of Free or Premium access (GiftedMedical vouchers)
+                                                                            Earn 50% of every subscription fee from users you invite
                                                                         </li>
                                                                         <li>
-                                                                            Community health campaigns and outreach programs
+                                                                            Earn 50% of the revenue from Sponsored Ads you create and publish
                                                                         </li>
                                                                         <li>
-                                                                            Corporate social responsibility (CSR) and ESG-aligned initiatives
+                                                                            Completion of CdHP training automatically upgrades your account to Community Edition, allowing you to manage and support up to 50 local users
                                                                         </li>
                                                                         <li>
-                                                                            Transparent, trackable health support for employees, communities, or vulnerable populations
+                                                                            To maintain GMP eligibility, the CdHP must have exactly 50 supported community members registered under their Community Edition account
                                                                         </li>
                                                                     </ul>
-                                                                    <p>We provide tools for monitoring voucher distribution, usage metrics, and anonymised impact dashboards.
+                                                                    <p>
                                                                     </p>
                                                                 </div>
                                                                 <div class="d-flex justify-content-between align-items-center">
-                                                                    <a href="contact-us.html" class="text-decoration-none detail-title fw-bold" style="font-size: 1.3rem;">
-                                                                        Contact us for more
-                                                                        info.</a>
+                                                                    <p>
+                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                            Contact Us</a>
+                                                                        to learn more about becoming a Referral Partner.
+                                                                    </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
@@ -412,37 +434,44 @@
                                                                             <span class="mx-1 like-count">0</span>
                                                                         </button>
                                                                     </div>
-                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="card-wrapper">
                                                     <div class="edition-card" data-edition="card-4">
-                                                        <div class="card-title">Diaspora & Philanthropic Gifting                                                        </div>
+                                                        <div class="card-title">Certified Digital Health Practitioners (CdHPs)</div>
                                                         <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
                                                         <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
                                                     </div>
                                                     <div class="mobile-detail" id="mobile-detail-card-4">
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
-                                                                <div class="contact-title">Diaspora members and philanthropists can give back by sponsoring access for loved ones or communities.
-                                                                Through our GiftedMedical platform, you can:                                                                    
+                                                                <div class="contact-title">CdHPs are trained Premium users who support their local community through the
+                                                                Community Edition of HealthCentreApp. They act as trusted digital health advocates for
+                                                                citizens who may not own smartphones or understand how to use digital tools                                                                 
                                                                     <ul>
                                                                         <li>
-                                                                            Instantly send free or premium health access to someone in Africa
+                                                                            Protect health data through confidentiality, privacy, and safeguarding best practices
                                                                         </li>
                                                                         <li>
-                                                                            Support healthcare access instead of just sending cash
+                                                                            Support up to 50 local citizens in accessing digital health tools and triage services
                                                                         </li>
                                                                         <li>
-                                                                            Track usage and receive updates (with recipient consent)
+                                                                            Help users create and manage CareRequests and CareRecords
                                                                         </li>
+                                                                        <li>
+                                                                            Earn recognition and income as Community Digital Health Leaders
+                                                                        </li>
+                                                                        </ul>
                                                                 </div>
                                                                 <div class="d-flex justify-content-between align-items-center">
-                                                                    <a href="contact-us.html" class="text-decoration-none detail-title fw-bold" style="font-size: 1.3rem;">
-                                                                        Contact us for more
-                                                                        info.</a>
+                                                                    <p>
+                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                            Contact Us</a>
+                                                                        to learn more about becoming a Referral Partner.
+                                                                    </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
@@ -451,27 +480,60 @@
                                                                             <span class="mx-1 like-count">0</span>
                                                                         </button>
                                                                     </div>
-                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="card-wrapper">
                                                     <div class="edition-card" data-edition="card-5">
-                                                        <div class="card-title">Let’s Work Together                                                        </div>
+                                                        <div class="card-title">Partnerships with Care Providers</div>
                                                         <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
                                                         <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
                                                     </div>
                                                     <div class="mobile-detail" id="mobile-detail-card-5">
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
-                                                                <div class="contact-title">Whether you’re one person or a large organisation, we’d love to explore how we can collaborate. Let’s create a
-                                                                healthier, more connected Africa — together.                                                                   
+                                                                <div class="contact-title">Partnering with HealthCentreApp enables hospitals, clinics, and private practitioners to
+                                                                deliver mobile-enabled electronic patient records (EPR) and participate in a citizen-first
+                                                                digital health ecosystem. Through this partnership, care providers can act as Certified
+                                                                Digital Health Practitioners (CdHPs) and register all their patients under a unified, secure,
+                                                                and portable record system. HealthCentreApp ensures that data remains patient-owned but
+                                                                seamlessly accessible to authorised care providers, enhancing continuity of care and clinical efficiency.                                                                   
+                                                                <ul>
+                                                                    <li>
+                                                                        Access a mobile-ready, cloud-based patient record platform without large infrastructure costs
+                                                                    </li>
+                                                                    <li>
+                                                                        Improve patient retention through personalised digital engagement and continuity of
+                                                                        care
+                                                                    </li>
+                                                                    <li>Reduce administrative workload with digitised triage, record-sharing, and consent 
+                                                                        management</li>
+                                                                        <li>
+                                                                            Strengthen compliance with data privacy and health information governance standards
+                                                                        </li>
+                                                                        <li>
+                                                                            Access customised configurations to match specific clinical workflows or operational
+                                                                            needs
+                                                                        </li>
+                                                                        <li>
+                                                                            Participate in national and regional digital health initiatives through scalable integration
+                                                                            options
+                                                                        </li>
+                                                                        <li>
+                                                                            Enhance reputation as a digitally enabled healthcare provider aligned with future health
+                                                                            standards
+                                                                        </li>
+                                                                    </ul>
                                                                 </div>
+
                                                                 <div class="d-flex justify-content-between align-items-center">
-                                                                    <a href="contact-us.html" class="text-decoration-none detail-title fw-bold" style="font-size: 1.3rem;">
-                                                                        Contact us for more
-                                                                        info.</a>
+                                                                    <p>
+                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                            Contact Us</a>
+                                                                        to learn more about becoming a Referral Partner.
+                                                                    </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
@@ -480,7 +542,159 @@
                                                                             <span class="mx-1 like-count">0</span>
                                                                         </button>
                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="card-6">
+                                                        <div class="card-title">Diaspora and Philanthropic Gifting</div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-card-6">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <div class="contact-title">
+                                                                    Diaspora members and philanthropists can give back by gifting digital health subscriptions
+                                                                    to loved ones or communities. Through our GiftedMedical vouchers, you can:
+                                                                    <ul>
+                                                                        <li>
+                                                                            Instantly send Standard or Premium Edition subscriptions to others
+                                                                        </li>
+                                                                        <li>
+                                                                            Support healthcare and well-being instead of sending cash
+                                                                        </li>
+                                                                        <li>
+                                                                            Track voucher usage and receive updates through CareRemote (with recipient consent)
+                                                                        </li>
+                                                                        </ul>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <p>
+                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                            Contact Us</a>
+                                                                        to learn more about becoming a Referral Partner.
+                                                                    </p>
+                                                                    <div class="like-section">
+                                                                        <button class="like-btn" id="likeBtn">
+                                                                            <div class="thumb-icon">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                            </div>
+                                                                            <span class="mx-1 like-count">0</span>
+                                                                        </button>
                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="card-7">
+                                                        <div class="card-title">Corporate and NGO Partnerships</div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-card-7">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <div class="contact-title">
+                                                                    Ideal for organisations seeking to make measurable impact through health sponsorships
+                                                                    and community engagement. Corporate and NGO partners can:
+                                                                    <ul>
+                                                                        <li>
+                                                                            Sponsor bulk subscriptions of Standard or Premium Editions through GiftedMedical vouchers
+                                                                        </li>
+                                                                        <li>
+                                                                            Run community health campaigns and outreach programmes
+                                                                        </li>
+                                                                        <li>
+                                                                             Align with CSR and ESG objectives through measurable health impact
+                                                                        </li>
+                                                                        <li>
+                                                                            Monitor programme outcomes through voucher tracking, usage analytics, and
+                                                                            anonymised dashboards
+                                                                        </li>
+                                                                        </ul>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <p>
+                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                            Contact Us</a>
+                                                                        to learn more about becoming a Referral Partner.
+                                                                    </p>
+                                                                    <div class="like-section">
+                                                                        <button class="like-btn" id="likeBtn">
+                                                                            <div class="thumb-icon">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                            </div>
+                                                                            <span class="mx-1 like-count">0</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="card-8">
+                                                        <div class="card-title">National, State, and Regional Partnerships</div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-card-8">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <div class="contact-title">
+                                                                    We collaborate with government and institutional partners to customise and localise
+                                                                    HealthCentreApp for specific countries or regions. We can:
+                                                                    <ul>
+                                                                        <li>
+                                                                            White-label the platform with national or regional branding
+                                                                        </li>
+                                                                        <li>
+                                                                            Tailor functionalities to align with local health systems and policies
+                                                                        </li>
+                                                                        <li>
+                                                                            Support deployment for national health strategies, digital inclusion programmes, or emergency health response systems
+                                                                        </li>
+                                                                        </ul>
+                                                                </div>
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <p>
+                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                            Contact Us</a>
+                                                                        to learn more about becoming a Referral Partner.
+                                                                    </p>
+                                                                    <div class="like-section">
+                                                                        <button class="like-btn" id="likeBtn">
+                                                                            <div class="thumb-icon">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                            </div>
+                                                                            <span class="mx-1 like-count">0</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="card-9">
+                                                        <div class="card-title">Join the Movement</div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-card-9">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <div class="contact-title">
+                                                                    Whether you are an individual advocate or an institutional leader, HealthCentreApp
+                                                                    provides the tools to empower citizens, enhance health access, and drive sustainable digital
+                                                                    transformation across LMICs.
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -496,22 +710,24 @@
                                                             community leaders who want to:
                                                             <ul>
                                                                 <li>
-                                                                    Spread awareness about free access to medical services
+                                                                    Promote digital health adoption across their network
                                                                 </li>
                                                                 <li>
-                                                                    Earn rewards through structured referral challenges
+                                                                    Support others in accessing modern healthcare services
                                                                 </li>
                                                                 <li>
-                                                                    Build long-term income from paid plan upgrades (subject to conditions)
+                                                                    Earn rewards and build long-term income through our structured referral programs
                                                                 </li>
                                                             </ul>
-                                                            <p>Includes participation in our Referral Champion Program and future monetisation schemes (BMP/GMP).
+                                                            <p>
                                                             </p>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <a href="contact-us.html" class="text-decoration-none detail-title fw-bold" style="font-size: 1.3rem;">
-                                                                Contact us for more
-                                                                info.</a>
+                                                            <p>
+                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                    Contact Us</a>
+                                                                to learn more about becoming a Referral Partner.
+                                                            </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
@@ -521,29 +737,29 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                </div>
+                                                    </div>
                                             </div>
                                                 <div id="detail-card-2" class="detail-panel">
                                                     <div class="contact-section">
-                                                        <div class="contact-title">Healthcare professionals or trained volunteers can support others in using
-                                                            HealthCentreApp effectively. You’ll receive
-                                                            training and access to tools that allow you to:
+                                                        <div class="contact-title">Available to all subscribed users.
                                                             <ul>
                                                                 <li>
-                                                                    Support up to 50 citizens in your local area
+                                                                    Earn 25% of every subscription fee from users you invite
                                                                 </li>
                                                                 <li>
-                                                                    Help people with triage requests and digital health tools
+                                                                    Earn 25% of the revenue from Sponsored Ads you create and publish
                                                                 </li>
                                                                 <li>
-                                                                    Earn recognition and income as a community digital health leader
+                                                                    Automatically included for all DigitalHealth Standard subscribers
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <a href="contact-us.html" class="text-decoration-none detail-title fw-bold" style="font-size: 1.3rem;">
-                                                                Contact us for more
-                                                                info.</a>
+                                                            <p>
+                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                    Contact Us</a>
+                                                                to learn more about becoming a Referral Partner.
+                                                            </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
@@ -558,28 +774,33 @@
 
                                                 <div id="detail-card-3" class="detail-panel">
                                                     <div class="contact-section">
-                                                        <div class="contact-title">Ideal for organisations looking to support health access through:
+                                                        <div class="contact-title">Available to Premium Edition subscribers who complete the Certified Digital Health
+                                                            Practitioner (CdHP) training.
                                                             <ul>
                                                                 <li>
-                                                                    Bulk sponsorship of Free or Premium access (GiftedMedical vouchers)
+                                                                    Earn 50% of every subscription fee from users you invite
                                                                 </li>
                                                                 <li>
-                                                                    Community health campaigns and outreach programs
+                                                                    Earn 50% of the revenue from Sponsored Ads you create and publish
                                                                 </li>
                                                                 <li>
-                                                                    Corporate social responsibility (CSR) and ESG-aligned initiatives
+                                                                    Completion of CdHP training automatically upgrades your account to Community Edition, allowing you to
+                                                                    manage and support up to 50 local users
                                                                 </li>
                                                                 <li>
-                                                                    Transparent, trackable health support for employees, communities, or vulnerable populations
+                                                                    To maintain GMP eligibility, the CdHP must have exactly 50 supported community members registered under
+                                                                    their Community Edition account
                                                                 </li>
                                                             </ul>
-                                                            <p>We provide tools for monitoring voucher distribution, usage metrics, and anonymised impact dashboards.
+                                                            <p>
                                                             </p>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <a href="contact-us.html" class="text-decoration-none detail-title fw-bold" style="font-size: 1.3rem;">
-                                                                Contact us for more
-                                                                info.</a>
+                                                            <p>
+                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                    Contact Us</a>
+                                                                to learn more about becoming a Referral Partner.
+                                                            </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
@@ -593,24 +814,30 @@
                                             </div>
                                                 <div id="detail-card-4" class="detail-panel">
                                                     <div class="contact-section">
-                                                        <div class="contact-title">Diaspora members and philanthropists can give back by sponsoring access for loved ones or
-                                                            communities.
-                                                            Through our GiftedMedical platform, you can:
+                                                        <div class="contact-title">CdHPs are trained Premium users who support their local community through the
+                                                            Community Edition of HealthCentreApp. They act as trusted digital health advocates for
+                                                            citizens who may not own smartphones or understand how to use digital tools
                                                             <ul>
                                                                 <li>
-                                                                    Instantly send free or premium health access to someone in Africa
+                                                                    Protect health data through confidentiality, privacy, and safeguarding best practices
                                                                 </li>
                                                                 <li>
-                                                                    Support healthcare access instead of just sending cash
+                                                                    Support up to 50 local citizens in accessing digital health tools and triage services
                                                                 </li>
                                                                 <li>
-                                                                    Track usage and receive updates (with recipient consent)
+                                                                    Help users create and manage CareRequests and CareRecords
                                                                 </li>
+                                                                <li>
+                                                                    Earn recognition and income as Community Digital Health Leaders
+                                                                </li>
+                                                            </ul>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <a href="contact-us.html" class="text-decoration-none detail-title fw-bold" style="font-size: 1.3rem;">
-                                                                Contact us for more
-                                                                info.</a>
+                                                            <p>
+                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                    Contact Us</a>
+                                                                to learn more about becoming a Referral Partner.
+                                                            </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
@@ -624,14 +851,46 @@
                                             </div>
                                                 <div id="detail-card-5" class="detail-panel">
                                                     <div class="contact-section">
-                                                        <div class="contact-title">Whether you’re one person or a large organisation, we’d love to explore how we can
-                                                            collaborate. Let’s create a
-                                                            healthier, more connected Africa — together.
+                                                        <div class="contact-title">Partnering with HealthCentreApp enables hospitals, clinics, and private practitioners to
+                                                            deliver mobile-enabled electronic patient records (EPR) and participate in a citizen-first
+                                                            digital health ecosystem. Through this partnership, care providers can act as Certified
+                                                            Digital Health Practitioners (CdHPs) and register all their patients under a unified, secure,
+                                                            and portable record system. HealthCentreApp ensures that data remains patient-owned but
+                                                            seamlessly accessible to authorised care providers, enhancing continuity of care and clinical efficiency.
+                                                            <ul>
+                                                                <li>
+                                                                    Access a mobile-ready, cloud-based patient record platform without large infrastructure costs
+                                                                </li>
+                                                                <li>
+                                                                    Improve patient retention through personalised digital engagement and continuity of
+                                                                    care
+                                                                </li>
+                                                                <li>Reduce administrative workload with digitised triage, record-sharing, and consent
+                                                                    management</li>
+                                                                <li>
+                                                                    Strengthen compliance with data privacy and health information governance standards
+                                                                </li>
+                                                                <li>
+                                                                    Access customised configurations to match specific clinical workflows or operational
+                                                                    needs
+                                                                </li>
+                                                                <li>
+                                                                    Participate in national and regional digital health initiatives through scalable integration
+                                                                    options
+                                                                </li>
+                                                                <li>
+                                                                    Enhance reputation as a digitally enabled healthcare provider aligned with future health
+                                                                    standards
+                                                                </li>
+                                                            </ul>
                                                         </div>
+                                                    
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <a href="contact-us.html" class="text-decoration-none detail-title fw-bold" style="font-size: 1.3rem;">
-                                                                Contact us for more
-                                                                info.</a>
+                                                            <p>
+                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                    Contact Us</a>
+                                                                to learn more about becoming a Referral Partner.
+                                                            </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
@@ -640,6 +899,122 @@
                                                                     <span class="mx-1 like-count">0</span>
                                                                 </button>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                                <div id="detail-card-6" class="detail-panel">
+                                                    <div class="contact-section">
+                                                        <div class="contact-title">
+                                                            Diaspora members and philanthropists can give back by gifting digital health subscriptions
+                                                            to loved ones or communities. Through our GiftedMedical vouchers, you can:
+                                                            <ul>
+                                                                <li>
+                                                                    Instantly send Standard or Premium Edition subscriptions to others
+                                                                </li>
+                                                                <li>
+                                                                    Support healthcare and well-being instead of sending cash
+                                                                </li>
+                                                                <li>
+                                                                    Track voucher usage and receive updates through CareRemote (with recipient consent)
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <p>
+                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                    Contact Us</a>
+                                                                to learn more about becoming a Referral Partner.
+                                                            </p>
+                                                            <div class="like-section">
+                                                                <button class="like-btn" id="likeBtn">
+                                                                    <div class="thumb-icon">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                    </div>
+                                                                    <span class="mx-1 like-count">0</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                                <div id="detail-card-7" class="detail-panel">
+                                                    <div class="contact-section">
+                                                        <div class="contact-title">
+                                                            Ideal for organisations seeking to make measurable impact through health sponsorships
+                                                            and community engagement. Corporate and NGO partners can:
+                                                            <ul>
+                                                                <li>
+                                                                    Sponsor bulk subscriptions of Standard or Premium Editions through GiftedMedical vouchers
+                                                                </li>
+                                                                <li>
+                                                                    Run community health campaigns and outreach programmes
+                                                                </li>
+                                                                <li>
+                                                                    Align with CSR and ESG objectives through measurable health impact
+                                                                </li>
+                                                                <li>
+                                                                    Monitor programme outcomes through voucher tracking, usage analytics, and
+                                                                    anonymised dashboards
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <p>
+                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                    Contact Us</a>
+                                                                to learn more about becoming a Referral Partner.
+                                                            </p>
+                                                            <div class="like-section">
+                                                                <button class="like-btn" id="likeBtn">
+                                                                    <div class="thumb-icon">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                    </div>
+                                                                    <span class="mx-1 like-count">0</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                                <div id="detail-card-8" class="detail-panel">
+                                                    <div class="contact-section">
+                                                        <div class="contact-title">
+                                                            We collaborate with government and institutional partners to customise and localise
+                                                            HealthCentreApp for specific countries or regions. We can:
+                                                            <ul>
+                                                                <li>
+                                                                    White-label the platform with national or regional branding
+                                                                </li>
+                                                                <li>
+                                                                    Tailor functionalities to align with local health systems and policies
+                                                                </li>
+                                                                <li>
+                                                                    Support deployment for national health strategies, digital inclusion programmes, or emergency health
+                                                                    response systems
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <p>
+                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                    Contact Us</a>
+                                                                to learn more about becoming a Referral Partner.
+                                                            </p>
+                                                            <div class="like-section">
+                                                                <button class="like-btn" id="likeBtn">
+                                                                    <div class="thumb-icon">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                    </div>
+                                                                    <span class="mx-1 like-count">0</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                                <div id="detail-card-9" class="detail-panel">
+                                                    <div class="contact-section">
+                                                        <div class="contact-title">
+                                                            Whether you are an individual advocate or an institutional leader, HealthCentreApp
+                                                            provides the tools to empower citizens, enhance health access, and drive sustainable digital
+                                                            transformation across LMICs.
                                                         </div>
                                                     </div>
                                             </div>

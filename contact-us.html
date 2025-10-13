@@ -34,7 +34,6 @@
         </div>
     </div>
 
-
     <!-- Formspree Success Popup -->
     <div class="formspree-popup" id="formspreePopup">
         <div class="formspree-popup-content">
@@ -507,6 +506,7 @@
         // Formspree Integration
         function closeFormspreePopup() {
             document.getElementById('formspreePopup').classList.remove('show');
+            location.href = '/';
         }
 
         // Handle form submission with Formspree

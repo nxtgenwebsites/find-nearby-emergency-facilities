@@ -30,6 +30,7 @@
 }
 
 .review-card {
+  height: 100%;
   background: white;
   padding: 20px 30px;
   border-radius: 20px;
@@ -354,3 +355,86 @@ footer {
       font-size: 12px; 
     }
   }
+
+
+  /* Common style */
+.review-card .user-info .user-profile {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* 12 Dark & Bold Background Colors */
+.row > .col-12:nth-child(1) .user-profile { background: #1abc9c; }   /* Teal */
+.row > .col-12:nth-child(2) .user-profile { background: #3498db; }   /* Blue */
+.row > .col-12:nth-child(3) .user-profile { background: #9b59b6; }   /* Purple */
+.row > .col-12:nth-child(4) .user-profile { background: #e67e22; }   /* Orange */
+.row > .col-12:nth-child(5) .user-profile { background: #e74c3c; }   /* Red */
+.row > .col-12:nth-child(6) .user-profile { background: #2ecc71; }   /* Green */
+.row > .col-12:nth-child(7) .user-profile { background: #34495e; }   /* Navy Gray */
+.row > .col-12:nth-child(8) .user-profile { background: #16a085; }   /* Emerald */
+.row > .col-12:nth-child(9) .user-profile { background: #8e44ad; }   /* Deep Purple */
+.row > .col-12:nth-child(10) .user-profile { background: #c0392b; }  /* Brick Red */
+.row > .col-12:nth-child(11) .user-profile { background: #d35400; }  /* Burnt Orange */
+.row > .col-12:nth-child(12) .user-profile { background: #2c3e50; }  /* Midnight Blue */
+
+
+
+
+/* Formspree Success Popup Styles */
+.formspree-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+.formspree-popup.show {
+  display: flex !important;
+}
+
+.formspree-popup-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.formspree-popup-content h3 {
+  color: #02a50a;
+  font-size: 22px !important;
+  margin-bottom: 15px;
+}
+
+.formspree-popup-content p {
+  margin-bottom: 20px;
+  font-size: 16px !important;
+  color: #29343d;
+}
+
+.formspree-popup-close {
+  background: #3681861a;
+  color: #368186;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.formspree-popup-close:hover {
+  background: #3681861a;
+}

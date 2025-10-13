@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Centre App</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/user-management.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<style>
+    /* Toaster - kept from original */
+    .toaster {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        z-index: 9999;
+    }
+
+    .toast {
+        min-width: 240px;
+        max-width: 380px;
+        background: #ffffff;
+        color: #111827;
+        border-left: 4px solid #0ea5e9;
+        padding: .75rem 1rem;
+        border-radius: .5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+        display: flex;
+        gap: .75rem;
+        align-items: flex-start;
+    }
+
+    .toast.success {
+        border-color: #16a34a;
+    }
+
+    .toast.error {
+        border-color: #dc2626;
+    }
+
+    .toast.info {
+        border-color: #0ea5e9;
+    }
+
+    .toast .title {
+        font-weight: 600;
+        margin-bottom: .125rem;
+    }
+
+    .toast .msg {
+        font-size: .875rem;
+        line-height: 1.25rem;
+        color: #374151;
+    }
+
+    .toast .close {
+        margin-left: auto;
+        background: none;
+        border: none;
+        color: #6b7280;
+        cursor: pointer;
+    }
+
+    .toast-enter {
+        animation: toast-in .2s ease-out;
+    }
+
+    .toast-exit {
+        animation: toast-out .15s ease-in forwards;
+    }
+
+    @keyframes toast-in {
+        from {
+            transform: translateY(-6px);
+            opacity: 0
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1
+        }
+    }
+
+    @keyframes toast-out {
+        to {
+            transform: translateY(-6px);
+            opacity: 0
+        }
+    }
+
+    /* Simple chart tooltip box */
+    .chart-wrap {
+        position: relative;
+    }
+
+    .chart-tooltip {
+        position: absolute;
+        pointer-events: none;
+        background: #fff;
+        color: #111827;
+        border: 1px solid #e5e7eb;
+        border-radius: .5rem;
+        padding: .4rem .6rem;
+        font-size: .85rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+        transform: translate(-50%, -110%);
+        white-space: nowrap;
+        z-index: 10;
+    }
+
+    /* Minimal styles used in SVG (match existing naming) */
+    .bar-axis {
+        stroke: #e5e7eb;
+        stroke-width: 1;
+    }
+
+    .bar {
+        fill: var(--secondary-blue, #d0e7ff);
+    }
+
+    .bar:hover {
+        fill: #93c5fd;
+    }
+
+    .bar-label {
+        fill: #6b7280;
+        font-size: 12px;
+    }
+</style>
+
+<body>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay2"></div>
+
+    <!-- Added location permission modal -->
+    <div class="location-modal " id="profileModal">
+        <h3>Coming Soon!</h3>
+        <p>User profile feature isn’t available yet!</p>
+        <div class="location-buttons">
+            <button class="btn-location btn-allow" id="closeProfileBtn">
+                Go back
+            </button>
+        </div>
+    </div>
+
+    <!-- Toaster -->
+    <div id="toaster" class="toaster" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="d-flex w-100">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="logo">
+                    <div class="logo-img">
+                        <img src="assets/images/logo.svg" alt="">
+                    </div>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link active">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="user-management.html" class="nav-link">
+                        <i class="fa-solid fa-users"></i>
+                        <span>User Management</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Add User Modal -->
+        <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="border-radius:.9rem;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addUserLabel">Add User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="addUserForm">
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control" name="first" required>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" name="last" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" name="email" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">Role</label>
+                                    <select class="form-select" name="role">
+                                        <option value="user">User</option>
+                                        <option value="moderator">Moderator</option>
+                                        <option value="admin">Admin</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-select" name="status">
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                        <option value="pending">Pending</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline-gray" data-bs-dismiss="modal" type="button">Cancel</button>
+                            <button class="btn btn-teal" type="submit">Save User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- View User Modal -->
+        <div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="viewUserLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content" style="border-radius:.9rem;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewUserLabel">User Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-3 py-3">
+                            <div class="col-12 col-md-6">
+                                <label class="form-label small-muted">Full Name</label>
+                                <div class="fw-semibold" id="vuName">-</div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label small-muted">Email</label>
+                                <div class="fw-semibold" id="vuEmail">-</div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <label class="form-label small-muted">Role</label>
+                                <div id="vuRole"><span class="badge-pill role-user">user</span></div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <label class="form-label small-muted">Status</label>
+                                <div id="vuStatus"><span class="badge-pill status-active">active</span></div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <label class="form-label small-muted">Created</label>
+                                <div id="vuCreated">-</div>
+                            </div>
+                        </div>
+                        <div class="row g-3 d-none">
+                            <div class="col-12">
+                                <label class="form-label small-muted">ID</label>
+                                <div class="text-monospace small" id="vuId">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content w-100">
+            <!-- Header -->
+            <header class="header d-lg-none">
+                <a href="/" class="mobile-logo">
+                    <img src="assets/images/logo.svg">
+                </a>
+                <div class="header-right">
+                    <div class="user profile-button">
+                        <img src="assets/icons/user-icon.svg" alt="">
+                    </div>
+                    <button class="menu-toggle" id="menuToggle">
+                        <img src="assets/icons/bars.svg" alt="">
+                    </button>
+                </div>
+            </header>
+
+            <div class="main-content w-100">
+                <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
+                    <img src="assets/icons/user-icon.svg" width="30" alt="">
+                    <i class="dropdown-toggle"></i>
+                </button>
+                <div class="hero-content">
+                    <main class="container-fluid um-section py-3">
+                        <!-- Metric Cards -->
+                        <div class="row g-3 mb-3 mt-2">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="um-card stat-card">
+                                    <div class="stat-icon" style="background:var(--secondary-blue)"><i
+                                            class="fa-solid fa-users"></i>
+                                    </div>
+                                    <div>
+                                        <div class="small-muted">Total Users</div>
+                                        <div class="stat-value" id="statTotalUsers">0</div>
+                                        <div class="stat-delta up" id="statTotalDelta">All-time</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="um-card stat-card">
+                                    <div class="stat-icon"><i class="fa-solid fa-user-check"></i></div>
+                                    <div>
+                                        <div class="small-muted">Active Users</div>
+                                        <div class="stat-value" id="statActiveUsers">0</div>
+                                        <div class="stat-delta up" id="statActiveDelta">Live</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="um-card stat-card">
+                                    <div class="stat-icon bg-soft-blue" style="color:#1f4d7a;"><i
+                                            class="fa-regular fa-user-plus"></i>
+                                    </div>
+                                    <div>
+                                        <div class="small-muted">New This Month</div>
+                                        <div class="stat-value" id="statNew">0</div>
+                                        <div class="stat-delta up">Updated from data</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="um-card stat-card">
+                                    <div class="stat-icon bg-soft-gray"><i class="fa-solid fa-chart-line"></i></div>
+                                    <div>
+                                        <div class="small-muted">Active Rate</div>
+                                        <div class="stat-value" id="statActiveRate">0%</div>
+                                        <div class="small-muted"><i class="fa-regular fa-clock me-1"></i>Last 24h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-12 col-lg-8">
+                                <div class="um-card h-100">
+                                    <div class="um-card-header">
+                                        <h5 class="um-card-title mb-0">User Registration Trends</h5>
+                                        <div class="segmented" role="tablist" aria-label="Registration ranges">
+                                            <button class="active" data-range="7d" aria-selected="true">7D</button>
+                                            <button data-range="30d" aria-selected="false">30D</button>
+                                            <button data-range="90d" aria-selected="false">90D</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="chart-wrap">
+                                        <svg id="regChart" viewBox="0 0 700 300" width="100%" height="300" role="img"
+                                            aria-label="Registrations bar chart">
+                                            <!-- axes -->
+                                            <line x1="50" y1="20" x2="50" y2="260" class="bar-axis"></line>
+                                            <line x1="50" y1="260" x2="660" y2="260" class="bar-axis"></line>
+                                            <g id="bars"></g>
+                                            <g id="xlabels"></g>
+                                            <g id="ylabels"></g>
+                                        </svg>
+                                        <div id="chartTooltip" class="chart-tooltip" style="display:none;"></div>
+                                        <div class="chart-legend mt-2" id="chartLegend">Showing registrations for
+                                            selected range</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+                <!-- Footer -->
+                <footer class="footer dashboard-footer">
+                    <div class="container">
+                        <div class="footer-content">
+                            <div class="footer-text">
+                                © 2025 HealthCentreApp.com- All Rights Reserved.
+                            </div>
+                            <div class="footer-links">
+                                <a href="privacy-policy.html">Privacy Policy</a>
+                                <span>|</span>
+                                <a href="terms-and-conditions.html">Terms & Conditions</a>
+                                <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social"
+                                    style="cursor: pointer;">
+                                    <img src="assets/icons/facebook 1.svg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // <CHANGE> kept toaster, simplified elsewhere
+        function showToast(type = 'info', message = '') {
+            const container = document.getElementById('toaster');
+            if (!container) { try { alert(message); } catch (_) { } return; }
+            const el = document.createElement('div');
+            el.className = 'toast ' + type + ' toast-enter';
+            const title = type === 'success' ? 'Success' : type === 'error' ? 'Error' : 'Notice';
+            el.innerHTML = '<div><div class="title">' + title + '</div><div class="msg">' + message + '</div></div><button class="close" aria-label="Close toast">&times;</button>';
+            const close = () => {
+                el.classList.remove('toast-enter');
+                el.classList.add('toast-exit');
+                setTimeout(() => el.remove(), 180);
+            };
+            el.querySelector('.close').addEventListener('click', close);
+            container.appendChild(el);
+            setTimeout(close, 3200);
+        }
+    </script>
+
+    <script>
+        // <CHANGE> cleaned API usage, cache, and metrics update
+        const uId = localStorage.getItem('uid');
+        const api = axios.create({
+            baseURL: 'https://find-nearby-emergency-facilities-ba.vercel.app/api/users',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        let usersCache = [];
+
+        api.interceptors.response.use(
+            (res) => res,
+            (error) => {
+                const msg = error?.response?.data?.message || error?.message || 'Request failed';
+                showToast('error', msg);
+                return Promise.reject(error);
+            }
+        );
+
+        function updateMetricCards(users) {
+            const total = users.length;
+            const active = users.filter(u => u.isActive).length;
+            const now = new Date();
+            const m = now.getMonth(), y = now.getFullYear();
+            const newThisMonth = users.filter(u => {
+                if (!u.createdAt) return false;
+                const d = new Date(u.createdAt);
+                return d.getFullYear() === y && d.getMonth() === m;
+            }).length;
+
+            document.getElementById('statTotalUsers').textContent = total;
+            document.getElementById('statActiveUsers').textContent = active;
+            document.getElementById('statNew').textContent = newThisMonth;
+            document.getElementById('statActiveRate').textContent = total ? Math.round((active / total) * 100) + '%' : '0%';
+        }
+
+        async function fetchUsers() {
+            const res = await api.get('/get-users/' + uId);
+            const users = res.data?.data || [];
+            usersCache = users;
+            updateMetricCards(users);
+            renderForRange(currentRange); // re-render chart from fresh data
+        }
+    </script>
+
+<script>
+    const svg = document.getElementById('regChart');
+    const barsG = document.getElementById('bars');
+    const xlabelsG = document.getElementById('xlabels');
+    const ylabelsG = document.getElementById('ylabels');
+    const x0 = 50, y0 = 260, chartW = 610, chartH = 240;
+    const tooltip = document.getElementById('chartTooltip');
+    const legend = document.getElementById('chartLegend');
+
+    let currentRange = '7d';
+
+    function startOfDay(d) {
+        const x = new Date(d); x.setHours(0, 0, 0, 0); return x;
+    }
+    function endOfDay(d) {
+        const x = new Date(d); x.setHours(23, 59, 59, 999); return x;
+    }
+    function formatDayShort(d) {
+        return d.toLocaleDateString(undefined, { weekday: 'short' }); // Mon, Tue
+    }
+
+    function countPerDay(users, days) {
+        const out = [];
+        const today = new Date();
+        for (let i = days - 1; i >= 0; i--) {
+            const day = new Date(today);
+            day.setDate(today.getDate() - i);
+            const s = startOfDay(day), e = endOfDay(day);
+            const cnt = users.reduce((acc, u) => {
+                if (!u.createdAt) return acc;
+                const t = new Date(u.createdAt);
+                return (t >= s && t <= e) ? acc + 1 : acc;
+            }, 0);
+            out.push({ label: formatDayShort(day), value: cnt });
+        }
+        return out;
+    }
+
+    function countPerWeek(users, weeks) {
+        const out = [];
+        const today = startOfDay(new Date());
+        for (let i = weeks - 1; i >= 0; i--) {
+            const end = new Date(today);
+            end.setDate(today.getDate() - (7 * i));
+            const start = new Date(end);
+            start.setDate(end.getDate() - 6);
+            const cnt = users.reduce((acc, u) => {
+                if (!u.createdAt) return acc;
+                const t = startOfDay(new Date(u.createdAt));
+                return (t >= start && t <= end) ? acc + 1 : acc;
+            }, 0);
+            out.push({ label: 'Week ' + (weeks - i), value: cnt });
+        }
+        return out;
+    }
+
+    function datasetFromRange(rangeKey) {
+        if (!usersCache || !Array.isArray(usersCache)) return { labels: [], values: [] };
+
+        if (rangeKey === '7d') {
+            // Daily for last 7 days
+            const rows = countPerDay(usersCache, 7);
+            return { labels: rows.map(r => r.label), values: rows.map(r => r.value) };
+        }
+
+        if (rangeKey === '30d') {
+            // Weekly for 30 days (~4 weeks)
+            const rows = countPerWeek(usersCache, 4);
+            return { labels: rows.map(r => r.label), values: rows.map(r => r.value) };
+        }
+
+        if (rangeKey === '90d') {
+            // Weekly for 90 days (~12 weeks)
+            const rows = countPerWeek(usersCache, 12);
+            return { labels: rows.map(r => r.label), values: rows.map(r => r.value) };
+        }
+
+        return { labels: [], values: [] };
+    }
+
+    function renderBarChart(dataset) {
+        barsG.innerHTML = '';
+        xlabelsG.innerHTML = '';
+        ylabelsG.innerHTML = '';
+        tooltip.style.display = 'none';
+
+        const max = Math.max(1, ...dataset.values);
+        const step = dataset.values.length || 1;
+        const gap = 12;
+        const barW = Math.max(6, (chartW - (gap * (step + 1))) / step);
+
+        // Y-axis ticks
+        const ticks = [0, Math.ceil(max / 2), Math.ceil(max)];
+        ticks.forEach((t, i) => {
+            const y = y0 - (t / max) * chartH;
+            const grid = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            grid.setAttribute('x1', x0);
+            grid.setAttribute('y1', y);
+            grid.setAttribute('x2', x0 + chartW);
+            grid.setAttribute('y2', y);
+            grid.setAttribute('class', 'bar-axis');
+            grid.setAttribute('opacity', i === 0 ? 1 : .5);
+            ylabelsG.appendChild(grid);
+
+            const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            lbl.setAttribute('x', x0 - 10);
+            lbl.setAttribute('y', y + 4);
+            lbl.setAttribute('text-anchor', 'end');
+            lbl.setAttribute('class', 'bar-label');
+            lbl.textContent = t;
+            ylabelsG.appendChild(lbl);
+        });
+
+        // Bars + X labels
+        dataset.values.forEach((v, i) => {
+            const x = x0 + gap + i * (barW + gap);
+            const h = (v / max) * chartH;
+            const y = y0 - h;
+
+            const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            rect.setAttribute('x', x);
+            rect.setAttribute('y', y);
+            rect.setAttribute('width', barW);
+            rect.setAttribute('height', h);
+            rect.setAttribute('rx', 6);
+            rect.setAttribute('class', 'bar');
+            rect.setAttribute('data-index', String(i));
+            rect.setAttribute('aria-label', `Value ${v} for ${dataset.labels[i]}`);
+            barsG.appendChild(rect);
+
+            const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            lbl.setAttribute('x', x + barW / 2);
+            lbl.setAttribute('y', y0 + 18);
+            lbl.setAttribute('text-anchor', 'middle');
+            lbl.setAttribute('class', 'bar-label');
+            lbl.textContent = dataset.labels[i];
+            xlabelsG.appendChild(lbl);
+        });
+
+        // Tooltip logic
+        const wrap = svg.parentElement;
+        barsG.querySelectorAll('rect.bar').forEach((bar) => {
+            bar.addEventListener('mouseenter', (ev) => {
+                const i = Number(bar.getAttribute('data-index'));
+                tooltip.textContent = dataset.labels[i] + ': ' + dataset.values[i] + ' users';
+                tooltip.style.display = 'block';
+                positionTooltip(ev);
+            });
+            bar.addEventListener('mousemove', positionTooltip);
+            bar.addEventListener('mouseleave', () => {
+                tooltip.style.display = 'none';
+            });
+        });
+
+        function positionTooltip(ev) {
+            const wrapRect = wrap.getBoundingClientRect();
+            const x = ev.clientX - wrapRect.left;
+            const y = ev.clientY - wrapRect.top;
+            tooltip.style.left = x + 'px';
+            tooltip.style.top = y + 'px';
+        }
+    }
+
+    function renderForRange(rangeKey) {
+        const ds = datasetFromRange(rangeKey);
+        renderBarChart(ds);
+        legend.textContent = 'Showing registrations for ' + rangeKey.toUpperCase();
+    }
+
+    // Range buttons
+    document.querySelectorAll('.segmented button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.segmented button').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+            currentRange = btn.getAttribute('data-range') || '7d';
+            renderForRange(currentRange);
+        });
+    });
+
+    // Initial load
+    (async function init() {
+        try {
+            await fetchUsers(); // make sure this function fills usersCache
+        } catch (e) {
+            renderBarChart({ labels: ['N/A'], values: [0] });
+        }
+    })();
+</script>
+
+
+    <script>
+
+
+        const profileButton = document.querySelectorAll('.profile-button');
+        const profileModal = document.getElementById('profileModal');
+        const closeProfileBtn = document.getElementById('closeProfileBtn');
+
+        profileButton.forEach(button => {
+            button.addEventListener('click', function () {
+                profileModal.classList.add('show');
+                document.getElementById('overlay2').classList.add('show');
+            });
+        });
+
+        closeProfileBtn.addEventListener('click', function () {
+            profileModal.classList.remove('show');
+            document.getElementById('overlay2').classList.remove('show');
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuToggle.addEventListener('click', function () {
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        });
+
+        overlay.addEventListener('click', function () {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+            // Close location modal if open
+            document.getElementById('locationModal').classList.remove('show');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Responsive adjustments
+        function handleResize() {
+            if (window.innerWidth >= 992) {
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+    </script>
+</body>
+
+</html>
