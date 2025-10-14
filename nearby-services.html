@@ -115,9 +115,21 @@
                     <img src="assets/images/logo.svg">
                 </a>
                 <div class="header-right">
-                    <div class="user profile-button">
-                        <img src="assets/icons/user-icon.svg" alt="">
+                    <div class="dropdown user profile-button">
+                        <button class="mobile-profile-btn dropdown-toggle" type="button" id="mobileProfileMenu"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/icons/user-icon.svg" alt="User">
+                        </button>
+                
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
+                            <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                        </ul>
                     </div>
+                
                     <button class="menu-toggle" id="menuToggle">
                         <img src="assets/icons/bars.svg" alt="">
                     </button>
@@ -308,7 +320,7 @@
                             </select>
                         </div>
 
-                        Google reCAPTCHA (unchanged UI)
+                        <!-- Google reCAPTCHA (unchanged UI) -->
                         <div class="mb-3">
                             <div class="g-recaptcha d-inline-block"
                                 data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m"></div>
@@ -582,24 +594,49 @@
         const profileModal = document.getElementById('profileModal');
         const closeProfileBtn = document.getElementById('closeProfileBtn');
 
-        if (profileButton && profileModal && closeProfileBtn) {
-            profileButton.forEach(button => {
-                button.addEventListener('click', function () {
-                            const uid = localStorage.getItem('uid');
-            if (uid) { 
-                location.href = 'profile.html';
-            }else{
-                location.href = 'login.html';    
-            }
-                });
-            });
+  
+    // Common UID check
+    const uid = localStorage.getItem("uid");
 
-            closeProfileBtn.addEventListener('click', function () {
-                profileModal.classList.remove('show');
-                const overlay2 = document.getElementById('overlay2');
-                if (overlay2) overlay2.classList.remove('show');
-            });
+    // Handle all profile buttons (desktop + mobile)
+    const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
+
+    allProfiles.forEach(wrapper => {
+        const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
+        const dropdownMenu = wrapper.querySelector(".dropdown-menu");
+
+        if (!button) return; // Safety check
+
+        if (!uid) {
+            // --- Not Logged In ---
+            if (dropdownMenu) dropdownMenu.style.display = "none";
+            button.innerHTML = `
+        <img src="assets/icons/user-icon.svg" width="28" alt="">
+        <span class="mx-2">Signup</span>
+    `;
+            button.onclick = () => (window.location.href = "/login.html");
+            button.removeAttribute("data-bs-toggle"); // Disable dropdown
+        } else {
+            // --- Logged In ---
+            if (dropdownMenu) dropdownMenu.style.display = "";
+            button.innerHTML = `
+        <img src="assets/icons/user-icon.svg" width="28" alt="">
+        <i class="bi bi-chevron-down ms-1"></i>
+    `;
+            button.setAttribute("data-bs-toggle", "dropdown");
         }
+    });
+
+    // Logout logic
+    document.addEventListener("click", e => {
+        if (e.target.id === "logout-btn") {
+            localStorage.removeItem("uid");
+            location.reload();
+        }
+    });
+
+
+
     </script>
 
     <script>

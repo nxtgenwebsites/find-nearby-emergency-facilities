@@ -301,4 +301,35 @@ body {
     font-size: 16px !important;
   }
 
-  
+
+
+.profile-wrapper {
+    position: relative;
+}
+
+.dropdown-menu {
+    border-radius: 12px;
+    border: none;
+    padding: 8px 0;
+    min-width: 160px;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(54, 129, 134, 0.1);
+    color: var(--primary-teal);
+}
+
+.dropdown-divider {
+    margin: 6px 0;
+}
+
+.about-header-container {
+    z-index: -1;
+}
+
+.mobile-profile-btn{
+    border: none;
+    background: white;
+    padding: 8px 15px;
+    border-radius: 50px;
+}

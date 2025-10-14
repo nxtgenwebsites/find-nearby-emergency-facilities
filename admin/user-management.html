@@ -8,6 +8,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/user-management.css" />
     <link rel="stylesheet" href="css/responsive.css" />
@@ -17,7 +20,30 @@
     <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
     <div class="overlay" id="overlay2"></div>
+<!-- Delete Confirmation Popup -->
+<div id="deleteUserPopup" class="popup-overlay">
+    <div class="popup-card">
+      <h3>Delete User?</h3>
+      <p>Are you sure you want to delete this user? This action cannot be undone.</p>
+      <div class="popup-buttons">
+        <button class="cancel-btn" id="cancelDelete">Cancel</button>
+        <button class="delete-btn" id="confirmDelete">Delete</button>
+      </div>
+    </div>
+  </div>
 
+<!-- Block/Unblock Popup -->
+<div id="blockUserPopup" class="popup-overlay">
+    <div class="popup-card">
+        <h3 id="blockTitle">Block User?</h3>
+        <p id="blockMessage">Are you sure you want to block this user?</p>
+        <div class="popup-buttons">
+            <button id="cancelBlock" class="cancel-btn">Cancel</button>
+            <button id="confirmBlock" class="confirm-btn">Confirm</button>
+        </div>
+    </div>
+</div>
+  
     <!-- Profile placeholder modal -->
     <div class="location-modal" id="profileModal">
         <h3>Coming Soon!</h3>
@@ -233,20 +259,43 @@
                     <img src="assets/images/logo.svg" alt="Health Centre App logo" />
                 </a>
                 <div class="header-right">
-                    <div class="user profile-button">
-                        <img src="assets/icons/user-icon.svg" alt="Profile" />
+                    <div class="dropdown user profile-button">
+                        <button class="mobile-profile-btn dropdown-toggle" type="button" id="mobileProfileMenu"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/icons/user-icon.svg" alt="User">
+                        </button>
+                
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
+                            <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                        </ul>
                     </div>
+                
                     <button class="menu-toggle" id="menuToggle">
-                        <img src="assets/icons/bars.svg" alt="Menu" />
+                        <img src="assets/icons/bars.svg" alt="">
                     </button>
                 </div>
             </header>
 
             <div class="main-content w-100">
-                <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
-                    <img src="assets/icons/user-icon.svg" width="30" alt="Profile" />
-                    <i class="dropdown-toggle"></i>
-                </button>
+<!-- Profile Button -->
+<div class="dropdown profile-wrapper">
+    <button class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle" type="button"
+        id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="gap: 5px !important;">
+        <img src="assets/icons/user-icon.svg" width="30" alt="">
+        <i class="bi bi-chevron-down"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
+        <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+        <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+    </ul>
+</div>
 
                 <div class="hero-content">
                     <div class="container-fluid um-section">
@@ -389,7 +438,10 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
 
         function showToast(type = 'info', message = '') {
@@ -561,30 +613,82 @@
                 }
             });
 
+            let deleteUserId = null;
 
-        // Delete User
-        async function deleteUser(id) {
-            if (!confirm('Are you sure you want to delete this user?')) return;
-            try {
-                await api.delete(`/delete/${uId}`, { data: { id } });
-                showToast('success', 'User deleted successfully');
-                getData();
-            } catch (error) {
-                console.error(error);
-            }
-        }
+                function deleteUser(id) {
+                    deleteUserId = id;
+                    document.getElementById('deleteUserPopup').style.display = 'flex';
+                }
+
+                document.getElementById('confirmDelete').addEventListener('click', async () => {
+                    if (!deleteUserId) return;
+                    try {
+                        await api.delete(`/delete/${uId}`, { data: { id: deleteUserId } });
+                        showToast('success', 'User deleted successfully');
+                        getData();
+                    } catch (error) {
+                        console.error(error);
+                        showToast('error', 'Failed to delete user');
+                    }
+                    closeDeletePopup();
+                });
+
+                document.getElementById('cancelDelete').addEventListener('click', closeDeletePopup);
+
+                function closeDeletePopup() {
+                    document.getElementById('deleteUserPopup').style.display = 'none';
+                }
+
 
         // Block / Unblock User
-        async function toggleBlockUser(userId, isBlocked) {
-            const url = isBlocked ? `/unblock/${uId}` : `/block/${uId}`;
-            try {
-                const res = await api.put(url, { id: userId });
-                showToast('success', res?.data?.message || `User ${isBlocked ? 'unblocked' : 'blocked'}`);
-                getData();
-            } catch (error) {
-                console.error(error);
+            let blockUserId = null;
+            let blockAction = null;
+
+            function toggleBlockUser(userId, isBlocked) {
+                blockUserId = userId;
+                blockAction = isBlocked ? 'unblock' : 'block';
+
+                const title = document.getElementById('blockTitle');
+                const message = document.getElementById('blockMessage');
+                const confirmBtn = document.getElementById('confirmBlock');
+
+                if (isBlocked) {
+                    title.textContent = 'Unblock User?';
+                    message.textContent = 'Are you sure you want to unblock this user?';
+                    confirmBtn.textContent = 'Unblock';
+                    confirmBtn.classList.add('unblock');
+                } else {
+                    title.textContent = 'Block User?';
+                    message.textContent = 'Are you sure you want to block this user?';
+                    confirmBtn.textContent = 'Block';
+                    confirmBtn.classList.remove('unblock');
+                }
+
+                document.getElementById('blockUserPopup').style.display = 'flex';
             }
-        }
+
+            document.getElementById('confirmBlock').addEventListener('click', async () => {
+                if (!blockUserId || !blockAction) return;
+
+                const url = blockAction === 'block' ? `/block/${uId}` : `/unblock/${uId}`;
+
+                try {
+                    const res = await api.put(url, { id: blockUserId });
+                    showToast('success', res?.data?.message || `User ${blockAction}ed successfully`);
+                    getData();
+                } catch (error) {
+                    console.error(error);
+                    showToast('error', `Failed to ${blockAction} user`);
+                }
+
+                closeBlockPopup();
+            });
+
+            document.getElementById('cancelBlock').addEventListener('click', closeBlockPopup);
+
+            function closeBlockPopup() {
+                document.getElementById('blockUserPopup').style.display = 'none';
+            }
 
         // View User
         function viewUser(id) {
@@ -818,16 +922,7 @@
         const profileModal = document.getElementById('profileModal');
         const closeProfileBtn = document.getElementById('closeProfileBtn');
 
-        profileButton.forEach(button => {
-            button.addEventListener('click', function () {
-                const uid = localStorage.getItem('uid');
-                if (uid) {
-                    location.href = 'profile.html';
-                } else {
-                    location.href = 'login.html';
-                }
-            });
-        });
+   
 
         closeProfileBtn.addEventListener('click', function () {
             profileModal.classList.remove('show');

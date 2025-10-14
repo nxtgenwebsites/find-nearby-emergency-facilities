@@ -16,7 +16,6 @@
 </head>
 
 <body>
-    <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
     <div class="overlay" id="overlay2"></div>
 
@@ -37,8 +36,6 @@
         </div>
     </div>
 
-
-    <!-- Added location permission modal -->
     <div class="location-modal " id="profileModal">
         <h3>Coming Soon!</h3>
         <p>User profile feature isn’t available yet!</p>
@@ -49,7 +46,6 @@
         </div>
     </div>
 
-    <!-- Added search popup modal -->
     <div class="popup-overlay d-none" id="seach-popup">
         <div class="seacrch-card">
             <div class=" d-flex justify-content-between align-items-center py-3">
@@ -89,7 +85,6 @@
         </div>
     </div>
 
-    <!-- Search Modal -->
     <div id="searchModal" class="modal">
         <div class="bg-white rounded-lg p-6 max-w-2xl w-full shadow-xl">
             <div class="flex justify-between items-center mb-6">
@@ -177,7 +172,6 @@
     </div>
 
     <div class="d-flex w-100">
-        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="logo">
@@ -232,17 +226,27 @@
             </ul>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content w-100">
-            <!-- Header -->
             <header class="header d-lg-none">
                 <a href="index.html" class="mobile-logo">
                     <img src="assets/images/logo.svg">
                 </a>
                 <div class="header-right">
-                    <div class="user profile-button">
-                        <img src="assets/icons/user-icon.svg" alt="">
+                    <div class="dropdown user profile-button">
+                        <button class="mobile-profile-btn dropdown-toggle" type="button" id="mobileProfileMenu"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/icons/user-icon.svg" alt="User">
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
+                            <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                        </ul>
                     </div>
+
                     <button class="menu-toggle" id="menuToggle">
                         <img src="assets/icons/bars.svg" alt="">
                     </button>
@@ -250,10 +254,22 @@
             </header>
 
             <div class="main-content w-100">
-                <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
-                    <img src="assets/icons/user-icon.svg" width="30" alt="">
-                    <i class="dropdown-toggle"></i>
-                </button>
+                <div class="dropdown profile-wrapper">
+                    <button
+                        class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle"
+                        type="button" id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+                        style="gap: 5px !important;">
+                        <img src="assets/icons/user-icon.svg" width="30" alt="">
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
+                        <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                    </ul>
+                </div>
 
                 <div class="hero-content">
                     <div class="d-flex about-header-container">
@@ -266,7 +282,6 @@
                     </div>
                     <div class="container-fluid px-0">
                         <div class="container-fluid px-0">
-                            <!-- Header Section -->
                             <div class="header-section">
                                 <div class="container">
                                     <div class="row">
@@ -310,541 +325,676 @@
                                 </div>
                             </div>
 
-<!-- Modified main content structure for mobile accordion layout -->
-<div class="container" id="content-container">
-    <div class="row">
-        <div class="col-12">
-            <div class="editions-container">
-                <!-- Cards Section with inline details for mobile -->
-                <div class="cards-section">
-                    <!-- Modified each card to include its own detail section for mobile accordion behavior -->
-                    <div class="card-wrapper">
-                        <div class="edition-card" data-edition="gps-public">
-                            <div class="card-title">Monetisation Programs</div>
-                            <!-- <div class="card-subtitle">(Free)</div> -->
-                            <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
-                            <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
-                        </div>
-                        <div class="mobile-detail" id="mobile-detail-gps-public">
-                            <div class="mobile-detail-content">
-                                <div class="contact-section">
-                                    <div class="contact-title">Monetisation Programs</div>
-                                    <div class="contact-info">
-                                        <strong>SMP (Silver Monetisation Program)</strong>
-                                        <ul>
-                                            <li>Available to all subscribed users.</li>
-                                            <li>Earn 25% of every subscription fee from users you invite.</li>
-                                            <li>Earn 25% of the revenue from Sponsored Ads you create and publish.</li>
-                                            <li>Automatically included for DigitalHealth Standard subscribers.</li>
-                                        </ul>
-                                        <strong>GMP (Gold Monetisation Program)</strong>
-                                        <ul>
-                                            <li>Available to Premium subscribers who complete the Certified Digital
-                                                Health Practitioner (CdHP) training.</li>
-                                            <li>Earn 50% of every subscription fee from users you invite.</li>
-                                            <li>Earn 50% of the revenue from Sponsored Ads you create and publish.</li>
-                                            <li>Completion of CdHP training automatically upgrades your account to the
-                                                Community Edition, enabling you to manage and support up to 50 local
-                                                users.</li>
-                                            <li>To qualify for GMP, Premium users must also register and support at
-                                                least 50 local users under their Community Edition account.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <a href="contact-us.html" class="text-decoration-none detail-title fw-bold"
-                                        style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact
-                                            Us</button></a>
-                                    <div class="like-section">
-                                        <button class="like-btn" id="likeBtn">
-                                            <div class="thumb-icon">
-                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                            <div class="container" id="content-container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="editions-container">
+                                            <div class="cards-section">
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="gps-public">
+                                                        <div class="card-title">Monetisation Programs</div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-gps-public">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <div class="contact-title">Monetisation Programs</div>
+                                                                <div class="contact-info">
+                                                                    <strong>SMP (Silver Monetisation Program)</strong>
+                                                                    <ul>
+                                                                        <li>Available to all subscribed users.</li>
+                                                                        <li>Earn 25% of every subscription fee from
+                                                                            users you invite.</li>
+                                                                        <li>Earn 25% of the revenue from Sponsored Ads
+                                                                            you create and publish.</li>
+                                                                        <li>Automatically included for DigitalHealth
+                                                                            Standard subscribers.</li>
+                                                                    </ul>
+                                                                    <strong>GMP (Gold Monetisation Program)</strong>
+                                                                    <ul>
+                                                                        <li>Available to Premium subscribers who
+                                                                            complete the Certified Digital
+                                                                            Health Practitioner (CdHP) training.</li>
+                                                                        <li>Earn 50% of every subscription fee from
+                                                                            users you invite.</li>
+                                                                        <li>Earn 50% of the revenue from Sponsored Ads
+                                                                            you create and publish.</li>
+                                                                        <li>Completion of CdHP training automatically
+                                                                            upgrades your account to the
+                                                                            Community Edition, enabling you to manage
+                                                                            and support up to 50 local
+                                                                            users.</li>
+                                                                        <li>To qualify for GMP, Premium users must also
+                                                                            register and support at
+                                                                            least 50 local users under their Community
+                                                                            Edition account.</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="d-flex justify-content-between align-items-center">
+                                                                <a href="contact-us.html"
+                                                                    class="text-decoration-none detail-title fw-bold"
+                                                                    style="font-size: 1.3rem;"> <button
+                                                                        class="card-contact-btn">Contact
+                                                                        Us</button></a>
+                                                                <div class="like-section">
+                                                                    <button class="like-btn" id="likeBtn">
+                                                                        <div class="thumb-icon">
+                                                                            <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                alt="Like">
+                                                                        </div>
+                                                                        <span class="mx-1 like-count">0</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="gps-personal">
+                                                        <div class="card-title">GPSMedical Free Edition</div>
+                                                        <div class="card-subtitle">(No registration required)</div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-gps-personal">
+                                                        <div class="mobile-detail-content">
+                                                            <p class="detail-description">
+                                                                Designed for everyone, no registration required. With
+                                                                one click, you can find nearby
+                                                                hospitals, clinics, pharmacies, and labs using your
+                                                                phone’s location. Perfect for
+                                                                emergencies or everyday healthcare needs.
+                                                            </p>
+                                                            <ul>
+                                                                <li>Locate nearby medical services instantly.</li>
+                                                                <li>Use GPS to find hospitals and health centres.</li>
+                                                                <li>Place Sponsored Ads after.</li>
+                                                                <li>Purchase GiftedMedical vouchers to gift subscribed
+                                                                    editions.</li>
+                                                                <li>Works globally on mobile and desktop browsers.</li>
+                                                            </ul>
+                                                            <div
+                                                                class="d-flex justify-content-between align-items-center">
+                                                                <a href="contact-us.html"
+                                                                    class="text-decoration-none detail-title fw-bold"
+                                                                    style="font-size: 1.3rem;">
+                                                                    <button class="card-contact-btn">Contact
+                                                                        Us</button></a>
+                                                                <div class="like-section">
+                                                                    <button class="like-btn" id="likeBtn">
+                                                                        <div class="thumb-icon">
+                                                                            <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                alt="Like">
+                                                                        </div>
+                                                                        <span class="mx-1 like-count">0</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="digital-standard">
+                                                        <div class="card-title">DigitalHealth Standard Edition</div>
+                                                        <div class="card-subtitle">£5 per annum</div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-digital-standard">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <div class="contact-title">
+                                                                    For users who want more structure and control in
+                                                                    managing their health. Includes
+                                                                    all Free Edition features, plus:
+                                                                    <ul>
+                                                                        <li><strong>CareRecord</strong> : Store and
+                                                                            manage your personal health
+                                                                            information.</li>
+                                                                        <li><strong>CareRequest</strong> : Create and
+                                                                            print symptom reports for
+                                                                            triage or consultation.</li>
+                                                                        <li><strong>CareSecure</strong> : Control who
+                                                                            can view or comment on your
+                                                                            health data.</li>
+                                                                        <li><strong>CareConnect</strong> : Chat securely
+                                                                            with healthcare
+                                                                            practitioners worldwide.</li>
+                                                                        <li><strong>CareMedication</strong> : Verify
+                                                                            health information using our AI
+                                                                            Medical Fact Checker.</li>
+                                                                        <li><strong>Monetisation Hub (SMP)</strong> :
+                                                                            Earn revenue from referrals
+                                                                            and Sponsored Ads.</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
+                                                                    <a href="contact-us.html"
+                                                                        class="text-decoration-none detail-title fw-bold"
+                                                                        style="font-size: 1.3rem;"> <button
+                                                                            class="card-contact-btn">Contact
+                                                                            Us</button></a>
+                                                                    <div class="like-section">
+                                                                        <button class="like-btn" id="likeBtn">
+                                                                            <div class="thumb-icon">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
+                                                                            </div>
+                                                                            <span class="mx-1 like-count">0</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="digital-premium">
+                                                        <div class="card-title">DigitalHealth Premium Edition</div>
+                                                        <div class="card-subtitle">£10 per annum</div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-digital-premium">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <div class="card-title">Digital Health Premium Edition
+                                                                </div>
+                                                                <div class="card-subtitle">(Subscription)</div>
+                                                                <div class="contact-title">
+                                                                    Your complete digital health companion. Includes all
+                                                                    Standard Edition features,
+                                                                    plus:
+                                                                    <ul>
+                                                                        <li><strong>CareDiagnoser</strong> : AI-powered
+                                                                            symptom assessment.</li>
+                                                                        <li><strong>CareRemote</strong> : Alerts and
+                                                                            tracking for remote monitoring
+                                                                            of your condition.</li>
+                                                                        <li><strong>CareCalendar</strong> : Plan
+                                                                            appointments and medication
+                                                                            schedules.</li>
+                                                                        <li><strong>CareMonitor</strong> : Track vital
+                                                                            signs such as blood pressure,
+                                                                            blood sugar, and BMI.</li>
+                                                                        <li><strong>Eligible for GMP</strong> : Enables
+                                                                            CdHP certification and
+                                                                            higher revenue opportunities.</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
+                                                                    <a href="contact-us.html"
+                                                                        class="text-decoration-none detail-title fw-bold"
+                                                                        style="font-size: 1.3rem;"> <button
+                                                                            class="card-contact-btn">Contact
+                                                                            Us</button></a>
+                                                                    <div class="like-section">
+                                                                        <button class="like-btn" id="likeBtn">
+                                                                            <div class="thumb-icon">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
+                                                                            </div>
+                                                                            <span class="mx-1 like-count">0</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="digital-community">
+                                                        <div class="card-title">DigitalHealth Community Edition</div>
+                                                        <div class="card-subtitle">(Free Upgrade for Certified
+                                                            Practitioners)</div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-digital-community">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <div class="card-title">Digital Health Community Edition
+                                                                </div>
+                                                                <div class="card-subtitle">(Subscription)</div>
+                                                                <div class="contact-title">
+                                                                    The Community Edition is a free upgrade available
+                                                                    exclusively to Premium
+                                                                    subscribers who complete the Certified Digital
+                                                                    Health Practitioner (CdHP)
+                                                                    training. It enables trained practitioners to manage
+                                                                    and support their
+                                                                    registered community members through the
+                                                                    HealthCentreApp platform.
+                                                                    <ul>
+                                                                        <li><strong>Free Upgrade</strong> :
+                                                                            Automatically activated for Premium
+                                                                            users who achieve CdHP certification.</li>
+                                                                        <li><strong>CdHP Support</strong> : Provides
+                                                                            guided help and health
+                                                                            assistance to community users.</li>
+                                                                        <li><strong>Full Premium Tools</strong> :
+                                                                            Includes all Premium Edition
+                                                                            features for supported users.</li>
+                                                                        <li><strong>Community Access</strong> : Each
+                                                                            CdHP can support up to 50
+                                                                            adults under their care.</li>
+                                                                        <li><strong>Bridging the Digital Divide</strong>
+                                                                            : Ensures citizens with
+                                                                            limited digital skills can still benefit
+                                                                            from digital healthcare through
+                                                                            guided support.</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
+                                                                    <a href="contact-us.html"
+                                                                        class="text-decoration-none detail-title fw-bold"
+                                                                        style="font-size: 1.3rem;"> <button
+                                                                            class="card-contact-btn">Contact
+                                                                            Us</button></a>
+                                                                    <div class="like-section">
+                                                                        <button class="like-btn" id="likeBtn">
+                                                                            <div class="thumb-icon">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
+                                                                            </div>
+                                                                            <span class="mx-1 like-count">0</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="national-health">
+                                                        <div class="card-title">National Health Edition</div>
+                                                        <div class="card-subtitle"></div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-national-health">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <p>
+                                                                    Designed for Ministries of Health, NGOs, and public
+                                                                    health organisations.
+                                                                    Provides anonymised triage data, regional health
+                                                                    trends, and population-level
+                                                                    analytics to support national health planning,
+                                                                    disease surveillance, and
+                                                                    emergency response.
+                                                                </p>
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
+                                                                    <a href="contact-us.html"
+                                                                        class="text-decoration-none detail-title fw-bold"
+                                                                        style="font-size: 1.3rem;"> <button
+                                                                            class="card-contact-btn">Contact
+                                                                            Us</button></a>
+                                                                    <div class="like-section">
+                                                                        <button class="like-btn" id="likeBtn">
+                                                                            <div class="thumb-icon">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
+                                                                            </div>
+                                                                            <span class="mx-1 like-count">0</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-wrapper">
+                                                    <div class="edition-card" data-edition="corporate-access">
+                                                        <div class="card-title">Corporate and Community Access</div>
+                                                        <div class="card-subtitle"></div>
+                                                        <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
+                                                        <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
+                                                    </div>
+                                                    <div class="mobile-detail" id="mobile-detail-corporate-access">
+                                                        <div class="mobile-detail-content">
+                                                            <div class="contact-section">
+                                                                <p>
+                                                                    HealthCentreApp supports inclusive health access
+                                                                    through discounted bulk subscriptions for eligible
+                                                                    organisations, NGOs,
+                                                                    and community groups. These packages are ideal for
+                                                                    companies that wish to extend digital health
+                                                                    benefits to their
+                                                                    employees, or for communities and charities
+                                                                    supporting citizens with limited access to
+                                                                    healthcare. Contact our
+                                                                    Partnerships Team for details on eligibility and
+                                                                    customisation.
+                                                                </p>
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
+                                                                    <a href="contact-us.html"
+                                                                        class="text-decoration-none detail-title fw-bold"
+                                                                        style="font-size: 1.3rem;"> <button
+                                                                            class="card-contact-btn">Contact
+                                                                            Us</button></a>
+                                                                    <div class="like-section">
+                                                                        <button class="like-btn" id="likeBtn">
+                                                                            <div class="thumb-icon">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
+                                                                            </div>
+                                                                            <span class="mx-1 like-count">0</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <span class="mx-1 like-count">0</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="card-wrapper">
-                        <div class="edition-card" data-edition="gps-personal">
-                            <div class="card-title">GPSMedical Free Edition</div>
-                            <div class="card-subtitle">(No registration required)</div>
-                            <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
-                            <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
-                        </div>
-                        <div class="mobile-detail" id="mobile-detail-gps-personal">
-                            <div class="mobile-detail-content">
-                                <p class="detail-description">
-                                    Designed for everyone, no registration required. With one click, you can find nearby
-                                    hospitals, clinics, pharmacies, and labs using your phone’s location. Perfect for
-                                    emergencies or everyday healthcare needs.
-                                </p>
-                                <ul>
-                                    <li>Locate nearby medical services instantly.</li>
-                                    <li>Use GPS to find hospitals and health centres.</li>
-                                    <li>Place Sponsored Ads after.</li>
-                                    <li>Purchase GiftedMedical vouchers to gift subscribed editions.</li>
-                                    <li>Works globally on mobile and desktop browsers.</li>
-                                </ul>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <a href="contact-us.html" class="text-decoration-none detail-title fw-bold"
-                                        style="font-size: 1.3rem;">
-                                        <button class="card-contact-btn">Contact
-                                            Us</button></a>
-                                    <div class="like-section">
-                                        <button class="like-btn" id="likeBtn">
-                                            <div class="thumb-icon">
-                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                            <div class="detail-section" id="detailSection">
+                                                <div id="detail-gps-public" class="detail-panel">
+                                                    <h3 class="detail-title text-muted">Monetisation Programs</h3>
+                                                    <div class="contact-section">
+                                                        <div class="contact-title">SMP (Silver Monetisation Program)
+                                                        </div>
+                                                        <p>Available to all subscribed users.</p>
+                                                        <ul>
+                                                            <li>Earn 25% of every subscription fee from users you
+                                                                invite.</li>
+                                                            <li>Earn 25% of the revenue from Sponsored Ads you create
+                                                                and publish.</li>
+                                                            <li>Automatically included for DigitalHealth Standard
+                                                                subscribers.</li>
+                                                        </ul>
+                                                        <div class="contact-title">GMP (Gold Monetisation Program)</div>
+                                                        <p>Available to Premium subscribers who complete the Certified
+                                                            Digital Health
+                                                            Practitioner (CdHP) training.</p>
+                                                        <ul>
+                                                            <li>Earn 50% of every subscription fee from users you
+                                                                invite.</li>
+                                                            <li>Earn 50% of the revenue from Sponsored Ads you create
+                                                                and publish.</li>
+                                                            <li>Completion of CdHP training automatically upgrades your
+                                                                account to the Community
+                                                                Edition, enabling you to manage and support up to 50
+                                                                local users.</li>
+                                                            <li>To qualify for GMP, Premium users must also register and
+                                                                support at least 50 local
+                                                                users under their Community Edition account.</li>
+                                                        </ul>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <a href="contact-us.html"
+                                                                class="text-decoration-none detail-title mt-2 fw-bold"
+                                                                style="font-size: 1.3rem;"> <button
+                                                                    class="card-contact-btn">Contact Us</button></a>
+                                                            <div class="like-section">
+                                                                <button class="like-btn" id="likeBtn">
+                                                                    <div class="thumb-icon">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
+                                                                    </div>
+                                                                    <span class="mx-1 like-count">0</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="detail-gps-personal" class="detail-panel">
+                                                    <h3 class="detail-title text-muted">GPSMedical Free Edition</h3>
+                                                    <p class="detail-description">
+                                                        Designed for everyone, no registration required. With one click,
+                                                        you can find nearby
+                                                        hospitals, clinics, pharmacies, and labs using your phone’s
+                                                        location. Perfect for
+                                                        emergencies or everyday healthcare needs.
+                                                    </p>
+                                                    <ul>
+                                                        <li>Locate nearby medical services instantly.</li>
+                                                        <li>Use GPS to find hospitals and health centres.</li>
+                                                        <li>Place Sponsored Ads after.</li>
+                                                        <li>Purchase GiftedMedical vouchers to gift subscribed editions.
+                                                        </li>
+                                                        <li>Works globally on mobile and desktop browsers.</li>
+                                                    </ul>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <a href="contact-us.html"
+                                                            class="text-decoration-none detail-title mt-2 fw-bold"
+                                                            style="font-size: 1.3rem;"> <button
+                                                                class="card-contact-btn">Contact Us</button></a>
+                                                        <div class="like-section">
+                                                            <button class="like-btn" id="likeBtn">
+                                                                <div class="thumb-icon">
+                                                                    <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                        alt="Like">
+                                                                </div>
+                                                                <span class="mx-1 like-count">0</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="detail-digital-standard" class="detail-panel">
+                                                    <div class="contact-section">
+                                                        <div class="card-title">DigitalHealth Standard Edition</div>
+                                                        <div class="card-subtitle">£5 per annum</div>
+                                                        <div class="contact-title">
+                                                            For users who want more structure and control in managing
+                                                            their health. Includes all
+                                                            Free Edition features, plus:
+                                                            <ul>
+                                                                <li><strong>CareRecord</strong> : Store and manage your
+                                                                    personal health information.
+                                                                </li>
+                                                                <li><strong>CareRequest</strong> : Create and print
+                                                                    symptom reports for triage or
+                                                                    consultation.</li>
+                                                                <li><strong>CareSecure</strong> : Control who can view
+                                                                    or comment on your health
+                                                                    data.</li>
+                                                                <li><strong>CareConnect</strong> : Chat securely with
+                                                                    healthcare practitioners
+                                                                    worldwide.</li>
+                                                                <li><strong>CareMedication</strong> : Verify health
+                                                                    information using our AI Medical
+                                                                    Fact Checker.</li>
+                                                                <li><strong>Monetisation Hub (SMP)</strong> : Earn
+                                                                    revenue from referrals and
+                                                                    Sponsored Ads.</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <a href="contact-us.html"
+                                                                class="text-decoration-none detail-title mt-2 fw-bold"
+                                                                style="font-size: 1.3rem;"> <button
+                                                                    class="card-contact-btn">Contact Us</button></a>
+                                                            <div class="like-section">
+                                                                <button class="like-btn" id="likeBtn">
+                                                                    <div class="thumb-icon">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
+                                                                    </div>
+                                                                    <span class="mx-1 like-count">0</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="detail-digital-premium" class="detail-panel">
+                                                    <div class="contact-section">
+                                                        <div class="card-title">DigitalHealth Premium Edition</div>
+                                                        <div class="card-subtitle">£10 per annum</div>
+                                                        <div class="contact-title">
+                                                            Your complete digital health companion. Includes all
+                                                            Standard Edition features, plus:
+                                                            <ul>
+                                                                <li><strong>CareDiagnoser</strong> : AI-powered symptom
+                                                                    assessment.</li>
+                                                                <li><strong>CareRemote</strong> : Alerts and tracking
+                                                                    for remote monitoring of your
+                                                                    condition.</li>
+                                                                <li><strong>CareCalendar</strong> : Plan appointments
+                                                                    and medication schedules.</li>
+                                                                <li><strong>CareMonitor</strong> : Track vital signs
+                                                                    such as blood pressure, blood
+                                                                    sugar, and BMI.</li>
+                                                                <li><strong>Eligible for GMP</strong> : Enables CdHP
+                                                                    certification and higher
+                                                                    revenue opportunities.</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <a href="contact-us.html"
+                                                                class="text-decoration-none detail-title mt-2 fw-bold"
+                                                                style="font-size: 1.3rem;"> <button
+                                                                    class="card-contact-btn">Contact Us</button></a>
+                                                            <div class="like-section">
+                                                                <button class="like-btn" id="likeBtn">
+                                                                    <div class="thumb-icon">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
+                                                                    </div>
+                                                                    <span class="mx-1 like-count">0</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="detail-digital-community" class="detail-panel">
+                                                    <div class="contact-section">
+                                                        <div class="card-title">DigitalHealth Community Edition</div>
+                                                        <div class="card-subtitle">(Free Upgrade for Certified
+                                                            Practitioners)</div>
+                                                        <div class="contact-title">
+                                                            The Community Edition is a free upgrade available
+                                                            exclusively to Premium subscribers who
+                                                            complete the Certified Digital Health Practitioner (CdHP)
+                                                            training. It enables trained
+                                                            practitioners to manage and support their registered
+                                                            community members through the
+                                                            HealthCentreApp platform.
+                                                            <ul>
+                                                                <li><strong>Free Upgrade</strong> : Automatically
+                                                                    activated for Premium users who
+                                                                    achieve CdHP certification.</li>
+                                                                <li><strong>CdHP Support</strong> : Provides guided help
+                                                                    and health assistance to
+                                                                    community users.</li>
+                                                                <li><strong>Full Premium Tools</strong> : Includes all
+                                                                    Premium Edition features for
+                                                                    supported users.</li>
+                                                                <li><strong>Community Access</strong> : Each CdHP can
+                                                                    support up to 50 adults under
+                                                                    their care.</li>
+                                                                <li><strong>Bridging the Digital Divide</strong> :
+                                                                    Ensures citizens with limited
+                                                                    digital skills can still benefit from digital
+                                                                    healthcare through guided support.
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <a href="contact-us.html"
+                                                                class="text-decoration-none detail-title mt-2 fw-bold"
+                                                                style="font-size: 1.3rem;"> <button
+                                                                    class="card-contact-btn">Contact Us</button></a>
+                                                            <div class="like-section">
+                                                                <button class="like-btn" id="likeBtn">
+                                                                    <div class="thumb-icon">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
+                                                                    </div>
+                                                                    <span class="mx-1 like-count">0</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="detail-national-health" class="detail-panel">
+                                                    <div class="contact-section">
+                                                        <div class="card-title">National Health Edition</div>
+                                                        <p>
+                                                            Designed for Ministries of Health, NGOs, and public health
+                                                            organisations. Provides
+                                                            anonymised triage data, regional health trends, and
+                                                            population-level analytics to
+                                                            support national health planning, disease surveillance, and
+                                                            emergency response.
+                                                        </p>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <a href="contact-us.html"
+                                                                class="text-decoration-none detail-title mt-2 fw-bold"
+                                                                style="font-size: 1.3rem;"> <button
+                                                                    class="card-contact-btn">Contact Us</button></a>
+                                                            <div class="like-section">
+                                                                <button class="like-btn" id="likeBtn">
+                                                                    <div class="thumb-icon">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
+                                                                    </div>
+                                                                    <span class="mx-1 like-count">0</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="detail-corporate-access" class="detail-panel">
+                                                    <div class="contact-section">
+                                                        <div class="card-title">Corporate and Community Access</div>
+                                                        <p>
+                                                            HealthCentreApp supports inclusive health access through
+                                                            discounted bulk subscriptions for eligible organisations,
+                                                            NGOs,
+                                                            and community groups. These packages are ideal for companies
+                                                            that wish to extend digital health benefits to their
+                                                            employees, or for communities and charities supporting
+                                                            citizens with limited access to healthcare. Contact our
+                                                            Partnerships Team for details on eligibility and
+                                                            customisation.
+                                                        </p>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <a href="contact-us.html"
+                                                                class="text-decoration-none detail-title mt-2 fw-bold"
+                                                                style="font-size: 1.3rem;"> <button
+                                                                    class="card-contact-btn">Contact Us</button></a>
+                                                            <div class="like-section">
+                                                                <button class="like-btn" id="likeBtn">
+                                                                    <div class="thumb-icon">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
+                                                                    </div>
+                                                                    <span class="mx-1 like-count">0</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
-                                            <span class="mx-1 like-count">0</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-wrapper">
-                        <div class="edition-card" data-edition="digital-standard">
-                            <div class="card-title">DigitalHealth Standard Edition</div>
-                            <div class="card-subtitle">£5 per annum</div>
-                            <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
-                            <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
-                        </div>
-                        <div class="mobile-detail" id="mobile-detail-digital-standard">
-                            <div class="mobile-detail-content">
-                                <div class="contact-section">
-                                    <div class="contact-title">
-                                        For users who want more structure and control in managing their health. Includes
-                                        all Free Edition features, plus:
-                                        <ul>
-                                            <li><strong>CareRecord</strong> : Store and manage your personal health
-                                                information.</li>
-                                            <li><strong>CareRequest</strong> : Create and print symptom reports for
-                                                triage or consultation.</li>
-                                            <li><strong>CareSecure</strong> : Control who can view or comment on your
-                                                health data.</li>
-                                            <li><strong>CareConnect</strong> : Chat securely with healthcare
-                                                practitioners worldwide.</li>
-                                            <li><strong>CareMedication</strong> : Verify health information using our AI
-                                                Medical Fact Checker.</li>
-                                            <li><strong>Monetisation Hub (SMP)</strong> : Earn revenue from referrals
-                                                and Sponsored Ads.</li>
-                                        </ul>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href="contact-us.html" class="text-decoration-none detail-title fw-bold"
-                                            style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact
-                                                Us</button></a>
-                                        <div class="like-section">
-                                            <button class="like-btn" id="likeBtn">
-                                                <div class="thumb-icon">
-                                                    <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                                                </div>
-                                                <span class="mx-1 like-count">0</span>
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="card-wrapper">
-                        <div class="edition-card" data-edition="digital-premium">
-                            <div class="card-title">DigitalHealth Premium Edition</div>
-                            <div class="card-subtitle">£10 per annum</div>
-                            <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
-                            <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
-                        </div>
-                        <div class="mobile-detail" id="mobile-detail-digital-premium">
-                            <div class="mobile-detail-content">
-                                <div class="contact-section">
-                                    <div class="card-title">Digital Health Premium Edition</div>
-                                    <div class="card-subtitle">(Subscription)</div>
-                                    <div class="contact-title">
-                                        Your complete digital health companion. Includes all Standard Edition features,
-                                        plus:
-                                        <ul>
-                                            <li><strong>CareDiagnoser</strong> : AI-powered symptom assessment.</li>
-                                            <li><strong>CareRemote</strong> : Alerts and tracking for remote monitoring
-                                                of your condition.</li>
-                                            <li><strong>CareCalendar</strong> : Plan appointments and medication
-                                                schedules.</li>
-                                            <li><strong>CareMonitor</strong> : Track vital signs such as blood pressure,
-                                                blood sugar, and BMI.</li>
-                                            <li><strong>Eligible for GMP</strong> : Enables CdHP certification and
-                                                higher revenue opportunities.</li>
-                                        </ul>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href="contact-us.html" class="text-decoration-none detail-title fw-bold"
-                                            style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact
-                                                Us</button></a>
-                                        <div class="like-section">
-                                            <button class="like-btn" id="likeBtn">
-                                                <div class="thumb-icon">
-                                                    <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                                                </div>
-                                                <span class="mx-1 like-count">0</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-wrapper">
-                        <div class="edition-card" data-edition="digital-community">
-                            <div class="card-title">DigitalHealth Community Edition</div>
-                            <div class="card-subtitle">(Free Upgrade for Certified Practitioners)</div>
-                            <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
-                            <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
-                        </div>
-                        <div class="mobile-detail" id="mobile-detail-digital-community">
-                            <div class="mobile-detail-content">
-                                <div class="contact-section">
-                                    <div class="card-title">Digital Health Community Edition</div>
-                                    <div class="card-subtitle">(Subscription)</div>
-                                    <div class="contact-title">
-                                        The Community Edition is a free upgrade available exclusively to Premium
-                                        subscribers who complete the Certified Digital Health Practitioner (CdHP)
-                                        training. It enables trained practitioners to manage and support their
-                                        registered community members through the HealthCentreApp platform.
-                                        <ul>
-                                            <li><strong>Free Upgrade</strong> : Automatically activated for Premium
-                                                users who achieve CdHP certification.</li>
-                                            <li><strong>CdHP Support</strong> : Provides guided help and health
-                                                assistance to community users.</li>
-                                            <li><strong>Full Premium Tools</strong> : Includes all Premium Edition
-                                                features for supported users.</li>
-                                            <li><strong>Community Access</strong> : Each CdHP can support up to 50
-                                                adults under their care.</li>
-                                            <li><strong>Bridging the Digital Divide</strong> : Ensures citizens with
-                                                limited digital skills can still benefit from digital healthcare through
-                                                guided support.</li>
-                                        </ul>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href="contact-us.html" class="text-decoration-none detail-title fw-bold"
-                                            style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact
-                                                Us</button></a>
-                                        <div class="like-section">
-                                            <button class="like-btn" id="likeBtn">
-                                                <div class="thumb-icon">
-                                                    <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                                                </div>
-                                                <span class="mx-1 like-count">0</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-wrapper">
-                        <div class="edition-card" data-edition="national-health">
-                            <div class="card-title">National Health Edition</div>
-                            <div class="card-subtitle"></div>
-                            <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
-                            <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
-                        </div>
-                        <div class="mobile-detail" id="mobile-detail-national-health">
-                            <div class="mobile-detail-content">
-                                <div class="contact-section">
-                                    <p>
-                                        Designed for Ministries of Health, NGOs, and public health organisations.
-                                        Provides anonymised triage data, regional health trends, and population-level
-                                        analytics to support national health planning, disease surveillance, and
-                                        emergency response.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href="contact-us.html" class="text-decoration-none detail-title fw-bold"
-                                            style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact
-                                                Us</button></a>
-                                        <div class="like-section">
-                                            <button class="like-btn" id="likeBtn">
-                                                <div class="thumb-icon">
-                                                    <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                                                </div>
-                                                <span class="mx-1 like-count">0</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-wrapper">
-                        <div class="edition-card" data-edition="corporate-access">
-                            <div class="card-title">Corporate and Community Access</div>
-                            <div class="card-subtitle"></div>
-                            <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
-                            <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
-                        </div>
-                        <div class="mobile-detail" id="mobile-detail-corporate-access">
-                            <div class="mobile-detail-content">
-                                <div class="contact-section">
-                                    <p>
-                                        HealthCentreApp supports inclusive health access through discounted bulk subscriptions for eligible organisations, NGOs,
-                                        and community groups. These packages are ideal for companies that wish to extend digital health benefits to their
-                                        employees, or for communities and charities supporting citizens with limited access to healthcare. Contact our
-                                        Partnerships Team for details on eligibility and customisation.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href="contact-us.html" class="text-decoration-none detail-title fw-bold"
-                                            style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact
-                                                Us</button></a>
-                                        <div class="like-section">
-                                            <button class="like-btn" id="likeBtn">
-                                                <div class="thumb-icon">
-                                                    <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                                                </div>
-                                                <span class="mx-1 like-count">0</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Detail Section (Right Side for Desktop) -->
-                <div class="detail-section" id="detailSection">
-                    <div id="detail-gps-public" class="detail-panel">
-                        <h3 class="detail-title text-muted">Monetisation Programs</h3>
-                        <div class="contact-section">
-                            <div class="contact-title">SMP (Silver Monetisation Program)</div>
-                            <p>Available to all subscribed users.</p>
-                            <ul>
-                                <li>Earn 25% of every subscription fee from users you invite.</li>
-                                <li>Earn 25% of the revenue from Sponsored Ads you create and publish.</li>
-                                <li>Automatically included for DigitalHealth Standard subscribers.</li>
-                            </ul>
-                            <div class="contact-title">GMP (Gold Monetisation Program)</div>
-                            <p>Available to Premium subscribers who complete the Certified Digital Health
-                                Practitioner (CdHP) training.</p>
-                            <ul>
-                                <li>Earn 50% of every subscription fee from users you invite.</li>
-                                <li>Earn 50% of the revenue from Sponsored Ads you create and publish.</li>
-                                <li>Completion of CdHP training automatically upgrades your account to the Community
-                                    Edition, enabling you to manage and support up to 50 local users.</li>
-                                <li>To qualify for GMP, Premium users must also register and support at least 50 local
-                                    users under their Community Edition account.</li>
-                            </ul>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="contact-us.html" class="text-decoration-none detail-title mt-2 fw-bold"
-                                    style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact Us</button></a>
-                                <div class="like-section">
-                                    <button class="like-btn" id="likeBtn">
-                                        <div class="thumb-icon">
-                                            <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                                        </div>
-                                        <span class="mx-1 like-count">0</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="detail-gps-personal" class="detail-panel">
-                        <h3 class="detail-title text-muted">GPSMedical Free Edition</h3>
-                        <p class="detail-description">
-                            Designed for everyone, no registration required. With one click, you can find nearby
-                            hospitals, clinics, pharmacies, and labs using your phone’s location. Perfect for
-                            emergencies or everyday healthcare needs.
-                        </p>
-                        <ul>
-                            <li>Locate nearby medical services instantly.</li>
-                            <li>Use GPS to find hospitals and health centres.</li>
-                            <li>Place Sponsored Ads after.</li>
-                            <li>Purchase GiftedMedical vouchers to gift subscribed editions.</li>
-                            <li>Works globally on mobile and desktop browsers.</li>
-                        </ul>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="contact-us.html" class="text-decoration-none detail-title mt-2 fw-bold"
-                                style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact Us</button></a>
-                            <div class="like-section">
-                                <button class="like-btn" id="likeBtn">
-                                    <div class="thumb-icon">
-                                        <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                                    </div>
-                                    <span class="mx-1 like-count">0</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="detail-digital-standard" class="detail-panel">
-                        <div class="contact-section">
-                            <div class="card-title">DigitalHealth Standard Edition</div>
-                            <div class="card-subtitle">£5 per annum</div>
-                            <div class="contact-title">
-                                For users who want more structure and control in managing their health. Includes all
-                                Free Edition features, plus:
-                                <ul>
-                                    <li><strong>CareRecord</strong> : Store and manage your personal health information.
-                                    </li>
-                                    <li><strong>CareRequest</strong> : Create and print symptom reports for triage or
-                                        consultation.</li>
-                                    <li><strong>CareSecure</strong> : Control who can view or comment on your health
-                                        data.</li>
-                                    <li><strong>CareConnect</strong> : Chat securely with healthcare practitioners
-                                        worldwide.</li>
-                                    <li><strong>CareMedication</strong> : Verify health information using our AI Medical
-                                        Fact Checker.</li>
-                                    <li><strong>Monetisation Hub (SMP)</strong> : Earn revenue from referrals and
-                                        Sponsored Ads.</li>
-                                </ul>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="contact-us.html" class="text-decoration-none detail-title mt-2 fw-bold"
-                                    style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact Us</button></a>
-                                <div class="like-section">
-                                    <button class="like-btn" id="likeBtn">
-                                        <div class="thumb-icon">
-                                            <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                                        </div>
-                                        <span class="mx-1 like-count">0</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="detail-digital-premium" class="detail-panel">
-                        <div class="contact-section">
-                            <div class="card-title">DigitalHealth Premium Edition</div>
-                            <div class="card-subtitle">£10 per annum</div>
-                            <div class="contact-title">
-                                Your complete digital health companion. Includes all Standard Edition features, plus:
-                                <ul>
-                                    <li><strong>CareDiagnoser</strong> : AI-powered symptom assessment.</li>
-                                    <li><strong>CareRemote</strong> : Alerts and tracking for remote monitoring of your
-                                        condition.</li>
-                                    <li><strong>CareCalendar</strong> : Plan appointments and medication schedules.</li>
-                                    <li><strong>CareMonitor</strong> : Track vital signs such as blood pressure, blood
-                                        sugar, and BMI.</li>
-                                    <li><strong>Eligible for GMP</strong> : Enables CdHP certification and higher
-                                        revenue opportunities.</li>
-                                </ul>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="contact-us.html" class="text-decoration-none detail-title mt-2 fw-bold"
-                                    style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact Us</button></a>
-                                <div class="like-section">
-                                    <button class="like-btn" id="likeBtn">
-                                        <div class="thumb-icon">
-                                            <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                                        </div>
-                                        <span class="mx-1 like-count">0</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="detail-digital-community" class="detail-panel">
-                        <div class="contact-section">
-                            <div class="card-title">DigitalHealth Community Edition</div>
-                            <div class="card-subtitle">(Free Upgrade for Certified Practitioners)</div>
-                            <div class="contact-title">
-                                The Community Edition is a free upgrade available exclusively to Premium subscribers who
-                                complete the Certified Digital Health Practitioner (CdHP) training. It enables trained
-                                practitioners to manage and support their registered community members through the
-                                HealthCentreApp platform.
-                                <ul>
-                                    <li><strong>Free Upgrade</strong> : Automatically activated for Premium users who
-                                        achieve CdHP certification.</li>
-                                    <li><strong>CdHP Support</strong> : Provides guided help and health assistance to
-                                        community users.</li>
-                                    <li><strong>Full Premium Tools</strong> : Includes all Premium Edition features for
-                                        supported users.</li>
-                                    <li><strong>Community Access</strong> : Each CdHP can support up to 50 adults under
-                                        their care.</li>
-                                    <li><strong>Bridging the Digital Divide</strong> : Ensures citizens with limited
-                                        digital skills can still benefit from digital healthcare through guided support.
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="contact-us.html" class="text-decoration-none detail-title mt-2 fw-bold"
-                                    style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact Us</button></a>
-                                <div class="like-section">
-                                    <button class="like-btn" id="likeBtn">
-                                        <div class="thumb-icon">
-                                            <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                                        </div>
-                                        <span class="mx-1 like-count">0</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="detail-national-health" class="detail-panel">
-                        <div class="contact-section">
-                            <div class="card-title">National Health Edition</div>
-                            <p>
-                                Designed for Ministries of Health, NGOs, and public health organisations. Provides
-                                anonymised triage data, regional health trends, and population-level analytics to
-                                support national health planning, disease surveillance, and emergency response.
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="contact-us.html" class="text-decoration-none detail-title mt-2 fw-bold"
-                                    style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact Us</button></a>
-                                <div class="like-section">
-                                    <button class="like-btn" id="likeBtn">
-                                        <div class="thumb-icon">
-                                            <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                                        </div>
-                                        <span class="mx-1 like-count">0</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="detail-corporate-access" class="detail-panel">
-                        <div class="contact-section">
-                            <div class="card-title">Corporate and Community Access</div>
-                            <p>
-                                HealthCentreApp supports inclusive health access through discounted bulk subscriptions for eligible organisations, NGOs,
-                                and community groups. These packages are ideal for companies that wish to extend digital health benefits to their
-                                employees, or for communities and charities supporting citizens with limited access to healthcare. Contact our
-                                Partnerships Team for details on eligibility and customisation.
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="contact-us.html" class="text-decoration-none detail-title mt-2 fw-bold"
-                                    style="font-size: 1.3rem;"> <button class="card-contact-btn">Contact Us</button></a>
-                                <div class="like-section">
-                                    <button class="like-btn" id="likeBtn">
-                                        <div class="thumb-icon">
-                                            <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
-                                        </div>
-                                        <span class="mx-1 like-count">0</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-   
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
                         </div>
                     </div>
                 </div>
-                <!-- Footer -->
                 <footer class="footer">
                     <div class="container">
                         <div class="footer-content">
@@ -867,148 +1017,155 @@
 
         <script src="js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
         <script>
+            const API_BASE = "https://find-nearby-emergency-facilities-ba.vercel.app/api/edition/likes";
+            const counts = { card1: 0, card2: 0, card3: 0, card4: 0, card5: 0, card6: 0, card7: 0 };
+            const LIKED_KEY = "editionLiked";
+            const keyToNumber = {
+                "gps-public": 1,
+                "gps-personal": 2,
+                "digital-standard": 3,
+                "digital-premium": 4,
+                "digital-community": 5,
+                "national-health": 6,
+                "corporate-access": 7
+            };
 
-            let likeBtns = document.querySelectorAll('.like-section');
+            function getLikedMap() {
+                try { return JSON.parse(localStorage.getItem(LIKED_KEY) || "{}"); } catch { return {}; }
+            }
+            function setLiked(n) {
+                const map = getLikedMap();
+                map[String(n)] = true;
+                localStorage.setItem(LIKED_KEY, JSON.stringify(map));
+            }
+            function isLiked(n) {
+                const map = getLikedMap();
+                return !!map[String(n)];
+            }
 
-            likeBtns.forEach(section => {
-                let count = 0; // har section ka apna counter
-                let btn = section.querySelector('.like-btn');
-                let display = section.querySelector('.like-count');
+            function getEditionKeyFromSection(section) {
+                const d = section.closest('[id^="detail-"]');
+                if (d) return d.id.replace('detail-', '');
+                const m = section.closest('[id^="mobile-detail-"]');
+                if (m) return m.id.replace('mobile-detail-', '');
+                const w = section.closest('.card-wrapper');
+                if (w) {
+                    const ed = w.querySelector('.edition-card');
+                    if (ed) return ed.getAttribute('data-edition');
+                }
+                return null;
+            }
 
-                btn.addEventListener("click", () => {
-                    count++;
-                    display.textContent = count; // update only this section
+            function getNumberFromSection(section) {
+                const key = getEditionKeyFromSection(section);
+                if (!key) return null;
+                return keyToNumber[key] || null;
+            }
+
+            function updateCountDisplay(n) {
+                document.querySelectorAll('.like-section').forEach(section => {
+                    const sn = getNumberFromSection(section);
+                    if (sn && String(sn) === String(n)) {
+                        const display = section.querySelector('.like-count');
+                        if (display) display.textContent = counts['card' + n] ?? 0;
+                    }
                 });
-            });
+            }
 
+            function updateAllDisplays() {
+                for (let i = 1; i <= 7; i++) updateCountDisplay(i);
+            }
 
+            async function fetchCounts() {
+                try {
+                    const res = await axios.get(API_BASE, { headers: { "Cache-Control": "no-cache" } });
+                    const data = res.data || {};
+                    for (let i = 1; i <= 7; i++) {
+                        const key = 'card' + i;
+                        counts[key] = typeof data[key] === 'number' ? data[key] : 0;
+                    }
+                    updateAllDisplays();
+                } catch (e) { }
+            }
 
-
-            function commingSoon(text) {
-                profileModal.classList.add('show');
-                document.getElementById('overlay2').classList.add('show');
-                document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
+            async function increaseLike(n) {
+                try {
+                    const res = await axios.put(`${API_BASE}/${n}`);
+                    if (res && res.data && res.data.likes) {
+                        Object.assign(counts, res.data.likes);
+                        updateAllDisplays();
+                    } else {
+                        const key = 'card' + n;
+                        counts[key] = (counts[key] ?? 0) + 1;
+                        updateAllDisplays();
+                    }
+                } catch (e) { }
             }
 
             function isMobile() {
                 return window.innerWidth <= 991.98;
             }
 
-            document.querySelectorAll('.edition-card').forEach(card => {
-                card.addEventListener('click', function () {
-                    if (isMobile()) {
+            function showDesktopDetailByEdition(edition) {
+                const detailPanel = document.getElementById(`detail-${edition}`);
+                const detailSection = document.getElementById('detailSection');
+                document.querySelectorAll('.detail-panel').forEach(panel => { panel.style.display = 'none' });
+                document.querySelectorAll('.edition-card').forEach(c => { c.classList.remove('active') });
+                if (detailPanel) {
+                    detailPanel.style.display = 'block';
+                    detailSection.classList.add('show');
+                    const card = document.querySelector(`.edition-card[data-edition="${edition}"]`);
+                    if (card) { card.classList.add('active'); }
+                }
+            }
+
+            function closeDetail() {
+                document.querySelectorAll('.detail-panel').forEach(panel => { panel.style.display = 'none'; });
+                document.querySelectorAll('.mobile-detail').forEach(detail => { detail.classList.remove('show'); });
+                document.querySelectorAll('.edition-card').forEach(card => { card.classList.remove('active'); });
+                document.getElementById('detailSection').classList.remove('show');
+            }
+
+            function bindCards() {
+                document.querySelectorAll('.edition-card').forEach(card => {
+                    card.addEventListener('click', function () {
                         const edition = this.getAttribute('data-edition');
-                        const mobileDetail = document.getElementById(`mobile-detail-${edition}`);
-                        const arrow = this.querySelector('.card-arrow');
-
-                        // Check if this card is currently active
-                        const isCurrentlyActive = this.classList.contains('active');
-
-                        // Close all other mobile details and remove active class
-                        document.querySelectorAll('.mobile-detail').forEach(detail => {
-                            detail.classList.remove('show');
-                        });
-                        document.querySelectorAll('.edition-card').forEach(c => {
-                            c.classList.remove('active');
-                        });
-
-                        // If this card wasn't active, open it
-                        if (!isCurrentlyActive && mobileDetail) {
-                            mobileDetail.classList.add('show');
-                            this.classList.add('active');
+                        if (isMobile()) {
+                            const mobileDetail = document.getElementById(`mobile-detail-${edition}`);
+                            const isCurrentlyActive = this.classList.contains('active');
+                            document.querySelectorAll('.mobile-detail').forEach(detail => { detail.classList.remove('show') });
+                            document.querySelectorAll('.edition-card').forEach(c => { c.classList.remove('active') });
+                            if (!isCurrentlyActive && mobileDetail) {
+                                mobileDetail.classList.add('show');
+                                this.classList.add('active');
+                            } else {
+                                closeDetail();
+                            }
+                        } else {
+                            if (this.classList.contains('active')) {
+                                closeDetail();
+                            } else {
+                                showDesktopDetailByEdition(edition);
+                            }
                         }
-                    }
+                    });
                 });
-
-                // Desktop hover behavior
-                card.addEventListener('mouseenter', function () {   // ✅ sahi event
-                    if (!isMobile()) {
-                        const edition = this.getAttribute('data-edition');
-                        const detailPanel = document.getElementById(`detail-${edition}`);
-                        const detailSection = document.getElementById('detailSection');
-
-                        // Close all other detail panels and remove active class
-                        document.querySelectorAll('.detail-panel').forEach(panel => {
-                            panel.style.display = 'none';
-                        });
-                        document.querySelectorAll('.edition-card').forEach(c => {
-                            c.classList.remove('active');
-                        });
-
-                        // Show selected detail panel and add active class
-                        if (detailPanel) {
-                            detailPanel.style.display = 'block';
-                            detailSection.classList.add('show');
-                            this.classList.add('active');
-                        }
-                    }
-                });
-
-                // Hide on mouse leave
-                card.addEventListener('mouseleave', function () {
-                    if (!isMobile()) {
-                        const edition = this.getAttribute('data-edition');
-                        const detailPanel = document.getElementById(`detail-${edition}`);
-                        const detailSection = document.getElementById('detailSection');
-
-                        if (detailPanel) {
-                            detailPanel.style.display = 'none';
-                            detailSection.classList.remove('show');
-                            this.classList.remove('active');
-                        }
-                    }
-                });
-            });
-
+            }
 
             function findNearbyServices() {
-                // Show location permission modal
                 document.getElementById('locationModal').classList.add('show');
                 document.getElementById('overlay').classList.add('show');
             }
 
             function allowLocation() {
                 hideLocationModal();
-
                 navigator.geolocation.getCurrentPosition(
-                    function (position) {
-                        const latitude = position.coords.latitude;
-                        const longitude = position.coords.longitude;
-
-                        console.log('[v0] Location obtained:', latitude, longitude);
-
-                        // Simulate finding nearby services
-                        setTimeout(() => {
-                        }, 2000);
-                    },
-                    function (error) {
-                        console.log('[v0] Location error:', error.message);
-                        let errorMessage = 'Unable to retrieve location. ';
-
-                        switch (error.code) {
-                            case error.PERMISSION_DENIED:
-                                errorMessage += 'Location access denied by user.';
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                errorMessage += 'Location information unavailable.';
-                                break;
-                            case error.TIMEOUT:
-                                errorMessage += 'Location request timed out.';
-                                break;
-                            default:
-                                errorMessage += 'An unknown error occurred.';
-                                break;
-                        }
-
-                        showLocationStatus(errorMessage, 'error');
-                    },
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 60000
-                    }
+                    function () { },
+                    function () { },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
                 );
             }
 
@@ -1021,31 +1178,13 @@
                 document.getElementById('overlay').classList.remove('show');
             }
 
-
-
-
-            // Close detail panel function
-            function closeDetail() {
-                document.querySelectorAll('.detail-panel').forEach(panel => {
-                    panel.style.display = 'none';
-                });
-                document.querySelectorAll('.mobile-detail').forEach(detail => {
-                    detail.classList.remove('show');
-                });
-                document.querySelectorAll('.edition-card').forEach(card => {
-                    card.classList.remove('active');
-                    const arrow = card.querySelector('.card-arrow');
-                });
-                document.getElementById('detailSection').classList.remove('show');
-            }
-
             document.addEventListener('click', function (e) {
-                if (isMobile() && !e.target.closest('.card-wrapper') && !e.target.closest('.detail-section')) {
+                const insideCardOrDetail = e.target.closest('.card-wrapper') || e.target.closest('.detail-section');
+                if (!insideCardOrDetail) {
                     closeDetail();
                 }
             });
 
-            // Handle escape key to close detail panel
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') {
                     closeDetail();
@@ -1053,79 +1192,122 @@
             });
 
             window.addEventListener('resize', function () {
-                // Close details when switching between mobile/desktop
                 closeDetail();
             });
-        </script>
 
-
-        <script>
-            const profileButton = document.querySelectorAll('.profile-button');
-            const profileModal = document.getElementById('profileModal');
-            const closeProfileBtn = document.getElementById('closeProfileBtn');
-
-            profileButton.forEach(button => {
-                button.addEventListener('click', function () {
-                            const uid = localStorage.getItem('uid');
-            if (uid) { 
-                location.href = 'profile.html';
-            }else{
-                location.href = 'login.html';    
-            }
+            document.addEventListener('DOMContentLoaded', async function () {
+                await fetchCounts();
+                document.querySelectorAll('.like-section').forEach(section => {
+                    const btn = section.querySelector('.like-btn');
+                    const n = getNumberFromSection(section);
+                    if (!btn || !n) return;
+                    const iconWrap = section.querySelector('.thumb-icon');
+                    if (iconWrap) iconWrap.innerHTML = '<i class="fa-regular fa-heart"></i>';
+                    const icon = section.querySelector('.thumb-icon i');
+                    const likedAlready = isLiked(n);
+                    btn.setAttribute('aria-pressed', likedAlready ? 'true' : 'false');
+                    if (likedAlready && icon) {
+                        icon.classList.remove('fa-regular');
+                        icon.classList.add('fa-solid');
+                        btn.disabled = true;
+                    }
+                    btn.addEventListener('click', async () => {
+                        if (isLiked(n)) return;
+                        const key = `card${n}`;
+                        counts[key] = (counts[key] ?? 0) + 1;
+                        updateCountDisplay(n);
+                        if (icon) {
+                            icon.classList.remove('fa-regular');
+                            icon.classList.add('fa-solid');
+                        }
+                        btn.setAttribute('aria-pressed', 'true');
+                        btn.disabled = true;
+                        setLiked(n);
+                        await increaseLike(n);
+                    });
                 });
-            });
 
-            closeProfileBtn.addEventListener('click', function () {
-                profileModal.classList.remove('show');
-                document.getElementById('overlay2').classList.remove('show');
-            });
+                const profileButton = document.querySelectorAll('.profile-button');
+                const profileModal = document.getElementById('profileModal');
+                const closeProfileBtn = document.getElementById('closeProfileBtn');
 
-            document.querySelector('#seach-popup .btn-close').addEventListener('click', function () {
-                document.getElementById('seach-popup').classList.add('d-none');
-            });
-
-            // Mobile menu toggle
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-
-            menuToggle.addEventListener('click', function () {
-                sidebar.classList.toggle('show');
-                overlay.classList.toggle('show');
-            });
-
-            overlay.addEventListener('click', function () {
-                sidebar.classList.remove('show');
-                overlay.classList.remove('show');
-                // Close location modal if open
-                document.getElementById('profileModal').classList.remove('show');
-            });
-
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
+                const uid = localStorage.getItem("uid");
+                const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
+                allProfiles.forEach(wrapper => {
+                    const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
+                    const dropdownMenu = wrapper.querySelector(".dropdown-menu");
+                    if (!button) return;
+                    if (!uid) {
+                        if (dropdownMenu) dropdownMenu.style.display = "none";
+                        button.innerHTML = `
+            <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <span class="mx-2">Signup</span>
+        `;
+                        button.onclick = () => (window.location.href = "/login.html");
+                        button.removeAttribute("data-bs-toggle");
+                    } else {
+                        if (dropdownMenu) dropdownMenu.style.display = "";
+                        button.innerHTML = `
+            <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <i class="bi bi-chevron-down ms-1"></i>
+        `;
+                        button.setAttribute("data-bs-toggle", "dropdown");
                     }
                 });
-            });
 
-            // Responsive adjustments
-            function handleResize() {
-                if (window.innerWidth >= 992) {
+                document.addEventListener("click", e => {
+                    if (e.target.id === "logout-btn") {
+                        localStorage.removeItem("uid");
+                        location.reload();
+                    }
+                });
+
+                closeProfileBtn.addEventListener('click', function () {
+                    profileModal.classList.remove('show');
+                    document.getElementById('overlay2').classList.remove('show');
+                });
+
+                document.querySelector('#seach-popup .btn-close').addEventListener('click', function () {
+                    document.getElementById('seach-popup').classList.add('d-none');
+                });
+
+                const menuToggle = document.getElementById('menuToggle');
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('overlay');
+
+                menuToggle.addEventListener('click', function () {
+                    sidebar.classList.toggle('show');
+                    overlay.classList.toggle('show');
+                });
+
+                overlay.addEventListener('click', function () {
                     sidebar.classList.remove('show');
                     overlay.classList.remove('show');
+                    document.getElementById('profileModal').classList.remove('show');
+                });
+
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                });
+
+                function handleResize() {
+                    if (window.innerWidth >= 992) {
+                        sidebar.classList.remove('show');
+                        overlay.classList.remove('show');
+                    }
                 }
-            }
 
-            window.addEventListener('resize', handleResize);
+                window.addEventListener('resize', handleResize);
+                handleResize();
 
-            // Initialize
-            handleResize();
+                bindCards();
+            });
         </script>
     </div>
 </body>

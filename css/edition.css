@@ -355,8 +355,9 @@
       height: 27px !important;
     }
     .like-btn .thumb-icon img{
-      width: 15px !important;
-      height: 27px !important;
+      display: none !important;
+      width: 0px !important;
+      height: 0px !important;
     }
     .detail-title {
       /* margin-top: 0.5rem; */
@@ -544,7 +545,13 @@
   align-content: center;
   border-radius: 50%;
 }
+.like-btn .thumb-icon i{
+  width: 18px;
+  height: 35px;
+  margin-top: 8px;
+}
 .like-btn .thumb-icon img{
+  display: none !important;
   width: 18px;
   height: 35px;
 }

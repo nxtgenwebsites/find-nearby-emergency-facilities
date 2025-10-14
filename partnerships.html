@@ -14,27 +14,28 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
     <style>
-        .detail-panel a{
+        .detail-panel a {
             font-size: 16px !important;
             margin: 0 !important;
             padding: 0 !important;
         }
+
         .detail-panel p:has(a) {
             width: 70% !important;
-}
-
+        }
     </style>
 </head>
 
 <body>
-    <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
     <div class="overlay" id="overlay2"></div>
 
     <div class="location-modal " id="locationModal">
         <h4 class="text-danger"> <strong>WARNING</strong></h4>
-        <p class="mt-3 mb-0">This Geo Location Service uses Google map and its subject to Google terms and Conditions.</p>
-        <p class="mt-2 mb-0">Also, please ensure you grant Google Location Map access to your current location, otherwise it
+        <p class="mt-3 mb-0">This Geo Location Service uses Google map and its subject to Google terms and Conditions.
+        </p>
+        <p class="mt-2 mb-0">Also, please ensure you grant Google Location Map access to your current location,
+            otherwise it
             might give you wrong
             results.</p>
         <p class="mt-2"><strong>Do you want to Proceed?</strong></p>
@@ -46,8 +47,6 @@
         </div>
     </div>
 
-
-    <!-- Added location permission modal -->
     <div class="location-modal " id="profileModal">
         <h3>Coming Soon!</h3>
         <p>User profile feature isn’t available yet!</p>
@@ -58,7 +57,6 @@
         </div>
     </div>
 
-    <!-- Added search popup modal -->
     <div class="popup-overlay d-none" id="seach-popup">
         <div class="seacrch-card">
             <div class=" d-flex justify-content-between align-items-center py-3">
@@ -98,7 +96,6 @@
         </div>
     </div>
 
-    <!-- Search Modal -->
     <div id="searchModal" class="modal">
         <div class="bg-white rounded-lg p-6 max-w-2xl w-full shadow-xl">
             <div class="flex justify-between items-center mb-6">
@@ -186,7 +183,6 @@
     </div>
 
     <div class="d-flex w-100">
-        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="logo">
@@ -221,7 +217,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                   <a href="/reviews.html" class="nav-link">
+                    <a href="/reviews.html" class="nav-link">
                         <img src="assets/icons/star.svg" />
                         <span>Reviews</span>
                     </a>
@@ -241,17 +237,27 @@
             </ul>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content w-100">
-            <!-- Header -->
             <header class="header d-lg-none">
                 <a href="index.html" class="mobile-logo">
                     <img src="assets/images/logo.svg">
                 </a>
                 <div class="header-right">
-                    <div class="user profile-button">
-                        <img src="assets/icons/user-icon.svg" alt="">
+                    <div class="dropdown user profile-button">
+                        <button class="mobile-profile-btn dropdown-toggle" type="button" id="mobileProfileMenu"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/icons/user-icon.svg" alt="User">
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
+                            <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                        </ul>
                     </div>
+
                     <button class="menu-toggle" id="menuToggle">
                         <img src="assets/icons/bars.svg" alt="">
                     </button>
@@ -259,10 +265,22 @@
             </header>
 
             <div class="main-content w-100">
-                <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
-                    <img src="assets/icons/user-icon.svg" width="30" alt="">
-                    <i class="dropdown-toggle"></i>
-                </button>
+                <div class="dropdown profile-wrapper">
+                    <button
+                        class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle"
+                        type="button" id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+                        style="gap: 5px !important;">
+                        <img src="assets/icons/user-icon.svg" width="30" alt="">
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
+                        <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                    </ul>
+                </div>
 
                 <div class="hero-content">
                     <div class="d-flex about-header-container">
@@ -275,7 +293,6 @@
                     </div>
                     <div class="container-fluid px-0">
                         <div class="container-fluid px-0">
-                            <!-- Header Section -->
                             <div class="header-section">
                                 <div class="container">
                                     <div class="row">
@@ -284,13 +301,17 @@
                                                 <strong>HealthCentreApp Partnership Models</strong>
                                             </p>
                                             <p class="header-description">
-                                                Collaborate with Us to Expand Access, Empower Citizens & Strengthen Health Systems. 
-                                                </p>
-                                                <p class="header-description">
-                                                 <strong>HealthCentreApp</strong> offers a range of
-                                                partnership models tailored for individuals, communities, organisations, and institutions that share our mission of
-                                                delivering digital health access across Africa. We believe health transformation is most powerful when it’s
-                                                collaborative — whether you're a healthcare professional, content creator, NGO, sponsor, or policymaker, there’s a way
+                                                Collaborate with Us to Expand Access, Empower Citizens & Strengthen
+                                                Health Systems.
+                                            </p>
+                                            <p class="header-description">
+                                                <strong>HealthCentreApp</strong> offers a range of
+                                                partnership models tailored for individuals, communities, organisations,
+                                                and institutions that share our mission of
+                                                delivering digital health access across Africa. We believe health
+                                                transformation is most powerful when it’s
+                                                collaborative — whether you're a healthcare professional, content
+                                                creator, NGO, sponsor, or policymaker, there’s a way
                                                 to partner with us.
                                             </p>
                                         </div>
@@ -298,15 +319,11 @@
                                 </div>
                             </div>
 
-                            <!-- Modified main content structure for mobile accordion layout -->
                             <div class="container" id="content-container">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="editions-container">
-                                            <!-- Cards Section with inline details for mobile -->
                                             <div class="cards-section">
-                                                <!-- Modified each card to include its own detail section for mobile accordion behavior -->
-
                                                 <div class="card-wrapper">
                                                     <div class="edition-card" data-edition="card-1">
                                                         <div class="card-title">Referral Partners</div>
@@ -316,37 +333,46 @@
                                                     <div class="mobile-detail" id="mobile-detail-card-1">
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
-                                                                <div class="contact-title">Help us grow our reach by inviting others to register for the Free Edition.Ideal for individuals, influencers, and
-                                                                community leaders who want to:
+                                                                <div class="contact-title">Help us grow our reach by
+                                                                    inviting others to register for the Free
+                                                                    Edition.Ideal for individuals, influencers, and
+                                                                    community leaders who want to:
                                                                     <ul>
                                                                         <li>
-                                                                            Promote digital health adoption across their network
+                                                                            Promote digital health adoption across their
+                                                                            network
                                                                         </li>
                                                                         <li>
-                                                                            Support others in accessing modern healthcare services
+                                                                            Support others in accessing modern
+                                                                            healthcare services
                                                                         </li>
                                                                         <li>
-                                                                            Earn rewards and build long-term income through our structured referral programs
+                                                                            Earn rewards and build long-term income
+                                                                            through our structured referral programs
                                                                         </li>
                                                                     </ul>
                                                                     <p>
                                                                     </p>
                                                                 </div>
-                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
                                                                     <p>
-                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                        <a href="contact-us.html"
+                                                                            class="detail-title fw-bold"
+                                                                            style="font-size: 1.3rem;">
                                                                             Contact Us</a>
-                                                                            to learn more about becoming a Referral Partner.
+                                                                        to learn more about becoming a Referral Partner.
                                                                     </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
-                                                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
                                                                             </div>
                                                                             <span class="mx-1 like-count">0</span>
                                                                         </button>
                                                                     </div>
-                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -361,29 +387,37 @@
                                                     <div class="mobile-detail" id="mobile-detail-card-2">
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
-                                                                <div class="contact-title">Available to all subscribed users.
+                                                                <div class="contact-title">Available to all subscribed
+                                                                    users.
                                                                     <ul>
                                                                         <li>
-                                                                            Earn 25% of every subscription fee from users you invite
+                                                                            Earn 25% of every subscription fee from
+                                                                            users you invite
                                                                         </li>
                                                                         <li>
-                                                                            Earn 25% of the revenue from Sponsored Ads you create and publish
+                                                                            Earn 25% of the revenue from Sponsored Ads
+                                                                            you create and publish
                                                                         </li>
                                                                         <li>
-                                                                            Automatically included for all DigitalHealth Standard subscribers
+                                                                            Automatically included for all DigitalHealth
+                                                                            Standard subscribers
                                                                         </li>
                                                                     </ul>
                                                                 </div>
-                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
                                                                     <p>
-                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                        <a href="contact-us.html"
+                                                                            class="detail-title fw-bold"
+                                                                            style="font-size: 1.3rem;">
                                                                             Contact Us</a>
                                                                         to learn more about becoming a Referral Partner.
                                                                     </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
-                                                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
                                                                             </div>
                                                                             <span class="mx-1 like-count">0</span>
                                                                         </button>
@@ -402,34 +436,48 @@
                                                     <div class="mobile-detail" id="mobile-detail-card-3">
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
-                                                                <div class="contact-title">Available to Premium Edition subscribers who complete the Certified Digital Health Practitioner (CdHP) training.
+                                                                <div class="contact-title">Available to Premium Edition
+                                                                    subscribers who complete the Certified Digital
+                                                                    Health Practitioner (CdHP) training.
                                                                     <ul>
                                                                         <li>
-                                                                            Earn 50% of every subscription fee from users you invite
+                                                                            Earn 50% of every subscription fee from
+                                                                            users you invite
                                                                         </li>
                                                                         <li>
-                                                                            Earn 50% of the revenue from Sponsored Ads you create and publish
+                                                                            Earn 50% of the revenue from Sponsored Ads
+                                                                            you create and publish
                                                                         </li>
                                                                         <li>
-                                                                            Completion of CdHP training automatically upgrades your account to Community Edition, allowing you to manage and support up to 50 local users
+                                                                            Completion of CdHP training automatically
+                                                                            upgrades your account to Community Edition,
+                                                                            allowing you to manage and support up to 50
+                                                                            local users
                                                                         </li>
                                                                         <li>
-                                                                            To maintain GMP eligibility, the CdHP must have exactly 50 supported community members registered under their Community Edition account
+                                                                            To maintain GMP eligibility, the CdHP must
+                                                                            have exactly 50 supported community members
+                                                                            registered under their Community Edition
+                                                                            account
                                                                         </li>
                                                                     </ul>
                                                                     <p>
                                                                     </p>
                                                                 </div>
-                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
                                                                     <p>
-                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                        <a href="contact-us.html"
+                                                                            class="detail-title fw-bold"
+                                                                            style="font-size: 1.3rem;">
                                                                             Contact Us</a>
                                                                         to learn more about becoming a Referral Partner.
                                                                     </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
-                                                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
                                                                             </div>
                                                                             <span class="mx-1 like-count">0</span>
                                                                         </button>
@@ -441,41 +489,53 @@
                                                 </div>
                                                 <div class="card-wrapper">
                                                     <div class="edition-card" data-edition="card-4">
-                                                        <div class="card-title">Certified Digital Health Practitioners (CdHPs)</div>
+                                                        <div class="card-title">Certified Digital Health Practitioners
+                                                            (CdHPs)</div>
                                                         <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
                                                         <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
                                                     </div>
                                                     <div class="mobile-detail" id="mobile-detail-card-4">
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
-                                                                <div class="contact-title">CdHPs are trained Premium users who support their local community through the
-                                                                Community Edition of HealthCentreApp. They act as trusted digital health advocates for
-                                                                citizens who may not own smartphones or understand how to use digital tools                                                                 
+                                                                <div class="contact-title">CdHPs are trained Premium
+                                                                    users who support their local community through the
+                                                                    Community Edition of HealthCentreApp. They act as
+                                                                    trusted digital health advocates for
+                                                                    citizens who may not own smartphones or understand
+                                                                    how to use digital tools
                                                                     <ul>
                                                                         <li>
-                                                                            Protect health data through confidentiality, privacy, and safeguarding best practices
+                                                                            Protect health data through confidentiality,
+                                                                            privacy, and safeguarding best practices
                                                                         </li>
                                                                         <li>
-                                                                            Support up to 50 local citizens in accessing digital health tools and triage services
+                                                                            Support up to 50 local citizens in accessing
+                                                                            digital health tools and triage services
                                                                         </li>
                                                                         <li>
-                                                                            Help users create and manage CareRequests and CareRecords
+                                                                            Help users create and manage CareRequests
+                                                                            and CareRecords
                                                                         </li>
                                                                         <li>
-                                                                            Earn recognition and income as Community Digital Health Leaders
+                                                                            Earn recognition and income as Community
+                                                                            Digital Health Leaders
                                                                         </li>
-                                                                        </ul>
+                                                                    </ul>
                                                                 </div>
-                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
                                                                     <p>
-                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                        <a href="contact-us.html"
+                                                                            class="detail-title fw-bold"
+                                                                            style="font-size: 1.3rem;">
                                                                             Contact Us</a>
                                                                         to learn more about becoming a Referral Partner.
                                                                     </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
-                                                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
                                                                             </div>
                                                                             <span class="mx-1 like-count">0</span>
                                                                         </button>
@@ -494,50 +554,73 @@
                                                     <div class="mobile-detail" id="mobile-detail-card-5">
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
-                                                                <div class="contact-title">Partnering with HealthCentreApp enables hospitals, clinics, and private practitioners to
-                                                                deliver mobile-enabled electronic patient records (EPR) and participate in a citizen-first
-                                                                digital health ecosystem. Through this partnership, care providers can act as Certified
-                                                                Digital Health Practitioners (CdHPs) and register all their patients under a unified, secure,
-                                                                and portable record system. HealthCentreApp ensures that data remains patient-owned but
-                                                                seamlessly accessible to authorised care providers, enhancing continuity of care and clinical efficiency.                                                                   
-                                                                <ul>
-                                                                    <li>
-                                                                        Access a mobile-ready, cloud-based patient record platform without large infrastructure costs
-                                                                    </li>
-                                                                    <li>
-                                                                        Improve patient retention through personalised digital engagement and continuity of
-                                                                        care
-                                                                    </li>
-                                                                    <li>Reduce administrative workload with digitised triage, record-sharing, and consent 
-                                                                        management</li>
+                                                                <div class="contact-title">Partnering with
+                                                                    HealthCentreApp enables hospitals, clinics, and
+                                                                    private practitioners to
+                                                                    deliver mobile-enabled electronic patient records
+                                                                    (EPR) and participate in a citizen-first
+                                                                    digital health ecosystem. Through this partnership,
+                                                                    care providers can act as Certified
+                                                                    Digital Health Practitioners (CdHPs) and register
+                                                                    all their patients under a unified, secure,
+                                                                    and portable record system. HealthCentreApp ensures
+                                                                    that data remains patient-owned but
+                                                                    seamlessly accessible to authorised care providers,
+                                                                    enhancing continuity of care and clinical
+                                                                    efficiency.
+                                                                    <ul>
                                                                         <li>
-                                                                            Strengthen compliance with data privacy and health information governance standards
+                                                                            Access a mobile-ready, cloud-based patient
+                                                                            record platform without large infrastructure
+                                                                            costs
                                                                         </li>
                                                                         <li>
-                                                                            Access customised configurations to match specific clinical workflows or operational
+                                                                            Improve patient retention through
+                                                                            personalised digital engagement and
+                                                                            continuity of care
+                                                                        </li>
+                                                                        <li>Reduce administrative workload with
+                                                                            digitised triage, record-sharing, and
+                                                                            consent
+                                                                            management</li>
+                                                                        <li>
+                                                                            Strengthen compliance with data privacy and
+                                                                            health information governance standards
+                                                                        </li>
+                                                                        <li>
+                                                                            Access customised configurations to match
+                                                                            specific clinical workflows or operational
                                                                             needs
                                                                         </li>
                                                                         <li>
-                                                                            Participate in national and regional digital health initiatives through scalable integration
+                                                                            Participate in national and regional digital
+                                                                            health initiatives through scalable
+                                                                            integration
                                                                             options
                                                                         </li>
                                                                         <li>
-                                                                            Enhance reputation as a digitally enabled healthcare provider aligned with future health
+                                                                            Enhance reputation as a digitally enabled
+                                                                            healthcare provider aligned with future
+                                                                            health
                                                                             standards
                                                                         </li>
                                                                     </ul>
                                                                 </div>
 
-                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
                                                                     <p>
-                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                        <a href="contact-us.html"
+                                                                            class="detail-title fw-bold"
+                                                                            style="font-size: 1.3rem;">
                                                                             Contact Us</a>
                                                                         to learn more about becoming a Referral Partner.
                                                                     </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
-                                                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
                                                                             </div>
                                                                             <span class="mx-1 like-count">0</span>
                                                                         </button>
@@ -558,30 +641,39 @@
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
                                                                 <div class="contact-title">
-                                                                    Diaspora members and philanthropists can give back by gifting digital health subscriptions
-                                                                    to loved ones or communities. Through our GiftedMedical vouchers, you can:
+                                                                    Diaspora members and philanthropists can give back
+                                                                    by gifting digital health subscriptions
+                                                                    to loved ones or communities. Through our
+                                                                    GiftedMedical vouchers, you can:
                                                                     <ul>
                                                                         <li>
-                                                                            Instantly send Standard or Premium Edition subscriptions to others
+                                                                            Instantly send Standard or Premium Edition
+                                                                            subscriptions to others
                                                                         </li>
                                                                         <li>
-                                                                            Support healthcare and well-being instead of sending cash
+                                                                            Support healthcare and well-being instead of
+                                                                            sending cash
                                                                         </li>
                                                                         <li>
-                                                                            Track voucher usage and receive updates through CareRemote (with recipient consent)
+                                                                            Track voucher usage and receive updates
+                                                                            through CareRemote (with recipient consent)
                                                                         </li>
-                                                                        </ul>
+                                                                    </ul>
                                                                 </div>
-                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
                                                                     <p>
-                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                        <a href="contact-us.html"
+                                                                            class="detail-title fw-bold"
+                                                                            style="font-size: 1.3rem;">
                                                                             Contact Us</a>
                                                                         to learn more about becoming a Referral Partner.
                                                                     </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
-                                                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
                                                                             </div>
                                                                             <span class="mx-1 like-count">0</span>
                                                                         </button>
@@ -601,34 +693,45 @@
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
                                                                 <div class="contact-title">
-                                                                    Ideal for organisations seeking to make measurable impact through health sponsorships
-                                                                    and community engagement. Corporate and NGO partners can:
+                                                                    Ideal for organisations seeking to make measurable
+                                                                    impact through health sponsorships
+                                                                    and community engagement. Corporate and NGO partners
+                                                                    can:
                                                                     <ul>
                                                                         <li>
-                                                                            Sponsor bulk subscriptions of Standard or Premium Editions through GiftedMedical vouchers
+                                                                            Sponsor bulk subscriptions of Standard or
+                                                                            Premium Editions through GiftedMedical
+                                                                            vouchers
                                                                         </li>
                                                                         <li>
-                                                                            Run community health campaigns and outreach programmes
+                                                                            Run community health campaigns and outreach
+                                                                            programmes
                                                                         </li>
                                                                         <li>
-                                                                             Align with CSR and ESG objectives through measurable health impact
+                                                                            Align with CSR and ESG objectives through
+                                                                            measurable health impact
                                                                         </li>
                                                                         <li>
-                                                                            Monitor programme outcomes through voucher tracking, usage analytics, and
+                                                                            Monitor programme outcomes through voucher
+                                                                            tracking, usage analytics, and
                                                                             anonymised dashboards
                                                                         </li>
-                                                                        </ul>
+                                                                    </ul>
                                                                 </div>
-                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
                                                                     <p>
-                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                        <a href="contact-us.html"
+                                                                            class="detail-title fw-bold"
+                                                                            style="font-size: 1.3rem;">
                                                                             Contact Us</a>
                                                                         to learn more about becoming a Referral Partner.
                                                                     </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
-                                                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
                                                                             </div>
                                                                             <span class="mx-1 like-count">0</span>
                                                                         </button>
@@ -640,7 +743,8 @@
                                                 </div>
                                                 <div class="card-wrapper">
                                                     <div class="edition-card" data-edition="card-8">
-                                                        <div class="card-title">National, State, and Regional Partnerships</div>
+                                                        <div class="card-title">National, State, and Regional
+                                                            Partnerships</div>
                                                         <i class="fas fa-arrow-right card-arrow d-none d-lg-block"></i>
                                                         <i class="fas fa-arrow-down card-arrow d-lg-none"></i>
                                                     </div>
@@ -648,30 +752,40 @@
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
                                                                 <div class="contact-title">
-                                                                    We collaborate with government and institutional partners to customise and localise
-                                                                    HealthCentreApp for specific countries or regions. We can:
+                                                                    We collaborate with government and institutional
+                                                                    partners to customise and localise
+                                                                    HealthCentreApp for specific countries or regions.
+                                                                    We can:
                                                                     <ul>
                                                                         <li>
-                                                                            White-label the platform with national or regional branding
+                                                                            White-label the platform with national or
+                                                                            regional branding
                                                                         </li>
                                                                         <li>
-                                                                            Tailor functionalities to align with local health systems and policies
+                                                                            Tailor functionalities to align with local
+                                                                            health systems and policies
                                                                         </li>
                                                                         <li>
-                                                                            Support deployment for national health strategies, digital inclusion programmes, or emergency health response systems
+                                                                            Support deployment for national health
+                                                                            strategies, digital inclusion programmes, or
+                                                                            emergency health response systems
                                                                         </li>
-                                                                        </ul>
+                                                                    </ul>
                                                                 </div>
-                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center">
                                                                     <p>
-                                                                        <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                        <a href="contact-us.html"
+                                                                            class="detail-title fw-bold"
+                                                                            style="font-size: 1.3rem;">
                                                                             Contact Us</a>
                                                                         to learn more about becoming a Referral Partner.
                                                                     </p>
                                                                     <div class="like-section">
                                                                         <button class="like-btn" id="likeBtn">
                                                                             <div class="thumb-icon">
-                                                                                <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                                <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                                    alt="Like">
                                                                             </div>
                                                                             <span class="mx-1 like-count">0</span>
                                                                         </button>
@@ -691,9 +805,22 @@
                                                         <div class="mobile-detail-content">
                                                             <div class="contact-section">
                                                                 <div class="contact-title">
-                                                                    Whether you are an individual advocate or an institutional leader, HealthCentreApp
-                                                                    provides the tools to empower citizens, enhance health access, and drive sustainable digital
+                                                                    Whether you are an individual advocate or an
+                                                                    institutional leader, HealthCentreApp
+                                                                    provides the tools to empower citizens, enhance
+                                                                    health access, and drive sustainable digital
                                                                     transformation across LMICs.
+                                                                </div>
+                                                                <div
+                                                                    class="d-flex justify-content-end align-items-center">
+                                                                    <div class="like-section">
+                                                                        <button class="like-btn" aria-pressed="false">
+                                                                            <div class="thumb-icon">
+                                                                                <i class="fa-regular fa-heart"></i>
+                                                                            </div>
+                                                                            <span class="mx-1 like-count">0</span>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -701,11 +828,11 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Detail Section (Right Side for Desktop) -->
                                             <div class="detail-section" id="detailSection">
                                                 <div id="detail-card-1" class="detail-panel">
                                                     <div class="contact-section">
-                                                        <div class="contact-title">Help us grow our reach by inviting others to register for the Free Edition.Ideal for
+                                                        <div class="contact-title">Help us grow our reach by inviting
+                                                            others to register for the Free Edition.Ideal for
                                                             individuals, influencers, and
                                                             community leaders who want to:
                                                             <ul>
@@ -713,10 +840,12 @@
                                                                     Promote digital health adoption across their network
                                                                 </li>
                                                                 <li>
-                                                                    Support others in accessing modern healthcare services
+                                                                    Support others in accessing modern healthcare
+                                                                    services
                                                                 </li>
                                                                 <li>
-                                                                    Earn rewards and build long-term income through our structured referral programs
+                                                                    Earn rewards and build long-term income through our
+                                                                    structured referral programs
                                                                 </li>
                                                             </ul>
                                                             <p>
@@ -724,71 +853,84 @@
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <p>
-                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                <a href="contact-us.html" class="detail-title fw-bold"
+                                                                    style="font-size: 1.3rem;">
                                                                     Contact Us</a>
                                                                 to learn more about becoming a Referral Partner.
                                                             </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
-                                                                        <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
                                                                     </div>
                                                                     <span class="mx-1 like-count">0</span>
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                            </div>
+                                                </div>
                                                 <div id="detail-card-2" class="detail-panel">
                                                     <div class="contact-section">
                                                         <div class="contact-title">Available to all subscribed users.
                                                             <ul>
                                                                 <li>
-                                                                    Earn 25% of every subscription fee from users you invite
+                                                                    Earn 25% of every subscription fee from users you
+                                                                    invite
                                                                 </li>
                                                                 <li>
-                                                                    Earn 25% of the revenue from Sponsored Ads you create and publish
+                                                                    Earn 25% of the revenue from Sponsored Ads you
+                                                                    create and publish
                                                                 </li>
                                                                 <li>
-                                                                    Automatically included for all DigitalHealth Standard subscribers
+                                                                    Automatically included for all DigitalHealth
+                                                                    Standard subscribers
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <p>
-                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                <a href="contact-us.html" class="detail-title fw-bold"
+                                                                    style="font-size: 1.3rem;">
                                                                     Contact Us</a>
                                                                 to learn more about becoming a Referral Partner.
                                                             </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
-                                                                        <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
                                                                     </div>
                                                                     <span class="mx-1 like-count">0</span>
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                            </div>
+                                                </div>
 
                                                 <div id="detail-card-3" class="detail-panel">
                                                     <div class="contact-section">
-                                                        <div class="contact-title">Available to Premium Edition subscribers who complete the Certified Digital Health
+                                                        <div class="contact-title">Available to Premium Edition
+                                                            subscribers who complete the Certified Digital Health
                                                             Practitioner (CdHP) training.
                                                             <ul>
                                                                 <li>
-                                                                    Earn 50% of every subscription fee from users you invite
+                                                                    Earn 50% of every subscription fee from users you
+                                                                    invite
                                                                 </li>
                                                                 <li>
-                                                                    Earn 50% of the revenue from Sponsored Ads you create and publish
+                                                                    Earn 50% of the revenue from Sponsored Ads you
+                                                                    create and publish
                                                                 </li>
                                                                 <li>
-                                                                    Completion of CdHP training automatically upgrades your account to Community Edition, allowing you to
+                                                                    Completion of CdHP training automatically upgrades
+                                                                    your account to Community Edition, allowing you to
                                                                     manage and support up to 50 local users
                                                                 </li>
                                                                 <li>
-                                                                    To maintain GMP eligibility, the CdHP must have exactly 50 supported community members registered under
+                                                                    To maintain GMP eligibility, the CdHP must have
+                                                                    exactly 50 supported community members registered
+                                                                    under
                                                                     their Community Edition account
                                                                 </li>
                                                             </ul>
@@ -797,226 +939,285 @@
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <p>
-                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                <a href="contact-us.html" class="detail-title fw-bold"
+                                                                    style="font-size: 1.3rem;">
                                                                     Contact Us</a>
                                                                 to learn more about becoming a Referral Partner.
                                                             </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
-                                                                        <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
                                                                     </div>
                                                                     <span class="mx-1 like-count">0</span>
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                            </div>
+                                                </div>
                                                 <div id="detail-card-4" class="detail-panel">
                                                     <div class="contact-section">
-                                                        <div class="contact-title">CdHPs are trained Premium users who support their local community through the
-                                                            Community Edition of HealthCentreApp. They act as trusted digital health advocates for
-                                                            citizens who may not own smartphones or understand how to use digital tools
+                                                        <div class="contact-title">CdHPs are trained Premium users who
+                                                            support their local community through the
+                                                            Community Edition of HealthCentreApp. They act as trusted
+                                                            digital health advocates for
+                                                            citizens who may not own smartphones or understand how to
+                                                            use digital tools
                                                             <ul>
                                                                 <li>
-                                                                    Protect health data through confidentiality, privacy, and safeguarding best practices
+                                                                    Protect health data through confidentiality,
+                                                                    privacy, and safeguarding best practices
                                                                 </li>
                                                                 <li>
-                                                                    Support up to 50 local citizens in accessing digital health tools and triage services
+                                                                    Support up to 50 local citizens in accessing digital
+                                                                    health tools and triage services
                                                                 </li>
                                                                 <li>
-                                                                    Help users create and manage CareRequests and CareRecords
+                                                                    Help users create and manage CareRequests and
+                                                                    CareRecords
                                                                 </li>
                                                                 <li>
-                                                                    Earn recognition and income as Community Digital Health Leaders
+                                                                    Earn recognition and income as Community Digital
+                                                                    Health Leaders
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <p>
-                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                <a href="contact-us.html" class="detail-title fw-bold"
+                                                                    style="font-size: 1.3rem;">
                                                                     Contact Us</a>
                                                                 to learn more about becoming a Referral Partner.
                                                             </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
-                                                                        <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
                                                                     </div>
                                                                     <span class="mx-1 like-count">0</span>
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                            </div>
+                                                </div>
                                                 <div id="detail-card-5" class="detail-panel">
                                                     <div class="contact-section">
-                                                        <div class="contact-title">Partnering with HealthCentreApp enables hospitals, clinics, and private practitioners to
-                                                            deliver mobile-enabled electronic patient records (EPR) and participate in a citizen-first
-                                                            digital health ecosystem. Through this partnership, care providers can act as Certified
-                                                            Digital Health Practitioners (CdHPs) and register all their patients under a unified, secure,
-                                                            and portable record system. HealthCentreApp ensures that data remains patient-owned but
-                                                            seamlessly accessible to authorised care providers, enhancing continuity of care and clinical efficiency.
+                                                        <div class="contact-title">Partnering with HealthCentreApp
+                                                            enables hospitals, clinics, and private practitioners to
+                                                            deliver mobile-enabled electronic patient records (EPR) and
+                                                            participate in a citizen-first
+                                                            digital health ecosystem. Through this partnership, care
+                                                            providers can act as Certified
+                                                            Digital Health Practitioners (CdHPs) and register all their
+                                                            patients under a unified, secure,
+                                                            and portable record system. HealthCentreApp ensures that
+                                                            data remains patient-owned but
+                                                            seamlessly accessible to authorised care providers,
+                                                            enhancing continuity of care and clinical efficiency.
                                                             <ul>
                                                                 <li>
-                                                                    Access a mobile-ready, cloud-based patient record platform without large infrastructure costs
+                                                                    Access a mobile-ready, cloud-based patient record
+                                                                    platform without large infrastructure costs
                                                                 </li>
                                                                 <li>
-                                                                    Improve patient retention through personalised digital engagement and continuity of
+                                                                    Improve patient retention through personalised
+                                                                    digital engagement and continuity of
                                                                     care
                                                                 </li>
-                                                                <li>Reduce administrative workload with digitised triage, record-sharing, and consent
+                                                                <li>Reduce administrative workload with digitised
+                                                                    triage, record-sharing, and consent
                                                                     management</li>
                                                                 <li>
-                                                                    Strengthen compliance with data privacy and health information governance standards
+                                                                    Strengthen compliance with data privacy and
+                                                                    health information governance standards
                                                                 </li>
                                                                 <li>
-                                                                    Access customised configurations to match specific clinical workflows or operational
+                                                                    Access customised configurations to match specific
+                                                                    clinical workflows or operational
                                                                     needs
                                                                 </li>
                                                                 <li>
-                                                                    Participate in national and regional digital health initiatives through scalable integration
+                                                                    Participate in national and regional digital health
+                                                                    initiatives through scalable integration
                                                                     options
                                                                 </li>
                                                                 <li>
-                                                                    Enhance reputation as a digitally enabled healthcare provider aligned with future health
+                                                                    Enhance reputation as a digitally enabled healthcare
+                                                                    provider aligned with future health
                                                                     standards
                                                                 </li>
                                                             </ul>
                                                         </div>
-                                                    
+
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <p>
-                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                <a href="contact-us.html" class="detail-title fw-bold"
+                                                                    style="font-size: 1.3rem;">
                                                                     Contact Us</a>
                                                                 to learn more about becoming a Referral Partner.
                                                             </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
-                                                                        <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
                                                                     </div>
                                                                     <span class="mx-1 like-count">0</span>
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                            </div>
+                                                </div>
                                                 <div id="detail-card-6" class="detail-panel">
                                                     <div class="contact-section">
                                                         <div class="contact-title">
-                                                            Diaspora members and philanthropists can give back by gifting digital health subscriptions
-                                                            to loved ones or communities. Through our GiftedMedical vouchers, you can:
+                                                            Diaspora members and philanthropists can give back by
+                                                            gifting digital health subscriptions
+                                                            to loved ones or communities. Through our GiftedMedical
+                                                            vouchers, you can:
                                                             <ul>
                                                                 <li>
-                                                                    Instantly send Standard or Premium Edition subscriptions to others
+                                                                    Instantly send Standard or Premium Edition
+                                                                    subscriptions to others
                                                                 </li>
                                                                 <li>
-                                                                    Support healthcare and well-being instead of sending cash
+                                                                    Support healthcare and well-being instead of sending
+                                                                    cash
                                                                 </li>
                                                                 <li>
-                                                                    Track voucher usage and receive updates through CareRemote (with recipient consent)
+                                                                    Track voucher usage and receive updates through
+                                                                    CareRemote (with recipient consent)
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <p>
-                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                <a href="contact-us.html" class="detail-title fw-bold"
+                                                                    style="font-size: 1.3rem;">
                                                                     Contact Us</a>
                                                                 to learn more about becoming a Referral Partner.
                                                             </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
-                                                                        <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
                                                                     </div>
                                                                     <span class="mx-1 like-count">0</span>
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                            </div>
+                                                </div>
                                                 <div id="detail-card-7" class="detail-panel">
                                                     <div class="contact-section">
                                                         <div class="contact-title">
-                                                            Ideal for organisations seeking to make measurable impact through health sponsorships
+                                                            Ideal for organisations seeking to make measurable impact
+                                                            through health sponsorships
                                                             and community engagement. Corporate and NGO partners can:
                                                             <ul>
                                                                 <li>
-                                                                    Sponsor bulk subscriptions of Standard or Premium Editions through GiftedMedical vouchers
+                                                                    Sponsor bulk subscriptions of Standard or Premium
+                                                                    Editions through GiftedMedical vouchers
                                                                 </li>
                                                                 <li>
-                                                                    Run community health campaigns and outreach programmes
+                                                                    Run community health campaigns and outreach
+                                                                    programmes
                                                                 </li>
                                                                 <li>
-                                                                    Align with CSR and ESG objectives through measurable health impact
+                                                                    Align with CSR and ESG objectives through measurable
+                                                                    health impact
                                                                 </li>
                                                                 <li>
-                                                                    Monitor programme outcomes through voucher tracking, usage analytics, and
+                                                                    Monitor programme outcomes through voucher tracking,
+                                                                    usage analytics, and
                                                                     anonymised dashboards
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <p>
-                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                <a href="contact-us.html" class="detail-title fw-bold"
+                                                                    style="font-size: 1.3rem;">
                                                                     Contact Us</a>
                                                                 to learn more about becoming a Referral Partner.
                                                             </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
-                                                                        <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
                                                                     </div>
                                                                     <span class="mx-1 like-count">0</span>
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                            </div>
+                                                </div>
                                                 <div id="detail-card-8" class="detail-panel">
                                                     <div class="contact-section">
                                                         <div class="contact-title">
-                                                            We collaborate with government and institutional partners to customise and localise
+                                                            We collaborate with government and institutional partners to
+                                                            customise and localise
                                                             HealthCentreApp for specific countries or regions. We can:
                                                             <ul>
                                                                 <li>
-                                                                    White-label the platform with national or regional branding
+                                                                    White-label the platform with national or regional
+                                                                    branding
                                                                 </li>
                                                                 <li>
-                                                                    Tailor functionalities to align with local health systems and policies
+                                                                    Tailor functionalities to align with local health
+                                                                    systems and policies
                                                                 </li>
                                                                 <li>
-                                                                    Support deployment for national health strategies, digital inclusion programmes, or emergency health
+                                                                    Support deployment for national health strategies,
+                                                                    digital inclusion programmes, or emergency health
                                                                     response systems
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <p>
-                                                                <a href="contact-us.html" class="detail-title fw-bold" style="font-size: 1.3rem;">
+                                                                <a href="contact-us.html" class="detail-title fw-bold"
+                                                                    style="font-size: 1.3rem;">
                                                                     Contact Us</a>
                                                                 to learn more about becoming a Referral Partner.
                                                             </p>
                                                             <div class="like-section">
                                                                 <button class="like-btn" id="likeBtn">
                                                                     <div class="thumb-icon">
-                                                                        <img src="assets/icons/streamline-flex_like-1.svg" alt="Like">
+                                                                        <img src="assets/icons/streamline-flex_like-1.svg"
+                                                                            alt="Like">
                                                                     </div>
                                                                     <span class="mx-1 like-count">0</span>
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                            </div>
+                                                </div>
                                                 <div id="detail-card-9" class="detail-panel">
                                                     <div class="contact-section">
                                                         <div class="contact-title">
-                                                            Whether you are an individual advocate or an institutional leader, HealthCentreApp
-                                                            provides the tools to empower citizens, enhance health access, and drive sustainable digital
+                                                            Whether you are an individual advocate or an institutional
+                                                            leader, HealthCentreApp
+                                                            provides the tools to empower citizens, enhance health
+                                                            access, and drive sustainable digital
                                                             transformation across LMICs.
                                                         </div>
+                                                        <div class="d-flex justify-content-end align-items-center">
+                                                            <div class="like-section">
+                                                                <button class="like-btn" aria-pressed="false">
+                                                                    <div class="thumb-icon">
+                                                                        <i class="fa-regular fa-heart"></i>
+                                                                    </div>
+                                                                    <span class="mx-1 like-count">0</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1025,8 +1226,6 @@
                         </div>
                     </div>
                 </div>
-                </div>
-                <!-- Footer -->
                 <footer class="footer">
                     <div class="container">
                         <div class="footer-content">
@@ -1049,22 +1248,129 @@
 
         <script src="js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
+    const API_BASE = "https://find-nearby-emergency-facilities-ba.vercel.app/api/partnership/likes";
+    const counts = { card1: 0, card2: 0, card3: 0, card4: 0, card5: 0, card6: 0, card7: 0, card8: 0, card9: 0 };
+    const LIKED_KEY = 'likedCards';
 
-            let likeBtns = document.querySelectorAll('.like-section');
+    // ---- Local Storage ----
+    function getLikedMap() {
+        try { return JSON.parse(localStorage.getItem(LIKED_KEY) || '{}'); } catch { return {}; }
+    }
+    function setLiked(n) {
+        const map = getLikedMap();
+        map[String(n)] = true;
+        localStorage.setItem(LIKED_KEY, JSON.stringify(map));
+    }
+    function isLiked(n) {
+        const map = getLikedMap();
+        return !!map[String(n)];
+    }
 
-            likeBtns.forEach(section => {
-                let count = 0; // har section ka apna counter
-                let btn = section.querySelector('.like-btn');
-                let display = section.querySelector('.like-count');
+    // ---- UI Helpers ----
+    function updateCountDisplay(n) {
+        const elements = document.querySelectorAll(`#detail-card-${n} .like-count, #mobile-detail-card-${n} .like-count`);
+        elements.forEach(el => el.textContent = counts[`card${n}`] ?? 0);
+    }
+    function updateAllDisplays() {
+        for (let i = 1; i <= 9; i++) updateCountDisplay(i);
+    }
 
-                btn.addEventListener("click", () => {
-                    count++;
-                    display.textContent = count; // update only this section
-                });
+    // ---- API Calls ----
+    async function fetchCounts() {
+        try {
+            const res = await axios.get(API_BASE, { headers: { 'Cache-Control': 'no-cache' } });
+            const data = res.data;
+
+            // update local counts
+            for (let i = 1; i <= 9; i++) {
+                const key = `card${i}`;
+                counts[key] = typeof data[key] === 'number' ? data[key] : 0;
+            }
+
+            updateAllDisplays(); // <--- this was missing before
+        } catch (err) {
+            console.error('Error fetching likes:', err);
+        }
+    }
+
+    async function increaseLike(n) {
+        try {
+            const res = await axios.put(`${API_BASE}/${n}`);
+            if (res?.data?.likes) {
+                // Update local count from DB response
+                Object.assign(counts, res.data.likes);
+                updateAllDisplays();
+            } else {
+                // fallback: increase manually
+                const key = `card${n}`;
+                counts[key] = (counts[key] ?? 0) + 1;
+                updateAllDisplays();
+            }
+        } catch (err) {
+            console.error('Error increasing like:', err);
+        }
+    }
+
+    // ---- Init ----
+    async function initLikes() {
+        await fetchCounts(); // get fresh values
+
+        document.querySelectorAll('.like-section').forEach(section => {
+            const btn = section.querySelector('.like-btn');
+            const n = getCardNumberFromLikeSection(section);
+            if (!n || !btn) return;
+
+            const iconWrap = section.querySelector('.thumb-icon');
+            if (iconWrap) iconWrap.innerHTML = '<i class="fa-regular fa-heart"></i>';
+            const icon = section.querySelector('.thumb-icon i');
+
+            const likedAlready = isLiked(n);
+            btn.setAttribute('aria-pressed', likedAlready ? 'true' : 'false');
+            if (likedAlready && icon) {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+                btn.disabled = true;
+            }
+
+            btn.addEventListener('click', async () => {
+                if (isLiked(n)) return;
+
+                const key = `card${n}`;
+                counts[key] = (counts[key] ?? 0) + 1;
+                updateCountDisplay(n);
+
+                if (icon) {
+                    icon.classList.remove('fa-regular');
+                    icon.classList.add('fa-solid');
+                }
+                btn.setAttribute('aria-pressed', 'true');
+                btn.disabled = true;
+
+                setLiked(n);
+                await increaseLike(n);
             });
+        });
+    }
 
+    function getCardNumberFromLikeSection(section) {
+        const d = section.closest('[id^="detail-card-"]');
+        if (d) return d.id.replace('detail-card-', '');
+        const m = section.closest('[id^="mobile-detail-card-"]');
+        if (m) return m.id.replace('mobile-detail-card-', '');
+        const w = section.closest('.card-wrapper');
+        if (w) {
+            const ed = w.querySelector('.edition-card');
+            if (ed) {
+                const e = ed.getAttribute('data-edition');
+                if (e) return e.split('-')[1];
+            }
+        }
+        return null;
+    }
+
+    document.addEventListener('DOMContentLoaded', initLikes);
 
 
 
@@ -1078,114 +1384,69 @@
                 return window.innerWidth <= 991.98;
             }
 
-            document.querySelectorAll('.edition-card').forEach(card => {
-                card.addEventListener('click', function () {
-                    if (isMobile()) {
+            function showDesktopDetailByEdition(edition) {
+                const detailPanel = document.getElementById(`detail-${edition}`);
+                const detailSection = document.getElementById('detailSection');
+                document.querySelectorAll('.detail-panel').forEach(panel => { panel.style.display = 'none' });
+                document.querySelectorAll('.edition-card').forEach(c => { c.classList.remove('active') });
+                if (detailPanel) {
+                    detailPanel.style.display = 'block';
+                    detailSection.classList.add('show');
+                    const card = document.querySelector(`.edition-card[data-edition="${edition}"]`);
+                    if (card) { card.classList.add('active'); }
+                    activeEdition = edition;
+                }
+            }
+
+            function closeDetail() {
+                document.querySelectorAll('.detail-panel').forEach(panel => { panel.style.display = 'none'; });
+                document.querySelectorAll('.mobile-detail').forEach(detail => { detail.classList.remove('show'); });
+                document.querySelectorAll('.edition-card').forEach(card => { card.classList.remove('active'); });
+                document.getElementById('detailSection').classList.remove('show');
+                activeEdition = null;
+            }
+
+            function bindCards() {
+                document.querySelectorAll('.edition-card').forEach(card => {
+                    card.addEventListener('click', function () {
                         const edition = this.getAttribute('data-edition');
-                        const mobileDetail = document.getElementById(`mobile-detail-${edition}`);
-                        const arrow = this.querySelector('.card-arrow');
 
-                        // Check if this card is currently active
-                        const isCurrentlyActive = this.classList.contains('active');
-
-                        // Close all other mobile details and remove active class
-                        document.querySelectorAll('.mobile-detail').forEach(detail => {
-                            detail.classList.remove('show');
-                        });
-                        document.querySelectorAll('.edition-card').forEach(c => {
-                            c.classList.remove('active');
-                        });
-
-                        // If this card wasn't active, open it
-                        if (!isCurrentlyActive && mobileDetail) {
-                            mobileDetail.classList.add('show');
-                            this.classList.add('active');
+                        if (isMobile()) {
+                            const mobileDetail = document.getElementById(`mobile-detail-${edition}`);
+                            const isCurrentlyActive = this.classList.contains('active');
+                            document.querySelectorAll('.mobile-detail').forEach(detail => { detail.classList.remove('show') });
+                            document.querySelectorAll('.edition-card').forEach(c => { c.classList.remove('active') });
+                            if (!isCurrentlyActive && mobileDetail) {
+                                mobileDetail.classList.add('show');
+                                this.classList.add('active');
+                            } else {
+                                closeDetail();
+                            }
+                        } else {
+                            if (this.classList.contains('active')) {
+                                closeDetail();
+                            } else {
+                                showDesktopDetailByEdition(edition);
+                            }
                         }
-                    }
+                    });
                 });
-
-                // Desktop hover behavior
-                card.addEventListener('mouseenter', function () {   // ✅ sahi event
-                    if (!isMobile()) {
-                        const edition = this.getAttribute('data-edition');
-                        const detailPanel = document.getElementById(`detail-${edition}`);
-                        const detailSection = document.getElementById('detailSection');
-
-                        // Close all other detail panels and remove active class
-                        document.querySelectorAll('.detail-panel').forEach(panel => {
-                            panel.style.display = 'none';
-                        });
-                        document.querySelectorAll('.edition-card').forEach(c => {
-                            c.classList.remove('active');
-                        });
-
-                        // Show selected detail panel and add active class
-                        if (detailPanel) {
-                            detailPanel.style.display = 'block';
-                            detailSection.classList.add('show');
-                            this.classList.add('active');
-                        }
-                    }
-                });
-
-                // Hide on mouse leave
-                card.addEventListener('mouseleave', function () {
-                    if (!isMobile()) {
-                        const edition = this.getAttribute('data-edition');
-                        const detailPanel = document.getElementById(`detail-${edition}`);
-                        const detailSection = document.getElementById('detailSection');
-
-                        if (detailPanel) {
-                            detailPanel.style.display = 'none';
-                            detailSection.classList.remove('show');
-                            this.classList.remove('active');
-                        }
-                    }
-                });
-            });
-
+            }
 
             function findNearbyServices() {
-                // Show location permission modal
                 document.getElementById('locationModal').classList.add('show');
                 document.getElementById('overlay').classList.add('show');
             }
 
             function allowLocation() {
                 hideLocationModal();
-
                 navigator.geolocation.getCurrentPosition(
                     function (position) {
                         const latitude = position.coords.latitude;
                         const longitude = position.coords.longitude;
-
-                        console.log('[v0] Location obtained:', latitude, longitude);
-
-                        // Simulate finding nearby services
-                        setTimeout(() => {
-                        }, 2000);
+                        setTimeout(() => { }, 2000);
                     },
-                    function (error) {
-                        console.log('[v0] Location error:', error.message);
-                        let errorMessage = 'Unable to retrieve location. ';
-
-                        switch (error.code) {
-                            case error.PERMISSION_DENIED:
-                                errorMessage += 'Location access denied by user.';
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                errorMessage += 'Location information unavailable.';
-                                break;
-                            case error.TIMEOUT:
-                                errorMessage += 'Location request timed out.';
-                                break;
-                            default:
-                                errorMessage += 'An unknown error occurred.';
-                                break;
-                        }
-
-                        showLocationStatus(errorMessage, 'error');
-                    },
+                    function () { },
                     {
                         enableHighAccuracy: true,
                         timeout: 10000,
@@ -1203,31 +1464,13 @@
                 document.getElementById('overlay').classList.remove('show');
             }
 
-
-
-
-            // Close detail panel function
-            function closeDetail() {
-                document.querySelectorAll('.detail-panel').forEach(panel => {
-                    panel.style.display = 'none';
-                });
-                document.querySelectorAll('.mobile-detail').forEach(detail => {
-                    detail.classList.remove('show');
-                });
-                document.querySelectorAll('.edition-card').forEach(card => {
-                    card.classList.remove('active');
-                    const arrow = card.querySelector('.card-arrow');
-                });
-                document.getElementById('detailSection').classList.remove('show');
-            }
-
             document.addEventListener('click', function (e) {
-                if (isMobile() && !e.target.closest('.card-wrapper') && !e.target.closest('.detail-section')) {
+                const insideCardOrDetail = e.target.closest('.card-wrapper') || e.target.closest('.detail-section');
+                if (!insideCardOrDetail) {
                     closeDetail();
                 }
             });
 
-            // Handle escape key to close detail panel
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') {
                     closeDetail();
@@ -1235,26 +1478,42 @@
             });
 
             window.addEventListener('resize', function () {
-                // Close details when switching between mobile/desktop
                 closeDetail();
             });
-        </script>
 
-
-        <script>
             const profileButton = document.querySelectorAll('.profile-button');
             const profileModal = document.getElementById('profileModal');
             const closeProfileBtn = document.getElementById('closeProfileBtn');
 
-            profileButton.forEach(button => {
-                button.addEventListener('click', function () {
-                            const uid = localStorage.getItem('uid');
-            if (uid) { 
-                location.href = 'profile.html';
-            }else{
-                location.href = 'login.html';    
-            }
-                });
+            const uid = localStorage.getItem("uid");
+            const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
+            allProfiles.forEach(wrapper => {
+                const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
+                const dropdownMenu = wrapper.querySelector(".dropdown-menu");
+                if (!button) return;
+                if (!uid) {
+                    if (dropdownMenu) dropdownMenu.style.display = "none";
+                    button.innerHTML = `
+            <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <span class="mx-2">Signup</span>
+        `;
+                    button.onclick = () => (window.location.href = "/login.html");
+                    button.removeAttribute("data-bs-toggle");
+                } else {
+                    if (dropdownMenu) dropdownMenu.style.display = "";
+                    button.innerHTML = `
+            <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <i class="bi bi-chevron-down ms-1"></i>
+        `;
+                    button.setAttribute("data-bs-toggle", "dropdown");
+                }
+            });
+
+            document.addEventListener("click", e => {
+                if (e.target.id === "logout-btn") {
+                    localStorage.removeItem("uid");
+                    location.reload();
+                }
             });
 
             closeProfileBtn.addEventListener('click', function () {
@@ -1266,7 +1525,6 @@
                 document.getElementById('seach-popup').classList.add('d-none');
             });
 
-            // Mobile menu toggle
             const menuToggle = document.getElementById('menuToggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
@@ -1279,11 +1537,9 @@
             overlay.addEventListener('click', function () {
                 sidebar.classList.remove('show');
                 overlay.classList.remove('show');
-                // Close location modal if open
                 document.getElementById('profileModal').classList.remove('show');
             });
 
-            // Smooth scrolling for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -1296,7 +1552,6 @@
                 });
             });
 
-            // Responsive adjustments
             function handleResize() {
                 if (window.innerWidth >= 992) {
                     sidebar.classList.remove('show');
@@ -1305,9 +1560,10 @@
             }
 
             window.addEventListener('resize', handleResize);
-
-            // Initialize
             handleResize();
+
+            bindCards();
+            initLikes();
         </script>
     </div>
 </body>

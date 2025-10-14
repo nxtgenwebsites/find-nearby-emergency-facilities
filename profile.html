@@ -274,9 +274,21 @@
                     <img src="assets/images/logo.svg">
                 </a>
                 <div class="header-right">
-                    <div class="user profile-button">
-                        <img src="assets/icons/user-icon.svg" alt="">
+                    <div class="dropdown user profile-button">
+                        <button class="mobile-profile-btn dropdown-toggle" type="button" id="mobileProfileMenu"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/icons/user-icon.svg" alt="User">
+                        </button>
+                
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
+                            <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                        </ul>
                     </div>
+                
                     <button class="menu-toggle" id="menuToggle">
                         <img src="assets/icons/bars.svg" alt="">
                     </button>
@@ -284,10 +296,21 @@
             </header>
 
             <div class="main-content w-100">
-                <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
-                    <img src="assets/icons/user-icon.svg" width="30" alt="">
-                    <i class="dropdown-toggle"></i>
-                </button>
+<!-- Profile Button -->
+<div class="dropdown profile-wrapper">
+    <button class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle" type="button"
+        id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="gap: 5px !important;">
+        <img src="assets/icons/user-icon.svg" width="30" alt="">
+        <i class="bi bi-chevron-down"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
+        <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+        <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+    </ul>
+</div>
                 <div class="main-container">
                     <!-- User Info Card -->
                     <div class="card mb-4">
@@ -678,16 +701,47 @@
         const profileModal = document.getElementById('profileModal');
         const closeProfileBtn = document.getElementById('closeProfileBtn');
 
-        profileButton.forEach(button => {
-            button.addEventListener('click', function () {
-                        const uid = localStorage.getItem('uid');
-            if (uid) { 
-                location.href = 'profile.html';
-            }else{
-                location.href = 'login.html';    
-            }
-            });
-        });
+ // Common UID check
+
+    // Handle all profile buttons (desktop + mobile)
+    const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
+
+    allProfiles.forEach(wrapper => {
+        const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
+        const dropdownMenu = wrapper.querySelector(".dropdown-menu");
+
+        if (!button) return; // Safety check
+
+        if (!uid) {
+            // --- Not Logged In ---
+            if (dropdownMenu) dropdownMenu.style.display = "none";
+            button.innerHTML = `
+            <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <span class="mx-2">Signup</span>
+        `;
+            button.onclick = () => (window.location.href = "/login.html");
+            button.removeAttribute("data-bs-toggle"); // Disable dropdown
+        } else {
+            // --- Logged In ---
+            if (dropdownMenu) dropdownMenu.style.display = "";
+            button.innerHTML = `
+            <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <i class="bi bi-chevron-down ms-1"></i>
+        `;
+            button.setAttribute("data-bs-toggle", "dropdown");
+        }
+    });
+
+    // Logout logic
+    document.addEventListener("click", e => {
+        if (e.target.id === "logout-btn") {
+            localStorage.removeItem("uid");
+            location.reload();
+        }
+    });
+
+
+
 
         closeProfileBtn.addEventListener('click', function () {
             profileModal.classList.remove('show');
