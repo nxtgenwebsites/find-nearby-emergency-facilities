@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="HealthCentreApp – Empowering Citizens, Supporting Health" />
+    <meta property="og:description"
+        content="Instant access to emergency medical services. No cost. No registration. Just care." />
+    <meta property="og:image" content="https://www.healthcentreapp.com/assets/images/favicon.png" />
+    <meta property="og:url" content="https://www.healthcentreapp.com" />
+    <meta property="og:type" content="website" />
     <title>Health Centre App</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -214,7 +220,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                   <a href="#" class="nav-link" onclick="commingSoon('Reviews Page')">
+                   <a href="reviews.html" class="nav-link">
                         <img src="assets/icons/star.svg" />
                         <span>Reviews</span>
                     </a>
@@ -226,7 +232,7 @@
                     </a>
                 </li>
                 <li class="nav-item no-page">
-                    <a href="#" class="nav-link" onclick="commingSoon('System Page')">
+                    <a href="systems.html" class="nav-link">
                         <img src="assets/icons/settings.svg" />
                         <span>System</span>
                     </a>
@@ -726,9 +732,6 @@ window.addEventListener("load", async () => {
             location.reload();
         }
     });
-
-
-
 
         closeProfileBtn.addEventListener('click', function () {
             profileModal.classList.remove('show');

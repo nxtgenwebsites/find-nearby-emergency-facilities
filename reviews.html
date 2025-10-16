@@ -8,6 +8,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/reviews.css">
@@ -41,8 +44,7 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Email Address *</label>
-                        <input type="email" class="form-control" name="email" required
-                            placeholder="your.email@example.com">
+                        <input type="email" class="form-control" name="email" required placeholder="your.email@example.com">
                     </div>
                     <div class="col-12">
                         <label class="form-label">Country</label>
@@ -64,40 +66,40 @@
                         <small class="text-muted" id="charCount">0 / 500 characters</small>
                     </div>
                 </div>
-
+            
                 <div class="mt-3">
                     <label class="form-label">Your Rating *</label>
                     <div class="rating-label" id="ratingLabel">Click on a star to rate your experience</div>
                     <div class="star-rating">
                         <div class="s-container s-container-1" data-value="Poor">
-                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f61e.svg"
-                                alt="Poor" class="emoji-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f61e.svg" alt="Poor"
+                                class="emoji-icon">
                             <span>Poor</span>
                         </div>
                         <div class="s-container s-container-2" data-value="Fair">
-                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f615.svg"
-                                alt="Fair" class="emoji-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f615.svg" alt="Fair"
+                                class="emoji-icon">
                             <span>Fair</span>
                         </div>
                         <div class="s-container s-container-3" data-value="Good">
-                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f642.svg"
-                                alt="Good" class="emoji-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f642.svg" alt="Good"
+                                class="emoji-icon">
                             <span>Good</span>
                         </div>
                         <div class="s-container s-container-4" data-value="Very Good">
-                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f600.svg"
-                                alt="Very Good" class="emoji-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f600.svg" alt="Very Good"
+                                class="emoji-icon">
                             <span>Very Good</span>
                         </div>
                         <div class="s-container s-container-5" data-value="Excellent">
-                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f929.svg"
-                                alt="Excellent" class="emoji-icon">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f929.svg" alt="Excellent"
+                                class="emoji-icon">
                             <span>Excellent</span>
                         </div>
                     </div>
                     <input type="hidden" name="rating" id="ratingInput" required>
                 </div>
-
+            
                 <div class="form-check mt-3">
                     <input class="form-check-input" type="checkbox" id="termsCheck" required>
                     <label class="form-check-label">
@@ -105,17 +107,14 @@
                             href="privacy-policy.html">Privacy Policy</a>
                     </label>
                 </div>
-
+            
                 <div class="mt-3">
-                    <!-- Google reCAPTCHA -->
                     <div class="mb-3">
-                        <div class="g-recaptcha d-inline-block" data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m">
-                        </div>
+                        <div class="g-recaptcha d-inline-block" data-sitekey="6LfeldcrAAAAAHlG58vLNYwWApP2N1KEsHWbpH3m"></div>
                     </div>
                 </div>
-
-                <button type="submit" class="submit-btn" id="submit-review">Submit</button>
-            </form>
+            
+                <button type="submit" class="submit-btn" id="submit-review">Submit</button>     </form>
 
             <div class="review-close" id="review-close">
                 <button><i class="fa fa-close"></i></button>
@@ -384,8 +383,8 @@
                         <button id="add-review-btn">Write a review</button>
                     </div>
                     <div class="reviews-container">
-                        <div class="row row-gap-4">
-                            <div class="col-12 col-md-6 col-lg-4">
+                        <div class="row row-gap-4"  id="reviewsRow">
+                            <!-- <div class="col-12 col-md-6 col-lg-4">
                                 <div class="review-card">
                                     <div class="user-info">
                                         <div class="user-profile">
@@ -818,7 +817,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -849,9 +848,122 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/country-states.js"></script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+
+
+    async function loadPublishedReviews() {
+        const reviewsRow = document.getElementById("reviewsRow");
+        reviewsRow.innerHTML = `<p>Loading reviews...</p>`;
+
+        try {
+            const res = await axios.get("https://find-nearby-emergency-facilities-ba.vercel.app/api/review/get-reviews?published=true");
+            const reviews = res.data;
+
+            if (!reviews.length) {
+                reviewsRow.innerHTML = `<p>No reviews available.</p>`;
+                return;
+            }
+
+            const likedReviews = JSON.parse(localStorage.getItem("likedReviews") || "[]");
+
+            reviewsRow.innerHTML = "";
+            reviews.forEach((review) => {
+                const createdAt = new Date(review.createdAt).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                });
+
+                const firstLetter = review.name ? review.name[0].toUpperCase() : "?";
+                const stars = `<i class="fa fa-star"></i>`.repeat(review.rating || 5);
+
+                // ✅ check if already liked
+                const isLiked = likedReviews.includes(review._id);
+                const likeIconClass = isLiked ? "fa-solid fa-thumbs-up liked" : "fa-regular fa-thumbs-up";
+
+                const card = document.createElement("div");
+                card.className = "col-12 col-md-6 col-lg-4";
+                card.innerHTML = `
+        <div class="review-card">
+          <div class="user-info">
+            <div class="user-profile">
+              <h6>${firstLetter}</h6>
+            </div>
+            <div class="details">
+              <h6>${review.name || "Anonymous"}</h6>
+            </div>
+          </div>
+          <div class="user-review">
+            <div>${stars}</div>
+            <div><p>${createdAt}</p></div>
+          </div>
+          <div class="review-text">
+            <p>“${review.reviewText || "No review text"}”</p>
+          </div>
+          <div class="likes-container">
+            <button class="like-btn bg-white" data-id="${review._id}">
+              <i class="${likeIconClass} like-icon"></i>
+              <span class="mx-1">${review.likes || 0}</span>
+            </button>
+            <div class="verified-badge">
+              <span>✓ Verified</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+                reviewsRow.appendChild(card);
+            });
+
+            // ✅ Like button logic
+            document.querySelectorAll(".like-btn").forEach((btn) => {
+                const id = btn.getAttribute("data-id");
+                const icon = btn.querySelector(".like-icon");
+                const countSpan = btn.querySelector("span");
+
+                btn.addEventListener("click", async () => {
+                    const likedReviews = JSON.parse(localStorage.getItem("likedReviews") || "[]");
+
+                    if (likedReviews.includes(id)) {
+                        return;
+                    }
+
+                    try {
+                        btn.disabled = true;
+                        const res = await axios.put(`https://find-nearby-emergency-facilities-ba.vercel.app/api/review/like-review/${id}`);
+
+                        countSpan.textContent = res.data.likes;
+                        icon.classList.remove("fa-regular");
+                        icon.classList.add("fa-solid", "liked");
+
+                        // Save in localStorage
+                        likedReviews.push(id);
+                        localStorage.setItem("likedReviews", JSON.stringify(likedReviews));
+
+                        // Small scale animation
+                        icon.style.transform = "scale(1.3)";
+                        setTimeout(() => (icon.style.transform = "scale(1)"), 200);
+                    } catch (error) {
+                        console.error(error);
+                        alert("Failed to like this review. Please try again.");
+                    } finally {
+                        btn.disabled = false;
+                    }
+                });
+            });
+        } catch (error) {
+            console.error(error);
+            reviewsRow.innerHTML = `<p>Error fetching reviews. Try again later.</p>`;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadPublishedReviews);
+
 
     // Formspree Integration
     function closeFormspreePopup() {
@@ -879,29 +991,112 @@
             });
         });
 
-        // Form submission success message
-        document.getElementById('reviewForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const form = e.target;
-            const formData = new FormData(form);
-            document.getElementById('add-review').classList.add('d-none');
-            document.getElementById('formspreePopup').classList.add('show');
-            
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
+            document.addEventListener("DOMContentLoaded", () => {
+                const form = document.getElementById("reviewForm");
+                const ratingContainers = document.querySelectorAll(".s-container");
+                const ratingInput = document.getElementById("ratingInput");
+                const charCount = document.getElementById("charCount");
+                const textarea = form.querySelector("textarea");
+                const reviewPopup = document.querySelector(".review-popup"); // optional popup element
+
+                // ✏️ Character counter
+                textarea.addEventListener("input", () => {
+                    charCount.textContent = `${textarea.value.length} / 500 characters`;
+                });
+
+                // ⭐ Rating mapping (text → numeric)
+                const ratingMap = {
+                    "Excellent": 5,
+                    "Very Good": 4,
+                    "Good": 3,
+                    "Fair": 2,
+                    "Poor": 1
+                };
+
+                // ⭐ Rating selection
+                ratingContainers.forEach(container => {
+                    container.addEventListener("click", () => {
+                        ratingContainers.forEach(c => c.classList.remove("selected"));
+                        container.classList.add("selected");
+                        ratingInput.value = container.dataset.value; // e.g. "Excellent"
+                    });
+                });
+
+                // 🚀 Submit to both Formspree and backend
+                form.addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData.entries());
+
+                    // 🧠 Convert rating text to number
+                    const numericRating = ratingMap[data.rating];
+                    if (!numericRating) {
+                        toastr.warning("Please select a valid rating before submitting.", "Warning", {
+                            closeButton: true,
+                            progressBar: true,
+                            timeOut: 2000
+                        });
+                        return;
+                    }
+
+                    try {
+                        // 1️⃣ Send to Formspree (email)
+                        const formspreeRes = await fetch(form.action, {
+                            method: form.method,
+                            body: formData,
+                            headers: { Accept: "application/json" }
+                        });
+
+                        // 2️⃣ Send to backend API (MongoDB)
+                        const backendRes = await fetch("https://find-nearby-emergency-facilities-ba.vercel.app/api/review/add-review", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                name: data.name,
+                                email: data.email,
+                                country: data.country || "Unknown",
+                                title: data.title,
+                                reviewText: data.review,
+                                rating: numericRating
+                            })
+                        });
+
+                        const backendResult = await backendRes.json();
+
+                        if (formspreeRes.ok && backendRes.ok) {
+                            toastr.success("Review Submitted Successfully", "Review", {
+                                closeButton: true,
+                                progressBar: true,
+                                showDuration: 300,
+                                hideDuration: 1000,
+                                timeOut: 2000,
+                                extendedTimeOut: 1000,
+                            });
+                          
+                            form.reset();
+                            ratingContainers.forEach(c => c.classList.remove("selected"));
+                            charCount.textContent = "0 / 500 characters";
+                            document.getElementById('add-review').classList.add('d-none');
+                            if (reviewPopup) reviewPopup.classList.remove("d-none");
+                        } else {
+                            console.error("Formspree:", formspreeRes.status, "Backend:", backendRes.status, backendResult);
+                            toastr.error("Review could not be submitted. Please try again.", "Error", {
+                                closeButton: true,
+                                progressBar: true,
+                                timeOut: 2000
+                            });
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        toastr.error("Network error. Please try again later.", "Error", {
+                            closeButton: true,
+                            progressBar: true,
+                            timeOut: 2000
+                        });
+                    }
+                });
             });
-            
-            if (response.ok) {
-                form.reset();
-                ratingLabel.textContent = 'Click on a star to rate your experience';
-                stars.forEach(s => s.classList.remove('active'));
-            } else {
-                alert('Something went wrong. Please try again.');
-            }
-        });
+
     </script>
 
 
@@ -973,18 +1168,6 @@
                 reviewPopup.classList.add('d-none')
             }
         });
-
-
-        const likeButtons = document.querySelectorAll('.like-btn');
-
-        likeButtons.forEach((button) => {
-            let likeCount = 0;
-
-            button.addEventListener("click", () => {
-                likeCount++;
-                button.querySelector('span').innerHTML = likeCount; // update value
-            });
-        })
 
 
 

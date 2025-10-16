@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review Management</title>
+
+    <!-- Keeping the same UI class ecosystem (Bootstrap + Font Awesome + your CSS) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/user-management.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <div class="d-flex w-100">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="logo">
+                    <div class="logo-img">
+                        <img src="assets/images/logo.svg" alt="Health Centre App logo" />
+                    </div>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="user-management.html" class="nav-link">
+                        <i class="fa-solid fa-users"></i>
+                        <span>User Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="review-management.html" class="nav-link active">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Reviews</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content w-100">
+            <!-- Mobile Header -->
+            <header class="header d-lg-none">
+                <a href="/" class="mobile-logo">
+                    <img src="assets/images/logo.svg" alt="Health Centre App logo" />
+                </a>
+                <div class="header-right">
+                    <div class="dropdown user profile-button">
+                        <button class="mobile-profile-btn dropdown-toggle" type="button" id="mobileProfileMenu"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/icons/user-icon.svg" alt="User">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
+                            <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                        </ul>
+                    </div>
+                    <button class="menu-toggle" id="menuToggle">
+                        <img src="assets/icons/bars.svg" alt="">
+                    </button>
+                </div>
+            </header>
+
+            <!-- Desktop Profile Dropdown (unchanged UI classes) -->
+            <div class="profile-wrapper dropdown">
+                <button class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle"
+                    type="button" id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+                    style="gap: 5px !important;">
+                    <img src="assets/icons/user-icon.svg" width="30" alt="">
+                    <i class="bi bi-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
+                    <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><button class="dropdown-item text-danger" id="logout-btn-2">Logout</button></li>
+                </ul>
+            </div>
+
+            <div class="hero-content">
+                <div class="container-fluid um-section">
+                    <!-- Header -->
+                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
+                        <div>
+                            <h2 class="mb-1" style="color:var(--dark-gray)">Review Management</h2>
+                            <p class="mb-0 small-muted">Manage customer reviews and publication status</p>
+                        </div>
+                        <div class="d-flex gap-2"></div>
+                    </div>
+
+                    <!-- Simple metrics (wired to live data) -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="um-card stat-card">
+                                <div class="stat-icon" style="background:var(--secondary-blue)">
+                                    <i class="fa-regular fa-message"></i>
+                                </div>
+                                <div>
+                                    <div class="small-muted">Total Reviews</div>
+                                    <div class="stat-value" id="statTotal">0</div>
+                                    <div class="stat-delta" id="statTotalDelta"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="um-card stat-card">
+                                <div class="stat-icon">
+                                    <i class="fa-solid fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <div class="small-muted">Published</div>
+                                    <div class="stat-value" id="statPublished">0</div>
+                                    <div class="stat-delta up" id="statPublishedDelta"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="um-card stat-card">
+                                <div class="stat-icon bg-soft-blue" style="color:#1f4d7a;">
+                                    <i class="fa-solid fa-hourglass-half"></i>
+                                </div>
+                                <div>
+                                    <div class="small-muted">Pending</div>
+                                    <div class="stat-value" id="statPending">0</div>
+                                    <div class="stat-delta" id="statPendingDelta"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviews Table -->
+                    <div class="um-card">
+                        <div class="um-card-header">
+                            <h5 class="um-card-title mb-0">Reviews</h5>
+                            <div class="filter-wrap d-flex gap-2">
+                                <input id="searchInput" type="search" class="form-control"
+                                    placeholder="Search by name or email..." aria-label="Search reviews" />
+                                <select id="statusFilter" class="form-select" aria-label="Filter by status">
+                                    <option value="">All Status</option>
+                                    <option value="published">Published</option>
+                                    <option value="pending">Pending</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0" id="reviewsTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">User</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Review</th>
+                                        <th scope="col" class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reviewsTbody">
+                                    <!-- Rows will be rendered here -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center p-3">
+                            <div class="small-muted" id="tableInfo">Showing 0 of 0 results</div>
+                            <nav aria-label="pagination">
+                                <ul class="pagination mb-0">
+                                    <li class="page-item disabled"><button class="page-link">Previous</button></li>
+                                    <li class="page-item active"><button class="page-link">1</button></li>
+                                    <li class="page-item disabled"><button class="page-link">Next</button></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer (unchanged classes) -->
+            <footer class="footer dashboard-footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-text">© 2025 HealthCentreApp.com - All Rights Reserved.</div>
+                        <div class="footer-links">
+                            <a href="privacy-policy.html">Privacy Policy</a>
+                            <span>|</span>
+                            <a href="terms-and-conditions.html">Terms & Conditions</a>
+                            <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social"
+                                style="cursor: pointer;">
+                                <img src="assets/icons/facebook 1.svg" alt="Facebook" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- View Modal -->
+    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewModalLabel">Review Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <dl class="row mb-0" id="viewDetails">
+                        Filled dynamically
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this review? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="confirmDeleteBtn" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // Config
+        const API_BASE = 'https://find-nearby-emergency-facilities-ba.vercel.app/api';
+        const GET_REVIEWS_URL = API_BASE + '/review/get-reviews';
+        const PUBLISH_URL = (id) => API_BASE + '/review/publish-review/' + encodeURIComponent(id);
+        const DELETE_URL = (id) => API_BASE + '/review/delete-review/' + encodeURIComponent(id);
+
+        // IMPORTANT: Set your admin userId here (required by backend for auth checks)
+        // e.g., const ADMIN_USER_ID = '68f0fd27b7561bfb9a5abf60';
+        const ADMIN_USER_ID = localStorage.getItem('uid');
+
+        // UI elements
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const menuToggle = document.getElementById('menuToggle');
+
+        const searchInput = document.getElementById('searchInput');
+        const statusFilter = document.getElementById('statusFilter');
+        const reviewsTbody = document.getElementById('reviewsTbody');
+        const tableInfo = document.getElementById('tableInfo');
+
+        const statTotal = document.getElementById('statTotal');
+        const statPublished = document.getElementById('statPublished');
+        const statPending = document.getElementById('statPending');
+
+        const viewModalEl = document.getElementById('viewModal');
+        const viewDetails = document.getElementById('viewDetails');
+        const confirmDeleteModalEl = document.getElementById('confirmDeleteModal');
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+        let bsViewModal = null;
+        let bsConfirmDeleteModal = null;
+
+        // State
+        let allReviews = [];
+        let filtered = [];
+        let pendingDeleteId = null;
+
+        // Mobile menu toggle
+        menuToggle?.addEventListener('click', function () {
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        });
+
+        overlay?.addEventListener('click', function () {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+        });
+
+        function handleResize() {
+            if (window.innerWidth >= 992) {
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+            }
+        }
+        window.addEventListener('resize', handleResize);
+
+        function truncate(text, max = 100) {
+            if (!text) return '';
+            return text.length > max ? text.slice(0, max) + '…' : text;
+        }
+
+        function formatDate(iso) {
+            try {
+                return new Date(iso).toLocaleString();
+            } catch {
+                return iso || '';
+            }
+        }
+
+        function renderStats(list) {
+            const total = list.length;
+            const published = list.filter(r => r.published).length;
+            const pending = total - published;
+
+            statTotal.textContent = total;
+            statPublished.textContent = published;
+            statPending.textContent = pending;
+        }
+
+        function renderTable(list) {
+            reviewsTbody.innerHTML = '';
+            list.forEach(r => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+          <td><strong>${escapeHtml(r.name || '')}</strong></td>
+          <td>${escapeHtml(r.email || '')}</td>
+          <td>${escapeHtml(r.title || '')}</td>
+          <td>${escapeHtml(truncate(r.reviewText || '', 120))}</td>
+          <td class="text-end action-buttons">
+            <button class="btn-action view" title="View Review" data-action="view" data-id="${r._id}">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+            <button class="btn-action update" title="${r.published ? 'Published' : 'Publish Review'}" data-action="publish" data-id="${r._id}" ${r.published ? 'disabled' : ''}>
+              <i class="fa-solid ${r.published ? 'fa-check-circle' : 'fa-paper-plane'}"></i>
+            </button>
+            <button class="btn-action delete" title="Delete Review" data-action="delete" data-id="${r._id}">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        `;
+                reviewsTbody.appendChild(tr);
+            });
+
+            tableInfo.textContent = `Showing ${list.length} of ${allReviews.length} results`;
+        }
+
+        function applyFilters() {
+            const q = (searchInput.value || '').toLowerCase().trim();
+            const status = statusFilter.value; // '', 'published', 'pending'
+
+            filtered = allReviews.filter(r => {
+                const matchesQuery =
+                    !q ||
+                    (r.name && r.name.toLowerCase().includes(q)) ||
+                    (r.email && r.email.toLowerCase().includes(q));
+
+                const matchesStatus =
+                    !status ||
+                    (status === 'published' && r.published) ||
+                    (status === 'pending' && !r.published);
+
+                return matchesQuery && matchesStatus;
+            });
+
+            renderTable(filtered);
+            renderStats(allReviews); // keep stats on total dataset
+        }
+
+        async function fetchReviews() {
+            try {
+                const res = await axios.get(GET_REVIEWS_URL, { withCredentials: false });
+                // Expecting an array of reviews
+                allReviews = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.reviews) ? res.data.reviews : []);
+                applyFilters();
+            } catch (err) {
+                console.error('Fetch reviews error:', err);
+                alert('Failed to load reviews. Please check API and CORS.');
+            }
+        }
+
+        async function publishReview(id) {
+            if (!ADMIN_USER_ID || ADMIN_USER_ID === 'ADMIN_USER_ID') {
+                alert('Please set ADMIN_USER_ID in the script to a valid admin user ID.');
+                return;
+            }
+            try {
+                const btn = document.querySelector(`button[data-action="publish"][data-id="${CSS.escape(id)}"]`);
+                if (btn) btn.disabled = true;
+
+                await axios.put(PUBLISH_URL(id), { userId: ADMIN_USER_ID });
+
+                // Update local state
+                const idx = allReviews.findIndex(r => r._id === id);
+                if (idx !== -1) {
+                    allReviews[idx].published = true;
+                }
+                applyFilters();
+            } catch (err) {
+                console.error('Publish error:', err);
+                alert(err?.response?.data?.message || 'Failed to publish review.');
+                // re-enable if failed
+                const btn = document.querySelector(`button[data-action="publish"][data-id="${CSS.escape(id)}"]`);
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        async function deleteReview(id) {
+            if (!ADMIN_USER_ID || ADMIN_USER_ID === 'ADMIN_USER_ID') {
+                alert('Please set ADMIN_USER_ID in the script to a valid admin user ID.');
+                return;
+            }
+            try {
+                await axios.delete(DELETE_URL(id), {
+                    data: { userId: ADMIN_USER_ID }
+                });
+
+                // Remove from local state
+                allReviews = allReviews.filter(r => r._id !== id);
+                applyFilters();
+            } catch (err) {
+                console.error('Delete error:', err);
+                alert(err?.response?.data?.message || 'Failed to delete review.');
+            }
+        }
+
+        function openViewModal(review) {
+            viewDetails.innerHTML = `
+        ${detailRow('Name', escapeHtml(review.name))}
+        ${detailRow('Email', escapeHtml(review.email))}
+        ${detailRow('Country', escapeHtml(review.country))}
+        ${detailRow('Title', escapeHtml(review.title))}
+        ${detailRow('Review', escapeHtml(review.reviewText))}
+        ${detailRow('Rating', String(review.rating ?? ''))}
+        ${detailRow('Likes', String(review.likes ?? ''))}
+        ${detailRow('Published', review.published ? 'Yes' : 'No')}
+        ${detailRow('Created At', escapeHtml(formatDate(review.createdAt)))}
+      `;
+            bsViewModal?.show();
+        }
+
+        function detailRow(label, value) {
+            return `
+        <dt class="col-sm-3">${label}</dt>
+        <dd class="col-sm-9">${value || ''}</dd>
+      `;
+        }
+
+        function escapeHtml(str) {
+            return (str ?? '').toString()
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        // Event delegation for table actions
+        reviewsTbody.addEventListener('click', (e) => {
+            const btn = e.target.closest('button[data-action]');
+            if (!btn) return;
+
+            const id = btn.getAttribute('data-id');
+            const action = btn.getAttribute('data-action');
+
+            if (action === 'publish') {
+                const review = allReviews.find(r => r._id === id);
+                if (review?.published) return; // already published
+                publishReview(id);
+            }
+
+            if (action === 'view') {
+                const review = allReviews.find(r => r._id === id);
+                if (review) openViewModal(review);
+            }
+
+            if (action === 'delete') {
+                pendingDeleteId = id;
+                bsConfirmDeleteModal?.show();
+            }
+        });
+
+        // Confirm delete handler
+        confirmDeleteBtn.addEventListener('click', async () => {
+            if (!pendingDeleteId) return;
+            await deleteReview(pendingDeleteId);
+            pendingDeleteId = null;
+            bsConfirmDeleteModal?.hide();
+        });
+
+        // Filters
+        searchInput.addEventListener('input', applyFilters);
+        statusFilter.addEventListener('change', applyFilters);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Init modals
+            bsViewModal = new bootstrap.Modal(viewModalEl);
+            bsConfirmDeleteModal = new bootstrap.Modal(confirmDeleteModalEl);
+
+            fetchReviews();
+        });
+    </script>
+</body>
+
+</html>

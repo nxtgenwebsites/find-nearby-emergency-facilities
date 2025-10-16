@@ -458,10 +458,12 @@ body{
 .search-icon {
   color: #666;
 }
+
 .dropdown {
   padding: 5px;
   font-size: 14px;
 }
+
 .tag {
   background: #377E7E26;
   color: #377F7E;
@@ -471,7 +473,6 @@ body{
   display: inline-flex;
   align-items: center;
   font-size: 14px;
-  
 }
 
 .tag i {
@@ -495,6 +496,11 @@ body{
   flex-wrap: wrap;
   align-items: center;
   gap: 5px;
+}
+
+.m-hero  {
+  /* display: none; */
+  z-index: -1;
 }
 
 @media (max-width: 768px) {
