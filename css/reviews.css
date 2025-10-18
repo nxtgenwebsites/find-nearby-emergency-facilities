@@ -125,7 +125,7 @@
 }
 
 footer {
-  position: absolute !important;
+  position: unset !important;
   margin-top: 30px !important;
 }
 
@@ -369,20 +369,19 @@ footer {
   font-weight: 600;
 }
 
-/* 12 Dark & Bold Background Colors */
-.row > .col-12:nth-child(1) .user-profile { background: #1abc9c; }   /* Teal */
-.row > .col-12:nth-child(2) .user-profile { background: #3498db; }   /* Blue */
-.row > .col-12:nth-child(3) .user-profile { background: #9b59b6; }   /* Purple */
-.row > .col-12:nth-child(4) .user-profile { background: #e67e22; }   /* Orange */
-.row > .col-12:nth-child(5) .user-profile { background: #e74c3c; }   /* Red */
-.row > .col-12:nth-child(6) .user-profile { background: #2ecc71; }   /* Green */
-.row > .col-12:nth-child(7) .user-profile { background: #34495e; }   /* Navy Gray */
-.row > .col-12:nth-child(8) .user-profile { background: #16a085; }   /* Emerald */
-.row > .col-12:nth-child(9) .user-profile { background: #8e44ad; }   /* Deep Purple */
-.row > .col-12:nth-child(10) .user-profile { background: #c0392b; }  /* Brick Red */
-.row > .col-12:nth-child(11) .user-profile { background: #d35400; }  /* Burnt Orange */
-.row > .col-12:nth-child(12) .user-profile { background: #2c3e50; }  /* Midnight Blue */
-
+/* 12 Dark & Bold Background Colors (Repeating) */
+.row > .col-12:nth-child(12n+1) .user-profile { background: #1abc9c; }   /* Teal */
+.row > .col-12:nth-child(12n+2) .user-profile { background: #3498db; }   /* Blue */
+.row > .col-12:nth-child(12n+3) .user-profile { background: #9b59b6; }   /* Purple */
+.row > .col-12:nth-child(12n+4) .user-profile { background: #e67e22; }   /* Orange */
+.row > .col-12:nth-child(12n+5) .user-profile { background: #e74c3c; }   /* Red */
+.row > .col-12:nth-child(12n+6) .user-profile { background: #2ecc71; }   /* Green */
+.row > .col-12:nth-child(12n+7) .user-profile { background: #34495e; }   /* Navy Gray */
+.row > .col-12:nth-child(12n+8) .user-profile { background: #16a085; }   /* Emerald */
+.row > .col-12:nth-child(12n+9) .user-profile { background: #8e44ad; }   /* Deep Purple */
+.row > .col-12:nth-child(12n+10) .user-profile { background: #c0392b; }  /* Brick Red */
+.row > .col-12:nth-child(12n+11) .user-profile { background: #d35400; }  /* Burnt Orange */
+.row > .col-12:nth-child(12n+12) .user-profile { background: #2c3e50; }  /* Midnight Blue */
 
 
 

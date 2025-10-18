@@ -353,7 +353,7 @@
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="um-card stat-card">
                                     <div class="stat-icon bg-soft-blue" style="color:#1f4d7a;">
-                                        <i class="fa-regular fa-user-plus"></i>
+                                     <img src="https://cdn-icons-png.flaticon.com/512/1442/1442930.png" style="width: 20px;" alt="">
                                     </div>
                                     <div>
                                         <div class="small-muted">New This Month</div>
@@ -371,7 +371,7 @@
                                 <div class="filter-wrap d-flex gap-2">
                                     <!-- Search now matches only first/last name or email -->
                                     <input type="search" id="searchUser" class="form-control"
-                                        placeholder="Search by name or email..." aria-label="Search by name or email" />
+                                        placeholder="Search user" aria-label="Search by name or email" />
 
                                     <!-- Status filter: All, Active, Blocked, Pending -->
                                     <select id="filterStatus" class="form-select" aria-label="Filter by status">
@@ -478,6 +478,9 @@
     <script>
         // API config
         const uId = localStorage.getItem('uid');
+        if (!uId) {
+            window.location.href = '/login.html';
+        }
         const api = axios.create({
             baseURL: 'https://find-nearby-emergency-facilities-ba.vercel.app/api/users',
             timeout: 10000,

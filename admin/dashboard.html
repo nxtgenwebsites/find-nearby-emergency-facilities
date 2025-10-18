@@ -706,6 +706,9 @@
     // Common UID check
     const uid = localStorage.getItem("uid");
 
+    if (!uid) {
+        location.href = "/login.html";
+    }
     // Handle all profile buttons (desktop + mobile)
     const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
 
@@ -717,23 +720,26 @@
 
         if (!uid) {
             // --- Not Logged In ---
+            button.classList.remove("dropdown-toggle");
             if (dropdownMenu) dropdownMenu.style.display = "none";
             button.innerHTML = `
-        <img src="assets/icons/user-icon.svg" width="28" alt="">
-        <span class="mx-2">Signup</span>
-    `;
+            <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <span class="mx-2">Signup</span>
+            `;
             button.onclick = () => (window.location.href = "/login.html");
             button.removeAttribute("data-bs-toggle"); // Disable dropdown
         } else {
+            button.classList.add("dropdown-toggle");
             // --- Logged In ---
             if (dropdownMenu) dropdownMenu.style.display = "";
             button.innerHTML = `
-        <img src="assets/icons/user-icon.svg" width="28" alt="">
-        <i class="bi bi-chevron-down ms-1"></i>
-    `;
+            <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <i class="bi bi-chevron-down ms-1"></i>
+        `;
             button.setAttribute("data-bs-toggle", "dropdown");
         }
     });
+
 
     // Logout logic
     document.addEventListener("click", e => {

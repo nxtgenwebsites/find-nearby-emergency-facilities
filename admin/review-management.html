@@ -6,21 +6,197 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Review Management</title>
 
-    <!-- Keeping the same UI class ecosystem (Bootstrap + Font Awesome + your CSS) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/user-management.css" />
     <link rel="stylesheet" href="css/responsive.css" />
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+
+    <style>
+        .stat-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* <CHANGE> Removed active state color change - cards no longer change color when clicked */
+        .stat-card.active {
+            background-color: white !important;
+        }
+
+        .custom-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1050;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custom-popup.show {
+            display: flex;
+        }
+
+        /* <CHANGE> Simplified popup styling - cleaner, centered, white background */
+        .custom-popup-content {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+            text-align: center;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* <CHANGE> Centered popup header */
+        .custom-popup-header {
+            padding: 24px 20px 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .custom-popup-header h5 {
+            margin: 0;
+            font-weight: 600;
+            color: #1a1a1a;
+            font-size: 18px;
+        }
+
+        /* <CHANGE> Positioned close button absolutely */
+        .custom-popup-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .custom-popup-close:hover {
+            color: #333;
+        }
+
+        /* <CHANGE> Centered popup body */
+        .custom-popup-body {
+            padding: 0 20px;
+        }
+
+        /* <CHANGE> Centered popup footer with centered buttons */
+        .custom-popup-footer {
+            padding: 16px 20px 24px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .popup-btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            min-width: 100px;
+        }
+
+        .popup-btn-secondary {
+            background-color: #f0f0f0;
+            color: #666;
+        }
+
+        .popup-btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+
+        .popup-btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .popup-btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .popup-btn-primary {
+            background-color: #368186 !important;
+            color: white;
+        }
+
+        .popup-btn-primary:hover {
+            background-color: #1f4d7a;
+        }
+
+        /* <CHANGE> Centered detail rows */
+        .detail-row {
+            display: flex;
+            margin-bottom: 16px;
+            gap: 20px;
+            /* align-items: center; */
+            /* text-align: center; */
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #666;
+            font-size: 16px;
+        }
+
+        .detail-value {
+            color: #1a1a1a;
+            text-align: left;
+            word-break: break-word;
+            font-size: 16px;
+        }
+
+        /* <CHANGE> Centered confirmation message */
+        .confirmation-message {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
 
     <div class="d-flex w-100">
-        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <a href="/" class="logo">
@@ -51,9 +227,7 @@
             </ul>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content w-100">
-            <!-- Mobile Header -->
             <header class="header d-lg-none">
                 <a href="/" class="mobile-logo">
                     <img src="assets/images/logo.svg" alt="Health Centre App logo" />
@@ -78,7 +252,6 @@
                 </div>
             </header>
 
-            <!-- Desktop Profile Dropdown (unchanged UI classes) -->
             <div class="profile-wrapper dropdown">
                 <button class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle"
                     type="button" id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
@@ -97,7 +270,6 @@
 
             <div class="hero-content">
                 <div class="container-fluid um-section">
-                    <!-- Header -->
                     <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
                         <div>
                             <h2 class="mb-1" style="color:var(--dark-gray)">Review Management</h2>
@@ -106,10 +278,9 @@
                         <div class="d-flex gap-2"></div>
                     </div>
 
-                    <!-- Simple metrics (wired to live data) -->
                     <div class="row g-3 mb-3">
                         <div class="col-12 col-md-6 col-lg-4">
-                            <div class="um-card stat-card">
+                            <div class="um-card stat-card" id="statCardTotal" data-filter="">
                                 <div class="stat-icon" style="background:var(--secondary-blue)">
                                     <i class="fa-regular fa-message"></i>
                                 </div>
@@ -121,7 +292,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-4">
-                            <div class="um-card stat-card">
+                            <div class="um-card stat-card" id="statCardPublished" data-filter="published">
                                 <div class="stat-icon">
                                     <i class="fa-solid fa-check-circle"></i>
                                 </div>
@@ -133,7 +304,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-4">
-                            <div class="um-card stat-card">
+                            <div class="um-card stat-card" id="statCardPending" data-filter="pending">
                                 <div class="stat-icon bg-soft-blue" style="color:#1f4d7a;">
                                     <i class="fa-solid fa-hourglass-half"></i>
                                 </div>
@@ -146,7 +317,6 @@
                         </div>
                     </div>
 
-                    <!-- Reviews Table -->
                     <div class="um-card">
                         <div class="um-card-header">
                             <h5 class="um-card-title mb-0">Reviews</h5>
@@ -173,7 +343,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="reviewsTbody">
-                                    <!-- Rows will be rendered here -->
                                 </tbody>
                             </table>
                         </div>
@@ -192,8 +361,7 @@
                 </div>
             </div>
 
-            <!-- Footer (unchanged classes) -->
-            <footer class="footer dashboard-footer">
+            <footer class="footer">
                 <div class="container">
                     <div class="footer-content">
                         <div class="footer-text">© 2025 HealthCentreApp.com - All Rights Reserved.</div>
@@ -212,61 +380,65 @@
         </div>
     </div>
 
-    <!-- View Modal -->
-    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="viewModalLabel">Review Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <dl class="row mb-0" id="viewDetails">
-                        Filled dynamically
-                    </dl>
-                </div>
+    <div class="custom-popup" id="viewPopup">
+        <div class="custom-popup-content">
+            <div class="custom-popup-header">
+                <h5>Review Details</h5>
+                <button class="custom-popup-close" id="viewPopupClose">&times;</button>
+            </div>
+            <div class="custom-popup-body" id="viewPopupBody">
             </div>
         </div>
     </div>
 
-    <!-- Confirm Delete Modal -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteLabel">Confirm Delete</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete this review? This action cannot be undone.
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button id="confirmDeleteBtn" class="btn btn-danger">Delete</button>
-                </div>
+    <div class="custom-popup" id="publishConfirmPopup">
+        <div class="custom-popup-content">
+            <div class="custom-popup-header">
+                <h5>Confirm Publish</h5>
+                <button class="custom-popup-close" id="publishConfirmClose">&times;</button>
+            </div>
+            <div class="custom-popup-body">
+                <p class="confirmation-message">Are you sure you want to publish this review? It will be visible to all
+                    users.</p>
+            </div>
+            <div class="custom-popup-footer">
+                <button class="popup-btn popup-btn-secondary" id="publishConfirmCancel">Cancel</button>
+                <button class="popup-btn popup-btn-primary" id="publishConfirmBtn">Publish</button>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
+    <div class="custom-popup" id="deleteConfirmPopup">
+        <div class="custom-popup-content">
+            <div class="custom-popup-header">
+                <h5>Confirm Delete</h5>
+                <button class="custom-popup-close" id="deleteConfirmClose">&times;</button>
+            </div>
+            <div class="custom-popup-body">
+                <p class="confirmation-message">Are you sure you want to delete this review? This action cannot be
+                    undone.</p>
+            </div>
+            <div class="custom-popup-footer">
+                <button class="popup-btn popup-btn-secondary" id="deleteConfirmCancel">Cancel</button>
+                <button class="popup-btn popup-btn-danger" id="deleteConfirmBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        // Config
         const API_BASE = 'https://find-nearby-emergency-facilities-ba.vercel.app/api';
         const GET_REVIEWS_URL = API_BASE + '/review/get-reviews';
         const PUBLISH_URL = (id) => API_BASE + '/review/publish-review/' + encodeURIComponent(id);
         const DELETE_URL = (id) => API_BASE + '/review/delete-review/' + encodeURIComponent(id);
 
-        // IMPORTANT: Set your admin userId here (required by backend for auth checks)
-        // e.g., const ADMIN_USER_ID = '68f0fd27b7561bfb9a5abf60';
         const ADMIN_USER_ID = localStorage.getItem('uid');
+        if (!ADMIN_USER_ID) {
+            window.location.href = '/login.html';
+        }
 
-        // UI elements
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
         const menuToggle = document.getElementById('menuToggle');
@@ -280,20 +452,29 @@
         const statPublished = document.getElementById('statPublished');
         const statPending = document.getElementById('statPending');
 
-        const viewModalEl = document.getElementById('viewModal');
-        const viewDetails = document.getElementById('viewDetails');
-        const confirmDeleteModalEl = document.getElementById('confirmDeleteModal');
-        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        const viewPopup = document.getElementById('viewPopup');
+        const viewPopupBody = document.getElementById('viewPopupBody');
+        const viewPopupClose = document.getElementById('viewPopupClose');
 
-        let bsViewModal = null;
-        let bsConfirmDeleteModal = null;
+        const publishConfirmPopup = document.getElementById('publishConfirmPopup');
+        const publishConfirmBtn = document.getElementById('publishConfirmBtn');
+        const publishConfirmCancel = document.getElementById('publishConfirmCancel');
+        const publishConfirmClose = document.getElementById('publishConfirmClose');
 
-        // State
+        const deleteConfirmPopup = document.getElementById('deleteConfirmPopup');
+        const deleteConfirmBtn = document.getElementById('deleteConfirmBtn');
+        const deleteConfirmCancel = document.getElementById('deleteConfirmCancel');
+        const deleteConfirmClose = document.getElementById('deleteConfirmClose');
+
+        const statCardTotal = document.getElementById('statCardTotal');
+        const statCardPublished = document.getElementById('statCardPublished');
+        const statCardPending = document.getElementById('statCardPending');
+
         let allReviews = [];
         let filtered = [];
         let pendingDeleteId = null;
+        let pendingPublishId = null;
 
-        // Mobile menu toggle
         menuToggle?.addEventListener('click', function () {
             sidebar.classList.toggle('show');
             overlay.classList.toggle('show');
@@ -342,8 +523,8 @@
                 tr.innerHTML = `
           <td><strong>${escapeHtml(r.name || '')}</strong></td>
           <td>${escapeHtml(r.email || '')}</td>
-          <td>${escapeHtml(r.title || '')}</td>
-          <td>${escapeHtml(truncate(r.reviewText || '', 120))}</td>
+          <td>${escapeHtml(truncate(r.title || '', 20))}</td>
+          <td>${escapeHtml(truncate(r.reviewText || '', 20))}</td>
           <td class="text-end action-buttons">
             <button class="btn-action view" title="View Review" data-action="view" data-id="${r._id}">
               <i class="fa-solid fa-eye"></i>
@@ -364,7 +545,7 @@
 
         function applyFilters() {
             const q = (searchInput.value || '').toLowerCase().trim();
-            const status = statusFilter.value; // '', 'published', 'pending'
+            const status = statusFilter.value;
 
             filtered = allReviews.filter(r => {
                 const matchesQuery =
@@ -381,13 +562,36 @@
             });
 
             renderTable(filtered);
-            renderStats(allReviews); // keep stats on total dataset
+            renderStats(allReviews);
+        }
+
+        function closePopup(popup) {
+            popup.classList.remove('show');
+        }
+
+        function openPopup(popup) {
+            popup.classList.add('show');
+        }
+
+        function openViewPopup(review) {
+            let detailsHtml = '';
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${escapeHtml(review.name)}</div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Email</div><div class="detail-value">${escapeHtml(review.email)}</div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Country</div><div class="detail-value">${escapeHtml(review.country)}</div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Title</div><div class="detail-value">${escapeHtml(review.title)}</div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Review</div><div class="detail-value">${escapeHtml(review.reviewText)}</div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Rating</div><div class="detail-value">${review.rating} Star</div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Likes</div><div class="detail-value">${review.likes || 0}</div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Published</div><div class="detail-value">${review.published ? 'Yes' : 'No'}</div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Submitted At</div><div class="detail-value">${escapeHtml(formatDate(review.createdAt))}</div></div>`;
+
+            viewPopupBody.innerHTML = detailsHtml;
+            openPopup(viewPopup);
         }
 
         async function fetchReviews() {
             try {
                 const res = await axios.get(GET_REVIEWS_URL, { withCredentials: false });
-                // Expecting an array of reviews
                 allReviews = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.reviews) ? res.data.reviews : []);
                 applyFilters();
             } catch (err) {
@@ -407,7 +611,6 @@
 
                 await axios.put(PUBLISH_URL(id), { userId: ADMIN_USER_ID });
 
-                // Update local state
                 const idx = allReviews.findIndex(r => r._id === id);
                 if (idx !== -1) {
                     allReviews[idx].published = true;
@@ -416,7 +619,6 @@
             } catch (err) {
                 console.error('Publish error:', err);
                 alert(err?.response?.data?.message || 'Failed to publish review.');
-                // re-enable if failed
                 const btn = document.querySelector(`button[data-action="publish"][data-id="${CSS.escape(id)}"]`);
                 if (btn) btn.disabled = false;
             }
@@ -432,35 +634,12 @@
                     data: { userId: ADMIN_USER_ID }
                 });
 
-                // Remove from local state
                 allReviews = allReviews.filter(r => r._id !== id);
                 applyFilters();
             } catch (err) {
                 console.error('Delete error:', err);
                 alert(err?.response?.data?.message || 'Failed to delete review.');
             }
-        }
-
-        function openViewModal(review) {
-            viewDetails.innerHTML = `
-        ${detailRow('Name', escapeHtml(review.name))}
-        ${detailRow('Email', escapeHtml(review.email))}
-        ${detailRow('Country', escapeHtml(review.country))}
-        ${detailRow('Title', escapeHtml(review.title))}
-        ${detailRow('Review', escapeHtml(review.reviewText))}
-        ${detailRow('Rating', String(review.rating ?? ''))}
-        ${detailRow('Likes', String(review.likes ?? ''))}
-        ${detailRow('Published', review.published ? 'Yes' : 'No')}
-        ${detailRow('Created At', escapeHtml(formatDate(review.createdAt)))}
-      `;
-            bsViewModal?.show();
-        }
-
-        function detailRow(label, value) {
-            return `
-        <dt class="col-sm-3">${label}</dt>
-        <dd class="col-sm-9">${value || ''}</dd>
-      `;
         }
 
         function escapeHtml(str) {
@@ -472,7 +651,62 @@
                 .replaceAll("'", '&#039;');
         }
 
-        // Event delegation for table actions
+        viewPopupClose.addEventListener('click', () => closePopup(viewPopup));
+        publishConfirmClose.addEventListener('click', () => closePopup(publishConfirmPopup));
+        publishConfirmCancel.addEventListener('click', () => closePopup(publishConfirmPopup));
+        deleteConfirmClose.addEventListener('click', () => closePopup(deleteConfirmPopup));
+        deleteConfirmCancel.addEventListener('click', () => closePopup(deleteConfirmPopup));
+
+        publishConfirmBtn.addEventListener('click', async () => {
+            if (pendingPublishId) {
+                await publishReview(pendingPublishId);
+                pendingPublishId = null;
+                closePopup(publishConfirmPopup);
+            }
+        });
+
+        deleteConfirmBtn.addEventListener('click', async () => {
+            if (pendingDeleteId) {
+                await deleteReview(pendingDeleteId);
+                pendingDeleteId = null;
+                closePopup(deleteConfirmPopup);
+            }
+        });
+
+        viewPopup.addEventListener('click', (e) => {
+            if (e.target === viewPopup) closePopup(viewPopup);
+        });
+        publishConfirmPopup.addEventListener('click', (e) => {
+            if (e.target === publishConfirmPopup) closePopup(publishConfirmPopup);
+        });
+        deleteConfirmPopup.addEventListener('click', (e) => {
+            if (e.target === deleteConfirmPopup) closePopup(deleteConfirmPopup);
+        });
+
+        statCardTotal.addEventListener('click', () => {
+            statusFilter.value = '';
+            statCardTotal.classList.add('active');
+            statCardPublished.classList.remove('active');
+            statCardPending.classList.remove('active');
+            applyFilters();
+        });
+
+        statCardPublished.addEventListener('click', () => {
+            statusFilter.value = 'published';
+            statCardPublished.classList.add('active');
+            statCardTotal.classList.remove('active');
+            statCardPending.classList.remove('active');
+            applyFilters();
+        });
+
+        statCardPending.addEventListener('click', () => {
+            statusFilter.value = 'pending';
+            statCardPending.classList.add('active');
+            statCardTotal.classList.remove('active');
+            statCardPublished.classList.remove('active');
+            applyFilters();
+        });
+
         reviewsTbody.addEventListener('click', (e) => {
             const btn = e.target.closest('button[data-action]');
             if (!btn) return;
@@ -482,38 +716,26 @@
 
             if (action === 'publish') {
                 const review = allReviews.find(r => r._id === id);
-                if (review?.published) return; // already published
-                publishReview(id);
+                if (review?.published) return;
+                pendingPublishId = id;
+                openPopup(publishConfirmPopup);
             }
 
             if (action === 'view') {
                 const review = allReviews.find(r => r._id === id);
-                if (review) openViewModal(review);
+                if (review) openViewPopup(review);
             }
 
             if (action === 'delete') {
                 pendingDeleteId = id;
-                bsConfirmDeleteModal?.show();
+                openPopup(deleteConfirmPopup);
             }
         });
 
-        // Confirm delete handler
-        confirmDeleteBtn.addEventListener('click', async () => {
-            if (!pendingDeleteId) return;
-            await deleteReview(pendingDeleteId);
-            pendingDeleteId = null;
-            bsConfirmDeleteModal?.hide();
-        });
-
-        // Filters
         searchInput.addEventListener('input', applyFilters);
         statusFilter.addEventListener('change', applyFilters);
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Init modals
-            bsViewModal = new bootstrap.Modal(viewModalEl);
-            bsConfirmDeleteModal = new bootstrap.Modal(confirmDeleteModalEl);
-
             fetchReviews();
         });
     </script>

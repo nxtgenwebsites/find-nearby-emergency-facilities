@@ -363,3 +363,18 @@ textarea::-webkit-scrollbar-thumb:hover {
   height: 30px;
   margin-left: auto;
 }
+
+@media (max-height: 800px) {
+  footer {
+    position: unset !important;
+  }
+  .main-content {
+    padding-bottom: 0 !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .footer {
+      margin-top: 50px !important;
+  }
+}

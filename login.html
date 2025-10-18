@@ -12,8 +12,8 @@
         integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
@@ -242,7 +242,7 @@
                     <img src="assets/images/logo.svg">
                 </a>
                 <div class="header-right">
-                    <div class="dropdown user profile-button">
+                    <div class="dropdown user profile-button d-none">
                         <button class="mobile-profile-btn dropdown-toggle" type="button" id="mobileProfileMenu"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="assets/icons/user-icon.svg" alt="User">
@@ -265,7 +265,7 @@
 
             <div class="main-content w-100">
 <!-- Profile Button -->
-<div class="dropdown profile-wrapper">
+<div class="dropdown profile-wrapper d-none">
     <button class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle" type="button"
         id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="gap: 5px !important;">
         <img src="assets/icons/user-icon.svg" width="30" alt="">
@@ -487,23 +487,26 @@
 
         if (!uid) {
             // --- Not Logged In ---
+            button.classList.remove("dropdown-toggle");
             if (dropdownMenu) dropdownMenu.style.display = "none";
             button.innerHTML = `
-        <img src="assets/icons/user-icon.svg" width="28" alt="">
-        <span class="mx-2">Signup</span>
-    `;
+            <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <span class="mx-2">Signup</span>
+            `;
             button.onclick = () => (window.location.href = "/login.html");
             button.removeAttribute("data-bs-toggle"); // Disable dropdown
         } else {
+            button.classList.add("dropdown-toggle");
             // --- Logged In ---
             if (dropdownMenu) dropdownMenu.style.display = "";
             button.innerHTML = `
-        <img src="assets/icons/user-icon.svg" width="28" alt="">
-        <i class="bi bi-chevron-down ms-1"></i>
-    `;
+            <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <i class="bi bi-chevron-down ms-1"></i>
+        `;
             button.setAttribute("data-bs-toggle", "dropdown");
         }
     });
+
 
     // Logout logic
     document.addEventListener("click", e => {

@@ -1,127 +1,160 @@
 .main-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .login-container {
-width: 100%;
-
+  width: 100%;
 }
 .profile-btn {
-    top: 30px;
+  top: 30px;
 }
 .login-card {
-    background: #fff;
-    width: 100% !important;
-    margin: auto;
-    border-radius: 15px;
-    padding: 30px;
-    max-width: 600px;
-    width: 100%;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .auth-border {
-    background: #0b6fc01e;
-    padding: 25px;
-    border-radius: 30px;
-    max-width: 630px;
-    margin: auto;
+  background: #fff;
+  width: 100% !important;
+  margin: auto;
+  border-radius: 15px;
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-  .login-card:hover {
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-  }
+.main-content {
+  min-height: 92% !important;
+}
 
-  .login-card h3 {
-    font-weight: 600;
-    color: #333;
-  }
+.auth-border {
+  background: #0b6fc01e;
+  padding: 25px;
+  border-radius: 30px;
+  max-width: 630px;
+  margin: auto;
+}
 
-  .form-control {
-    border-radius: 10px;
-    padding: 12px;
-  }
+.login-card:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
 
-  .btn-custom {
-    border-radius: 10px;
-    padding: 12px;
-    font-weight: 600;
-  }
+.login-card h3 {
+  font-weight: 600;
+  color: #333;
+}
 
-  .extra-links a {
-    font-size: 0.9rem;
-    color: #6c63ff;
-  }
+.form-control {
+  border-radius: 10px;
+  padding: 12px;
+}
 
-  .extra-links a:hover {
-    text-decoration: underline;
-  }
+.btn-custom {
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 600;
+}
 
-  .btn-custom {
-    background: #368186 !important;
-    border: 0;
-  }
+.extra-links a {
+  font-size: 0.9rem;
+  color: #6c63ff;
+}
 
+.extra-links a:hover {
+  text-decoration: underline;
+}
+
+.btn-custom {
+  background: #368186 !important;
+  border: 0;
+}
+
+.main-content {
+  padding-bottom: 0 !important;
+}
+
+@media (max-width: 992px) {
   .main-content {
-    padding-bottom: 0 !important;
+    display: block;
   }
-
-  @media (max-width: 992px) {
-    .main-content {
-      display: block;
-    }
-    .login-container {
-      padding: 50px 0px;
-    }
-    .main-content .main-content {
-      position: unset;
-      min-height: 100vh;
-      padding: 20px 15px !important;
+  .login-container {
+    padding: 50px 0px;
+  }
+  .main-content .main-content {
+    position: unset;
+    min-height: 100vh;
+    padding: 20px 15px !important;
   }
   .auth-border {
     padding: 15px;
   }
-  
-.login-card {
-  padding: 20px;
-}
-  }
 
-  .login-card h3 {
-    font-weight: 600;
+  .login-card {
+    padding: 20px;
   }
-  .otp-text {
-    font-size: 14px;
-    color: #6c757d;
-    text-align: center;
-    margin-bottom: 20px;
+}
+
+.login-card h3 {
+  font-weight: 600;
+}
+.otp-text {
+  font-size: 14px;
+  color: #6c757d;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.otp-inputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.otp-inputs input {
+  width: 48px;
+  height: 55px;
+  font-size: 22px;
+  text-align: center;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: border-color 0.2s;
+}
+.otp-inputs input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+}
+.btn-custom {
+  border-radius: 8px;
+  font-weight: 500;
+}
+.extra-links {
+  font-size: 14px;
+}
+
+
+@media (max-width: 992px) {
+  .footer {
+      bottom: -87px !important;
   }
-  .otp-inputs {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 20px;
-  }
+}
+
+@media (max-width: 420px) {
   .otp-inputs input {
-    width: 48px;
-    height: 55px;
-    font-size: 22px;
-    text-align: center;
-    border: 1px solid #ced4da;
-    border-radius: 8px;
-    transition: border-color 0.2s;
+    width: 36px;
+    height: 37px;
   }
-  .otp-inputs input:focus {
-    outline: none;
-    border-color: #0d6efd;
-    box-shadow: 0 0 5px rgba(13,110,253,0.3);
+}
+
+@media (max-height: 800px) {
+  footer {
+    position: absolute !important;
+    bottom: -60px !important;
   }
-  .btn-custom {
-    border-radius: 8px;
-    font-weight: 500;
+  .main-content {
+    padding-bottom: 0 !important;
   }
-  .extra-links {
-    font-size: 14px;
+}
+
+@media (max-width: 991px) {
+  .footer {
+      margin-top: 50px !important;
   }
+}
