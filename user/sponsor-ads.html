@@ -151,9 +151,9 @@
                             <table class="table align-middle mb-0" id="sponsorsTable">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Logo</th>
+                                        <th scope="col">Ad</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Website</th>
+                                        <th scope="col">Link</th>
                                         <th scope="col">Status</th>
                                         <th scope="col" class="text-end">Actions</th>
                                     </tr>
@@ -211,7 +211,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="sponsorWebsite">Website Link *</label>
+                        <label for="sponsorWebsite">Link *</label>
                         <input type="url" id="sponsorWebsite" name="website" required placeholder="https://example.com">
                     </div>
 
@@ -222,7 +222,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Logo Image (800x600px) *</label>
+                        <label>Ad Image (800x600px) *</label>
                         <div class="image-upload-area" id="imageUploadArea">
                             <i class="fa-solid fa-cloud-arrow-up"
                                 style="font-size: 32px; color: #999; margin-bottom: 10px; display: block;"></i>
@@ -478,7 +478,7 @@
                 detailsHtml += `<div style="text-align: center; margin-bottom: 20px;"><img src="${escapeHtml(sponsor.logo)}" alt="${escapeHtml(sponsor.name)}" style="max-width: 200px; max-height: 150px; border-radius: 6px;"></div>`;
             }
             detailsHtml += `<div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${escapeHtml(sponsor.name)}</div></div>`;
-            detailsHtml += `<div class="detail-row"><div class="detail-label">Website</div><div class="detail-value"><a href="${escapeHtml(sponsor.website)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.website)}</a></div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Link</div><div class="detail-value"><a href="${escapeHtml(sponsor.website)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.website)}</a></div></div>`;
             if (sponsor.description) {
                 detailsHtml += `<div class="detail-row"><div class="detail-label">Description</div><div class="detail-value">${escapeHtml(sponsor.description)}</div></div>`;
             }
@@ -578,7 +578,7 @@
             const status = document.getElementById('sponsorStatus').value;
 
             if (!name || !website) {
-                alert('Please fill required fields: Name and Website.');
+                alert('Please fill required fields: Name and Link.');
                 return;
             }
 
