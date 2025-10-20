@@ -1,0 +1,345 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+:root {
+    --primary-teal: #368186;
+    --secondary-blue: #6ba3d6;
+    --accent-red: #e74c3c;
+    --light-gray: #f8f9fa;
+    --dark-gray: #4F4F4F;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Manrope", sans-serif;
+}
+
+body {
+     background: url('../assets/images/bg.png');
+     background-size: cover;
+    min-height: 100vh;
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+    background-attachment: fixed;
+}
+
+/* sidebar  */
+
+.sidebar {
+    background: rgba(255, 255, 255);
+    backdrop-filter: blur(10px);
+    /* Ensured full viewport height */
+    height: auto !important;
+    min-height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    min-width: 250px !important;
+    z-index: 1;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    /* Added overflow for scrolling if content exceeds height */
+    overflow-y: auto;
+}
+
+.sidebar.show {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.logo {
+    text-align: center;
+    text-decoration: none;
+    color: var(--primary-teal);
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.logo-text {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.nav-item {
+    margin-bottom: 5px;
+    padding: 0 10px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    color: var(--dark-gray);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: #EFF5F5;
+    box-shadow: 5px 5px  5px rgba(0, 0, 0, 0.205);
+    border-radius: 0 10px 10px 0px;
+    /* background: rgba(74, 155, 142, 0.1); */
+    color: var(--primary-teal);
+    border-left: 4px solid var(--primary-teal) !important;
+}
+
+.nav-link i {
+    width: 20px;
+    text-align: center;
+}
+
+.main-content {
+    transition: margin-left 0.3s ease;
+}
+
+.header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobile-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.mobile-logo .logo-icon {
+    background: white;
+    color: var(--primary-teal);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ff6b6b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.menu-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Sponsored Add  */
+
+
+/* Footer  */
+.main-content{
+    position: relative;
+    width: calc(100% - 250px) !important;
+   }
+
+.footer {
+    background: #368186;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.social-icon {
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.social-icon:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+  .mobile-logo img{
+    width: 100px;
+  }
+
+  .location-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 7px;
+    box-shadow: 0 10px 18px #0c0c0d21;
+    z-index: 1001;
+    max-width: 550px;
+    width: 90%;
+    text-align: center;
+    display: none;
+  }
+  
+  .location-modal.show {
+    display: block;
+  }
+  
+  .location-modal h3 {
+    color: #29343d;
+    margin-bottom: 15px;
+  }
+  
+  .location-modal p {
+    color: var(--dark-gray);
+    margin-bottom: 25px;
+    line-height: 1.5;
+  }
+  
+  .location-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .btn-location {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-allow {
+    background: #3681861a !important;
+    color: #368186;
+    border-radius: 5px !important;
+  }
+  
+  .btn-deny {
+    border-radius: 5px !important;
+    background: #ffe5ed;
+    color: #ff6692 !important;
+  }
+
+  .card-contact-btn{
+    background: #494cfa;
+    padding: 7px 15px ;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px !important;
+  }
+
+.profile-wrapper {
+    position: relative;
+}
+
+.dropdown-menu {
+    border-radius: 12px;
+    border: none;
+    padding: 8px 0;
+    min-width: 160px;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(54, 129, 134, 0.1);
+    color: var(--primary-teal);
+}
+
+.dropdown-divider {
+    margin: 6px 0;
+}
+
+.about-header-container {
+    z-index: -1;
+}
+
+.mobile-profile-btn{
+    border: none;
+    background: white;
+    padding: 4px 8px;
+    border-radius: 50px;
+}
+
+.location-modal .text-warning{
+    color: #ee1414 !important;
+    font-weight: bold;
+}
+
+
+.profile-btn span{
+    font-weight: 500 !important;
+    color: #333 !important;
+    font-size: 16px !important;
+}

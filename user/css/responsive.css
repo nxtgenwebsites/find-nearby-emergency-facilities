@@ -1,0 +1,195 @@
+/* Responsive Design */
+@media (min-width: 992px) {
+  .sidebar {
+    transform: translateX(0);
+    position: relative;
+    height: auto;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .mobile-logo {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .medical-circle {
+    width: 320px;
+    height: 320px;
+  }
+
+  .circle-text {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .sidebar {
+    width: 300px !important;
+    z-index: 1000;
+  }
+  .sidebar-header {
+    display: none;
+  }
+
+  .hero-section {
+    padding-top: 0 !important;
+    padding: 30px 15px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .medical-circle {
+    width: 250px;
+    height: 250px;
+  }
+
+  .ad-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .ad-content {
+    text-align: center;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .results-section {
+    height: 800px;
+  }
+  .map-container {
+    width: 100%;
+    height: 400px;
+  }
+
+  .content-grid {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 15px;
+    height: 75%;
+}
+
+  .content-grid > div:first-child {
+    order: 2;
+  }
+
+  .content-grid > div:last-child {
+    order: 1;
+  }
+  .main-content {
+    padding-top: 0px !important;
+    width: 100% !important;
+  }
+  .main-content {
+    min-height: 100vh;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    margin-top: -50px;
+  }
+  .medical img {
+    max-width: 350px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+  .hero-section {
+    padding: 30px 0;
+    width: 100% !important;
+  }
+
+  .hero-section .container {
+    padding: 0;
+    max-width: auto !important;
+    width: 100% !important;
+    /* margin: 0 !important; */
+  }
+  .search-section {
+    width: 90%;
+    margin: auto;
+  }
+  .medical {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .medical-circle {
+    width: 220px;
+    height: 220px;
+  }
+
+  .circle-text {
+    font-size: 1.3rem;
+  }
+
+  .stats-info {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .medical img {
+    max-width: 250px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-text {
+    font-size: 13px !important;
+  }
+  .footer-links {
+    font-size: 14px;
+  }
+  .footer-links img {
+    width: 25px;
+  }
+  .swiper {
+    width: 60% !important;
+    height: auto !important;
+  }
+  .swiper  .swiper-slide{
+    padding-bottom: 0 !important;
+  }
+
+  .m-hero-content {
+    padding: 10px !important;
+  }
+  .stats-info span {
+    font-size: 16px !important;
+    width: 90% !important;
+    margin: auto !important;
+  }
+  #searchSection input{
+    font-size: 14px;
+  }
+  .card-contact-btn{
+    font-size: 14px !important;
+  }
+}
+
+

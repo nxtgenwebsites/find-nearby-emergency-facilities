@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sponsor Management</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/sponsor-ads.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="d-flex w-100">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="logo">
+                    <div class="logo-img">
+                        <img src="assets/images/logo.svg" alt="Health Centre App logo" />
+                    </div>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="profile.html" class="nav-link">
+                        <i class="fa fa-user"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="sponsor-management.html" class="nav-link active">
+                        <i class="fa-solid fa-handshake"></i>
+                        <span>Sponsors Ads</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main-content w-100">
+            <header class="header d-lg-none">
+                <a href="/" class="mobile-logo">
+                    <img src="assets/images/logo.svg" alt="Health Centre App logo" />
+                </a>
+                <div class="header-right">
+                    <div class="dropdown user profile-button">
+                        <button class="mobile-profile-btn dropdown-toggle" type="button" id="mobileProfileMenu"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="assets/icons/user-icon.svg" alt="User">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
+                            <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                        </ul>
+                    </div>
+                    <button class="menu-toggle" id="menuToggle">
+                        <img src="assets/icons/bars.svg" alt="">
+                    </button>
+                </div>
+            </header>
+
+            <div class="profile-wrapper dropdown">
+                <button class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle"
+                    type="button" id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+                    style="gap: 5px !important;">
+                    <img src="assets/icons/user-icon.svg" width="30" alt="">
+                    <i class="bi bi-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
+                    <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><button class="dropdown-item text-danger" id="logout-btn-2">Logout</button></li>
+                </ul>
+            </div>
+
+            <div class="hero-content">
+                <div class="container-fluid um-section">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
+                        <div>
+                            <h2 class="mb-1" style="color:var(--dark-gray)">Sponsor Management</h2>
+                            <p class="mb-0 small-muted">Manage your sponsors and partnerships</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary" id="addSponsorBtn">
+                                <i class="fa-solid fa-plus"></i> Add Sponsor
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="um-card stat-card" id="statCardTotal" data-filter="">
+                                <div class="stat-icon" style="background:var(--secondary-blue)">
+                                    <i class="fa-solid fa-handshake"></i>
+                                </div>
+                                <div>
+                                    <div class="small-muted">Total Sponsors</div>
+                                    <div class="stat-value" id="statTotal">0</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="um-card stat-card" id="statCardActive" data-filter="active">
+                                <div class="stat-icon">
+                                    <i class="fa-solid fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <div class="small-muted">Active</div>
+                                    <div class="stat-value" id="statActive">0</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="um-card stat-card" id="statCardInactive" data-filter="inactive">
+                                <div class="stat-icon bg-soft-blue" style="color:#1f4d7a;">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                </div>
+                                <div>
+                                    <div class="small-muted">Inactive</div>
+                                    <div class="stat-value" id="statInactive">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="um-card">
+                        <div class="um-card-header">
+                            <h5 class="um-card-title mb-0">Sponsors</h5>
+                            <div class="filter-wrap d-flex gap-2">
+                                <input id="searchInput" type="search" class="form-control"
+                                    placeholder="Search by name or website..." aria-label="Search sponsors" />
+                                <select id="statusFilter" class="form-select" aria-label="Filter by status">
+                                    <option value="">All Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0" id="sponsorsTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Logo</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Website</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col" class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sponsorsTbody">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center p-3">
+                            <div class="small-muted" id="tableInfo">Showing 0 of 0 results</div>
+                            <nav aria-label="pagination">
+                                <ul class="pagination mb-0">
+                                    <li class="page-item disabled"><button class="page-link">Previous</button></li>
+                                    <li class="page-item active"><button class="page-link">1</button></li>
+                                    <li class="page-item disabled"><button class="page-link">Next</button></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer dashboard-footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-text">© 2025 HealthCentreApp.com - All Rights Reserved.</div>
+                        <div class="footer-links">
+                            <a href="privacy-policy.html">Privacy Policy</a>
+                            <span>|</span>
+                            <a href="terms-and-conditions.html">Terms & Conditions</a>
+                            <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social"
+                                style="cursor: pointer;">
+                                <img src="assets/icons/facebook 1.svg" alt="Facebook" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Add/Edit Sponsor Popup -->
+    <div class="custom-popup" id="addEditPopup">
+        <div class="custom-popup-content">
+            <div class="custom-popup-header">
+                <h5 id="popupTitle">Add Sponsor</h5>
+                <button class="custom-popup-close" id="addEditPopupClose">&times;</button>
+            </div>
+            <div class="custom-popup-body">
+                <form id="sponsorForm">
+                    <div class="form-group">
+                        <label for="sponsorName">Sponsor Name *</label>
+                        <input type="text" id="sponsorName" name="name" required placeholder="Enter sponsor name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sponsorWebsite">Website Link *</label>
+                        <input type="url" id="sponsorWebsite" name="website" required placeholder="https://example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sponsorDescription">Description</label>
+                        <textarea id="sponsorDescription" name="description"
+                            placeholder="Enter sponsor description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Logo Image (800x600px) *</label>
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <i class="fa-solid fa-cloud-arrow-up"
+                                style="font-size: 32px; color: #999; margin-bottom: 10px; display: block;"></i>
+                            <p style="margin: 0; color: #666; font-size: 14px;">Drag and drop your image here or click
+                                to select</p>
+                            <input type="file" id="logoInput" name="logo" accept="image/*" required>
+                        </div>
+                        <img id="imagePreview" class="image-preview" style="display: none;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sponsorStatus">Status *</label>
+                        <select id="sponsorStatus" name="status" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="custom-popup-footer">
+                <button class="popup-btn popup-btn-secondary" id="addEditPopupCancel">Cancel</button>
+                <button class="popup-btn popup-btn-primary" id="addEditPopupSubmit">Save Sponsor</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Sponsor Popup -->
+    <div class="custom-popup" id="viewPopup">
+        <div class="custom-popup-content">
+            <div class="custom-popup-header">
+                <h5>Sponsor Details</h5>
+                <button class="custom-popup-close" id="viewPopupClose">&times;</button>
+            </div>
+            <div class="custom-popup-body" id="viewPopupBody">
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirm Popup -->
+    <div class="custom-popup" id="deleteConfirmPopup">
+        <div class="custom-popup-content">
+            <div class="custom-popup-header">
+                <h5>Confirm Delete</h5>
+                <button class="custom-popup-close" id="deleteConfirmClose">&times;</button>
+            </div>
+            <div class="custom-popup-body">
+                <p class="confirmation-message">Are you sure you want to delete this sponsor? This action cannot be
+                    undone.</p>
+            </div>
+            <div class="custom-popup-footer">
+                <button class="popup-btn popup-btn-secondary" id="deleteConfirmCancel">Cancel</button>
+                <button class="popup-btn popup-btn-danger" id="deleteConfirmBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        /*
+          Dummy/local-only sponsor management
+          - Uses localStorage key: "dummySponsors"
+          - Handles Add / Edit / Delete locally
+          - Stores logo images as data URLs (so no server required)
+          - No external network requests
+        */
+
+        const STORAGE_KEY = 'dummySponsors_v1';
+        const USER_ID = localStorage.getItem('uid') || 'local-user';
+
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const menuToggle = document.getElementById('menuToggle');
+
+        const searchInput = document.getElementById('searchInput');
+        const statusFilter = document.getElementById('statusFilter');
+        const sponsorsTbody = document.getElementById('sponsorsTbody');
+        const tableInfo = document.getElementById('tableInfo');
+
+        const statTotal = document.getElementById('statTotal');
+        const statActive = document.getElementById('statActive');
+        const statInactive = document.getElementById('statInactive');
+
+        const addSponsorBtn = document.getElementById('addSponsorBtn');
+        const addEditPopup = document.getElementById('addEditPopup');
+        const addEditPopupClose = document.getElementById('addEditPopupClose');
+        const addEditPopupCancel = document.getElementById('addEditPopupCancel');
+        const addEditPopupSubmit = document.getElementById('addEditPopupSubmit');
+        const sponsorForm = document.getElementById('sponsorForm');
+        const popupTitle = document.getElementById('popupTitle');
+
+        const viewPopup = document.getElementById('viewPopup');
+        const viewPopupBody = document.getElementById('viewPopupBody');
+        const viewPopupClose = document.getElementById('viewPopupClose');
+
+        const deleteConfirmPopup = document.getElementById('deleteConfirmPopup');
+        const deleteConfirmBtn = document.getElementById('deleteConfirmBtn');
+        const deleteConfirmCancel = document.getElementById('deleteConfirmCancel');
+
+        const statCardTotal = document.getElementById('statCardTotal');
+        const statCardActive = document.getElementById('statCardActive');
+        const statCardInactive = document.getElementById('statCardInactive');
+
+        const imageUploadArea = document.getElementById('imageUploadArea');
+        const logoInput = document.getElementById('logoInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        let allSponsors = [];
+        let filtered = [];
+        let pendingDeleteId = null;
+        let editingId = null;
+        let selectedFile = null;
+
+        // Helpers
+        function uid() {
+            return 's_' + Math.random().toString(36).slice(2, 10);
+        }
+
+        function saveToStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(allSponsors));
+        }
+
+        function loadFromStorage() {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) {
+                // initial dummy data
+                allSponsors = [
+                    {
+                        _id: uid(),
+                        name: 'Acme Studios',
+                        website: 'https://acme.example',
+                        description: 'Premium partner for app events.',
+                        status: 'active',
+                        logo: '', // will be blank until added
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        _id: uid(),
+                        name: 'Beta Solutions',
+                        website: 'https://desigames.example',
+                        description: 'Local gaming partner.',
+                        status: 'inactive',
+                        logo: '',
+                        createdAt: new Date().toISOString()
+                    }
+                ];
+                saveToStorage();
+            } else {
+                try {
+                    allSponsors = JSON.parse(raw) || [];
+                } catch {
+                    allSponsors = [];
+                }
+            }
+        }
+
+        // UI helpers
+        function truncate(text, max = 50) {
+            if (!text) return '';
+            return text.length > max ? text.slice(0, max) + '…' : text;
+        }
+
+        function escapeHtml(str) {
+            return (str ?? '').toString()
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        function formatDate(iso) {
+            try {
+                return new Date(iso).toLocaleString();
+            } catch {
+                return iso || '';
+            }
+        }
+
+        function renderStats(list) {
+            const total = list.length;
+            const active = list.filter(s => s.status === 'active').length;
+            const inactive = total - active;
+
+            statTotal.textContent = total;
+            statActive.textContent = active;
+            statInactive.textContent = inactive;
+        }
+
+        function renderTable(list) {
+            sponsorsTbody.innerHTML = '';
+            list.forEach(s => {
+                const tr = document.createElement('tr');
+                const statusClass = s.status === 'active' ? 'status-active' : 'status-inactive';
+                const statusText = s.status === 'active' ? 'Active' : 'Inactive';
+
+                tr.innerHTML = `
+                  <td>
+                    ${s.logo ? `<img src="${escapeHtml(s.logo)}" alt="${escapeHtml(s.name)}" class="sponsor-logo-thumb">` : '<div style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 4px;"></div>'}
+                  </td>
+                  <td><strong>${escapeHtml(s.name || '')}</strong></td>
+                  <td><a href="${escapeHtml(s.website || '#')}" target="_blank" style="color: #368186; text-decoration: none;">${escapeHtml(truncate(s.website || '', 30))}</a></td>
+                  <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                  <td class="text-end action-buttons">
+                    <button class="btn-action view" title="View Sponsor" data-action="view" data-id="${s._id}">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn-action update" title="Edit Sponsor" data-action="edit" data-id="${s._id}">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-action delete" title="Delete Sponsor" data-action="delete" data-id="${s._id}">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                `;
+                sponsorsTbody.appendChild(tr);
+            });
+
+            tableInfo.textContent = `Showing ${list.length} of ${allSponsors.length} results`;
+        }
+
+        // Filtering & search
+        function applyFilters() {
+            const q = (searchInput.value || '').toLowerCase().trim();
+            const status = statusFilter.value;
+
+            filtered = allSponsors.filter(s => {
+                const matchesQuery =
+                    !q ||
+                    (s.name && s.name.toLowerCase().includes(q)) ||
+                    (s.website && s.website.toLowerCase().includes(q));
+
+                const matchesStatus =
+                    !status ||
+                    (status === 'active' && s.status === 'active') ||
+                    (status === 'inactive' && s.status === 'inactive');
+
+                return matchesQuery && matchesStatus;
+            });
+
+            renderTable(filtered);
+            renderStats(allSponsors);
+        }
+
+        // Popups
+        function openPopup(popup) { popup.classList.add('show'); }
+        function closePopup(popup) { popup.classList.remove('show'); }
+
+        function openViewPopup(sponsor) {
+            let detailsHtml = '';
+            if (sponsor.logo) {
+                detailsHtml += `<div style="text-align: center; margin-bottom: 20px;"><img src="${escapeHtml(sponsor.logo)}" alt="${escapeHtml(sponsor.name)}" style="max-width: 200px; max-height: 150px; border-radius: 6px;"></div>`;
+            }
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${escapeHtml(sponsor.name)}</div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Website</div><div class="detail-value"><a href="${escapeHtml(sponsor.website)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.website)}</a></div></div>`;
+            if (sponsor.description) {
+                detailsHtml += `<div class="detail-row"><div class="detail-label">Description</div><div class="detail-value">${escapeHtml(sponsor.description)}</div></div>`;
+            }
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Status</div><div class="detail-value"><span class="status-badge ${sponsor.status === 'active' ? 'status-active' : 'status-inactive'}">${sponsor.status === 'active' ? 'Active' : 'Inactive'}</span></div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Added</div><div class="detail-value">${escapeHtml(formatDate(sponsor.createdAt))}</div></div>`;
+
+            viewPopupBody.innerHTML = detailsHtml;
+            openPopup(viewPopup);
+        }
+
+        function openAddEditPopup(sponsor = null) {
+            editingId = sponsor?._id || null;
+            if (sponsor) {
+                popupTitle.textContent = 'Edit Sponsor';
+                document.getElementById('sponsorName').value = sponsor.name || '';
+                document.getElementById('sponsorWebsite').value = sponsor.website || '';
+                document.getElementById('sponsorDescription').value = sponsor.description || '';
+                document.getElementById('sponsorStatus').value = sponsor.status || 'active';
+                if (sponsor.logo) {
+                    imagePreview.src = sponsor.logo;
+                    imagePreview.style.display = 'block';
+                } else {
+                    imagePreview.style.display = 'none';
+                    imagePreview.src = '';
+                }
+            } else {
+                popupTitle.textContent = 'Add Sponsor';
+                sponsorForm.reset();
+                imagePreview.style.display = 'none';
+                imagePreview.src = '';
+            }
+            selectedFile = null;
+            openPopup(addEditPopup);
+        }
+
+        // Local CRUD
+        function addSponsorLocal(obj) {
+            obj._id = uid();
+            obj.createdAt = new Date().toISOString();
+            allSponsors.unshift(obj);
+            saveToStorage();
+            applyFilters();
+        }
+
+        function updateSponsorLocal(id, patch) {
+            const idx = allSponsors.findIndex(s => s._id === id);
+            if (idx === -1) return false;
+            allSponsors[idx] = { ...allSponsors[idx], ...patch };
+            saveToStorage();
+            applyFilters();
+            return true;
+        }
+
+        function deleteSponsorLocal(id) {
+            allSponsors = allSponsors.filter(s => s._id !== id);
+            saveToStorage();
+            applyFilters();
+        }
+
+        // Image handling (store as dataURL)
+        imageUploadArea.addEventListener('click', () => logoInput.click());
+        imageUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imageUploadArea.classList.add('dragover');
+        });
+        imageUploadArea.addEventListener('dragleave', () => imageUploadArea.classList.remove('dragover'));
+        imageUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imageUploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length) {
+                logoInput.files = e.dataTransfer.files;
+                handleImageSelect();
+            }
+        });
+        logoInput.addEventListener('change', handleImageSelect);
+
+        function handleImageSelect() {
+            const file = logoInput.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                selectedFile = e.target.result; // dataURL (string)
+                imagePreview.src = selectedFile;
+                imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Save (Add/Edit) handler - purely local
+        addEditPopupSubmit.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // basic validation
+            const name = document.getElementById('sponsorName').value.trim();
+            const website = document.getElementById('sponsorWebsite').value.trim();
+            const description = document.getElementById('sponsorDescription').value.trim();
+            const status = document.getElementById('sponsorStatus').value;
+
+            if (!name || !website) {
+                alert('Please fill required fields: Name and Website.');
+                return;
+            }
+
+            if (editingId) {
+                const patch = {
+                    name, website, description, status
+                };
+                if (selectedFile) patch.logo = selectedFile;
+                updateSponsorLocal(editingId, patch);
+                closePopup(addEditPopup);
+                editingId = null;
+            } else {
+                if (!selectedFile) {
+                    // Allow adding without logo if you want; currently allow but logo will be empty
+                    // alert('Please upload a logo image.');
+                    // return;
+                }
+                const obj = { name, website, description, status, logo: selectedFile || '' };
+                addSponsorLocal(obj);
+                closePopup(addEditPopup);
+            }
+        });
+
+        // Delete confirmation
+        deleteConfirmBtn.addEventListener('click', () => {
+            if (pendingDeleteId) {
+                deleteSponsorLocal(pendingDeleteId);
+                pendingDeleteId = null;
+                closePopup(deleteConfirmPopup);
+            }
+        });
+
+        // Table action buttons
+        sponsorsTbody.addEventListener('click', (e) => {
+            const btn = e.target.closest('button[data-action]');
+            if (!btn) return;
+            const id = btn.getAttribute('data-id');
+            const action = btn.getAttribute('data-action');
+
+            if (action === 'view') {
+                const sponsor = allSponsors.find(s => s._id === id);
+                if (sponsor) openViewPopup(sponsor);
+            }
+
+            if (action === 'edit') {
+                const sponsor = allSponsors.find(s => s._id === id);
+                if (sponsor) openAddEditPopup(sponsor);
+            }
+
+            if (action === 'delete') {
+                pendingDeleteId = id;
+                openPopup(deleteConfirmPopup);
+            }
+        });
+
+        // other event listeners
+        addSponsorBtn.addEventListener('click', () => openAddEditPopup());
+        addEditPopupClose.addEventListener('click', () => closePopup(addEditPopup));
+        addEditPopupCancel.addEventListener('click', () => closePopup(addEditPopup));
+
+        viewPopupClose.addEventListener('click', () => closePopup(viewPopup));
+        deleteConfirmClose.addEventListener('click', () => closePopup(deleteConfirmPopup));
+        deleteConfirmCancel.addEventListener('click', () => closePopup(deleteConfirmPopup));
+
+        searchInput.addEventListener('input', applyFilters);
+        statusFilter.addEventListener('change', applyFilters);
+
+        statCardTotal.addEventListener('click', () => {
+            statusFilter.value = '';
+            statCardTotal.classList.add('active');
+            statCardActive.classList.remove('active');
+            statCardInactive.classList.remove('active');
+            applyFilters();
+        });
+        statCardActive.addEventListener('click', () => {
+            statusFilter.value = 'active';
+            statCardActive.classList.add('active');
+            statCardTotal.classList.remove('active');
+            statCardInactive.classList.remove('active');
+            applyFilters();
+        });
+        statCardInactive.addEventListener('click', () => {
+            statusFilter.value = 'inactive';
+            statCardInactive.classList.add('active');
+            statCardTotal.classList.remove('active');
+            statCardActive.classList.remove('active');
+            applyFilters();
+        });
+
+        // sidebar toggles (kept from original)
+        menuToggle?.addEventListener('click', function () {
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        });
+        overlay?.addEventListener('click', function () {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+        });
+        function handleResize() {
+            if (window.innerWidth >= 992) {
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+            }
+        }
+        window.addEventListener('resize', handleResize);
+
+        // init
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFromStorage();
+            applyFilters();
+        });
+    </script>
+        
+</body>
+
+</html>
