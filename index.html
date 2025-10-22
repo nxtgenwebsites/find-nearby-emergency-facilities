@@ -444,7 +444,7 @@
 
             try {
                 // ✅ Fetch active ads from API
-                const response = await axios.get("http://localhost:5000/api/ads/active");
+                const response = await axios.get("https://find-nearby-emergency-facilities-ba.vercel.app/api/ads/active");
                 const ads = response.data;
 
                 // ✅ Clear previous slides
