@@ -262,3 +262,26 @@
         max-width: 310px !important;
     }
 }
+
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.toggle-btn.active .arrow-icon {
+  transform: rotate(180deg);
+}
+

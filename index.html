@@ -362,35 +362,9 @@
 
                         <div class="sponsored-section w-100 my-4">
                             <div class="swiper">
-                                <div class="swiper-wrapper">
-                                    <!-- Slides -->
-                                    <!-- <div class="swiper-slide text-black pb-5">
-                                        <img src="assets/images/add_1.jpg" alt="images">
-                                    </div>
-                                    <div class="swiper-slide text-black pb-5">
-                                        <img src="assets/images/add_2.jpg" alt="images">
-                                    </div>
-                                    <div class="swiper-slide text-black pb-5">
-                                        <img src="assets/images/add_3.jpg" alt="images">
-                                    </div>
-                                    <div class="swiper-slide text-black pb-5">
-                                        <img src="assets/images/add_4.jpg" alt="images">
-                                    </div> -->
-                                    <div class="swiper-slide text-black pb-5">
-                                        <img src="assets/images/add_1.jpg" alt="images">
-                                    </div>
-                                    <div class="swiper-slide text-black pb-5">
-                                        <img src="assets/images/add_2.jpg" alt="images">
-                                    </div>
-                                    <div class="swiper-slide text-black pb-5">
-                                        <img src="assets/images/add_3.jpg" alt="images">
-                                    </div>
-                                    <div class="swiper-slide text-black pb-5">
-                                        <img src="assets/images/add_4.jpg" alt="images">
-                                    </div>
-                                </div>
-
-                            </div>
+                                <div class="swiper-wrapper" id="adsWrapper">
+                                    <!-- Dynamic ads will be inserted here -->
+                                </div>                      </div>
                         </div>
 
                         <div class="pages-link d-block d-lg-none">
@@ -462,7 +436,40 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/country-states.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const adsWrapper = document.getElementById("adsWrapper");
+
+            try {
+                // ✅ Fetch active ads from API
+                const response = await axios.get("http://localhost:5000/api/ads/active");
+                const ads = response.data;
+
+                // ✅ Clear previous slides
+                adsWrapper.innerHTML = "";
+
+                // ✅ Add slides dynamically
+                ads.forEach(ad => {
+                    const slide = document.createElement("div");
+                    slide.classList.add("swiper-slide", "text-black", "pb-2");
+
+                    slide.innerHTML = `
+                    <a href="${ad.link}" target="_blank">
+                      <img src="${ad.imageUrl}" alt="${ad.sponsorName}" />
+                    </a>
+                  `;
+
+                    adsWrapper.appendChild(slide);
+                });
+            } catch (error) {
+                console.error("Failed to load ads:", error);
+                adsWrapper.innerHTML = `<p class="text-danger">Failed to load sponsored ads.</p>`;
+            }
+        });
+    </script>
+        
     <script>
         const dropdown = document.getElementById("dropdown");
         const tagsContainer = document.getElementById("tagsContainer");

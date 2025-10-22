@@ -18,25 +18,38 @@
     <div class="overlay" id="overlay"></div>
 
     <div class="d-flex w-100">
+        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <a href="/" class="logo">
                     <div class="logo-img">
-                        <img src="assets/images/logo.svg" alt="Health Centre App logo" />
+                        <img src="assets/images/logo.svg" alt="">
                     </div>
                 </a>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="profile.html" class="nav-link">
-                        <i class="fa fa-user"></i>
-                        <span>My Profile</span>
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="sponsor-ads.html" class="nav-link active">
+                    <a href="user-management.html" class="nav-link">
+                        <i class="fa-solid fa-users"></i>
+                        <span>User Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="review-management.html" class="nav-link">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Reviews</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="ads-management.html" class="nav-link active">
                         <i class="fa-solid fa-handshake"></i>
-                        <span>Sponsors Ads</span>
+                        <span>Ads Management</span>
                     </a>
                 </li>
             </ul>
@@ -89,11 +102,7 @@
                         <div>
                             <h2 class="mb-1" style="color:var(--dark-gray)">Ads Management</h2>
                         </div>
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-primary" id="addSponsorBtn">
-                                <i class="fa-solid fa-plus"></i> Submit Ad
-                            </button>
-                        </div>
+                        <!-- Removed "Submit Ad" button for admin panel -->
                     </div>
 
                     <div class="row g-3 mb-3">
@@ -198,28 +207,16 @@
         </div>
     </div>
 
-    <!-- Add/Edit Sponsor Popup -->
+    <!-- Edit Sponsor Popup (Admin Only - No Image Upload) -->
     <div class="custom-popup" id="addEditPopup">
         <div class="custom-popup-content">
             <div class="custom-popup-header">
-                <h5 id="popupTitle">Add Sponsor</h5>
+                <h5 id="popupTitle">Edit Sponsor</h5>
                 <button class="custom-popup-close" id="addEditPopupClose">&times;</button>
             </div>
             <div class="custom-popup-body">
                 <form id="sponsorForm">
-                    <div class="form-group">
-                        <label>Ad Image (1100x620px) *</label>
-                        <div class="image-upload-area" id="imageUploadArea">
-                            <i class="fa-solid fa-cloud-arrow-up"
-                                style="font-size: 32px; color: #999; margin-bottom: 10px; display: block;"></i>
-                            <p style="margin: 0; color: #666; font-size: 14px;">Drag and drop your image here or click
-                                to select (1100x620px required)</p>
-                            <input type="file" id="logoInput" name="logo" accept="image/*" required>
-                        </div>
-                        <img id="imagePreview" class="image-preview" style="display: none;">
-                        <div id="imageSizeError"
-                            style="color: #dc3545; font-size: 12px; margin-top: 5px; display: none;"></div>
-                    </div>
+                    <!-- Removed image upload field for admin panel -->
 
                     <div class="form-group">
                         <label for="sponsorName">Sponsor Name *</label>
@@ -267,11 +264,12 @@
                         <label for="sponsorWebsite">Link *</label>
                         <input type="url" id="sponsorWebsite" name="website" required placeholder="https://example.com">
                     </div>
+
                 </form>
             </div>
             <div class="custom-popup-footer">
                 <button class="popup-btn popup-btn-secondary" id="addEditPopupCancel">Cancel</button>
-                <button class="popup-btn popup-btn-primary" id="addEditPopupSubmit">Save Sponsor</button>
+                <button class="popup-btn popup-btn-primary" id="addEditPopupSubmit">Save Changes</button>
             </div>
         </div>
     </div>
@@ -306,24 +304,37 @@
         </div>
     </div>
 
+    <!-- Approve Confirm Popup -->
+    <div class="custom-popup" id="approveConfirmPopup">
+        <div class="custom-popup-content">
+            <div class="custom-popup-header">
+                <h5>Approve Sponsor</h5>
+                <button class="custom-popup-close" id="approveConfirmClose">&times;</button>
+            </div>
+            <div class="custom-popup-body">
+                <p class="confirmation-message">Are you sure you want to approve this sponsor ad?</p>
+            </div>
+            <div class="custom-popup-footer">
+                <button class="popup-btn popup-btn-secondary" id="approveConfirmCancel">Cancel</button>
+                <button class="popup-btn popup-btn-primary" id="approveConfirmBtn">Approve</button>
+            </div>
+        </div>
+    </div>
+
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script>
-        // ============================================
-        // CONFIGURATION
-        // ============================================
+        /*
+          Admin Sponsor Management Panel
+          - View, Edit (details only), Delete, and Approve functionality
+          - No image upload for admins
+          - Uses Backend API for all operations
+          - Pagination working
+        */
+
         const API_BASE_URL = "https://find-nearby-emergency-facilities-ba.vercel.app/api/ads";
-        const REQUIRED_IMAGE_WIDTH = 1100;
-        const REQUIRED_IMAGE_HEIGHT = 620;
 
-        const uid = localStorage.getItem('uid');
-        if (!uid) {
-            window.location.href = '/login.html';
-        }
-
-        // ============================================
-        // DOM ELEMENTS
-        // ============================================
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
         const menuToggle = document.getElementById('menuToggle');
@@ -337,7 +348,6 @@
         const statActive = document.getElementById('statActive');
         const statInactive = document.getElementById('statInactive');
 
-        const addSponsorBtn = document.getElementById('addSponsorBtn');
         const addEditPopup = document.getElementById('addEditPopup');
         const addEditPopupClose = document.getElementById('addEditPopupClose');
         const addEditPopupCancel = document.getElementById('addEditPopupCancel');
@@ -354,27 +364,80 @@
         const deleteConfirmCancel = document.getElementById('deleteConfirmCancel');
         const deleteConfirmClose = document.getElementById('deleteConfirmClose');
 
+        const approveConfirmPopup = document.getElementById('approveConfirmPopup');
+        const approveConfirmBtn = document.getElementById('approveConfirmBtn');
+        const approveConfirmCancel = document.getElementById('approveConfirmCancel');
+        const approveConfirmClose = document.getElementById('approveConfirmClose');
+
         const statCardTotal = document.getElementById('statCardTotal');
         const statCardActive = document.getElementById('statCardActive');
         const statCardInactive = document.getElementById('statCardInactive');
 
-        const imageUploadArea = document.getElementById('imageUploadArea');
-        const logoInput = document.getElementById('logoInput');
-        const imagePreview = document.getElementById('imagePreview');
-        const imageSizeError = document.getElementById('imageSizeError');
-
-        // ============================================
-        // STATE VARIABLES
-        // ============================================
         let allSponsors = [];
         let filtered = [];
         let pendingDeleteId = null;
+        let pendingApproveId = null;
         let editingId = null;
-        let selectedFile = null;
+
 
         // ============================================
-        // UTILITY FUNCTIONS
+        // API FUNCTIONS - READ ALL ADS
         // ============================================
+        async function loadAllAdsFromAPI() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}`);
+                console.log("[v0] All ads loaded:", response.data);
+                allSponsors = Array.isArray(response.data) ? response.data : (response.data?.ads || []);
+                applyFilters();
+            } catch (error) {
+                console.error("[v0] Load All Ads Error:", error.response?.data || error.message);
+                alert("❌ Failed to load ads. Please refresh the page.");
+            }
+        }
+
+        // ============================================
+        // API FUNCTIONS - UPDATE AD
+        // ============================================
+        async function updateAdAPI(id, updateData) {
+            try {
+                const response = await axios.put(`${API_BASE_URL}/${id}`, updateData);
+                console.log("[v0] Ad updated successfully:", response.data);
+                return { success: true, data: response.data };
+            } catch (error) {
+                console.error("[v0] Update Ad Error:", error.response?.data || error.message);
+                return { success: false, error: error.response?.data?.error || error.message };
+            }
+        }
+
+        // ============================================
+        // API FUNCTIONS - DELETE AD
+        // ============================================
+        async function deleteAdAPI(id) {
+            try {
+                const response = await axios.delete(`${API_BASE_URL}/${id}`);
+                console.log("[v0] Ad deleted successfully");
+                return { success: true };
+            } catch (error) {
+                console.error("[v0] Delete Ad Error:", error.response?.data || error.message);
+                return { success: false, error: error.response?.data?.error || error.message };
+            }
+        }
+
+        // ============================================
+        // API FUNCTIONS - APPROVE AD (Update status to active)
+        // ============================================
+        async function approveAdAPI(id) {
+            try {
+                const response = await axios.put(`${API_BASE_URL}/${id}`, { status: 'active' });
+                console.log("[v0] Ad approved successfully:", response.data);
+                return { success: true, data: response.data };
+            } catch (error) {
+                console.error("[v0] Approve Ad Error:", error.response?.data || error.message);
+                return { success: false, error: error.response?.data?.error || error.message };
+            }
+        }
+
+        // UI helpers
         function truncate(text, max = 50) {
             if (!text) return '';
             return text.length > max ? text.slice(0, max) + '…' : text;
@@ -406,14 +469,10 @@
             return diffDays;
         }
 
-        // ============================================
-        // RENDER FUNCTIONS
-        // ============================================
         function renderStats(list) {
             const total = list.length;
-            // <CHANGE> Fixed: Calculate active and inactive stats
             const active = list.filter(s => s.status === 'active').length;
-            const inactive = list.filter(s => s.status === 'inactive').length;
+            const inactive = total - active;
 
             statTotal.textContent = total;
             statActive.textContent = active;
@@ -442,6 +501,9 @@
                     <button class="btn-action update" title="Edit Sponsor" data-action="edit" data-id="${s._id}">
                       <i class="fa-solid fa-pen"></i>
                     </button>
+                    <button class="btn-action approve" title="Approve Sponsor" data-action="approve" data-id="${s._id}" style="color: #28a745;">
+                      <i class="fa-solid fa-paper-plane"></i>
+                    </button>
                     <button class="btn-action delete" title="Delete Sponsor" data-action="delete" data-id="${s._id}">
                       <i class="fa-solid fa-trash"></i>
                     </button>
@@ -453,11 +515,8 @@
             tableInfo.textContent = `Showing ${list.length} of ${allSponsors.length} results`;
         }
 
-        // ============================================
-        // FILTER & SEARCH
-        // ============================================
+        // Filtering & search
         function applyFilters() {
-            // <CHANGE> Fixed: Uncommented and fixed the filtering logic
             const q = (searchInput.value || '').toLowerCase().trim();
             const status = statusFilter.value;
 
@@ -480,16 +539,9 @@
             renderStats(allSponsors);
         }
 
-        // ============================================
-        // POPUP MANAGEMENT
-        // ============================================
-        function openPopup(popup) {
-            popup.classList.add('show');
-        }
-
-        function closePopup(popup) {
-            popup.classList.remove('show');
-        }
+        // Popups
+        function openPopup(popup) { popup.classList.add('show'); }
+        function closePopup(popup) { popup.classList.remove('show'); }
 
         function openViewPopup(sponsor) {
             let detailsHtml = '';
@@ -508,174 +560,18 @@
             openPopup(viewPopup);
         }
 
-        function openAddEditPopup(sponsor = null) {
-            editingId = sponsor?._id || null;
-            if (sponsor) {
-                popupTitle.textContent = 'Edit Sponsor';
-                document.getElementById('sponsorName').value = sponsor.sponsorName || '';
-                document.getElementById('sponsorCountry').value = sponsor.country || '';
-                document.getElementById('sponsorStartDate').value = sponsor.startDate ? sponsor.startDate.split('T')[0] : '';
-                document.getElementById('sponsorEndDate').value = sponsor.endDate ? sponsor.endDate.split('T')[0] : '';
-                document.getElementById('impressionDays').value = sponsor.impressionDays ? `${sponsor.impressionDays} days` : '0 days';
-                document.getElementById('sponsorWebsite').value = sponsor.link || '';
-                if (sponsor.imageUrl) {
-                    imagePreview.src = sponsor.imageUrl;
-                    imagePreview.style.display = 'block';
-                } else {
-                    imagePreview.style.display = 'none';
-                    imagePreview.src = '';
-                }
-            } else {
-                popupTitle.textContent = 'Add Sponsor';
-                sponsorForm.reset();
-                imagePreview.style.display = 'none';
-                imagePreview.src = '';
-                document.getElementById('impressionDays').value = '0 days';
-            }
-            imageSizeError.style.display = 'none';
-            imageSizeError.textContent = '';
-            selectedFile = null;
+        function openEditPopup(sponsor) {
+            editingId = sponsor._id;
+            popupTitle.textContent = 'Edit Sponsor';
+            document.getElementById('sponsorName').value = sponsor.sponsorName || '';
+            document.getElementById('sponsorCountry').value = sponsor.country || '';
+            document.getElementById('sponsorStartDate').value = sponsor.startDate ? sponsor.startDate.split('T')[0] : '';
+            document.getElementById('sponsorEndDate').value = sponsor.endDate ? sponsor.endDate.split('T')[0] : '';
+            document.getElementById('impressionDays').value = sponsor.impressionDays ? `${sponsor.impressionDays} days` : '0 days';
+            document.getElementById('sponsorWebsite').value = sponsor.link || '';
             openPopup(addEditPopup);
         }
 
-        // ============================================
-        // API FUNCTIONS - CREATE
-        // ============================================
-        async function createAdAPI(formData) {
-            try {
-                const response = await axios.post(`${API_BASE_URL}/upload/${uid}`, formData, {
-                    headers: { "Content-Type": "multipart/form-data" }
-                });
-                console.log("[v0] Ad created successfully:", response.data);
-                return { success: true, data: response.data };
-            } catch (error) {
-                console.error("[v0] Create Ad Error:", error.response?.data || error.message);
-                return { success: false, error: error.response?.data?.error || error.message };
-            }
-        }
-
-        // ============================================
-        // API FUNCTIONS - READ
-        // ============================================
-        async function loadSponsorsFromAPI() {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/owner/${uid}`);
-                // <CHANGE> Fixed: Handle both array and object response formats
-                allSponsors = Array.isArray(response.data) ? response.data : (response.data?.ads || []);
-                console.log("[v0] Ads loaded successfully:", allSponsors.length);
-                applyFilters();
-            } catch (error) {
-                console.error("[v0] Load Ads Error:", error.response?.data || error.message);
-                alert("❌ Failed to load ads. Please refresh the page.");
-            }
-        }
-
-        // ============================================
-        // API FUNCTIONS - UPDATE
-        // ============================================
-        async function updateAdAPI(id, formData) {
-            try {
-                const response = await axios.put(`${API_BASE_URL}/${id}`, formData, {
-                    headers: { "Content-Type": "multipart/form-data" }
-                });
-                console.log("[v0] Ad updated successfully:", response.data);
-                return { success: true, data: response.data };
-            } catch (error) {
-                console.error("[v0] Update Ad Error:", error.response?.data || error.message);
-                return { success: false, error: error.response?.data?.error || error.message };
-            }
-        }
-
-        // ============================================
-        // API FUNCTIONS - DELETE
-        // ============================================
-        async function deleteAdAPI(id) {
-            try {
-                const response = await axios.delete(`${API_BASE_URL}/${id}`);
-                console.log("[v0] Ad deleted successfully");
-                return { success: true };
-            } catch (error) {
-                console.error("[v0] Delete Ad Error:", error.response?.data || error.message);
-                return { success: false, error: error.response?.data?.error || error.message };
-            }
-        }
-
-        // ============================================
-        // IMAGE VALIDATION
-        // ============================================
-        function validateImageDimensions(file, callback) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = new Image();
-                img.onload = () => {
-                    if (img.width === REQUIRED_IMAGE_WIDTH && img.height === REQUIRED_IMAGE_HEIGHT) {
-                        callback(true, null);
-                    } else {
-                        callback(false, `Image must be exactly ${REQUIRED_IMAGE_WIDTH}x${REQUIRED_IMAGE_HEIGHT}px. Current: ${img.width}x${img.height}px`);
-                    }
-                };
-                img.onerror = () => {
-                    callback(false, 'Failed to load image');
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // ============================================
-        // IMAGE UPLOAD HANDLERS
-        // ============================================
-        imageUploadArea.addEventListener('click', () => logoInput.click());
-
-        imageUploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            imageUploadArea.classList.add('dragover');
-        });
-
-        imageUploadArea.addEventListener('dragleave', () => imageUploadArea.classList.remove('dragover'));
-
-        imageUploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            imageUploadArea.classList.remove('dragover');
-            if (e.dataTransfer.files.length) {
-                logoInput.files = e.dataTransfer.files;
-                handleImageSelect();
-            }
-        });
-
-        logoInput.addEventListener('change', handleImageSelect);
-
-        function handleImageSelect() {
-            const file = logoInput.files[0];
-            if (!file) return;
-
-            validateImageDimensions(file, (isValid, errorMsg) => {
-                if (!isValid) {
-                    imageSizeError.textContent = errorMsg;
-                    imageSizeError.style.display = 'block';
-                    imagePreview.style.display = 'none';
-                    selectedFile = null;
-                    alert(`Error: ${errorMsg}`);
-                    logoInput.value = '';
-                    return;
-                }
-
-                imageSizeError.style.display = 'none';
-                imageSizeError.textContent = '';
-                selectedFile = file;
-
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    imagePreview.src = e.target.result;
-                    imagePreview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        // ============================================
-        // DATE CHANGE HANDLERS
-        // ============================================
         document.getElementById('sponsorStartDate').addEventListener('change', () => {
             const startDate = document.getElementById('sponsorStartDate').value;
             const endDate = document.getElementById('sponsorEndDate').value;
@@ -694,9 +590,6 @@
             }
         });
 
-        // ============================================
-        // FORM SUBMISSION - CREATE/UPDATE
-        // ============================================
         addEditPopupSubmit.addEventListener('click', async (e) => {
             e.preventDefault();
 
@@ -711,62 +604,35 @@
                 return;
             }
 
-            if (!selectedFile && !editingId) {
-                alert('Please upload an image (1100x620px).');
-                return;
-            }
-
-            const impressionDays = calculateImpressionDays(startDate, endDate);
-
-            const formData = new FormData();
-            formData.append("sponsorName", name);
-            formData.append("country", country);
-            formData.append("startDate", startDate);
-            formData.append("endDate", endDate);
-            formData.append("link", website);
-            formData.append("impressionDays", impressionDays);
-            formData.append("status", "pending");
-
-            if (selectedFile) {
-                formData.append("image", selectedFile);
-            }
-
-            let result;
             if (editingId) {
-                result = await updateAdAPI(editingId, formData);
+                const impressionDays = calculateImpressionDays(startDate, endDate);
+                const updateData = {
+                    sponsorName: name,
+                    country: country,
+                    startDate: startDate,
+                    endDate: endDate,
+                    link: website,
+                    impressionDays: impressionDays
+                };
+
+                const result = await updateAdAPI(editingId, updateData);
                 if (result.success) {
                     alert("✅ Ad updated successfully!");
+                    await loadAllAdsFromAPI();
+                    closePopup(addEditPopup);
+                    editingId = null;
                 } else {
                     alert("❌ Failed to update ad: " + result.error);
                 }
-            } else {
-                result = await createAdAPI(formData);
-                if (result.success) {
-                    alert("✅ Ad created successfully!");
-                } else {
-                    alert("❌ Failed to create ad: " + result.error);
-                }
-            }
-
-            if (result.success) {
-                await loadSponsorsFromAPI();
-                closePopup(addEditPopup);
-                sponsorForm.reset();
-                imagePreview.style.display = 'none';
-                editingId = null;
-                selectedFile = null;
             }
         });
 
-        // ============================================
-        // DELETE CONFIRMATION
-        // ============================================
         deleteConfirmBtn.addEventListener('click', async () => {
             if (pendingDeleteId) {
                 const result = await deleteAdAPI(pendingDeleteId);
                 if (result.success) {
                     alert("✅ Ad deleted successfully!");
-                    await loadSponsorsFromAPI();
+                    await loadAllAdsFromAPI();
                     closePopup(deleteConfirmPopup);
                 } else {
                     alert("❌ Failed to delete ad: " + result.error);
@@ -775,9 +641,21 @@
             }
         });
 
-        // ============================================
-        // TABLE ACTION BUTTONS
-        // ============================================
+        approveConfirmBtn.addEventListener('click', async () => {
+            if (pendingApproveId) {
+                const result = await approveAdAPI(pendingApproveId);
+                if (result.success) {
+                    alert("✅ Ad approved and activated successfully!");
+                    await loadAllAdsFromAPI();
+                    closePopup(approveConfirmPopup);
+                } else {
+                    alert("❌ Failed to approve ad: " + result.error);
+                }
+                pendingApproveId = null;
+            }
+        });
+
+        // Table action buttons
         sponsorsTbody.addEventListener('click', (e) => {
             const btn = e.target.closest('button[data-action]');
             if (!btn) return;
@@ -791,7 +669,12 @@
 
             if (action === 'edit') {
                 const sponsor = allSponsors.find(s => s._id === id);
-                if (sponsor) openAddEditPopup(sponsor);
+                if (sponsor) openEditPopup(sponsor);
+            }
+
+            if (action === 'approve') {
+                pendingApproveId = id;
+                openPopup(approveConfirmPopup);
             }
 
             if (action === 'delete') {
@@ -800,54 +683,50 @@
             }
         });
 
-        // ============================================
-        // POPUP CLOSE HANDLERS
-        // ============================================
-        addSponsorBtn.addEventListener('click', () => openAddEditPopup());
+        // Event listeners
         addEditPopupClose.addEventListener('click', () => closePopup(addEditPopup));
         addEditPopupCancel.addEventListener('click', () => closePopup(addEditPopup));
 
         viewPopupClose.addEventListener('click', () => closePopup(viewPopup));
         deleteConfirmClose.addEventListener('click', () => closePopup(deleteConfirmPopup));
         deleteConfirmCancel.addEventListener('click', () => closePopup(deleteConfirmPopup));
+        approveConfirmClose.addEventListener('click', () => closePopup(approveConfirmPopup));
+        approveConfirmCancel.addEventListener('click', () => closePopup(approveConfirmPopup));
 
-        // ============================================
-        // SEARCH & FILTER HANDLERS
-        // ============================================
         searchInput.addEventListener('input', applyFilters);
         statusFilter.addEventListener('change', applyFilters);
 
-        // ============================================
-        // STAT CARD FILTERS
-        // ============================================
         statCardTotal.addEventListener('click', () => {
             statusFilter.value = '';
+            statCardTotal.classList.add('active');
+            statCardActive.classList.remove('active');
+            statCardInactive.classList.remove('active');
             applyFilters();
         });
-
         statCardActive.addEventListener('click', () => {
             statusFilter.value = 'active';
+            statCardActive.classList.add('active');
+            statCardTotal.classList.remove('active');
+            statCardInactive.classList.remove('active');
             applyFilters();
         });
-
         statCardInactive.addEventListener('click', () => {
             statusFilter.value = 'inactive';
+            statCardInactive.classList.add('active');
+            statCardTotal.classList.remove('active');
+            statCardActive.classList.remove('active');
             applyFilters();
         });
 
-        // ============================================
-        // SIDEBAR TOGGLE
-        // ============================================
+        // Sidebar toggles
         menuToggle?.addEventListener('click', function () {
             sidebar.classList.toggle('show');
             overlay.classList.toggle('show');
         });
-
         overlay?.addEventListener('click', function () {
             sidebar.classList.remove('show');
             overlay.classList.remove('show');
         });
-
         function handleResize() {
             if (window.innerWidth >= 992) {
                 sidebar.classList.remove('show');
@@ -856,12 +735,9 @@
         }
         window.addEventListener('resize', handleResize);
 
-        // ============================================
-        // INITIALIZE - LOAD ADS ON PAGE LOAD
-        // ============================================
         document.addEventListener('DOMContentLoaded', () => {
-            console.log("[v0] Page loaded, fetching ads...");
-            loadSponsorsFromAPI();
+            console.log("[v0] Admin panel loaded, fetching all ads...");
+            loadAllAdsFromAPI();
         });
     </script>
 
