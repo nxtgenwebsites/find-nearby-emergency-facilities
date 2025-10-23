@@ -25,12 +25,11 @@
     flex-direction: column !important;
     justify-items: space-between !important;
     border-right: 1px solid #e5e7eb;
-    /* min-height: 100vh !important; */
-    max-height: 100vh !important;
+    min-height: 93.2vh !important;
+    max-height: 93.2vh !important;
     /* height: 100% !important; */
-    height: auto !important;
+    height: 93.2vh !important;
 
-    position: fixed;
     padding: 20px 0;
   }
 
