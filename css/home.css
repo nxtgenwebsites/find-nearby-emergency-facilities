@@ -503,6 +503,22 @@ body{
   z-index: -1;
 }
 
+@media (max-width: 991px) {
+  .sidebar {
+    width: 250px;
+    background: #ffffff;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-items: space-between !important;
+    border-right: 1px solid #e5e7eb;
+    min-height: 93.2vh !important;
+    max-height: 93.2vh !important;
+    /* height: 100% !important; */
+    height: 93.2vh !important;
+  
+    padding: 20px 0;
+  }
+}
 @media (max-width: 768px) {
   .search-section #dropdown{
     font-size: 10px !important;
@@ -513,4 +529,5 @@ body{
   .search-section #dropdown option:nth-child(1){
     font-size: 10px !important;
   }
+
 }
