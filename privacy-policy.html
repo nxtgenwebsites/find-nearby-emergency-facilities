@@ -39,7 +39,7 @@
     <!-- Added location permission modal -->
     <div class="location-modal " id="profileModal">
         <h3>Coming Soon!</h3>
-        <p>User profile feature isn’t available yet!</p>
+        <p>User profile feature isn't available yet!</p>
         <div class="location-buttons">
             <button class="btn-location btn-allow" id="closeProfileBtn">
                 Go back
@@ -210,7 +210,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                   <a href="reviews.html" class="nav-link">
+                    <a href="reviews.html" class="nav-link">
                         <img src="assets/icons/star.svg" />
                         <span>Reviews</span>
                     </a>
@@ -243,7 +243,7 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="assets/icons/user-icon.svg" alt="User">
                         </button>
-                
+
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
                             <li><a class="dropdown-item" href="user/profile.html">Profile</a></li>
                             <li>
@@ -252,7 +252,7 @@
                             <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
                         </ul>
                     </div>
-                
+
                     <button class="menu-toggle" id="menuToggle">
                         <img src="assets/icons/bars.svg" alt="">
                     </button>
@@ -260,21 +260,23 @@
             </header>
 
             <div class="main-content w-100">
-<!-- Profile Button -->
-<div class="dropdown profile-wrapper">
-    <button class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle" type="button"
-        id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="gap: 5px !important;">
-        <img src="assets/icons/user-icon.svg" width="30" alt="">
-        <i class="bi bi-chevron-down"></i>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
-        <li><a class="dropdown-item" href="user/profile.html">Profile</a></li>
-        <li>
-            <hr class="dropdown-divider">
-        </li>
-        <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
-    </ul>
-</div>
+                <!-- Profile Button -->
+                <div class="dropdown profile-wrapper">
+                    <button
+                        class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle"
+                        type="button" id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+                        style="gap: 5px !important;">
+                        <img src="assets/icons/user-icon.svg" width="30" alt="">
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
+                        <li><a class="dropdown-item" href="user/profile.html">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                    </ul>
+                </div>
 
                 <div class="hero-content">
                     <div class="d-flex about-header-container">
@@ -296,7 +298,7 @@
                                                 <strong class="text-black">Effective Date:</strong> October 1, 2025
                                             </p>
                                             <p class="header-description" style="font-size: 18px; color: #4F4F4F;">
-                                                <strong class="text-black">HealthCentreApp</strong> (“we,” “our,” “us”)
+                                                <strong class="text-black">HealthCentreApp</strong> ("we," "our," "us")
                                                 is committed to protecting your privacy. This Privacy Policy explains
                                                 how we
                                                 collect, use, store, and protect your information when you use our
@@ -707,7 +709,7 @@
             function commingSoon(text) {
                 profileModal.classList.add('show');
                 document.getElementById('overlay2').classList.add('show');
-                document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
+                document.querySelector('#profileModal p').innerHTML = `<p>${text} isn't available yet!</p>`;
             }
 
             function isMobile() {
@@ -716,13 +718,12 @@
 
             document.querySelectorAll('.edition-card').forEach(card => {
                 card.addEventListener('click', function () {
-                    if (isMobile()) {
-                        const edition = this.getAttribute('data-edition');
-                        const mobileDetail = document.getElementById(`mobile-detail-${edition}`);
-                        const arrow = this.querySelector('.card-arrow');
+                    const edition = this.getAttribute('data-edition');
+                    const isCurrentlyActive = this.classList.contains('active');
 
-                        // Check if this card is currently active
-                        const isCurrentlyActive = this.classList.contains('active');
+                    if (isMobile()) {
+                        // Mobile: Toggle mobile detail on click
+                        const mobileDetail = document.getElementById(`mobile-detail-${edition}`);
 
                         // Close all other mobile details and remove active class
                         document.querySelectorAll('.mobile-detail').forEach(detail => {
@@ -737,44 +738,31 @@
                             mobileDetail.classList.add('show');
                             this.classList.add('active');
                         }
-                    }
-                });
-
-                // Desktop hover behavior
-                card.addEventListener('mouseenter', function () {   // ✅ sahi event
-                    if (!isMobile()) {
-                        const edition = this.getAttribute('data-edition');
+                    } else {
+                        // Desktop: Toggle detail panel on click (not hover)
                         const detailPanel = document.getElementById(`detail-${edition}`);
                         const detailSection = document.getElementById('detailSection');
 
-                        // Close all other detail panels and remove active class
-                        document.querySelectorAll('.detail-panel').forEach(panel => {
-                            panel.style.display = 'none';
-                        });
-                        document.querySelectorAll('.edition-card').forEach(c => {
-                            c.classList.remove('active');
-                        });
-
-                        // Show selected detail panel and add active class
-                        if (detailPanel) {
-                            detailPanel.style.display = 'block';
-                            detailSection.classList.add('show');
-                            this.classList.add('active');
-                        }
-                    }
-                });
-
-                // Hide on mouse leave
-                card.addEventListener('mouseleave', function () {
-                    if (!isMobile()) {
-                        const edition = this.getAttribute('data-edition');
-                        const detailPanel = document.getElementById(`detail-${edition}`);
-                        const detailSection = document.getElementById('detailSection');
-
-                        if (detailPanel) {
+                        if (isCurrentlyActive) {
+                            // If already active, close it
                             detailPanel.style.display = 'none';
                             detailSection.classList.remove('show');
                             this.classList.remove('active');
+                        } else {
+                            // Close all other detail panels and remove active class
+                            document.querySelectorAll('.detail-panel').forEach(panel => {
+                                panel.style.display = 'none';
+                            });
+                            document.querySelectorAll('.edition-card').forEach(c => {
+                                c.classList.remove('active');
+                            });
+
+                            // Show selected detail panel and add active class
+                            if (detailPanel) {
+                                detailPanel.style.display = 'block';
+                                detailSection.classList.add('show');
+                                this.classList.add('active');
+                            }
                         }
                     }
                 });
@@ -882,48 +870,48 @@
             const profileModal = document.getElementById('profileModal');
             const closeProfileBtn = document.getElementById('closeProfileBtn');
 
-    // Common UID check
-    const uid = localStorage.getItem("uid");
+            // Common UID check
+            const uid = localStorage.getItem("uid");
 
-    // Handle all profile buttons (desktop + mobile)
-    const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
+            // Handle all profile buttons (desktop + mobile)
+            const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
 
-    allProfiles.forEach(wrapper => {
-        const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
-        const dropdownMenu = wrapper.querySelector(".dropdown-menu");
+            allProfiles.forEach(wrapper => {
+                const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
+                const dropdownMenu = wrapper.querySelector(".dropdown-menu");
 
-        if (!button) return; // Safety check
+                if (!button) return; // Safety check
 
-        if (!uid) {
-            // --- Not Logged In ---
-            button.classList.remove("dropdown-toggle");
-            if (dropdownMenu) dropdownMenu.style.display = "none";
-            button.innerHTML = `
+                if (!uid) {
+                    // --- Not Logged In ---
+                    button.classList.remove("dropdown-toggle");
+                    if (dropdownMenu) dropdownMenu.style.display = "none";
+                    button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
             <span class="mx-2">Signup</span>
             `;
-            button.onclick = () => (window.location.href = "/login.html");
-            button.removeAttribute("data-bs-toggle"); // Disable dropdown
-        } else {
-            button.classList.add("dropdown-toggle");
-            // --- Logged In ---
-            if (dropdownMenu) dropdownMenu.style.display = "";
-            button.innerHTML = `
+                    button.onclick = () => (window.location.href = "/login.html");
+                    button.removeAttribute("data-bs-toggle"); // Disable dropdown
+                } else {
+                    button.classList.add("dropdown-toggle");
+                    // --- Logged In ---
+                    if (dropdownMenu) dropdownMenu.style.display = "";
+                    button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
             <i class="bi bi-chevron-down ms-1"></i>
         `;
-            button.setAttribute("data-bs-toggle", "dropdown");
-        }
-    });
+                    button.setAttribute("data-bs-toggle", "dropdown");
+                }
+            });
 
 
-    // Logout logic
-    document.addEventListener("click", e => {
-        if (e.target.id === "logout-btn") {
-            localStorage.removeItem("uid");
-            location.reload();
-        }
-    });
+            // Logout logic
+            document.addEventListener("click", e => {
+                if (e.target.id === "logout-btn") {
+                    localStorage.removeItem("uid");
+                    location.reload();
+                }
+            });
 
 
 
