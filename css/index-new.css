@@ -10,12 +10,32 @@
     margin: 0;
   }
   
+  /* .sidebar .nav-menu{
+    height: 100%;
+    max-height: 80vh;
+    overflow-y: scroll;
+  }
+  .sidebar .nav-menu::-webkit-scrollbar {
+    display: none;
+  } */
   .sidebar {
     width: 250px;
     background: #ffffff;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-items: space-between !important;
     border-right: 1px solid #e5e7eb;
-    min-height: 100vh;
+    /* min-height: 100vh !important; */
+    max-height: 100vh !important;
+    /* height: 100% !important; */
+    height: auto !important;
+
+    position: fixed;
     padding: 20px 0;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari aur Opera ke liye */
   }
   
   .sidebar-header {
@@ -117,7 +137,7 @@
   .sidebar-footer {
     margin-top: 20px;
     padding: 20px;
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
     width: 100%;
   }
@@ -213,17 +233,15 @@
     max-width: 380px !important;
     margin-bottom: 0px !important;
     transition: 0.3s ease-in-out;
-    border-radius: 25px;
 }
 
 .medical img:hover{
-    transform: translatex(20px);
-    box-shadow: 0 4px 8px rgba(105, 38, 38, 0.2);
+    transform: scale(1.05);
 }
 
 .swiper {
     max-width: 380px !important;
-    width: 380px !important;
+    width: 100% !important;
 }
 
 
@@ -251,15 +269,15 @@
 
 @media (max-width: 450px) {
     .swiper {
-        max-width: 300px !important;
+        max-width: 250px !important;
         width: 300px !important;
     }
     .medical img {
         border-radius: 15px;
-        max-width: 300px !important;
+        max-width: 250px !important;
     }
     .card-img-container {
-        max-width: 310px !important;
+        max-width: 260px !important;
     }
 }
 

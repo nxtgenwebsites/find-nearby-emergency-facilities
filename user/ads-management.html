@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/sponsor-ads.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 
@@ -34,9 +38,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="sponsor-ads.html" class="nav-link active">
+                    <a href="ads-management.html" class="nav-link active">
                         <i class="fa-solid fa-handshake"></i>
-                        <span>Sponsors Ads</span>
+                        <span>Ads Management</span>
                     </a>
                 </li>
             </ul>
@@ -103,7 +107,7 @@
                                     <i class="fa-solid fa-handshake"></i>
                                 </div>
                                 <div>
-                                    <div class="small-muted">Total Sponsors</div>
+                                    <div class="small-muted">Total Ads</div>
                                     <div class="stat-value" id="statTotal">0</div>
                                 </div>
                             </div>
@@ -114,7 +118,7 @@
                                     <i class="fa-solid fa-check-circle"></i>
                                 </div>
                                 <div>
-                                    <div class="small-muted">Active</div>
+                                    <div class="small-muted">Active Ads</div>
                                     <div class="stat-value" id="statActive">0</div>
                                 </div>
                             </div>
@@ -125,7 +129,7 @@
                                     <i class="fa-solid fa-circle-xmark"></i>
                                 </div>
                                 <div>
-                                    <div class="small-muted">Inactive</div>
+                                    <div class="small-muted">Inactive Ads</div>
                                     <div class="stat-value" id="statInactive">0</div>
                                 </div>
                             </div>
@@ -137,7 +141,7 @@
                             <h5 class="um-card-title mb-0">Sponsors</h5>
                             <div class="filter-wrap d-flex gap-2">
                                 <input id="searchInput" type="search" class="form-control"
-                                    placeholder="Search by name or website..." aria-label="Search sponsors" />
+                                    placeholder="Search your Ads." aria-label="Search sponsors" />
                                 <select id="statusFilter" class="form-select" aria-label="Filter by status">
                                     <option value="">All Status</option>
                                     <option value="pending">Pending</option>
@@ -202,18 +206,19 @@
     <div class="custom-popup" id="addEditPopup">
         <div class="custom-popup-content">
             <div class="custom-popup-header">
-                <h5 id="popupTitle">Add Sponsor</h5>
+                <h5 id="popupTitle">Submit Ad</h5>
                 <button class="custom-popup-close" id="addEditPopupClose">&times;</button>
             </div>
             <div class="custom-popup-body">
                 <form id="sponsorForm">
                     <div class="form-group">
-                        <label>Ad Image (1100x620px) *</label>
+                        <label>Ad Image *</label>
                         <div class="image-upload-area" id="imageUploadArea">
                             <i class="fa-solid fa-cloud-arrow-up"
                                 style="font-size: 32px; color: #999; margin-bottom: 10px; display: block;"></i>
-                            <p style="margin: 0; color: #666; font-size: 14px;">Drag and drop your image here or click
-                                to select (1100x620px required)</p>
+                            <p style="margin: 0; color: #666; font-size: 14px;">Drag and drop your image here or click here to select an image
+                            </p>
+                            <p style="margin: 0; color: #666; font-size: 14px;">Image Dimensions: 1100 x 620 pixels OR 11.5 x 6.50 inches required</p>
                             <input type="file" id="logoInput" name="logo" accept="image/*" required>
                         </div>
                         <img id="imagePreview" class="image-preview" style="display: none;">
@@ -308,6 +313,10 @@
 
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         // ============================================
         // CONFIGURATION
@@ -424,7 +433,9 @@
             sponsorsTbody.innerHTML = '';
             list.forEach(s => {
                 const tr = document.createElement('tr');
-                const statusBadge = `<span class="pending-badge">${s.status}</span>`;
+                const statusText = s.status.charAt(0).toUpperCase() + s.status.slice(1);
+                const statusBadge = `<span class="${s.status}-badge">${statusText}</span>`;
+
 
                 tr.innerHTML = `
                   <td>
@@ -502,7 +513,8 @@
             detailsHtml += `<div class="detail-row"><div class="detail-label">End Date</div><div class="detail-value">${formatDate(sponsor.endDate || '')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Impression Days</div><div class="detail-value">${sponsor.impressionDays || 0} days</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Link</div><div class="detail-value"><a href="${escapeHtml(sponsor.link)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.link)}</a></div></div>`;
-            detailsHtml += `<div class="detail-row"><div class="detail-label">Status</div><div class="detail-value"><span class="badge bg-${sponsor.status === 'active' ? 'success' : sponsor.status === 'pending' ? 'warning' : 'danger'}">${sponsor.status}</span></div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Status</div><div class="detail-value"><span class="${sponsor.status}-badge">${sponsor.status}</span></div></div>`;
+            
 
             viewPopupBody.innerHTML = detailsHtml;
             openPopup(viewPopup);
@@ -562,11 +574,17 @@
                 const response = await axios.get(`${API_BASE_URL}/owner/${uid}`);
                 // <CHANGE> Fixed: Handle both array and object response formats
                 allSponsors = Array.isArray(response.data) ? response.data : (response.data?.ads || []);
-                console.log("[v0] Ads loaded successfully:", allSponsors.length);
                 applyFilters();
             } catch (error) {
                 console.error("[v0] Load Ads Error:", error.response?.data || error.message);
-                alert("❌ Failed to load ads. Please refresh the page.");
+                toastr.error(err.response?.data?.message || "Failed to load ads", "Error", {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "2000",
+                    "extendedTimeOut": "1000",
+                })
             }
         }
 
@@ -735,14 +753,28 @@
             if (editingId) {
                 result = await updateAdAPI(editingId, formData);
                 if (result.success) {
-                    alert("✅ Ad updated successfully!");
+                    toastr.success("Ad updated successfully!", "Updated  Successfully", {
+                        "closeButton": true,
+                        "progressBar": true,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                    })
                 } else {
                     alert("❌ Failed to update ad: " + result.error);
                 }
             } else {
                 result = await createAdAPI(formData);
                 if (result.success) {
-                    alert("✅ Ad created successfully!");
+                    toastr.success("Ad submitted successfully!", "Submitted  Successfully", {
+                        "closeButton": true,
+                        "progressBar": true,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                    })
                 } else {
                     alert("❌ Failed to create ad: " + result.error);
                 }
@@ -765,15 +797,30 @@
             if (pendingDeleteId) {
                 const result = await deleteAdAPI(pendingDeleteId);
                 if (result.success) {
-                    alert("✅ Ad deleted successfully!");
+                    toastr.success("Ad deleted successfully!", "Deleted Ad", {
+                        "closeButton": true,
+                        "progressBar": true,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                    })
                     await loadSponsorsFromAPI();
                     closePopup(deleteConfirmPopup);
                 } else {
-                    alert("❌ Failed to delete ad: " + result.error);
+                    toastr.error("Failed to delete ad: " + result.error, "Error", {
+                        "closeButton": true,
+                        "progressBar": true,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                    })
                 }
                 pendingDeleteId = null;
             }
         });
+
 
         // ============================================
         // TABLE ACTION BUTTONS

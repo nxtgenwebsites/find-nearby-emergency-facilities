@@ -212,81 +212,83 @@
 
     <div class="d-flex w-100">
         <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <a href="index.html" class="logo">
-                    <div class="logo-img">
-                        <img src="assets/images/logo.svg" alt="Logo" />
-                    </div>
-                </a>
-            </div>
-
-            <ul class="nav-menu">
-                <!-- Home stays outside toggle -->
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link active">
-                        <img src="assets/icons/home.svg" />
-                        <span>Home</span>
+        <div class="sidebar" id="sidebar" style="justify-content: space-between !important;">
+            <div>
+                <div class="sidebar-header">
+                    <a href="index.html" class="logo">
+                        <div class="logo-img">
+                            <img src="assets/images/logo.svg" alt="Logo" />
+                        </div>
                     </a>
-                </li>
-            
-                <!-- Toggle Section -->
-                <li class="nav-item toggle-section">
-                    <button class="nav-link toggle-btn">
-                        <img src="assets/icons/bx_layer.png" />
-                        <span>GPSMedical</span>
-                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
-                    </button>
-            
-                    <ul class="submenu">
-                        <li><a class="nav-link no-page"><span>Hospitals Near You</span></a></li>
-                        <li><a class="nav-link no-page"><span>Medical Services Near You</span></a></li>
-                        <li><a class="nav-link no-page"><span>Place an Ad</span></a></li>
-                        <li><a class="nav-link no-page"><span>GiftedMedical</span></a></li>
-                        <li><a class="nav-link no-page"><span>Review</span></a></li>
-                    </ul>
-                </li>
-            
-                <!-- Toggle Section -->
-                <li class="nav-item toggle-section">
-                    <button class="nav-link toggle-btn">
-                        <img src="assets/icons/fluent-mdl2_health.png" />
-                        <span>DigitalHealth (Coming Soon)</span>
-                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
-                    </button>
-            
-                    <ul class="submenu">
-                        <li><a class="nav-link no-page"><span>CareAI</span></a></li>
-                        <li><a class="nav-link no-page"><span>CareConnect</span></a></li>
-                        <li><a class="nav-link no-page"><span>CareDiary</span></a></li>
-                        <li><a class="nav-link no-page"><span>CareMedication</span></a></li>
-                        <li><a class="nav-link no-page"><span>CareMonitor</span></a></li>
-                        <li><a class="nav-link no-page"><span>CareRecord</span></a></li>
-                        <li><a class="nav-link no-page"><span>CareRequest</span></a></li>
-                        <li><a class="nav-link no-page"><span>CareRemote</span></a></li>
-                        <li><a class="nav-link no-page"><span>CareSecure</span></a></li>
-                    </ul>
-                </li>
-            
-                <!-- Toggle Section -->
-                <li class="nav-item toggle-section">
-                    <button class="nav-link toggle-btn">
-                        <img src="assets/icons/Group (1).png" />
-                        <span>Information</span>
-                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
-                    </button>
-            
-                    <ul class="submenu">
-                        <li><a class="nav-link" href="about-us.html"><span>About Us</span></a></li>
-                        <li><a class="nav-link" href="editions.html"><span>Editions</span></a></li>
-                        <li><a class="nav-link no-page"><span>Upgrade</span></a></li>
-                        <li><a class="nav-link" href="partnerships.html"><span>Partnerships</span></a></li>
-                        <li><a class="nav-link" href="reviews.html"><span>Reviews</span></a></li>
-                        <li><a class="nav-link" href="contact-us.html"><span>Contact Us</span></a></li>
-                        <li><a class="nav-link" href="privacy-policy.html"><span>Privacy & Terms</span></a></li>
-                    </ul>
-                </li>
-            </ul>
+                </div>
+    
+                <ul class="nav-menu">
+                    <!-- Home stays outside toggle -->
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active">
+                            <img src="assets/icons/home.svg" />
+                            <span>Home</span>
+                        </a>
+                    </li>
+                
+                    <!-- Toggle Section -->
+                    <li class="nav-item toggle-section">
+                        <button class="nav-link toggle-btn">
+                            <img src="assets/icons/bx_layer.png" />
+                            <span>GPSMedical</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </button>
+                
+                        <ul class="submenu">
+                            <li><a class="nav-link" onclick="findNearbyServices()"><span>Hospitals Near You</span></a></li>
+                            <li><a class="nav-link" onclick="findNearbyServices()"><span>Medical Services Near You</span></a></li>
+                            <li><a class="nav-link auth-btns"><span>Place an Ad</span></a></li>
+                            <li><a class="nav-link coming-soon"><span>GiftedMedical</span></a></li>
+                            <li><a class="nav-link" href="reviews.html"><span>Reviews</span></a></li>
+                        </ul>
+                    </li>
+                
+                    <!-- Toggle Section -->
+                    <li class="nav-item toggle-section">
+                        <button class="nav-link toggle-btn">
+                            <img src="assets/icons/fluent-mdl2_health.png" />
+                            <span>DigitalHealth (Coming Soon)</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </button>
+                
+                        <ul class="submenu">
+                            <li><a class="nav-link no-page"><span>CareAI</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareConnect</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareDiary</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareMedication</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareMonitor</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareRecord</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareRequest</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareRemote</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareSecure</span></a></li>
+                        </ul>
+                    </li>
+                
+                    <!-- Toggle Section -->
+                    <li class="nav-item toggle-section">
+                        <button class="nav-link toggle-btn">
+                            <img src="assets/icons/Group (1).png" />
+                            <span>Information</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </button>
+                
+                        <ul class="submenu">
+                            <li><a class="nav-link" href="about-us.html"><span>About Us</span></a></li>
+                            <li><a class="nav-link" href="editions.html"><span>Editions</span></a></li>
+                            <li><a class="nav-link no-page"><span>Upgrade</span></a></li>
+                            <li><a class="nav-link" href="partnerships.html"><span>Partnerships</span></a></li>
+                            <li><a class="nav-link" href="reviews.html"><span>Reviews</span></a></li>
+                            <li><a class="nav-link" href="contact-us.html"><span>Contact Us</span></a></li>
+                            <li><a class="nav-link" href="privacy-policy.html"><span>Privacy & Terms</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
             
 
 
@@ -333,7 +335,7 @@
                 <div class="container h-100">
                     <div class="hero-content position-relative d-none d-md-block">
                         <div class="hero-text">
-                                <button class="btn notification-btn">
+                                <button class="btn notification-btn no-page">
                                     <img src="assets/icons/carbon_notification-new.png" alt="">
                                 </button>
                             <!-- Profile Button -->
@@ -393,7 +395,109 @@
                             <span class="time-date"></span>
                         </div>
                     </div>
-                    <div class="center-container">
+                    <!-- Desktop Container  -->
+                    <div class="center-container d-none d-md-block">
+
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="row card-img-container">
+                                    <div class="col-12 text-center" onclick="findNearbyServices()">
+                                        <h2 class="search-heading medical-service-img  mt-3">
+                                            <img src="assets/images/medical service.png" alt="">
+                                        </h2>
+                                    </div>
+                                    <div class="col-12">
+                                        <h2 class="search-heading mt-3">
+                                            <img src="assets/images/Group 146.png" alt="">
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="medical mt-3 d-none d-md-block " onclick="findNearbyServices()">
+                                    <img src="assets/images/hospital near you.png" alt="">
+                                </div>
+        
+                                <div class="medical mt-3 d-md-none" onclick="findNearbyServices()">
+                                    <img src="assets/images/hospital near you.png" alt="">
+                                </div>
+
+                                
+                                <div class="sponsored-section w-100 mt-4 mb-2">
+                                    <div class="swiper">
+                                        <div class="swiper-wrapper" id="adsWrapper">
+                                            <!-- Dynamic ads will be inserted here -->
+                                        </div> 
+                                     </div>
+                            </div>
+                            </div>
+
+                                                        <div class="col-4">
+                                                            <div class="row card-img-container">
+                                                                <div class="col-12 text-center">
+                                                                    <h2 class="search-heading mt-3 auth-btns">
+                                                                        <img src="assets/images/Group (1).png" alt="">
+                                                                    </h2>
+                                                                </div>
+                                                                <div class="col-12 text-center">
+                                                                    <h2 class="search-heading mt-3 coming-soon">
+                                                                        <img src="assets/images/Group.png" alt="">
+                                                                    </h2>
+                                                                </div>                              </div>
+                                                        </div>
+                        </div>
+
+
+                        <!-- Search Section -->
+                        <div class="search-section d-none" id="searchSection">
+                            <div class="tags-container" id="tagsContainer">
+                                <input type="text" class="search-input" id="searchInput"
+                                    placeholder="Find Specific Medical Services near you" />
+                            </div>
+                            <select id="dropdown" class="dropdown">
+                                <option value="" selected disabled>Find Specific Medical Services near you</option>
+                                <option value="Hospital">Hospital</option>
+                                <option value="Health Center">Health Center</option>
+                                <option value="Maternity Center">Maternity Center</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Chemist">Chemist</option>
+                                <option value="Labs">Labs</option>
+                                <option value="Opticians">Opticians</option>
+                                <option value="Physiotherapist">Physiotherapist</option>
+                                <option value="Mental Health">Mental Health</option>
+                                <option value="Psychologists">Psychologists</option>
+                            </select>
+                            <button class="submit-btn" id="submitBtn">Search</button>
+                        </div>
+
+
+
+
+
+                        <div class="pages-link d-none d-lg-block">
+                            <h5 class="text-center gap-2 d-flex justify-content-center align-items-center">
+                                <span>
+                                    <a href="privacy-policy.html">Privacy Policy</a>
+                                </span>
+                                <span class="mt-1"> | </span>
+                                <span>
+                                    <a href="terms-and-conditions.html">Terms & Conditions</a>
+                                </span>
+                            </h5>
+                            <a href="https://facebook.com/healthcentreapp/">
+                                <button>
+                                    <span>
+                                        Follow Us On
+                                    </span>
+                                    <span>
+                                        <img src="assets/icons/facebook 1.png" alt="">
+                                    </span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Mobile Container  -->
+                    <div class="center-container  d-md-none">
                         <div class="medical mt-4 d-none d-md-block " onclick="findNearbyServices()">
                             <img src="assets/images/hospital near you.png" alt="">
                         </div>
@@ -414,6 +518,7 @@
                                 </h2>
                             </div>
                         </div>
+                        
                         <!-- Search Section -->
                         <div class="search-section d-none" id="searchSection">
                             <div class="tags-container" id="tagsContainer">
@@ -440,34 +545,9 @@
 
                         <div class="sponsored-section w-100 mt-4 mb-2">
                             <div class="swiper">
-                                <div class="swiper-wrapper">
-                                    <!-- Slides -->
-                                    <!-- <div class="swiper-slide text-black pb-5">
-                                        <img src="assets/images/add_1.jpg" alt="images">
-                                    </div>
-                                    <div class="swiper-slide text-black pb-5">
-                                        <img src="assets/images/add_2.jpg" alt="images">
-                                    </div>
-                                    <div class="swiper-slide text-black pb-5">
-                                        <img src="assets/images/add_3.jpg" alt="images">
-                                    </div>
-                                    <div class="swiper-slide text-black pb-5">
-                                        <img src="assets/images/add_4.jpg" alt="images">
-                                    </div> -->
-                                    <div class="swiper-slide text-black pb-2">
-                                        <img src="assets/images/add_1.jpg" alt="images">
-                                    </div>
-                                    <div class="swiper-slide text-black pb-2">
-                                        <img src="assets/images/add_2.jpg" alt="images">
-                                    </div>
-                                    <div class="swiper-slide text-black pb-2">
-                                        <img src="assets/images/add_3.jpg" alt="images">
-                                    </div>
-                                    <div class="swiper-slide text-black pb-2">
-                                        <img src="assets/images/add_4.jpg" alt="images">
-                                    </div>
+                                <div class="swiper-wrapper" id="adsWrapper">
+                                    <!-- Dynamic ads will be inserted here -->
                                 </div>
-
                             </div>
                         </div>
 
@@ -553,7 +633,45 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/country-states.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const adsWrappers = document.querySelectorAll(".swiper-wrapper");
 
+            try {
+                // ✅ Fetch active ads from API
+                const response = await axios.get("https://find-nearby-emergency-facilities-ba.vercel.app/api/ads/active");
+                const ads = response.data;
+
+                // ✅ Loop through each swiper-wrapper
+                adsWrappers.forEach(wrapper => {
+                    // Clear previous slides
+                    wrapper.innerHTML = "";
+
+                    // Add slides dynamically
+                    ads.forEach(ad => {
+                        const slide = document.createElement("div");
+                        slide.classList.add("swiper-slide", "text-black", "pb-2");
+
+                        slide.innerHTML = `
+                      <a href="${ad.link}" target="_blank">
+                        <img src="${ad.imageUrl}" alt="${ad.sponsorName}" />
+                      </a>
+                    `;
+
+                        wrapper.appendChild(slide);
+                    });
+                });
+            } catch (error) {
+                console.error("Failed to load ads:", error);
+                adsWrappers.forEach(wrapper => {
+                    wrapper.innerHTML = `<p class="text-danger">Failed to load sponsored ads.</p>`;
+                });
+            }
+        });
+    </script>
+        
     <script>
     const authBtns = document.querySelectorAll(".auth-btns");
     const authModal = document.getElementById("authModal");
@@ -561,6 +679,10 @@
 
     authBtns.forEach(btn => {
         btn.addEventListener("click", () => {
+            const uid = localStorage.getItem("uid");
+            if (uid) {
+                return window.location.href = "user/ads-management.html";
+            }
             authModal.classList.add("show");
             document.getElementById('overlay2').classList.add('show');
         });

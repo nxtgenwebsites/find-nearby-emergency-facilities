@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/index-new.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
@@ -28,7 +29,7 @@
     <!-- Added location permission modal -->
     <div class="location-modal " id="profileModal">
         <h3>Coming Soon!</h3>
-        <p>User profile feature isn’t available yet!</p>
+        <p>The page is not available yet!</p>
         <div class="location-buttons">
             <button class="btn-location btn-allow" id="closeProfileBtn">
                 Go back
@@ -36,18 +37,44 @@
         </div>
     </div>
 
+
+    <!-- Added location permission modal -->
+    <div class="location-modal" id="authModal">
+        <h3>Sign In / Sign Up to start posting an Ad</h3>
+        <p>In order to start placing your ad, you need to <a href="login.html">Sign In.</a> If you’re new to this
+            platfor, please <a href="signup.html">Sign Up</a></p>
+        <div class="location-buttons mt-3">
+            <button class="btn-location btn-deny" id="authclose">Cancel</button>
+            <button class="btn-location btn-allow">Sign In</button>
+        </div>
+    </div>
+
+
+
+    <!-- Added location permission modal -->
+    <div class="location-modal coming-soon-popup" id="profileModal2">
+        <h3>Coming Soon!</h3>
+        <p>DigitalHealth Standard Edition features will be available in the next update.</p>
+        <div class="location-buttons">
+            <button class="btn-location btn-allow" id="closeProfileBtn2">
+                Ok!
+            </button>
+        </div>
+    </div>
+
     <!-- Added location permission modal -->
     <div class="location-modal" id="locationModal">
         <h4 class="text-warning">WARNING</h4>
-        <p class="mt-3 mb-0">This Geo Location Service uses Google map and its subject to Google terms and Conditions.</p>
-        <p class="mt-2 mb-0">Also, please ensure you grant Google Location Map access to your current location, otherwise it might give you wrong
-        results.</p>
-        <p class="mt-2"><strong>Do you want to Proceed?</strong></p>
-        <div class="location-buttons">
-            <button class="btn-location btn-deny" onclick="denyLocation()">No</button>
-            <button class="btn-location btn-allow" id="agreeBtn">Yes</button>
+        <p class="mt-3 mb-0">You’ll be redirected to Google Maps. HealthCentreApp doesn’t collect your location. Please
+            make sure to allow Google
+            Maps to use your current location so results are accurate.</p>
+        <p class="mt-2 mb-0">Also, please ensure you grant Google Location Map access to your current location,
+            Google Maps operates under its own terms and privacy policy</p>
+        <div class="location-buttons mt-3">
+            <button class="btn-location btn-deny" onclick="denyLocation()">Cancel</button>
+            <button class="btn-location btn-allow" id="agreeBtn">I Understand</button>
         </div>
-        </div>
+    </div>
 
     <!-- Added search popup modal -->
     <div class="popup-overlay d-none" id="seach-popup">
@@ -186,59 +213,96 @@
 
     <div class="d-flex w-100">
         <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <a href="index.html" class="logo">
-                    <div class="logo-img">
-                        <img src="assets/images/logo.svg" alt="">
-                    </div>
+        <div class="sidebar" id="sidebar" style="justify-content: space-between !important;">
+            <div>
+                <div class="sidebar-header">
+                    <a href="index.html" class="logo">
+                        <div class="logo-img">
+                            <img src="assets/images/logo.svg" alt="Logo" />
+                        </div>
+                    </a>
+                </div>
+
+                <ul class="nav-menu">
+                    <!-- Home stays outside toggle -->
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active">
+                            <img src="assets/icons/home.svg" />
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                    <!-- Toggle Section -->
+                    <li class="nav-item toggle-section">
+                        <button class="nav-link toggle-btn">
+                            <img src="assets/icons/bx_layer.png" />
+                            <span>GPSMedical</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </button>
+
+                        <ul class="submenu">
+                            <li><a class="nav-link" onclick="findNearbyServices()"><span>Hospitals Near You</span></a>
+                            </li>
+                            <li><a class="nav-link" onclick="findNearbyServices()"><span>Medical Services Near
+                                        You</span></a></li>
+                            <li><a class="nav-link auth-btns"><span>Place an Ad</span></a></li>
+                            <li><a class="nav-link coming-soon"><span>GiftedMedical</span></a></li>
+                            <li><a class="nav-link" href="reviews.html"><span>Reviews</span></a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Toggle Section -->
+                    <li class="nav-item toggle-section">
+                        <button class="nav-link toggle-btn">
+                            <img src="assets/icons/fluent-mdl2_health.png" />
+                            <span>DigitalHealth (Coming Soon)</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </button>
+
+                        <ul class="submenu">
+                            <li><a class="nav-link no-page"><span>CareAI</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareConnect</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareDiary</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareMedication</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareMonitor</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareRecord</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareRequest</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareRemote</span></a></li>
+                            <li><a class="nav-link no-page"><span>CareSecure</span></a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Toggle Section -->
+                    <li class="nav-item toggle-section">
+                        <button class="nav-link toggle-btn">
+                            <img src="assets/icons/Group (1).png" />
+                            <span>Information</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </button>
+
+                        <ul class="submenu">
+                            <li><a class="nav-link" href="about-us.html"><span>About Us</span></a></li>
+                            <li><a class="nav-link" href="editions.html"><span>Editions</span></a></li>
+                            <li><a class="nav-link no-page"><span>Upgrade</span></a></li>
+                            <li><a class="nav-link" href="partnerships.html"><span>Partnerships</span></a></li>
+                            <li><a class="nav-link" href="reviews.html"><span>Reviews</span></a></li>
+                            <li><a class="nav-link" href="contact-us.html"><span>Contact Us</span></a></li>
+                            <li><a class="nav-link" href="privacy-policy.html"><span>Privacy & Terms</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+
+
+            <div class="sidebar-footer">
+                <a href="login.html">
+                    <button class="auth-btn">Register / Sign In</button>
                 </a>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link active">
-                        <img src="assets/icons/home.svg" />
-                        <span>Home</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="about-us.html" class="nav-link">
-                        <img src="assets/icons/info.svg" />
-                        <span>About Us</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="contact-us.html" class="nav-link">
-                        <img src="assets/icons/mail.svg" />
-                        <span>Contact Us</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="editions.html" class="nav-link">
-                        <img src="assets/icons/book.svg" />
-                        <span>Editions</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                   <a href="reviews.html" class="nav-link">
-                        <img src="assets/icons/star.svg" />
-                        <span>Reviews</span>
-                    </a>
-                </li>
-                <li class="nav-item no-page">
-                    <a href="partnerships.html" class="nav-link">
-                        <img src="assets/icons/ph_handshake.svg" />
-                        <span>Partnerships</span>
-                    </a>
-                </li>
-                <li class="nav-item no-page">
-                    <a href="systems.html" class="nav-link">
-                        <img src="assets/icons/settings.svg" />
-                        <span>System</span>
-                    </a>
-                </li>
-            </ul>
+            </a>
         </div>
+
 
         <!-- Main Content -->
         <div class="main-content w-100">
@@ -253,7 +317,7 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="assets/icons/user-icon.svg" alt="User">
                         </button>
-                
+
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
                             <li><a class="dropdown-item" href="user/profile.html">Profile</a></li>
                             <li>
@@ -262,7 +326,7 @@
                             <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
                         </ul>
                     </div>
-                
+
                     <button class="menu-toggle" id="menuToggle">
                         <img src="assets/icons/bars.svg" alt="">
                     </button>
@@ -274,21 +338,28 @@
                 <div class="container h-100">
                     <div class="hero-content position-relative d-none d-md-block">
                         <div class="hero-text">
-<!-- Profile Button -->
-<div class="dropdown profile-wrapper">
-    <button class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle" type="button"
-        id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="gap: 5px !important;">
-        <img src="assets/icons/user-icon.svg" width="30" alt="">
-        <i class="bi bi-chevron-down"></i>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
-        <li><a class="dropdown-item" href="user/profile.html">Profile</a></li>
-        <li>
-            <hr class="dropdown-divider">
-        </li>
-        <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
-    </ul>
-</div>
+                            <button class="btn notification-btn no-page">
+                                <img src="assets/icons/carbon_notification-new.png" alt="">
+                            </button>
+                            <!-- Profile Button -->
+
+                            <div class="dropdown profile-wrapper">
+                                <button
+                                    class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle"
+                                    type="button" id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+                                    style="gap: 5px !important;">
+                                    <img src="assets/icons/user-icon.svg" width="30" alt="">
+                                    <i class="bi bi-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm"
+                                    aria-labelledby="profileMenuButton">
+                                    <li><a class="dropdown-item" href="user/profile.html">Profile</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                                </ul>
+                            </div>
                             <span>Welcome to</span>
                             <h1 class="hero-title">HealthCentreApp</h1>
                             <div class="d-flex flex-column flex-lg-row justify-content-between">
@@ -315,7 +386,7 @@
                                 <!-- <span class="text-center">Welcome to</span> -->
                                 <!-- <h1 class="hero-title">HealthCentreApp</h1> -->
                                 <div class="d-flex flex-column flex-lg-row justify-content-between">
-                                    <p class="hero-subtitle mb-1">Empowering Citizens, Supporting Health                                  </p>
+                                    <p class="hero-subtitle mb-1">Empowering Citizens, Supporting Health </p>
                                 </div>
                             </div>
                         </div>
@@ -327,47 +398,177 @@
                             <span class="time-date"></span>
                         </div>
                     </div>
-                    <div class="center-container">
+                    <!-- Desktop Container  -->
+                    <div class="center-container d-none d-md-block">
+
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="row card-img-container">
+                                    <div class="col-12 text-center" onclick="findNearbyServices()">
+                                        <h2 class="search-heading medical-service-img  mt-3">
+                                            <img src="assets/images/medical service.png" alt="">
+                                        </h2>
+                                    </div>
+                                    <div class="col-12">
+                                        <h2 class="search-heading mt-3">
+                                            <img src="assets/images/Group 146.png" alt="">
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="medical mt-3 d-none d-md-block " onclick="findNearbyServices()">
+                                    <img src="assets/images/hospital near you.png" alt="">
+                                </div>
+
+                                <div class="medical mt-3 d-md-none" onclick="findNearbyServices()">
+                                    <img src="assets/images/hospital near you.png" alt="">
+                                </div>
+
+
+                                <div class="sponsored-section w-100 mt-4 mb-2">
+                                    <div class="swiper">
+                                        <div class="swiper-wrapper" id="adsWrapper">
+                                            <!-- Dynamic ads will be inserted here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="row card-img-container">
+                                    <div class="col-12 text-center">
+                                        <h2 class="search-heading mt-3 auth-btns">
+                                            <img src="assets/images/Group (1).png" alt="">
+                                        </h2>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <h2 class="search-heading mt-3 coming-soon">
+                                            <img src="assets/images/Group.png" alt="">
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Search Section -->
+                        <div class="search-section d-none" id="searchSection">
+                            <div class="tags-container" id="tagsContainer">
+                                <input type="text" class="search-input" id="searchInput"
+                                    placeholder="Find Specific Medical Services near you" />
+                            </div>
+                            <select id="dropdown" class="dropdown">
+                                <option value="" selected disabled>Find Specific Medical Services near you</option>
+                                <option value="Hospital">Hospital</option>
+                                <option value="Health Center">Health Center</option>
+                                <option value="Maternity Center">Maternity Center</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Chemist">Chemist</option>
+                                <option value="Labs">Labs</option>
+                                <option value="Opticians">Opticians</option>
+                                <option value="Physiotherapist">Physiotherapist</option>
+                                <option value="Mental Health">Mental Health</option>
+                                <option value="Psychologists">Psychologists</option>
+                            </select>
+                            <button class="submit-btn" id="submitBtn">Search</button>
+                        </div>
+
+
+
+
+
+                        <div class="pages-link d-none d-lg-block">
+                            <h5 class="text-center gap-2 d-flex justify-content-center align-items-center">
+                                <span>
+                                    <a href="privacy-policy.html">Privacy Policy</a>
+                                </span>
+                                <span class="mt-1"> | </span>
+                                <span>
+                                    <a href="terms-and-conditions.html">Terms & Conditions</a>
+                                </span>
+                            </h5>
+                            <a href="https://facebook.com/healthcentreapp/">
+                                <button>
+                                    <span>
+                                        Follow Us On
+                                    </span>
+                                    <span>
+                                        <img src="assets/icons/facebook 1.png" alt="">
+                                    </span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Mobile Container  -->
+                    <div class="center-container  d-md-none">
                         <div class="medical mt-4 d-none d-md-block " onclick="findNearbyServices()">
-                            <img src="assets/images/Group 71.svg" alt="">
+                            <img src="assets/images/hospital near you.png" alt="">
                         </div>
 
                         <div class="medical mt-4 d-md-none" onclick="findNearbyServices()">
-                            <img src="assets/icons/Group 161.svg" alt="">
+                            <img src="assets/images/hospital near you.png" alt="">
                         </div>
 
-<!-- Search Section -->
-<div class="search-section" id="searchSection">
-    <div class="tags-container" id="tagsContainer">
-        <input type="text" class="search-input" id="searchInput"
-            placeholder="Find Specific Medical Services near you" />
-    </div>
-    <select id="dropdown" class="dropdown">
-        <option value="" selected disabled>Find Specific Medical Services near you</option>
-        <option value="Hospital">Hospital</option>
-        <option value="Health Center">Health Center</option>
-        <option value="Maternity Center">Maternity Center</option>
-        <option value="Doctor">Doctor</option>
-        <option value="Chemist">Chemist</option>
-        <option value="Labs">Labs</option>
-        <option value="Opticians">Opticians</option>
-        <option value="Physiotherapist">Physiotherapist</option>
-        <option value="Mental Health">Mental Health</option>
-        <option value="Psychologists">Psychologists</option>
-    </select>
-    <button class="submit-btn" id="submitBtn">Search</button> 
-</div>
+                        <div class="row card-img-container">
+                            <div class="col-6 text-center" onclick="findNearbyServices()">
+                                <h2 class="search-heading medical-service-img  mt-3">
+                                    <img src="assets/images/medical service.png" alt="">
+                                </h2>
+                            </div>
+                            <div class="col-6">
+                                <h2 class="search-heading mt-3">
+                                    <img src="assets/images/Group 146.png" alt="">
+                                </h2>
+                            </div>
+                        </div>
+
+                        <!-- Search Section -->
+                        <div class="search-section d-none" id="searchSection">
+                            <div class="tags-container" id="tagsContainer">
+                                <input type="text" class="search-input" id="searchInput"
+                                    placeholder="Find Specific Medical Services near you" />
+                            </div>
+                            <select id="dropdown" class="dropdown">
+                                <option value="" selected disabled>Find Specific Medical Services near you</option>
+                                <option value="Hospital">Hospital</option>
+                                <option value="Health Center">Health Center</option>
+                                <option value="Maternity Center">Maternity Center</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Chemist">Chemist</option>
+                                <option value="Labs">Labs</option>
+                                <option value="Opticians">Opticians</option>
+                                <option value="Physiotherapist">Physiotherapist</option>
+                                <option value="Mental Health">Mental Health</option>
+                                <option value="Psychologists">Psychologists</option>
+                            </select>
+                            <button class="submit-btn" id="submitBtn">Search</button>
+                        </div>
 
 
 
-                        <div class="sponsored-section w-100 my-4">
+                        <div class="sponsored-section w-100 mt-4 mb-2">
                             <div class="swiper">
                                 <div class="swiper-wrapper" id="adsWrapper">
                                     <!-- Dynamic ads will be inserted here -->
-                                </div>                      </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="pages-link d-block d-lg-none">
+                        <div class="row card-img-container">
+                            <div class="col-6 text-center">
+                                <h2 class="search-heading mt-3 auth-btns">
+                                    <img src="assets/images/Group (1).png" alt="">
+                                </h2>
+                            </div>
+                            <div class="col-6 text-center">
+                                <h2 class="search-heading mt-3 coming-soon">
+                                    <img src="assets/images/Group.png" alt="">
+                                </h2>
+                            </div>
+                        </div>
+
+                        <div class="pages-link d-none d-lg-none">
                             <h5 class="text-center gap-2 d-flex justify-content-center align-items-center">
                                 <span>
                                     <a href="privacy-policy.html">Privacy Policy</a>
@@ -440,37 +641,96 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
-            const adsWrapper = document.getElementById("adsWrapper");
+            const adsWrappers = document.querySelectorAll(".swiper-wrapper");
 
             try {
                 // ✅ Fetch active ads from API
                 const response = await axios.get("https://find-nearby-emergency-facilities-ba.vercel.app/api/ads/active");
                 const ads = response.data;
 
-                // ✅ Clear previous slides
-                adsWrapper.innerHTML = "";
+                // ✅ Loop through each swiper-wrapper
+                adsWrappers.forEach(wrapper => {
+                    // Clear previous slides
+                    wrapper.innerHTML = "";
 
-                // ✅ Add slides dynamically
-                ads.forEach(ad => {
-                    const slide = document.createElement("div");
-                    slide.classList.add("swiper-slide", "text-black", "pb-2");
+                    // Add slides dynamically
+                    ads.forEach(ad => {
+                        const slide = document.createElement("div");
+                        slide.classList.add("swiper-slide", "text-black", "pb-2");
 
-                    slide.innerHTML = `
-                    <a href="${ad.link}" target="_blank">
-                      <img src="${ad.imageUrl}" alt="${ad.sponsorName}" />
-                    </a>
-                  `;
+                        slide.innerHTML = `
+                      <a href="${ad.link}" target="_blank">
+                        <img src="${ad.imageUrl}" alt="${ad.sponsorName}" />
+                      </a>
+                    `;
 
-                    adsWrapper.appendChild(slide);
+                        wrapper.appendChild(slide);
+                    });
                 });
             } catch (error) {
                 console.error("Failed to load ads:", error);
-                adsWrapper.innerHTML = `<p class="text-danger">Failed to load sponsored ads.</p>`;
+                adsWrappers.forEach(wrapper => {
+                    wrapper.innerHTML = `<p class="text-danger">Failed to load sponsored ads.</p>`;
+                });
             }
         });
     </script>
-        
+
     <script>
+        const authBtns = document.querySelectorAll(".auth-btns");
+        const authModal = document.getElementById("authModal");
+        const authCloseBtn = document.getElementById("authclose");
+
+        authBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const uid = localStorage.getItem("uid");
+                if (uid) {
+                    return window.location.href = "user/ads-management.html";
+                }
+                authModal.classList.add("show");
+                document.getElementById('overlay2').classList.add('show');
+            });
+        });
+
+        authCloseBtn.addEventListener("click", () => {
+            authModal.classList.remove("show");
+            document.getElementById('overlay2').classList.remove('show');
+        });
+
+        document.querySelectorAll(".toggle-section").forEach(section => {
+            const toggleBtn = section.querySelector(".toggle-btn");
+            const submenu = section.querySelector(".submenu");
+
+            // --- Accordion Toggle Logic ---
+            toggleBtn.addEventListener("click", () => {
+                // Close all other sections
+                document.querySelectorAll(".toggle-section").forEach(other => {
+                    if (other !== section) {
+                        other.classList.remove("open");
+                        other.querySelector(".submenu").classList.remove("show");
+                        other.querySelector(".toggle-btn").classList.remove("active");
+                    }
+                });
+
+                // Toggle current section
+                section.classList.toggle("open");
+                submenu.classList.toggle("show");
+                toggleBtn.classList.toggle("active");
+            });
+
+            // --- Auto-activate parent if any submenu link is active ---
+            const activeLink = submenu.querySelector(".nav-link.active");
+            if (activeLink) {
+                section.classList.add("open");
+                submenu.classList.add("show");
+                toggleBtn.classList.add("active");
+            }
+        });
+
+
+
+
+
         const dropdown = document.getElementById("dropdown");
         const tagsContainer = document.getElementById("tagsContainer");
         const searchInput2 = document.getElementById("searchInput");
@@ -525,7 +785,7 @@
                 overlay2.classList.remove("show");
                 let url = `https://www.google.com/maps/search/hospitals+near+me`;
                 window.open(url, "_blank");
-            }else{
+            } else {
                 locationModal.classList.remove("show");
                 overlay2.classList.remove("show");
                 let url = `https://www.google.com/maps/search/${encodeURIComponent(queryToSearch + " near me")}`;
@@ -595,30 +855,30 @@
 
     <script>
 
-window.addEventListener("load", async () => {
-        try {
-            await fetch("https://find-nearby-emergency-facilities-ba.vercel.app/api/visitor/visit");  // Increase counter  // Call total fetcher
-        } catch (err) {
-            console.error("Visit API error:", err);
-        }
-    });
+        window.addEventListener("load", async () => {
+            try {
+                await fetch("https://find-nearby-emergency-facilities-ba.vercel.app/api/visitor/visit");  // Increase counter  // Call total fetcher
+            } catch (err) {
+                console.error("Visit API error:", err);
+            }
+        });
 
 
         // Function jo total visitors fetch karega
-            async function getTotalVisitors() {
-                try {
-                    const res = await fetch("https://find-nearby-emergency-facilities-ba.vercel.app/api/visitor/total");
-                    const data = await res.json();
-                    console.log(data);
-                    
-                    document.getElementById("visitorCount").innerText = data.totalVisitors;
-                    document.getElementById("m-visitorCount").innerText = data.totalVisitors;
-                } catch (err) {
-                    console.error("Total visitors fetch error:", err);
-                }
-            }
+        async function getTotalVisitors() {
+            try {
+                const res = await fetch("https://find-nearby-emergency-facilities-ba.vercel.app/api/visitor/total");
+                const data = await res.json();
+                console.log(data);
 
-            getTotalVisitors()
+                document.getElementById("visitorCount").innerText = data.totalVisitors;
+                document.getElementById("m-visitorCount").innerText = data.totalVisitors;
+            } catch (err) {
+                console.error("Total visitors fetch error:", err);
+            }
+        }
+
+        getTotalVisitors()
 
 
         function commingSoon(text) {
@@ -696,55 +956,70 @@ window.addEventListener("load", async () => {
             });
         });
 
+        const comingSoon = document.querySelectorAll('.coming-soon');
+
+        comingSoon.forEach(button => {
+            button.addEventListener('click', function () {
+                profileModal2.classList.add('show');
+                document.getElementById('overlay2').classList.add('show');
+            });
+        });
+
         const profileButton = document.querySelectorAll('.profile-button');
         const profileModal = document.getElementById('profileModal');
-        const closeProfileBtn = document.getElementById('closeProfileBtn');
+        const profileModal2 = document.getElementById('profileModal2');
+        const closeProfileBtn2 = document.getElementById('closeProfileBtn2');
 
-    // Common UID check
-    const uid = localStorage.getItem("uid");
+        // Common UID check
+        const uid = localStorage.getItem("uid");
 
-    // Handle all profile buttons (desktop + mobile)
-    const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
+        // Handle all profile buttons (desktop + mobile)
+        const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
 
-    allProfiles.forEach(wrapper => {
-        const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
-        const dropdownMenu = wrapper.querySelector(".dropdown-menu");
+        allProfiles.forEach(wrapper => {
+            const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
+            const dropdownMenu = wrapper.querySelector(".dropdown-menu");
 
-        if (!button) return; // Safety check
+            if (!button) return; // Safety check
 
-        if (!uid) {
-            // --- Not Logged In ---
-            button.classList.remove("dropdown-toggle");
-            if (dropdownMenu) dropdownMenu.style.display = "none";
-            button.innerHTML = `
+            if (!uid) {
+                // --- Not Logged In ---
+                button.classList.remove("dropdown-toggle");
+                if (dropdownMenu) dropdownMenu.style.display = "none";
+                button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
             <span class="mx-2">Signup</span>
             `;
-            button.onclick = () => (window.location.href = "/login.html");
-            button.removeAttribute("data-bs-toggle"); // Disable dropdown
-        } else {
-            button.classList.add("dropdown-toggle");
-            // --- Logged In ---
-            if (dropdownMenu) dropdownMenu.style.display = "";
-            button.innerHTML = `
+                button.onclick = () => (window.location.href = "/login.html");
+                button.removeAttribute("data-bs-toggle"); // Disable dropdown
+            } else {
+                button.classList.add("dropdown-toggle");
+                // --- Logged In ---
+                if (dropdownMenu) dropdownMenu.style.display = "";
+                button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
             <i class="bi bi-chevron-down ms-1"></i>
         `;
-            button.setAttribute("data-bs-toggle", "dropdown");
-        }
-    });
+                button.setAttribute("data-bs-toggle", "dropdown");
+            }
+        });
 
 
-    // Logout logic
-    document.addEventListener("click", e => {
-        if (e.target.id === "logout-btn") {
-            localStorage.removeItem("uid");
-            location.reload();
-        }
-    });
+        // Logout logic
+        document.addEventListener("click", e => {
+            if (e.target.id === "logout-btn") {
+                localStorage.removeItem("uid");
+                location.reload();
+            }
+        });
 
         closeProfileBtn.addEventListener('click', function () {
             profileModal.classList.remove('show');
+            document.getElementById('overlay2').classList.remove('show');
+        });
+
+        closeProfileBtn2.addEventListener('click', function () {
+            profileModal2.classList.remove('show');
             document.getElementById('overlay2').classList.remove('show');
         });
 
