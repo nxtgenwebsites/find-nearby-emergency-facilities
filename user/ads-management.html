@@ -129,7 +129,7 @@
                                     <i class="fa-solid fa-circle-xmark"></i>
                                 </div>
                                 <div>
-                                    <div class="small-muted">Inactive Ads</div>
+                                    <div class="small-muted">Pending Ads</div>
                                     <div class="stat-value" id="statInactive">0</div>
                                 </div>
                             </div>
@@ -144,9 +144,9 @@
                                     placeholder="Search your Ads." aria-label="Search sponsors" />
                                 <select id="statusFilter" class="form-select" aria-label="Filter by status">
                                     <option value="">All Status</option>
-                                    <option value="pending">Pending</option>
                                     <option value="active">Active</option>
                                     <option value="inactive">Inactive</option>
+                                    <option value="pending">Pending</option>
                                 </select>
                             </div>
                         </div>
@@ -285,7 +285,7 @@
     <div class="custom-popup" id="viewPopup">
         <div class="custom-popup-content">
             <div class="custom-popup-header">
-                <h5>Sponsor Details</h5>
+                <h5>Ad Details</h5>
                 <button class="custom-popup-close" id="viewPopupClose">&times;</button>
             </div>
             <div class="custom-popup-body" id="viewPopupBody">
@@ -513,8 +513,8 @@
             detailsHtml += `<div class="detail-row"><div class="detail-label">End Date</div><div class="detail-value">${formatDate(sponsor.endDate || '')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Impression Days</div><div class="detail-value">${sponsor.impressionDays || 0} days</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Link</div><div class="detail-value"><a href="${escapeHtml(sponsor.link)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.link)}</a></div></div>`;
-            detailsHtml += `<div class="detail-row"><div class="detail-label">Status</div><div class="detail-value"><span class="${sponsor.status}-badge">${sponsor.status}</span></div></div>`;
-            
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Status</div><div class="detail-value"><span class="${sponsor.status}-badge">${sponsor.status.charAt(0).toUpperCase() + sponsor.status.slice(1)}</span></div></div>`;
+ 
 
             viewPopupBody.innerHTML = detailsHtml;
             openPopup(viewPopup);
