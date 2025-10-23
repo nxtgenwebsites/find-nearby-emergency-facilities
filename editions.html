@@ -1202,7 +1202,7 @@
                     const n = getNumberFromSection(section);
                     if (!btn || !n) return;
                     const iconWrap = section.querySelector('.thumb-icon');
-                    if (iconWrap) iconWrap.innerHTML = '<i class="fa-regular fa-heart"></i>';
+                    if (iconWrap) iconWrap.innerHTML = '<i class="fa-regular fa-thumbs-up"></i>';
                     const icon = section.querySelector('.thumb-icon i');
                     const likedAlready = isLiked(n);
                     btn.setAttribute('aria-pressed', likedAlready ? 'true' : 'false');
