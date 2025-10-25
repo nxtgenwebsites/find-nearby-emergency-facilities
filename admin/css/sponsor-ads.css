@@ -908,6 +908,14 @@ padding: 0px !important;
   border-color: #1b7c7f !important;
 }
 
+#approveConfirmPopup .custom-popup-body {
+  padding: 10px 0 !important;
+}
+#approveConfirmPopup .custom-popup-header h5 {
+  width: 100% !important;
+  text-align: center !important;
+}
+
 .inactive-badge {
   background: rgba(255, 23, 7, 0.15); /* Soft golden background */
   color: #454545 !important; /* Bright amber text */

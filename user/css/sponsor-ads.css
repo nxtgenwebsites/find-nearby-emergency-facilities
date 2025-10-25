@@ -928,6 +928,10 @@ body {
   font-size: 14px;
 }
 
+#approveConfirmPopup .custom-popup-header h5 {
+  width: 100% !important;
+  text-align: center !important;
+}
 
 .active-badge {
   background: rgba(28, 255, 7, 0.301); /* Soft golden background */

@@ -70,7 +70,7 @@
                             <img src="assets/icons/user-icon.svg" alt="User">
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
-                            <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                            <li><a class="dropdown-item" href="/user/profile.html">Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -91,7 +91,7 @@
                     <i class="bi bi-chevron-down"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
-                    <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                    <li><a class="dropdown-item" href="/user/profile.html">Profile</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
@@ -311,7 +311,7 @@
 
                     <div class="form-group">
                         <label for="cost">Ad Cost *</label>
-                        <input type="text" id="cost" name="cost" required placeholder="Enter Ad Cost">
+                        <input type="number" id="cost" name="cost" required placeholder="Enter Ad Cost">
                     </div>
 
                     <div class="form-group">
@@ -448,11 +448,11 @@
         async function loadAllAdsFromAPI() {
             try {
                 const response = await axios.get(`${API_BASE_URL}/get-ads/${uid}`);
-                console.log("[v0] All ads loaded:", response.data);
+                console.log("All ads loaded:", response.data);
                 allSponsors = Array.isArray(response.data) ? response.data : (response.data?.ads || []);
                 applyFilters();
             } catch (error) {
-                console.error("[v0] Load All Ads Error:", error.response?.data || error.message);
+                console.error("Load All Ads Error:", error.response?.data || error.message);
                 alert("❌ Failed to load ads. Please refresh the page.");
             }
         }
@@ -463,10 +463,10 @@
         async function updateAdAPI(id, updateData) {
             try {
                 const response = await axios.put(`${API_BASE_URL}/${id}`, updateData);
-                console.log("[v0] Ad updated successfully:", response.data);
+                console.log("Ad updated successfully:", response.data);
                 return { success: true, data: response.data };
             } catch (error) {
-                console.error("[v0] Update Ad Error:", error.response?.data || error.message);
+                console.error("Update Ad Error:", error.response?.data || error.message);
                 return { success: false, error: error.response?.data?.error || error.message };
             }
         }
@@ -477,10 +477,10 @@
         async function deleteAdAPI(id) {
             try {
                 const response = await axios.delete(`${API_BASE_URL}/${id}`);
-                console.log("[v0] Ad deleted successfully");
+                console.log("Ad deleted successfully");
                 return { success: true };
             } catch (error) {
-                console.error("[v0] Delete Ad Error:", error.response?.data || error.message);
+                console.error("Delete Ad Error:", error.response?.data || error.message);
                 return { success: false, error: error.response?.data?.error || error.message };
             }
         }
@@ -490,11 +490,11 @@
         // ============================================
         async function approveAdAPI(id) {
             try {
-                const response = await axios.put(`${API_BASE_URL}/${id}`, { status: 'active' });
-                console.log("[v0] Ad approved successfully:", response.data);
+                const response = await axios.get(`${API_BASE_URL}/active/${id}`, { status: 'active' });
+                console.log("Ad approved successfully:", response.data);
                 return { success: true, data: response.data };
             } catch (error) {
-                console.error("[v0] Approve Ad Error:", error.response?.data || error.message);
+                console.error("Approve Ad Error:", error.response?.data || error.message);
                 return { success: false, error: error.response?.data?.error || error.message };
             }
         }
@@ -502,10 +502,10 @@
         async function sendEmailAPI(emailData) {
             try {
                 const response = await axios.post(`${API_BASE_URL}/send-email`, emailData);
-                console.log("[v0] Email sent successfully:", response.data);
+                console.log("Email sent successfully:", response.data);
                 return { success: true, data: response.data };
             } catch (error) {
-                console.error("[v0] Send Email Error:", error.response?.data || error.message);
+                console.error("Send Email Error:", error.response?.data || error.message);
                 return { success: false, error: error.response?.data?.error || error.message };
             }
         }
@@ -652,10 +652,15 @@
 
         function openEmailPopup(sponsor) {
             pendingEmailId = sponsor._id;
-            document.getElementById('emailTo').value = sponsor.email || '';
-            document.getElementById('emailSubject').value = '';
-            document.getElementById('emailBody').value = '';
-            openPopup(emailPopup);
+            axios.get(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/single-user/${sponsor.owner}`).then((res) =>{
+                console.log(res.data);
+                document.getElementById('emailTo').value = res.data.data.email || '';
+                document.getElementById('emailSubject').value = '';
+                document.getElementById('emailBody').value = '';
+                openPopup(emailPopup);
+            }).catch((err) => {
+                console.log(err);
+            })
         }
 
         document.getElementById('sponsorStartDate').addEventListener('change', () => {
@@ -720,56 +725,42 @@
             }
         });
 
-        emailPopupSubmit.addEventListener('click', async (e) => {
-            e.preventDefault();
+            document.getElementById("emailPopupSubmit").addEventListener("click", async (e) => {
+                e.preventDefault();
 
-            const emailTo = document.getElementById('emailTo').value.trim();
-            const subject = document.getElementById('emailSubject').value.trim();
-            const body = document.getElementById('emailBody').value.trim();
+                const email = document.getElementById("emailTo").value;
+                const subject = document.getElementById("emailSubject").value;
+                const body = document.getElementById("emailBody").value;
+                const cost = `$${document.getElementById("cost").value}`;
 
-            if (!emailTo || !subject || !body) {
-                toastr.error("Please fill all required fields: Email, Subject, and Message.", "Validation Error", {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "2000",
-                    "extendedTimeOut": "1000",
-                });
-                return;
-            }
+                if (!email || !subject || !body || !cost) {
+                    alert("Please fill in all required fields.");
+                    return;
+                }
 
-            const emailData = {
-                to: emailTo,
-                subject: subject,
-                body: body,
-                adId: pendingEmailId
-            };
+                try {
+                    const res = await axios.post("http://localhost:5000/api/ads/cost-email", {
+                        to: email,
+                        subject,
+                        body,
+                        cost,
+                    });
 
-            const result = await sendEmailAPI(emailData);
-            if (result.success) {
-                toastr.success("Email sent successfully!", "Email Sent", {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "2000",
-                    "extendedTimeOut": "1000",
-                });
-                closePopup(emailPopup);
-                emailForm.reset();
-                pendingEmailId = null;
-            } else {
-                toastr.error("Failed to send email: " + result.error, "Error", {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "2000",
-                    "extendedTimeOut": "1000",
-                });
-            }
-        });
+                    toastr.success("Email sent successfully!", "Successfully Ad", {
+                        "closeButton": true,
+                        "progressBar": true,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "1000",
+                    })
+                    closePopup(emailPopup);
+                } catch (err) {
+                    console.error(err);
+                    alert("❌ Failed to send email.");
+                }
+            });
+
 
         deleteConfirmBtn.addEventListener('click', async () => {
             if (pendingDeleteId) {
@@ -910,7 +901,7 @@
         window.addEventListener('resize', handleResize);
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log("[v0] Admin panel loaded, fetching all ads...");
+            console.log("Admin panel loaded, fetching all ads...");
             loadAllAdsFromAPI();
         });
     </script>
