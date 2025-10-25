@@ -138,10 +138,9 @@
 
                     <div class="um-card">
                         <div class="um-card-header">
-                            <h5 class="um-card-title mb-0">Sponsors</h5>
+                            <input id="searchInput" type="search" class="form-control"
+                                placeholder="Search your Ads." aria-label="Search sponsors" />
                             <div class="filter-wrap d-flex gap-2">
-                                <input id="searchInput" type="search" class="form-control"
-                                    placeholder="Search your Ads." aria-label="Search sponsors" />
                                 <select id="statusFilter" class="form-select" aria-label="Filter by status">
                                     <option value="">All Status</option>
                                     <option value="active">Active</option>
@@ -157,7 +156,7 @@
                                     <tr>
                                         <th scope="col">Ad</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Country</th>
+                                        <th scope="col">Target Country</th>
                                         <th scope="col">Start Date</th>
                                         <th scope="col">End Date</th>
                                         <th scope="col">Status</th>
@@ -212,7 +211,7 @@
             <div class="custom-popup-body">
                 <form id="sponsorForm">
                     <div class="form-group">
-                        <label>Ad Image *</label>
+                        <label>Upload Image *</label>
                         <div class="image-upload-area" id="imageUploadArea">
                             <i class="fa-solid fa-cloud-arrow-up"
                                 style="font-size: 32px; color: #999; margin-bottom: 10px; display: block;"></i>
@@ -227,12 +226,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="sponsorName">Sponsor Name *</label>
+                        <label for="sponsorName">Full Name *</label>
                         <input type="text" id="sponsorName" name="name" required placeholder="Enter sponsor name">
                     </div>
 
                     <div class="form-group">
-                        <label for="sponsorCountry">Country *</label>
+                        <label for="sponsorCountry">Target Country *</label>
                         <select id="sponsorCountry" name="country" required>
                             <option value="">Select Country</option>
                             <option value="USA">USA</option>
@@ -269,14 +268,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="sponsorWebsite">Link *</label>
+                        <label for="sponsorWebsite">Target Link *</label>
                         <input type="url" id="sponsorWebsite" name="website" required placeholder="https://example.com">
                     </div>
                 </form>
             </div>
             <div class="custom-popup-footer">
                 <button class="popup-btn popup-btn-secondary" id="addEditPopupCancel">Cancel</button>
-                <button class="popup-btn popup-btn-primary" id="addEditPopupSubmit">Save Sponsor</button>
+                <button class="popup-btn popup-btn-primary" id="addEditPopupSubmit">Submit Ad</button>
             </div>
         </div>
     </div>
@@ -329,6 +328,54 @@
         if (!uid) {
             window.location.href = '/login.html';
         }
+
+
+        const profileButton = document.querySelectorAll('.profile-button');
+            const profileModal = document.getElementById('profileModal');
+            const closeProfileBtn = document.getElementById('closeProfileBtn');
+
+            // Common UID check
+
+            // Handle all profile buttons (desktop + mobile)
+            const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
+
+            allProfiles.forEach(wrapper => {
+                const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
+                const dropdownMenu = wrapper.querySelector(".dropdown-menu");
+
+                if (!button) return; // Safety check
+
+                if (!uid) {
+                    // --- Not Logged In ---
+                    button.classList.remove("dropdown-toggle");
+                    if (dropdownMenu) dropdownMenu.style.display = "none";
+                    button.innerHTML = `
+            <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <span class="mx-2">Sign In</span>
+            `;
+                    button.onclick = () => (window.location.href = "/login.html");
+                    button.removeAttribute("data-bs-toggle"); // Disable dropdown
+                } else {
+                    button.classList.add("dropdown-toggle");
+                    // --- Logged In ---
+                    button.innerHTML = `
+            <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <span class="me-1" style="margin-right: -5px !important;">Account</span>
+            <i class="bi bi-chevron-down ms-1"></i>
+        `;
+                    button.setAttribute("data-bs-toggle", "dropdown");
+                }
+            });
+
+            // Logout logic
+            document.addEventListener("click", e => {
+                if (e.target.id === "logout-btn") {
+                    localStorage.removeItem("uid");
+                    location.reload();
+                }
+            });
+        
+
 
         // ============================================
         // DOM ELEMENTS
@@ -508,11 +555,11 @@
                 detailsHtml += `<div style="text-align: center; margin-bottom: 20px;"><img src="${escapeHtml(sponsor.imageUrl)}" alt="${escapeHtml(sponsor.sponsorName)}" style="max-width: 300px; max-height: 200px; border-radius: 6px;"></div>`;
             }
             detailsHtml += `<div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${escapeHtml(sponsor.sponsorName)}</div></div>`;
-            detailsHtml += `<div class="detail-row"><div class="detail-label">Country</div><div class="detail-value">${escapeHtml(sponsor.country || '-')}</div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Target Country</div><div class="detail-value">${escapeHtml(sponsor.country || '-')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Start Date</div><div class="detail-value">${formatDate(sponsor.startDate || '')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">End Date</div><div class="detail-value">${formatDate(sponsor.endDate || '')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Impression Days</div><div class="detail-value">${sponsor.impressionDays || 0} days</div></div>`;
-            detailsHtml += `<div class="detail-row"><div class="detail-label">Link</div><div class="detail-value"><a href="${escapeHtml(sponsor.link)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.link)}</a></div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Target Link</div><div class="detail-value"><a href="${escapeHtml(sponsor.link)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.link)}</a></div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Status</div><div class="detail-value"><span class="${sponsor.status}-badge">${sponsor.status.charAt(0).toUpperCase() + sponsor.status.slice(1)}</span></div></div>`;
  
 
@@ -538,7 +585,7 @@
                     imagePreview.src = '';
                 }
             } else {
-                popupTitle.textContent = 'Add Sponsor';
+                popupTitle.textContent = 'Submit an Ad';
                 sponsorForm.reset();
                 imagePreview.style.display = 'none';
                 imagePreview.src = '';
@@ -558,7 +605,6 @@
                 const response = await axios.post(`${API_BASE_URL}/upload/${uid}`, formData, {
                     headers: { "Content-Type": "multipart/form-data" }
                 });
-                console.log("[v0] Ad created successfully:", response.data);
                 return { success: true, data: response.data };
             } catch (error) {
                 console.error("[v0] Create Ad Error:", error.response?.data || error.message);

@@ -21,25 +21,34 @@
     <div class="overlay" id="overlay"></div>
     <div class="overlay" id="overlay2"></div>
 
-    <div class="location-modal " id="locationModal">
-        <h4>Confirm to Continue</h4>
-        <p class="mt-3">By continuing to use this service you agree to our Terms & Conditions.</p>
-        <div class="location-buttons">
-            <button class="btn-location btn-deny " onclick="denyLocation()">
-                Disagree
-            </button>
-            <a href="nearby-services.html">
-                <button class="btn-location btn-allow">
-                    Agree
-                </button>
-            </a>
+    <!-- Added location permission modal -->
+    <div class="location-modal" id="authModal">
+        <h3>Sign In / Sign Up to start posting an Ad</h3>
+        <p>In order to start placing your ad, you need to <a href="login.html">Sign In.</a> If you’re new to this
+            platfor, please <a href="signup.html">Sign Up</a></p>
+        <div class="location-buttons mt-3">
+            <button class="btn-location btn-deny" id="authclose">Cancel</button>
+            <button class="btn-location btn-allow">Sign In</button>
         </div>
     </div>
-
+    
+    <div class="location-modal " id="locationModal">
+        <h4 class="text-warning">WARNING</h4>
+        <p class="mt-3 mb-0">You’ll be redirected to Google Maps. HealthCentreApp doesn’t collect your location. Please
+            make sure to allow Google
+            Maps to use your current location so results are accurate.</p>
+        <p class="mt-2 mb-0">Also, please ensure you grant Google Location Map access to your current location,
+            Google Maps operates under its own terms and privacy policy</p>
+        <div class="location-buttons mt-3">
+            <button class="btn-location btn-deny" onclick="denyLocation()">Cancel</button>
+            <button class="btn-location btn-allow" id="agreeBtn">I Understand</button>
+        </div>
+    </div>
+    
     <!-- Added location permission modal -->
     <div class="location-modal " id="profileModal">
         <h3>Coming Soon!</h3>
-        <p>User profile feature isn’t available yet!</p>
+        <p>The page is not available yet!</p>
         <div class="location-buttons">
             <button class="btn-location btn-allow" id="closeProfileBtn">
                 Go back
@@ -213,7 +222,7 @@
                             <li><a class="nav-link" onclick="findNearbyServices()"><span>Medical Services Near
                                         You</span></a></li>
                             <li><a class="nav-link auth-btns"><span>Place an Ad</span></a></li>
-                            <li><a class="nav-link coming-soon"><span>GiftedMedical</span></a></li>
+                            <li><a class="nav-link no-page"><span>GiftedMedical</span></a></li>
                             <li><a class="nav-link" href="reviews.html"><span>Reviews</span></a></li>
                         </ul>
                     </li>
@@ -256,8 +265,7 @@
                             <li><a class="nav-link" href="editions.html"><span>Editions</span></a></li>
                             <li><a class="nav-link no-page"><span>Upgrade</span></a></li>
                             <li><a class="nav-link" href="partnerships.html"><span>Partnerships</span></a></li>
-                            <li><a class="nav-link" href="reviews.html"><span>Reviews</span></a></li>
-                            <li><a class="nav-link" href="contact-us.html"><span>Contact Us</span></a></li>
+                             <li><a class="nav-link" href="contact-us.html"><span>Contact Us</span></a></li>
                             <li><a class="nav-link" href="privacy-policy.html"><span>Privacy & Terms</span></a></li>
                         </ul>
                     </li>
@@ -288,8 +296,12 @@
                             <img src="assets/icons/user-icon.svg" alt="User">
                         </button>
                 
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
-                            <li><a class="dropdown-item" href="user/profile.html">Profile</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
+                            <li><a class="dropdown-item" href="user/profile.html">My Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="user/ads-management.html">Submit Ad</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -312,7 +324,11 @@
         <i class="bi bi-chevron-down"></i>
     </button>
     <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
-        <li><a class="dropdown-item" href="user/profile.html">Profile</a></li>
+        <li><a class="dropdown-item" href="user/profile.html">My Profile</a></li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" href="user/ads-management.html">Submit Ad</a></li>
         <li>
             <hr class="dropdown-divider">
         </li>
@@ -401,6 +417,35 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
+          const authBtns = document.querySelectorAll(".auth-btns");
+            const authModal = document.getElementById("authModal");
+            const authCloseBtn = document.getElementById("authclose");
+
+            authBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const uid = localStorage.getItem("uid");
+                    if (uid) {
+                        return window.location.href = "user/ads-management.html";
+                    }
+                    authModal.classList.add("show");
+                    document.getElementById('overlay2').classList.add('show');
+                });
+            });
+
+            authCloseBtn.addEventListener("click", () => {
+                authModal.classList.remove("show");
+                document.getElementById('overlay2').classList.remove('show');
+            });
+
+            const noPage2 = document.querySelectorAll('.no-page');
+
+            noPage2.forEach(button => {
+                button.addEventListener('click', function () {
+                    profileModal.classList.add('show');
+                    document.getElementById('overlay2').classList.add('show');
+                });
+            });
+
         document.querySelectorAll(".toggle-section").forEach(section => {
             const toggleBtn = section.querySelector(".toggle-btn");
             const submenu = section.querySelector(".submenu");
@@ -531,6 +576,7 @@
             if (dropdownMenu) dropdownMenu.style.display = "";
             button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <span class="me-1" style="margin-right: -5px !important;">Account</span>
             <i class="bi bi-chevron-down ms-1"></i>
         `;
             button.setAttribute("data-bs-toggle", "dropdown");

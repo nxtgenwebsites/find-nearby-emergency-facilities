@@ -258,6 +258,13 @@
 
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
                             <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                            <div class="d-none" id="m-admin-acc">
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/admin/dashboard.html">Dashboard</a></li>
+                                <li>
+                                    </div>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -559,9 +566,10 @@
 
                     if (response.data.data.role === 'admin') {
                         document.getElementById('admin-acc').classList.remove('d-none');
+                        document.getElementById('m-admin-acc').classList.remove('d-none');
 
                     } else {
-                        document.getElementById('admin-acc').classList.add('d-none');
+                        document.getElementById('m-admin-acc').classList.add('d-none');
                     }
 
                     document.getElementById('uFirst').innerText = user.first_name;
@@ -711,9 +719,9 @@
             } else {
                 button.classList.add("dropdown-toggle");
                 // --- Logged In ---
-                if (dropdownMenu) dropdownMenu.style.display = "";
                 button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <span class="me-1" style="margin-right: -5px !important;">Account</span>
             <i class="bi bi-chevron-down ms-1"></i>
         `;
                 button.setAttribute("data-bs-toggle", "dropdown");

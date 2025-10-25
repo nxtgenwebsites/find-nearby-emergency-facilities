@@ -398,7 +398,7 @@ body {
 
 /* Table styles */
 .table thead th {
-  color: #6b7280;
+  color: #2c2c2c;
   font-weight: 700;
   border-bottom: 1px solid #e9ecef;
 }
@@ -908,9 +908,19 @@ body {
     border-color: #1b7c7f !important;
 }
 
+.inactive-badge {
+  background: rgba(255, 23, 7, 0.15); /* Soft golden background */
+  color: #454545 !important; /* Bright amber text */
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 7, 7, 0.4);
+  font-weight: 500;
+  font-size: 14px;
+}
+
 .pending-badge {
   background: rgba(255, 193, 7, 0.15); /* Soft golden background */
-  color: #ffb300; /* Bright amber text */
+  color: #454545 !important; /* Bright amber text */
   padding: 5px 10px;
   border-radius: 20px;
   border: 1px solid rgba(255, 193, 7, 0.4);
@@ -921,7 +931,7 @@ body {
 
 .active-badge {
   background: rgba(28, 255, 7, 0.301); /* Soft golden background */
-  color: #1eff00; /* Bright amber text */
+  color: #454545; /* Bright amber text */
   padding: 5px 10px;
   border-radius: 20px;
   border: 1px solid rgba(7, 255, 7, 0.4);
@@ -931,4 +941,19 @@ body {
 
 #searchInput{
   width: 200px !important;
+}
+
+#sponsorsTbody .action-buttons{
+  /* margin-top: 20px; */
+  display: flex;
+  align-items: center;
+}
+#sponsorsTbody td{
+  height: 100% !important;
+  border-bottom: 0px !important;
+  min-height: 67px !important;
+}
+#sponsorsTbody tr{
+
+  border-bottom: 1px solid #e9ecef;
 }

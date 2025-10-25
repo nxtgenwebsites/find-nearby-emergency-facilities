@@ -146,10 +146,9 @@
 
                     <div class="um-card">
                         <div class="um-card-header">
-                            <h5 class="um-card-title mb-0">Sponsors</h5>
+                            <input id="searchInput" type="search" class="form-control" placeholder="Search Ad"
+                                aria-label="Search sponsors" />
                             <div class="filter-wrap d-flex gap-2">
-                                <input id="searchInput" type="search" class="form-control"
-                                    placeholder="Search Ad" aria-label="Search sponsors" />
                                 <select id="statusFilter" class="form-select" aria-label="Filter by status">
                                     <option value="">All Status</option>
                                     <option value="active">Active</option>
@@ -222,12 +221,12 @@
                     <!-- Removed image upload field for admin panel -->
 
                     <div class="form-group">
-                        <label for="sponsorName">Sponsor Name *</label>
+                        <label for="sponsorName">Full Name *</label>
                         <input type="text" id="sponsorName" name="name" required placeholder="Enter sponsor name">
                     </div>
 
                     <div class="form-group">
-                        <label for="sponsorCountry">Country *</label>
+                        <label for="sponsorCountry">Target Country *</label>
                         <select id="sponsorCountry" name="country" required>
                             <option value="">Select Country</option>
                             <option value="USA">USA</option>
@@ -264,7 +263,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="sponsorWebsite">Link *</label>
+                        <label for="sponsorWebsite">Target Link *</label>
                         <input type="url" id="sponsorWebsite" name="website" required placeholder="https://example.com">
                     </div>
 
@@ -281,10 +280,56 @@
     <div class="custom-popup" id="viewPopup">
         <div class="custom-popup-content">
             <div class="custom-popup-header">
-                <h5>Sponsor Details</h5>
+                <h5>Ad Details</h5>
                 <button class="custom-popup-close" id="viewPopupClose">&times;</button>
             </div>
             <div class="custom-popup-body" id="viewPopupBody">
+            </div>
+        </div>
+    </div>
+
+    <!-- Added professional email popup modal -->
+    <div class="custom-popup" id="emailPopup">
+        <div class="custom-popup-content" style="max-width: 600px;">
+            <div class="custom-popup-header">
+                <h5>Send Email to User</h5>
+                <button class="custom-popup-close" id="emailPopupClose">&times;</button>
+            </div>
+            <div class="custom-popup-body">
+                <form id="emailForm">
+                    <div class="form-group">
+                        <label for="emailTo">Recipient Email *</label>
+                        <input type="email" id="emailTo" name="email" required placeholder="user@example.com" readonly
+                            style="background-color: #f5f5f5; cursor: not-allowed;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emailSubject">Subject *</label>
+                        <input type="text" id="emailSubject" name="subject" required placeholder="Enter email subject"
+                            maxlength="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cost">Ad Cost *</label>
+                        <input type="text" id="cost" name="cost" required placeholder="Enter Ad Cost">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emailBody">Message *</label>
+                        <textarea id="emailBody" name="body" required
+                            placeholder="Write your professional message here..."
+                            style="min-height: 200px; resize: vertical; font-family: inherit;"></textarea>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <small style="color: #666; display: block;">Professional tip: Keep your message clear,
+                            concise, and professional.</small>
+                    </div>
+                </form>
+            </div>
+            <div class="custom-popup-footer">
+                <button class="popup-btn popup-btn-secondary" id="emailPopupCancel">Cancel</button>
+                <button class="popup-btn popup-btn-primary" id="emailPopupSubmit">Send Email</button>
             </div>
         </div>
     </div>
@@ -337,13 +382,14 @@
           - No image upload for admins
           - Uses Backend API for all operations
           - Pagination working
+          - Email functionality added
         */
 
         const API_BASE_URL = "https://find-nearby-emergency-facilities-ba.vercel.app/api/ads";
-            const uid = localStorage.getItem('uid');
-            if (!uid) {
-                window.location.href = '/login.html';
-            }
+        const uid = localStorage.getItem('uid');
+        if (!uid) {
+            window.location.href = '/login.html';
+        }
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
         const menuToggle = document.getElementById('menuToggle');
@@ -368,6 +414,12 @@
         const viewPopupBody = document.getElementById('viewPopupBody');
         const viewPopupClose = document.getElementById('viewPopupClose');
 
+        const emailPopup = document.getElementById('emailPopup');
+        const emailPopupClose = document.getElementById('emailPopupClose');
+        const emailPopupCancel = document.getElementById('emailPopupCancel');
+        const emailPopupSubmit = document.getElementById('emailPopupSubmit');
+        const emailForm = document.getElementById('emailForm');
+
         const deleteConfirmPopup = document.getElementById('deleteConfirmPopup');
         const deleteConfirmBtn = document.getElementById('deleteConfirmBtn');
         const deleteConfirmCancel = document.getElementById('deleteConfirmCancel');
@@ -387,6 +439,7 @@
         let pendingDeleteId = null;
         let pendingApproveId = null;
         let editingId = null;
+        let pendingEmailId = null;
 
 
         // ============================================
@@ -442,6 +495,17 @@
                 return { success: true, data: response.data };
             } catch (error) {
                 console.error("[v0] Approve Ad Error:", error.response?.data || error.message);
+                return { success: false, error: error.response?.data?.error || error.message };
+            }
+        }
+
+        async function sendEmailAPI(emailData) {
+            try {
+                const response = await axios.post(`${API_BASE_URL}/send-email`, emailData);
+                console.log("[v0] Email sent successfully:", response.data);
+                return { success: true, data: response.data };
+            } catch (error) {
+                console.error("[v0] Send Email Error:", error.response?.data || error.message);
                 return { success: false, error: error.response?.data?.error || error.message };
             }
         }
@@ -511,6 +575,9 @@
                     <button class="btn-action update" title="Edit Sponsor" data-action="edit" data-id="${s._id}">
                       <i class="fa-solid fa-pen"></i>
                     </button>
+                    <button class="btn-action email" title="Send Email" data-action="email" data-id="${s._id}" style="color: #0066cc;">
+                      <i class="fa-solid fa-envelope"></i>
+                    </button>
                     <button class="btn-action approve" title="Approve Sponsor" data-action="approve" data-id="${s._id}" style="color: #28a745;">
                       <i class="fa-solid fa-paper-plane"></i>
                     </button>
@@ -559,11 +626,11 @@
                 detailsHtml += `<div style="text-align: center; margin-bottom: 20px;"><img src="${escapeHtml(sponsor.imageUrl)}" alt="${escapeHtml(sponsor.sponsorName)}" style="max-width: 300px; max-height: 200px; border-radius: 6px;"></div>`;
             }
             detailsHtml += `<div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${escapeHtml(sponsor.sponsorName)}</div></div>`;
-            detailsHtml += `<div class="detail-row"><div class="detail-label">Country</div><div class="detail-value">${escapeHtml(sponsor.country || '-')}</div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Target Country</div><div class="detail-value">${escapeHtml(sponsor.country || '-')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Start Date</div><div class="detail-value">${formatDate(sponsor.startDate || '')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">End Date</div><div class="detail-value">${formatDate(sponsor.endDate || '')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Impression Days</div><div class="detail-value">${sponsor.impressionDays || 0} days</div></div>`;
-            detailsHtml += `<div class="detail-row"><div class="detail-label">Link</div><div class="detail-value"><a href="${escapeHtml(sponsor.link)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.link)}</a></div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Target Link</div><div class="detail-value"><a href="${escapeHtml(sponsor.link)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.link)}</a></div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Status</div><div class="detail-value"><span class="${sponsor.status}-badge">${sponsor.status.charAt(0).toUpperCase() + sponsor.status.slice(1)}</span></div></div>`;
 
 
@@ -581,6 +648,14 @@
             document.getElementById('impressionDays').value = sponsor.impressionDays ? `${sponsor.impressionDays} days` : '0 days';
             document.getElementById('sponsorWebsite').value = sponsor.link || '';
             openPopup(addEditPopup);
+        }
+
+        function openEmailPopup(sponsor) {
+            pendingEmailId = sponsor._id;
+            document.getElementById('emailTo').value = sponsor.email || '';
+            document.getElementById('emailSubject').value = '';
+            document.getElementById('emailBody').value = '';
+            openPopup(emailPopup);
         }
 
         document.getElementById('sponsorStartDate').addEventListener('change', () => {
@@ -642,6 +717,57 @@
                 } else {
                     alert("❌ Failed to update ad: " + result.error);
                 }
+            }
+        });
+
+        emailPopupSubmit.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const emailTo = document.getElementById('emailTo').value.trim();
+            const subject = document.getElementById('emailSubject').value.trim();
+            const body = document.getElementById('emailBody').value.trim();
+
+            if (!emailTo || !subject || !body) {
+                toastr.error("Please fill all required fields: Email, Subject, and Message.", "Validation Error", {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "2000",
+                    "extendedTimeOut": "1000",
+                });
+                return;
+            }
+
+            const emailData = {
+                to: emailTo,
+                subject: subject,
+                body: body,
+                adId: pendingEmailId
+            };
+
+            const result = await sendEmailAPI(emailData);
+            if (result.success) {
+                toastr.success("Email sent successfully!", "Email Sent", {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "2000",
+                    "extendedTimeOut": "1000",
+                });
+                closePopup(emailPopup);
+                emailForm.reset();
+                pendingEmailId = null;
+            } else {
+                toastr.error("Failed to send email: " + result.error, "Error", {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "2000",
+                    "extendedTimeOut": "1000",
+                });
             }
         });
 
@@ -711,6 +837,11 @@
                 if (sponsor) openEditPopup(sponsor);
             }
 
+            if (action === 'email') {
+                const sponsor = allSponsors.find(s => s._id === id);
+                if (sponsor) openEmailPopup(sponsor);
+            }
+
             if (action === 'approve') {
                 pendingApproveId = id;
                 openPopup(approveConfirmPopup);
@@ -727,6 +858,10 @@
         addEditPopupCancel.addEventListener('click', () => closePopup(addEditPopup));
 
         viewPopupClose.addEventListener('click', () => closePopup(viewPopup));
+
+        emailPopupClose.addEventListener('click', () => closePopup(emailPopup));
+        emailPopupCancel.addEventListener('click', () => closePopup(emailPopup));
+
         deleteConfirmClose.addEventListener('click', () => closePopup(deleteConfirmPopup));
         deleteConfirmCancel.addEventListener('click', () => closePopup(deleteConfirmPopup));
         approveConfirmClose.addEventListener('click', () => closePopup(approveConfirmPopup));

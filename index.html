@@ -249,7 +249,7 @@
                             <li><a class="nav-link" onclick="findNearbyServices()"><span>Medical Services Near
                                         You</span></a></li>
                             <li><a class="nav-link auth-btns"><span>Place an Ad</span></a></li>
-                            <li><a class="nav-link coming-soon"><span>GiftedMedical</span></a></li>
+                            <li><a class="nav-link no-page"><span>GiftedMedical</span></a></li>
                             <li><a class="nav-link" href="reviews.html"><span>Reviews</span></a></li>
                         </ul>
                     </li>
@@ -292,7 +292,6 @@
                             <li><a class="nav-link" href="editions.html"><span>Editions</span></a></li>
                             <li><a class="nav-link no-page"><span>Upgrade</span></a></li>
                             <li><a class="nav-link" href="partnerships.html"><span>Partnerships</span></a></li>
-                            <li><a class="nav-link" href="reviews.html"><span>Reviews</span></a></li>
                             <li><a class="nav-link" href="contact-us.html"><span>Contact Us</span></a></li>
                             <li><a class="nav-link" href="privacy-policy.html"><span>Privacy & Terms</span></a></li>
                         </ul>
@@ -312,7 +311,7 @@
 
 
         <!-- Main Content -->
-        <div class="main-content w-100">
+        <div class="main-content w-100" style="min-height: 100vh !important;">
             <!-- Header -->
             <header class="header d-lg-none">
                 <a href="index.html" class="mobile-logo">
@@ -325,8 +324,12 @@
                             <img src="assets/icons/user-icon.svg" alt="User">
                         </button>
 
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
-                            <li><a class="dropdown-item" href="user/profile.html">Profile</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
+                            <li><a class="dropdown-item" href="user/profile.html">My Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="user/ads-management.html">Submit Ad</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -360,7 +363,11 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end shadow-sm"
                                     aria-labelledby="profileMenuButton">
-                                    <li><a class="dropdown-item" href="user/profile.html">Profile</a></li>
+                                    <li><a class="dropdown-item" href="user/profile.html">My Profile</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="user/ads-management.html">Submit Ad</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -481,11 +488,7 @@
                             <button class="submit-btn" id="submitBtn">Search</button>
                         </div>
 
-
-
-
-
-                        <div class="pages-link d-none d-lg-block">
+                        <div class="pages-link d-none d-lg-none">
                             <h5 class="text-center gap-2 d-flex justify-content-center align-items-center">
                                 <span>
                                     <a href="privacy-policy.html">Privacy Policy</a>
@@ -513,7 +516,7 @@
                             <img src="assets/images/hospital near you.png" alt="">
                         </div>
 
-                        <div class="medical mt-4 d-md-none" onclick="findNearbyServices()">
+                        <div class="medical mt-3 d-md-none" onclick="findNearbyServices()">
                             <img src="assets/images/hospital near you.png" alt="">
                         </div>
 
@@ -554,7 +557,7 @@
 
 
 
-                        <div class="sponsored-section w-100 mt-4 mb-2">
+                        <div class="sponsored-section w-100 mt-2 mt-md-4 mb-2">
                             <div class="swiper">
                                 <div class="swiper-wrapper" id="adsWrapper">
                                     <!-- Dynamic ads will be inserted here -->
@@ -607,7 +610,7 @@
                         <div class="footer-text">
                             © 2025 HealthCentreApp.com- All Rights Reserved.
                         </div>
-                        <div class="footer-links d-none d-lg-block">
+                        <div class="footer-links">
                             <a href="privacy-policy.html">Privacy Policy</a>
                             <span>|</span>
                             <a href="terms-and-conditions.html">Terms & Conditions</a>
@@ -628,7 +631,7 @@
                 <div class="footer-text">
                     © 2025 HealthCentreApp.com- All Rights Reserved.
                 </div>
-                <div class="footer-links d-none d-lg-block">
+                <div class="footer-links">
                     <a href="privacy-policy.html">Privacy Policy</a>
                     <span>|</span>
                     <a href="terms-and-conditions.html">Terms & Conditions</a>
@@ -1002,6 +1005,7 @@
                 if (dropdownMenu) dropdownMenu.style.display = "";
                 button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
+            <span class="me-1" style="margin-right: -5px !important;">Account</span>
             <i class="bi bi-chevron-down ms-1"></i>
         `;
                 button.setAttribute("data-bs-toggle", "dropdown");
