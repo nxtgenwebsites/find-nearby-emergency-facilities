@@ -294,6 +294,19 @@ body {
     margin-left: 0 !important;
   }
 }
+@media (max-width: 768px) {
+  .swiper {
+    max-width: 300px !important;
+    width: 300px !important;
+  }
+  .medical img {
+    border-radius: 15px;
+    max-width: 300px !important;
+  }
+  .card-img-container {
+    max-width: 300px !important;
+  }
+}
 @media (max-width: 450px) {
   .swiper {
     max-width: 250px !important;
