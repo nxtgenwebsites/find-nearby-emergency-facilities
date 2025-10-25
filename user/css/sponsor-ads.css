@@ -164,56 +164,6 @@ body {
   margin-bottom: 2px;
 }
 
-@media (max-width: 992px) {
-  .main-content .hero-content {
-    min-height: 100vh !important;
-  }
-  .main-content .main-content {
-    position: unset;
-    min-height: 100vh;
-    padding: 20px 30px;
-  }
-
-  .footer {
-    bottom: -77px !important;
-  }
-
-  .about-header {
-    margin-top: 10px !important;
-  }
-  .about-header-container img {
-    position: absolute;
-    right: -20px;
-    top: 50%;
-    transform: translateY(-65%);
-    cursor: pointer;
-    height: 100px;
-    width: 100px;
-    padding: 15px;
-    /* padding-left: 30px; */
-    border-radius: 50%;
-    background: #e1eef4;
-  }
-}
-@media (max-width: 768px) {
-  .main-content .hero-content {
-    padding: 0 0px;
-  }
-  .content-text {
-    font-size: 16px;
-  }
-  .about-header {
-    font-size: 1.8rem;
-    padding: 8px 20px;
-  }
-
-  .floating-btn {
-    width: 70px;
-    height: 70px;
-    right: 20px;
-    font-size: 0.7rem;
-  }
-}
 
 #searchUser{
   width: 250px;
@@ -960,4 +910,61 @@ body {
 #sponsorsTbody tr{
 
   border-bottom: 1px solid #e9ecef;
+}
+
+
+
+
+@media (max-width: 992px) {
+  .main-content .hero-content {
+    min-height: 100vh !important;
+  }
+  .main-content .main-content {
+    position: unset;
+    min-height: 100vh;
+    padding: 20px 30px;
+  }
+
+  .footer {
+    bottom: -77px !important;
+  }
+
+  .about-header {
+    margin-top: 10px !important;
+  }
+  .about-header-container img {
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-65%);
+    cursor: pointer;
+    height: 100px;
+    width: 100px;
+    padding: 15px;
+    /* padding-left: 30px; */
+    border-radius: 50%;
+    background: #e1eef4;
+  }
+}
+@media (max-width: 768px) {
+  .main-content .hero-content {
+    padding: 0 0px;
+  }
+  .content-text {
+    font-size: 16px;
+  }
+  .about-header {
+    font-size: 1.8rem;
+    padding: 8px 20px;
+  }
+
+  .floating-btn {
+    width: 70px;
+    height: 70px;
+    right: 20px;
+    font-size: 0.7rem;
+  }
+  .footer{
+    position: unset !important;
+  }
 }
