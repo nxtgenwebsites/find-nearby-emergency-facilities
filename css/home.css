@@ -28,6 +28,10 @@ body{
   text-align: center !important;
 }
 
+.home-container{
+  min-height: 100vh !important;
+}
+
 .m-hero-content .hero-text {
   text-align: center !important;
 }
@@ -518,6 +522,9 @@ body{
   
     padding: 20px 0;
   }
+  .home-container{
+    min-height: 93.7vh !important;
+  }
 }
 @media (max-width: 768px) {
   .search-section #dropdown{
@@ -531,3 +538,4 @@ body{
   }
 
 }
+
