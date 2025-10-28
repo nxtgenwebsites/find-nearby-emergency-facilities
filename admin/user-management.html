@@ -21,34 +21,34 @@
     <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
     <div class="overlay" id="overlay2"></div>
-<!-- Delete Confirmation Popup -->
-<div id="deleteUserPopup" class="popup-overlay">
-    <div class="popup-card">
-      <h3>Delete User?</h3>
-      <p>Are you sure you want to delete this user? This action cannot be undone.</p>
-      <div class="popup-buttons">
-        <button class="cancel-btn" id="cancelDelete">Cancel</button>
-        <button class="delete-btn" id="confirmDelete">Delete</button>
-      </div>
-    </div>
-  </div>
-
-<!-- Block/Unblock Popup -->
-<div id="blockUserPopup" class="popup-overlay">
-    <div class="popup-card">
-        <h3 id="blockTitle">Block User?</h3>
-        <p id="blockMessage">Are you sure you want to block this user?</p>
-        <div class="popup-buttons">
-            <button id="cancelBlock" class="cancel-btn">Cancel</button>
-            <button id="confirmBlock" class="confirm-btn">Confirm</button>
+    <!-- Delete Confirmation Popup -->
+    <div id="deleteUserPopup" class="popup-overlay">
+        <div class="popup-card">
+            <h3>Delete User?</h3>
+            <p>Are you sure you want to delete this user? This action cannot be undone.</p>
+            <div class="popup-buttons">
+                <button class="cancel-btn" id="cancelDelete">Cancel</button>
+                <button class="delete-btn" id="confirmDelete">Delete</button>
+            </div>
         </div>
     </div>
-</div>
-  
+
+    <!-- Block/Unblock Popup -->
+    <div id="blockUserPopup" class="popup-overlay">
+        <div class="popup-card">
+            <h3 id="blockTitle">Block User?</h3>
+            <p id="blockMessage">Are you sure you want to block this user?</p>
+            <div class="popup-buttons">
+                <button id="cancelBlock" class="cancel-btn">Cancel</button>
+                <button id="confirmBlock" class="confirm-btn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Profile placeholder modal -->
     <div class="location-modal" id="profileModal">
         <h3>Coming Soon!</h3>
-        <p>User profile feature isn’t available yet!</p>
+        <p>User profile feature isn't available yet!</p>
         <div class="location-buttons">
             <button class="btn-location btn-allow" id="closeProfileBtn">Go back</button>
         </div>
@@ -277,7 +277,7 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="assets/icons/user-icon.svg" alt="User">
                         </button>
-                
+
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="mobileProfileMenu">
                             <li><a class="dropdown-item" href="/user/profile.html">Profile</a></li>
                             <li>
@@ -286,7 +286,7 @@
                             <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
                         </ul>
                     </div>
-                
+
                     <button class="menu-toggle" id="menuToggle">
                         <img src="assets/icons/bars.svg" alt="">
                     </button>
@@ -294,21 +294,23 @@
             </header>
 
             <div class="main-content w-100">
-<!-- Profile Button -->
-<div class="dropdown profile-wrapper">
-    <button class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle" type="button"
-        id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="gap: 5px !important;">
-        <img src="assets/icons/user-icon.svg" width="30" alt="">
-        <i class="bi bi-chevron-down"></i>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
-        <li><a class="dropdown-item" href="/user/profile.html">Profile</a></li>
-        <li>
-            <hr class="dropdown-divider">
-        </li>
-        <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
-    </ul>
-</div>
+                <!-- Profile Button -->
+                <div class="dropdown profile-wrapper">
+                    <button
+                        class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle"
+                        type="button" id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+                        style="gap: 5px !important;">
+                        <img src="assets/icons/user-icon.svg" width="30" alt="">
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
+                        <li><a class="dropdown-item" href="/user/profile.html">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                    </ul>
+                </div>
 
                 <div class="hero-content">
                     <div class="container-fluid um-section">
@@ -320,10 +322,6 @@
                                 <p class="mb-0 small-muted">Manage users, roles, and permissions</p>
                             </div>
                             <div class="d-flex gap-2">
-                                <button class="btn btn-outline-gray"><i
-                                        class="fa-solid fa-arrow-up mx-2"></i>Export</button>
-                                <button class="btn btn-outline-blue"><i
-                                        class="fa-solid fa-arrow-down mx-2"></i>Import</button>
                                 <button class="btn btn-teal" data-bs-toggle="modal" data-bs-target="#addUserModal">
                                     <i class="fa-solid fa-user-plus me-2"></i>Add User
                                 </button>
@@ -333,7 +331,7 @@
                         <!-- Metric Cards -->
                         <div class="row g-3 mb-3">
                             <div class="col-12 col-md-6 col-lg-4">
-                                <div class="um-card stat-card">
+                                <div class="um-card stat-card" id="statCardTotal" style="cursor: pointer;">
                                     <div class="stat-icon" style="background:var(--secondary-blue)">
                                         <i class="fa-solid fa-users"></i>
                                     </div>
@@ -345,7 +343,7 @@
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-lg-4">
-                                <div class="um-card stat-card">
+                                <div class="um-card stat-card" id="statCardActive" style="cursor: pointer;">
                                     <div class="stat-icon">
                                         <i class="fa-solid fa-user-check"></i>
                                     </div>
@@ -357,9 +355,10 @@
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-lg-4">
-                                <div class="um-card stat-card">
+                                <div class="um-card stat-card" id="statCardMonth" style="cursor: pointer;">
                                     <div class="stat-icon bg-soft-blue" style="color:#1f4d7a;">
-                                     <img src="https://cdn-icons-png.flaticon.com/512/1442/1442930.png" style="width: 20px;" alt="">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/1442/1442930.png"
+                                            style="width: 20px;" alt="">
                                     </div>
                                     <div>
                                         <div class="small-muted">New This Month</div>
@@ -376,8 +375,8 @@
                                 <h5 class="um-card-title mb-0">Users Directory</h5>
                                 <div class="filter-wrap d-flex gap-2">
                                     <!-- Search now matches only first/last name or email -->
-                                    <input type="search" id="searchUser" class="form-control"
-                                        placeholder="Search user" aria-label="Search by name or email" />
+                                    <input type="search" id="searchUser" class="form-control" placeholder="Search user"
+                                        aria-label="Search by name or email" />
 
                                     <!-- Status filter: All, Active, Blocked, Pending -->
                                     <select id="filterStatus" class="form-select" aria-label="Filter by status">
@@ -412,12 +411,13 @@
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center p-3">
-                                <div class="small-muted">Showing 1 to 8 of 8 results</div>
+                                <div class="small-muted" id="paginationText">Showing 0 to 0 of 0 results</div>
                                 <nav aria-label="pagination">
-                                    <ul class="pagination mb-0">
-                                        <li class="page-item disabled"><button class="page-link">Previous</button></li>
-                                        <li class="page-item active"><button class="page-link">1</button></li>
-                                        <li class="page-item"><button class="page-link">Next</button></li>
+                                    <ul class="pagination mb-0" id="paginationContainer">
+                                        <li class="page-item" id="prevBtn"><button class="page-link">Previous</button>
+                                        </li>
+                                        <li class="page-item" id="pageNumbers"></li>
+                                        <li class="page-item" id="nextBtn"><button class="page-link">Next</button></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -489,45 +489,45 @@
         }
 
 
-                // Handle all profile buttons (desktop + mobile)
-                    const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
+        // Handle all profile buttons (desktop + mobile)
+        const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
 
-                    allProfiles.forEach(wrapper => {
-                        const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
-                        const dropdownMenu = wrapper.querySelector(".dropdown-menu");
+        allProfiles.forEach(wrapper => {
+            const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
+            const dropdownMenu = wrapper.querySelector(".dropdown-menu");
 
-                        if (!button) return; // Safety check
+            if (!button) return; // Safety check
 
-                        if (!uId) {
-                            // --- Not Logged In ---
-                            button.classList.remove("dropdown-toggle");
-                            if (dropdownMenu) dropdownMenu.style.display = "none";
-                            button.innerHTML = `
+            if (!uId) {
+                // --- Not Logged In ---
+                button.classList.remove("dropdown-toggle");
+                if (dropdownMenu) dropdownMenu.style.display = "none";
+                button.innerHTML = `
     <img src="assets/icons/user-icon.svg" width="28" alt="">
     <span class="mx-2">Sign In</span>
     `;
-                            button.onclick = () => (window.location.href = "/login.html");
-                            button.removeAttribute("data-bs-toggle"); // Disable dropdown
-                        } else {
-                            button.classList.add("dropdown-toggle");
-                            // --- Logged In ---
-                            button.innerHTML = `
+                button.onclick = () => (window.location.href = "/login.html");
+                button.removeAttribute("data-bs-toggle"); // Disable dropdown
+            } else {
+                button.classList.add("dropdown-toggle");
+                // --- Logged In ---
+                button.innerHTML = `
     <img src="assets/icons/user-icon.svg" width="28" alt="">
-    <span class="me-1" style="margin-right: -5px !important;">Account</span>
+    <span class="me-1" style="margin-right: -5px !important;">My Account</span>
     <i class="bi bi-chevron-down ms-1"></i>
 `;
-                            button.setAttribute("data-bs-toggle", "dropdown");
-                        }
-                    });
+                button.setAttribute("data-bs-toggle", "dropdown");
+            }
+        });
 
-                    // Logout logic
-                    document.addEventListener("click", e => {
-                        if (e.target.id === "logout-btn") {
-                            localStorage.removeItem("uid");
-                            location.reload();
-                        }
-                    });
-                
+        // Logout logic
+        document.addEventListener("click", e => {
+            if (e.target.id === "logout-btn") {
+                localStorage.removeItem("uid");
+                location.reload();
+            }
+        });
+
 
 
 
@@ -548,6 +548,9 @@
             }
         );
 
+        // <CHANGE> Pagination state variables
+        let currentPage = 1;
+        const itemsPerPage = 8;
 
         async function getData() {
             try {
@@ -594,7 +597,7 @@
 
                 // Update metric cards
                 const total = users.length;
-                const active = users.filter(u => u.isActive).length;
+                const active = users.filter(u => !u.isBlocked).length;
                 const now = new Date();
                 const m = now.getMonth(), y = now.getFullYear();
                 const newThisMonth = users.filter(u => {
@@ -606,13 +609,13 @@
                 const totalEl = document.getElementById('statTotalUsers');
                 const activeEl = document.getElementById('statActiveUsers');
                 const newEl = document.getElementById('statNew');
-                const rateEl = document.getElementById('statActiveRate');
 
                 if (totalEl) totalEl.textContent = total;
                 if (activeEl) activeEl.textContent = active;
                 if (newEl) newEl.textContent = newThisMonth;
-                if (rateEl) rateEl.textContent = total ? Math.round((active / total) * 100) + '%' : '0%';
 
+                // <CHANGE> Reset to page 1 when data loads
+                currentPage = 1;
                 applyFilters();
             } catch (error) {
                 console.error('Error fetching users:', error);
@@ -622,133 +625,133 @@
 
 
         document.getElementById("addUserForm").addEventListener("submit", async (e) => {
-                e.preventDefault();
+            e.preventDefault();
 
-                // 🔹 Get form values
-                const form = e.target;
-                const first_name = form.querySelector('[name="first"]').value.trim();
-                const last_name = form.querySelector('[name="last"]').value.trim();
-                const email = form.querySelector('[name="email"]').value.trim();
-                const password = form.querySelector('[name="password"]').value.trim();
-                const confirm_password = form.querySelector('[name="confirm_password"]').value.trim();
-                const role = form.querySelector('[name="role"]').value;
-                const status = form.querySelector('[name="status"]').value;
+            // 🔹 Get form values
+            const form = e.target;
+            const first_name = form.querySelector('[name="first"]').value.trim();
+            const last_name = form.querySelector('[name="last"]').value.trim();
+            const email = form.querySelector('[name="email"]').value.trim();
+            const password = form.querySelector('[name="password"]').value.trim();
+            const confirm_password = form.querySelector('[name="confirm_password"]').value.trim();
+            const role = form.querySelector('[name="role"]').value;
+            const status = form.querySelector('[name="status"]').value;
 
-                // 🔹 Validate password match
-                if (password !== confirm_password) {
-                    alert("Passwords do not match.", "Error");
-                    return;
+            // 🔹 Validate password match
+            if (password !== confirm_password) {
+                alert("Passwords do not match.", "Error");
+                return;
+            }
+
+            try {
+                // 🔹 Build request body
+                const payload = {
+                    first_name,
+                    last_name,
+                    email,
+                    password,
+                    role,
+                    status,
+                };
+
+                // 🔹 Send POST request to backend
+                const response = await axios.post(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/add/${uId}`, payload);
+
+                if (response.data.success) {
+
+                    // Reset form
+                    form.reset();
+                    getData();
+                    // Close modal
+                    const modal = bootstrap.Modal.getInstance(document.getElementById("addUserModal"));
+                    if (modal) modal.hide();
+
+                    // Refresh user list if available
+                    if (typeof loadUsers === "function") loadUsers();
+                } else {
+                    console.log(response.data);
                 }
+            } catch (error) {
+                console.error(error);
+            }
+        });
 
-                try {
-                    // 🔹 Build request body
-                    const payload = {
-                        first_name,
-                        last_name,
-                        email,
-                        password,
-                        role,
-                        status,
-                    };
+        let deleteUserId = null;
 
-                    // 🔹 Send POST request to backend
-                    const response = await axios.post(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/add/${uId}`, payload);
+        function deleteUser(id) {
+            deleteUserId = id;
+            document.getElementById('deleteUserPopup').style.display = 'flex';
+        }
 
-                    if (response.data.success) {
+        document.getElementById('confirmDelete').addEventListener('click', async () => {
+            if (!deleteUserId) return;
+            try {
+                await api.delete(`/delete/${uId}`, { data: { id: deleteUserId } });
+                showToast('success', 'User deleted successfully');
+                getData();
+            } catch (error) {
+                console.error(error);
+                showToast('error', 'Failed to delete user');
+            }
+            closeDeletePopup();
+        });
 
-                        // Reset form
-                        form.reset();
-                        getData();
-                        // Close modal
-                        const modal = bootstrap.Modal.getInstance(document.getElementById("addUserModal"));
-                        if (modal) modal.hide();
+        document.getElementById('cancelDelete').addEventListener('click', closeDeletePopup);
 
-                        // Refresh user list if available
-                        if (typeof loadUsers === "function") loadUsers();
-                    } else {
-                        console.log(response.data);
-                    }
-                } catch (error) {
-                    console.error(error);
-                }
-            });
-
-            let deleteUserId = null;
-
-                function deleteUser(id) {
-                    deleteUserId = id;
-                    document.getElementById('deleteUserPopup').style.display = 'flex';
-                }
-
-                document.getElementById('confirmDelete').addEventListener('click', async () => {
-                    if (!deleteUserId) return;
-                    try {
-                        await api.delete(`/delete/${uId}`, { data: { id: deleteUserId } });
-                        showToast('success', 'User deleted successfully');
-                        getData();
-                    } catch (error) {
-                        console.error(error);
-                        showToast('error', 'Failed to delete user');
-                    }
-                    closeDeletePopup();
-                });
-
-                document.getElementById('cancelDelete').addEventListener('click', closeDeletePopup);
-
-                function closeDeletePopup() {
-                    document.getElementById('deleteUserPopup').style.display = 'none';
-                }
+        function closeDeletePopup() {
+            document.getElementById('deleteUserPopup').style.display = 'none';
+        }
 
 
         // Block / Unblock User
-            let blockUserId = null;
-            let blockAction = null;
+        let blockUserId = null;
+        let blockAction = null;
 
-            function toggleBlockUser(userId, isBlocked) {
-                blockUserId = userId;
-                blockAction = isBlocked ? 'unblock' : 'block';
+        function toggleBlockUser(userId, isBlocked) {
+            blockUserId = userId;
+            blockAction = isBlocked ? 'unblock' : 'block';
 
-                const title = document.getElementById('blockTitle');
-                const message = document.getElementById('blockMessage');
-                const confirmBtn = document.getElementById('confirmBlock');
+            const title = document.getElementById('blockTitle');
+            const message = document.getElementById('blockMessage');
+            const confirmBtn = document.getElementById('confirmBlock');
 
-                if (isBlocked) {
-                    title.textContent = 'Unblock User?';
-                    message.textContent = 'Are you sure you want to unblock this user?';
-                    confirmBtn.textContent = 'Unblock';
-                    confirmBtn.classList.add('unblock');
-                } else {
-                    title.textContent = 'Block User?';
-                    message.textContent = 'Are you sure you want to block this user?';
-                    confirmBtn.textContent = 'Block';
-                    confirmBtn.classList.remove('unblock');
-                }
-
-                document.getElementById('blockUserPopup').style.display = 'flex';
+            if (isBlocked) {
+                title.textContent = 'Unblock User?';
+                message.textContent = 'Are you sure you want to unblock this user?';
+                confirmBtn.textContent = 'Unblock';
+                confirmBtn.classList.add('unblock');
+            } else {
+                title.textContent = 'Block User?';
+                message.textContent = 'Are you sure you want to block this user?';
+                confirmBtn.textContent = 'Block';
+                confirmBtn.classList.remove('unblock');
             }
 
-            document.getElementById('confirmBlock').addEventListener('click', async () => {
-                if (!blockUserId || !blockAction) return;
+            document.getElementById('blockUserPopup').style.display = 'flex';
+        }
 
-                const url = blockAction === 'block' ? `/block/${uId}` : `/unblock/${uId}`;
+        document.getElementById('confirmBlock').addEventListener('click', async () => {
+            if (!blockUserId || !blockAction) return;
 
-                try {
-                    const res = await api.put(url, { id: blockUserId });
-                    showToast('success', res?.data?.message || `User ${blockAction}ed successfully`);
-                    getData();
-                } catch (error) {
-                    console.error(error);
-                    showToast('error', `Failed to ${blockAction} user`);
-                }
+            const url = blockAction === 'block' ? `/block/${uId}` : `/unblock/${uId}`;
 
-                closeBlockPopup();
-            });
-
-            document.getElementById('cancelBlock').addEventListener('click', closeBlockPopup);
-
-            function closeBlockPopup() {
-                document.getElementById('blockUserPopup').style.display = 'none';
+            try {
+                const res = await api.put(url, { id: blockUserId });
+                showToast('success', res?.data?.message || `User ${blockAction}ed successfully`);
+                getData();
+            } catch (error) {
+                console.error(error);
+                showToast('error', `Failed to ${blockAction} user`);
             }
+
+            closeBlockPopup();
+        });
+
+        document.getElementById('cancelBlock').addEventListener('click', closeBlockPopup);
+
+        function closeBlockPopup() {
+            document.getElementById('blockUserPopup').style.display = 'none';
+        }
 
         // View User
         function viewUser(id) {
@@ -777,73 +780,73 @@
             modal.show();
         }
 
-            function updateUser(id) {
-                const u = usersCache.find(x => String(x._id) === String(id));
-                if (!u) {
-                    showToast('error', 'User not found');
-                    return;
-                }
-
-                const form = document.getElementById('editUserForm');
-                form.elements['id'].value = u._id || '';
-                form.elements['first'].value = u.first_name || '';
-                form.elements['last'].value = u.last_name || '';
-                form.elements['email'].value = u.email || '';
-                form.elements['role'].value = u.role === 'admin' ? 'admin' : 'user';
-                form.elements['status'].value = u.isBlocked ? 'blocked' : 'active';
-                form.elements['password'].value = '';
-                form.elements['confirm_password'].value = '';
-
-                const modalEl = document.getElementById('editUserModal');
-                const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
-                modal.show();
+        function updateUser(id) {
+            const u = usersCache.find(x => String(x._id) === String(id));
+            if (!u) {
+                showToast('error', 'User not found');
+                return;
             }
 
-            // 🔹 Handle form submit (PUT request)
-            document.getElementById("editUserForm").addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const form = e.target;
+            const form = document.getElementById('editUserForm');
+            form.elements['id'].value = u._id || '';
+            form.elements['first'].value = u.first_name || '';
+            form.elements['last'].value = u.last_name || '';
+            form.elements['email'].value = u.email || '';
+            form.elements['role'].value = u.role === 'admin' ? 'admin' : 'user';
+            form.elements['status'].value = u.isBlocked ? 'blocked' : 'active';
+            form.elements['password'].value = '';
+            form.elements['confirm_password'].value = '';
 
-                const userId = form.elements["id"].value.trim();
-                const first_name = form.elements["first"].value.trim();
-                const last_name = form.elements["last"].value.trim();
-                const email = form.elements["email"].value.trim();
-                const role = form.elements["role"].value.trim();
-                const status = form.elements["status"].value.trim();
-                const password = form.elements["password"].value.trim();
-                const confirm_password = form.elements["confirm_password"].value.trim();
+            const modalEl = document.getElementById('editUserModal');
+            const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+            modal.show();
+        }
 
-                if (password && password !== confirm_password) {
-                    showToast("error", "Passwords do not match");
-                    return;
-                }
+        // 🔹 Handle form submit (PUT request)
+        document.getElementById("editUserForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const form = e.target;
 
-                try {
-                    const response = await axios.put(
-                        `https://find-nearby-emergency-facilities-ba.vercel.app/api/users/edit/${uId}/${userId}`,
-                        { first_name, last_name, email, password, role, status }
-                    );
+            const userId = form.elements["id"].value.trim();
+            const first_name = form.elements["first"].value.trim();
+            const last_name = form.elements["last"].value.trim();
+            const email = form.elements["email"].value.trim();
+            const role = form.elements["role"].value.trim();
+            const status = form.elements["status"].value.trim();
+            const password = form.elements["password"].value.trim();
+            const confirm_password = form.elements["confirm_password"].value.trim();
 
-                    if (response.data.success) {
-                        showToast("success", "User updated successfully");
+            if (password && password !== confirm_password) {
+                showToast("error", "Passwords do not match");
+                return;
+            }
 
-                        // Hide modal
-                        const modalEl = document.getElementById("editUserModal");
-                        const modal = bootstrap.Modal.getInstance(modalEl);
-                        modal.hide();
-                        getData();
-                        // Refresh user list
-                        if (typeof loadUsers === "function") {
-                            await loadUsers();
-                        }
-                    } else {
-                        showToast("error", response.data.message || "Failed to update user");
+            try {
+                const response = await axios.put(
+                    `https://find-nearby-emergency-facilities-ba.vercel.app/api/users/edit/${uId}/${userId}`,
+                    { first_name, last_name, email, password, role, status }
+                );
+
+                if (response.data.success) {
+                    showToast("success", "User updated successfully");
+
+                    // Hide modal
+                    const modalEl = document.getElementById("editUserModal");
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    modal.hide();
+                    getData();
+                    // Refresh user list
+                    if (typeof loadUsers === "function") {
+                        await loadUsers();
                     }
-                } catch (err) {
-                    console.error(err);
-                    showToast("error", err.response?.data?.message || "Internal server error");
+                } else {
+                    showToast("error", response.data.message || "Failed to update user");
                 }
-            });
+            } catch (err) {
+                console.error(err);
+                showToast("error", err.response?.data?.message || "Internal server error");
+            }
+        });
         // Run on load
         getData();
     </script>
@@ -942,37 +945,247 @@
     </script>
 
     <script>
-        // ---- Table filters + search ----
+        // <CHANGE> Complete filter and pagination system
         const searchUser = document.getElementById('searchUser');
         const filterStatus = document.getElementById('filterStatus');
         const filterRole = document.getElementById('filterRole');
 
-        function applyFilters() {
+        // <CHANGE> Get filtered users based on all criteria
+        function getFilteredUsers() {
             const q = (searchUser?.value || '').trim().toLowerCase();
             const st = (filterStatus?.value || '').toLowerCase();
             const rl = (filterRole?.value || '').toLowerCase();
 
-            document.querySelectorAll('#usersTable tbody tr').forEach(tr => {
-                const nameEl = tr.querySelector('td:nth-child(1) strong');
-                const emailEl = tr.querySelector('td:nth-child(2)');
-                const roleEl = tr.querySelector('[class*="role-"]');
-                const statusEl = tr.querySelector('[class*="status-"]');
-
-                const name = (nameEl?.innerText || '').toLowerCase();
-                const email = (emailEl?.innerText || '').toLowerCase();
-                const role = (roleEl?.innerText || '').toLowerCase();
-                const status = (statusEl?.innerText || '').toLowerCase();
+            return usersCache.filter(user => {
+                const name = `${user.first_name || ''} ${user.last_name || ''}`.toLowerCase();
+                const email = (user.email || '').toLowerCase();
+                const role = (user.role || 'user').toLowerCase();
+                const status = user.isBlocked ? 'blocked' : 'active';
 
                 const okQ = q === '' || name.includes(q) || email.includes(q);
                 const okS = st === '' || status === st;
                 const okR = rl === '' || role === rl;
 
-                tr.style.display = (okQ && okS && okR) ? '' : 'none';
+                return okQ && okS && okR;
             });
         }
 
+        // <CHANGE> Render pagination with filtered data
+        function renderPagination(filteredUsers) {
+            const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+            const pageNumbersContainer = document.getElementById('pageNumbers');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            pageNumbersContainer.innerHTML = '';
+
+            // Ensure current page is valid
+            if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+
+            // Previous button
+            if (currentPage === 1) {
+                prevBtn.classList.add('disabled');
+                prevBtn.querySelector('button').disabled = true;
+            } else {
+                prevBtn.classList.remove('disabled');
+                prevBtn.querySelector('button').disabled = false;
+                prevBtn.querySelector('button').onclick = () => {
+                    currentPage--;
+                    applyFilters();
+                };
+            }
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement('li');
+                li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+                const btn = document.createElement('button');
+                btn.className = 'page-link';
+                btn.textContent = i;
+                btn.onclick = () => {
+                    currentPage = i;
+                    applyFilters();
+                };
+                li.appendChild(btn);
+                pageNumbersContainer.appendChild(li);
+            }
+
+            // Next button
+            if (currentPage === totalPages || totalPages === 0) {
+                nextBtn.classList.add('disabled');
+                nextBtn.querySelector('button').disabled = true;
+            } else {
+                nextBtn.classList.remove('disabled');
+                nextBtn.querySelector('button').disabled = false;
+                nextBtn.querySelector('button').onclick = () => {
+                    currentPage++;
+                    applyFilters();
+                };
+            }
+        }
+
+        // <CHANGE> Update pagination text
+        function updatePaginationText(filteredUsers) {
+            const total = filteredUsers.length;
+            const start = total === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+            const end = Math.min(currentPage * itemsPerPage, total);
+            document.getElementById('paginationText').textContent = `Showing ${start} to ${end} of ${total} results`;
+        }
+
+        // <CHANGE> Apply filters and render table with pagination
+        function applyFilters() {
+            const filteredUsers = getFilteredUsers();
+            const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+
+            // Ensure current page is valid
+            if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+
+            // Calculate start and end indices
+            const startIdx = (currentPage - 1) * itemsPerPage;
+            const endIdx = startIdx + itemsPerPage;
+            const paginatedUsers = filteredUsers.slice(startIdx, endIdx);
+
+            // Render table rows
+            const tableBody = document.getElementById('userTableBody');
+            tableBody.innerHTML = '';
+
+            if (paginatedUsers.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" class="text-center py-4">No users found</td></tr>';
+            } else {
+                paginatedUsers.forEach((user) => {
+                    const row = `
+                <tr data-id="${user._id || ''}">
+                  <td><strong>${user.first_name || 'N/A'} ${user.last_name || ''}</strong></td>
+                  <td>${user.email || '-'}</td>
+                  <td>
+                    <span class="badge-pill ${user.role === 'admin' ? 'role-admin' : 'role-user'}">
+                      ${user.role || 'user'}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="badge-pill ${user.isBlocked ? 'status-blocked' : 'status-active'}">
+                      ${user.isBlocked ? 'blocked' : 'active'}
+                    </span>
+                  </td>
+                  <td class="text-end action-buttons">
+                    <button class="btn-action view" title="View" onclick="viewUser('${user._id}')">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn-action update" title="Update" onclick="updateUser('${user._id}')">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button class="btn-action block" title="${user.isBlocked ? 'Unblock' : 'Block'}" onclick="toggleBlockUser('${user._id}', ${user.isBlocked})">
+                      <i class="fa-solid fa-ban"></i>
+                    </button>
+                    <button class="btn-action delete" title="Delete" onclick="deleteUser('${user._id}')">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              `;
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                });
+            }
+
+            // Update pagination
+            renderPagination(filteredUsers);
+            updatePaginationText(filteredUsers);
+        }
+
+        // <CHANGE> Add event listeners to all filters
         [searchUser, filterStatus, filterRole].forEach(el => {
-            if (el) el.addEventListener('input', applyFilters);
+            if (el) {
+                el.addEventListener('input', () => {
+                    currentPage = 1; // Reset to page 1 when filter changes
+                    applyFilters();
+                });
+                el.addEventListener('change', () => {
+                    currentPage = 1; // Reset to page 1 when filter changes
+                    applyFilters();
+                });
+            }
+        });
+
+        // <CHANGE> Add click handlers to stat cards for quick filtering
+        document.getElementById('statCardTotal').addEventListener('click', () => {
+            searchUser.value = '';
+            filterStatus.value = '';
+            filterRole.value = '';
+            currentPage = 1;
+            applyFilters();
+        });
+
+        document.getElementById('statCardActive').addEventListener('click', () => {
+            searchUser.value = '';
+            filterStatus.value = 'active';
+            filterRole.value = '';
+            currentPage = 1;
+            applyFilters();
+        });
+
+        document.getElementById('statCardMonth').addEventListener('click', () => {
+            searchUser.value = '';
+            filterStatus.value = '';
+            filterRole.value = '';
+            currentPage = 1;
+
+            // Filter to show only users created this month
+            const now = new Date();
+            const m = now.getMonth(), y = now.getFullYear();
+            const thisMonthUsers = usersCache.filter(u => {
+                if (!u.createdAt) return false;
+                const d = new Date(u.createdAt);
+                return d.getFullYear() === y && d.getMonth() === m;
+            });
+
+            // Render filtered users
+            const tableBody = document.getElementById('userTableBody');
+            tableBody.innerHTML = '';
+
+            if (thisMonthUsers.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" class="text-center py-4">No users found</td></tr>';
+            } else {
+                const startIdx = 0;
+                const endIdx = itemsPerPage;
+                const paginatedUsers = thisMonthUsers.slice(startIdx, endIdx);
+
+                paginatedUsers.forEach((user) => {
+                    const row = `
+                <tr data-id="${user._id || ''}">
+                  <td><strong>${user.first_name || 'N/A'} ${user.last_name || ''}</strong></td>
+                  <td>${user.email || '-'}</td>
+                  <td>
+                    <span class="badge-pill ${user.role === 'admin' ? 'role-admin' : 'role-user'}">
+                      ${user.role || 'user'}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="badge-pill ${user.isBlocked ? 'status-blocked' : 'status-active'}">
+                      ${user.isBlocked ? 'blocked' : 'active'}
+                    </span>
+                  </td>
+                  <td class="text-end action-buttons">
+                    <button class="btn-action view" title="View" onclick="viewUser('${user._id}')">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn-action update" title="Update" onclick="updateUser('${user._id}')">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button class="btn-action block" title="${user.isBlocked ? 'Unblock' : 'Block'}" onclick="toggleBlockUser('${user._id}', ${user.isBlocked})">
+                      <i class="fa-solid fa-ban"></i>
+                    </button>
+                    <button class="btn-action delete" title="Delete" onclick="deleteUser('${user._id}')">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              `;
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                });
+            }
+
+            renderPagination(thisMonthUsers);
+            updatePaginationText(thisMonthUsers);
         });
     </script>
 
@@ -982,7 +1195,7 @@
         const profileModal = document.getElementById('profileModal');
         const closeProfileBtn = document.getElementById('closeProfileBtn');
 
-   
+
 
         closeProfileBtn.addEventListener('click', function () {
             profileModal.classList.remove('show');

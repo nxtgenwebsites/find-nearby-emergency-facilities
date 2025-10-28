@@ -971,3 +971,16 @@ border-bottom: 1px solid #e9ecef;
 }
 
 
+
+
+@media (max-height: 800px) {
+  footer {
+    position: unset !important;
+  }
+  .dashboard-footer {
+    position: unset !important;
+  }
+  .main-content {
+    padding-bottom: 0 !important;
+  }
+}

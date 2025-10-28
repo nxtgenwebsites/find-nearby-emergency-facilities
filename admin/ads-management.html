@@ -167,6 +167,7 @@
                                         <th scope="col">Country</th>
                                         <th scope="col">Start Date</th>
                                         <th scope="col">End Date</th>
+                                        <th scope="col">Cost</th>
                                         <th scope="col">Status</th>
                                         <th scope="col" class="text-end">Actions</th>
                                     </tr>
@@ -417,7 +418,7 @@
                             // --- Logged In ---
                             button.innerHTML = `
     <img src="assets/icons/user-icon.svg" width="28" alt="">
-    <span class="me-1" style="margin-right: -5px !important;">Account</span>
+    <span class="me-1" style="margin-right: -5px !important;">My Account</span>
     <i class="bi bi-chevron-down ms-1"></i>
 `;
                             button.setAttribute("data-bs-toggle", "dropdown");
@@ -611,6 +612,7 @@
                   <td>${escapeHtml(s.country || '-')}</td>
                   <td>${formatDate(s.startDate || '')}</td>
                   <td>${formatDate(s.endDate || '')}</td>
+                  <td>${escapeHtml(s?.cost || 'Not sent') }</td>
                   <td>${statusBadge}</td>
                   <td class="text-end action-buttons">
                     <button class="btn-action view" title="View Sponsor" data-action="view" data-id="${s._id}">
@@ -697,7 +699,6 @@
         function openEmailPopup(sponsor) {
             pendingEmailId = sponsor._id;
             axios.get(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/single-user/${sponsor.owner}`).then((res) =>{
-                console.log(res.data);
                 document.getElementById('emailTo').value = res.data.data.email || '';
                 document.getElementById('emailSubject').value = '';
                 document.getElementById('emailBody').value = '';
@@ -727,7 +728,7 @@
 
         addEditPopupSubmit.addEventListener('click', async (e) => {
             e.preventDefault();
-
+            
             const name = document.getElementById('sponsorName').value.trim();
             const country = document.getElementById('sponsorCountry').value.trim();
             const startDate = document.getElementById('sponsorStartDate').value;
@@ -788,9 +789,10 @@
                         subject,
                         body,
                         cost,
+                        adId: pendingEmailId
                     });
 
-                    toastr.success("Email sent successfully!", "Successfully Ad", {
+                    toastr.success("Email sent successfully!", "Email Sent", {
                         "closeButton": true,
                         "progressBar": true,
                         "showDuration": "300",
@@ -798,7 +800,9 @@
                         "timeOut": "2000",
                         "extendedTimeOut": "1000",
                     })
+                    document.getElementById("cost").value = "";
                     closePopup(emailPopup);
+                    await loadAllAdsFromAPI()
                 } catch (err) {
                     console.error(err);
                     alert("❌ Failed to send email.");

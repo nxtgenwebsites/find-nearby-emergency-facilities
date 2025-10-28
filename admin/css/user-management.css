@@ -23,9 +23,14 @@ body {
   background-color: #e8f4f82c;
   min-height: 100% !important;
   width: 100% !important;
-  padding: 10px 0px;
-  padding-bottom: 0 !important;
+  padding-top: 10px;
 }
+
+.main-content.w-100:first-child {
+  min-height: 100vh !important;
+  padding-bottom: 65px !important;
+}
+
 
 .main-content .hero-content {
   padding-top: 25px;
@@ -88,9 +93,7 @@ body {
 .like-section {
   margin-top: 40px;
 }
-.footer{
-  position: unset !important;
-}
+
 .dashboard-footer{
   position: absolute !important;
   bottom: 0 !important;
@@ -185,12 +188,7 @@ body {
   .main-content .main-content {
     position: unset;
     min-height: 100vh;
-    padding: 20px 0px;
-  }
-
-  .footer {
-    position: unset !important;
-    bottom: -77px !important;
+    padding-top: 20px;
   }
 
   .about-header {
@@ -222,15 +220,18 @@ body {
     padding: 8px 20px;
   }
 
+  .main-content.w-100:first-child {
+    min-height: 100vh !important;
+    padding-bottom: 65px !important;
+  }
+
   .floating-btn {
     width: 70px;
     height: 70px;
     right: 20px;
     font-size: 0.7rem;
   }
-  .dashboard-footer {
-    position: unset !important;
-  }
+
   .main-content .main-content{
     min-height: auto !important;
   }
@@ -629,4 +630,17 @@ body {
 @keyframes popupAppear {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
+}
+
+
+@media (max-height: 800px) {
+  footer {
+    position: unset !important;
+  }
+  .dashboard-footer {
+    position: unset !important;
+  }
+  .main-content {
+    padding-bottom: 0 !important;
+  }
 }

@@ -83,7 +83,7 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><button class="dropdown-item text-danger" id="logout-btn-2">Logout</button></li>
+                    <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
                 </ul>
             </div>
 
@@ -159,6 +159,7 @@
                                         <th scope="col">Target Country</th>
                                         <th scope="col">Start Date</th>
                                         <th scope="col">End Date</th>
+                                        <th scope="col">Cost</th>
                                         <th scope="col">Status</th>
                                         <th scope="col" class="text-end">Actions</th>
                                     </tr>
@@ -360,7 +361,7 @@
                     // --- Logged In ---
                     button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
-            <span class="me-1" style="margin-right: -5px !important;">Account</span>
+            <span class="me-1" style="margin-right: -5px !important;">My Account</span>
             <i class="bi bi-chevron-down ms-1"></i>
         `;
                     button.setAttribute("data-bs-toggle", "dropdown");
@@ -492,6 +493,7 @@
                   <td>${escapeHtml(s.country || '-')}</td>
                   <td>${formatDate(s.startDate || '')}</td>
                   <td>${formatDate(s.endDate || '')}</td>
+                   <td>${escapeHtml(s?.cost || 'Not sent') }</td>
                   <td>${statusBadge}</td>
                   <td class="text-end action-buttons">
                     <button class="btn-action view" title="View Sponsor" data-action="view" data-id="${s._id}">

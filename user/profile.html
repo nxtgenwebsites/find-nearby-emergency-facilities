@@ -455,7 +455,7 @@
         const uid = localStorage.getItem("uid");
 
         if (!uid) {
-            window.location.href = "login.html";
+            window.location.href = "/login.html";
         }
 
 
@@ -721,7 +721,7 @@
                 // --- Logged In ---
                 button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
-            <span class="me-1" style="margin-right: -5px !important;">Account</span>
+            <span class="me-1" style="margin-right: -5px !important;">My Account</span>
             <i class="bi bi-chevron-down ms-1"></i>
         `;
                 button.setAttribute("data-bs-toggle", "dropdown");

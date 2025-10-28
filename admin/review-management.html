@@ -233,7 +233,7 @@
             </ul>
         </div>
 
-        <div class="main-content w-100">
+        <div class="main-content w-100" style="min-height: 100vh !important;">
             <header class="header d-lg-none">
                 <a href="/" class="mobile-logo">
                     <img src="assets/images/logo.svg" alt="Health Centre App logo" />
@@ -270,7 +270,7 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><button class="dropdown-item text-danger" id="logout-btn-2">Logout</button></li>
+                    <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
                 </ul>
             </div>
 
@@ -470,7 +470,7 @@
                             // --- Logged In ---
                             button.innerHTML = `
     <img src="assets/icons/user-icon.svg" width="28" alt="">
-    <span class="me-1" style="margin-right: -5px !important;">Account</span>
+    <span class="me-1" style="margin-right: -5px !important;">My Account</span>
     <i class="bi bi-chevron-down ms-1"></i>
 `;
                             button.setAttribute("data-bs-toggle", "dropdown");
