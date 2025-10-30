@@ -22,7 +22,6 @@
             font-family: 'Poppins', sans-serif;
         }
 
-
         .main-content {
             min-height: 92% !important;
         }
@@ -50,6 +49,37 @@
 
         .btn-edit:hover {
             background-color: #368186 !important;
+        }
+
+        /* <CHANGE> Added profile picture styling */
+        .profile-pic-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #368186;
+        }
+
+        .profile-pic-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #368186;
+            margin: 0 auto;
+        }
+
+        .profile-pic-placeholder i {
+            font-size: 50px;
+            color: #368186;
         }
     </style>
 </head>
@@ -79,7 +109,7 @@
     <!-- Added location permission modal -->
     <div class="location-modal " id="profileModal">
         <h3>Coming Soon!</h3>
-        <p>User profile feature isn’t available yet!</p>
+        <p>User profile feature isn't available yet!</p>
         <div class="location-buttons">
             <button class="btn-location btn-allow" id="closeProfileBtn">
                 Go back
@@ -127,7 +157,6 @@
         </div>
     </div>
     </div>
-
 
     <!-- Search Modal -->
     <div id="searchModal d-block" class="modal">
@@ -264,7 +293,7 @@
                                 </li>
                                 <li><a class="dropdown-item" href="/admin/dashboard.html">Dashboard</a></li>
                                 <li>
-                                    </div>
+                            </div>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -303,35 +332,86 @@
                     </ul>
                 </div>
                 <div class="main-container">
-                    <!-- User Info Card -->
+                    <!-- <CHANGE> Updated User Information Card with Profile Picture and new fields -->
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">User Information</h5>
-                            <button class="btn btn-sm btn-light" data-bs-toggle="modal"
-                                data-bs-target="#editUserModal">Edit</button>
-                        </div>
+                            <div class="d-flex gap-3">
+                                <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                    data-bs-target="#editUserModal">Edit</button>
+                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                    data-bs-target="#changePasswordModal">Change Password</button>
+                            </div>
+                            </div>
                         <div class="card-body">
-                            <p><strong>First Name:</strong> <span id="uFirst"></span></p>
-                            <p><strong>Last Name:</strong> <span id="uLast"></span></p>
-                            <p><strong>Email:</strong> <span id="uEmail"></span></p>
-                        </div>
-                    </div>
-
-                    <!-- Next of Kin Info Card -->
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Next of Kin</h5>
-                            <button class="btn btn-sm btn-light" data-bs-toggle="modal"
-                                data-bs-target="#editKinModal">Edit</button>
-                        </div>
-                        <div class="card-body">
-                            <p><strong>Title:</strong> <span id="kTitle"></span></p>
-                            <p><strong>First Name:</strong> <span id="kFirst"></span></p>
-                            <p><strong>Last Name:</strong> <span id="kLast"></span></p>
-                            <p><strong>Relationship:</strong> <span id="kRel"></span></p>
-                            <p><strong>Email:</strong> <span id="kEmail"></span></p>
-                            <p><strong>Country:</strong> <span id="kCountry"></span></p>
-                            <p><strong>WhatsApp No:</strong> <span id="kWhatsApp"></span></p>
+                            <!-- Profile Picture Display -->
+                            <div class="profile-pic-container" id="profilePicContainer">
+                                <div class="profile-pic-placeholder">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                            </div>
+                            <div class="container mt-3">
+                                <!-- Title -->
+                                <div class="row py-2 border-bottom align-items-center">
+                                    <div class="col-12 col-md-3 fw-semibold text-secondary">
+                                        Title:
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <span id="uTitle" class="text-dark"></span>
+                                    </div>
+                                </div>
+                            
+                                <!-- First Name -->
+                                <div class="row py-2 border-bottom align-items-center">
+                                    <div class="col-12 col-md-3 fw-semibold text-secondary">
+                                        First Name:
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <span id="uFirst" class="text-dark"></span>
+                                    </div>
+                                </div>
+                            
+                                <!-- Last Name -->
+                                <div class="row py-2 border-bottom align-items-center">
+                                    <div class="col-12 col-md-3 fw-semibold text-secondary">
+                                        Last Name:
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <span id="uLast" class="text-dark"></span>
+                                    </div>
+                                </div>
+                            
+                                <!-- Email -->
+                                <div class="row py-2 border-bottom align-items-center">
+                                    <div class="col-12 col-md-3 fw-semibold text-secondary">
+                                        Email:
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <span id="uEmail" class="text-dark"></span>
+                                    </div>
+                                </div>
+                            
+                                <!-- Gender -->
+                                <div class="row py-2 border-bottom align-items-center">
+                                    <div class="col-12 col-md-3 fw-semibold text-secondary">
+                                        Gender:
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <span id="uGender" class="text-dark"></span>
+                                    </div>
+                                </div>
+                            
+                                <!-- Country -->
+                                <div class="row py-2 align-items-center">
+                                    <div class="col-12 col-md-3 fw-semibold text-secondary">
+                                        Country:
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <span id="uCountry" class="text-dark"></span>
+                                    </div>
+                                </div>
+                            </div>
+                              
                         </div>
                     </div>
                 </div>
@@ -347,36 +427,8 @@
                             <div class="modal-body">
                                 <form id="userForm">
                                     <div class="mb-3">
-                                        <label class="form-label">First Name</label>
-                                        <input type="text" class="form-control" id="editUFirst">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" id="editULast">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="editUEmail">
-                                    </div>
-                                    <button type="submit" class="btn btn-edit w-100">Save Changes</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Edit Next of Kin Modal -->
-                <div class="modal fade" id="editKinModal" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5>Edit Next of Kin</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="kinForm">
-                                    <div class="mb-2"><label class="form-label">Title</label>
-                                        <select class="form-select" id="editKTitle" name="title">
+                                        <label class="form-label">Title</label>
+                                        <select class="form-select" id="editUTitle" name="title">
                                             <option value="" disabled selected>Select</option>
                                             <option value="Mr">Mr</option>
                                             <option value="Mrs">Mrs</option>
@@ -389,29 +441,60 @@
                                             <option value="Hon">Hon</option>
                                         </select>
                                     </div>
-                                    <div class="mb-2"><label class="form-label">First Name</label><input type="text"
-                                            class="form-control" id="editKFirst"></div>
-                                    <div class="mb-2"><label class="form-label">Last Name</label><input type="text"
-                                            class="form-control" id="editKLast"></div>
-                                    <div class="mb-2"><label class="form-label">Relationship</label>
-                                        <select class="form-select" id="editKRel">
-                                            <option value="">Select</option>
-                                            <option>Spouse</option>
-                                            <option>Parents</option>
-                                            <option>Child</option>
-                                            <option>Sibling</option>
-                                            <option>Relative</option>
-                                            <option>Friend</option>
-                                            <option value="Other">Other</option>
+                                    <div class="mb-3">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="editUFirst">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="editULast">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="editUEmail">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Gender</label>
+                                        <select class="form-select" id="editUGender" name="gender">
+                                            <option value="" disabled selected>Select</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
                                         </select>
                                     </div>
-                                    <div class="mb-2"><label class="form-label">Email</label><input type="email"
-                                            class="form-control" id="editKEmail"></div>
-                                    <div class="mb-2"><label class="form-label">Country</label><input type="text"
-                                            class="form-control" id="editKCountry"></div>
-                                    <div class="mb-2"><label class="form-label">WhatsApp No</label><input type="text"
-                                            class="form-control" id="editKWhatsApp"></div>
-                                    <button type="submit" class="btn btn-edit w-100 mt-2">Save Changes</button>
+                                    <div class="mb-3">
+                                        <label class="form-label">Country</label>
+                                        <input type="text" class="form-control" id="editUCountry">
+                                    </div>
+                                    <button type="submit" class="btn btn-edit w-100">Save Changes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <CHANGE> Added Change Password Modal -->
+                <div class="modal fade" id="changePasswordModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5>Change Password</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="passwordForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">Current Password</label>
+                                        <input type="password" class="form-control" id="currentPassword" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">New Password</label>
+                                        <input type="password" class="form-control" id="newPassword" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="confirmPassword" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-edit w-100">Update Password</button>
                                 </form>
                             </div>
                         </div>
@@ -451,60 +534,49 @@
 
     <script>
 
-
         const uid = localStorage.getItem("uid");
 
         if (!uid) {
             window.location.href = "/login.html";
         }
 
-
-        document.getElementById("kinForm").addEventListener("submit", async function (e) {
+        // <CHANGE> Updated user form to include new fields
+        document.getElementById("userForm").addEventListener("submit", async function (e) {
             e.preventDefault();
-
-            const title = document.getElementById("editKTitle").value.trim();
-            const first_name = document.getElementById("editKFirst").value.trim();
-            const last_name = document.getElementById("editKLast").value.trim();
-            const relationship = document.getElementById("editKRel").value.trim();
-            const email = document.getElementById("editKEmail").value.trim();
-            const country = document.getElementById("editKCountry").value.trim();
-            const whatsapp_no = document.getElementById("editKWhatsApp").value.trim();
+            const title = document.getElementById("editUTitle").value.trim();
+            const first_name = document.getElementById("editUFirst").value.trim();
+            const last_name = document.getElementById("editULast").value.trim();
+            const email = document.getElementById("editUEmail").value.trim();
+            const gender = document.getElementById("editUGender").value.trim();
+            const country = document.getElementById("editUCountry").value.trim();
 
             try {
-                const response = await axios.put(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/update-kin/${uid}`, {
+                const response = await axios.put(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/update-info/${uid}`, {
                     title,
                     first_name,
                     last_name,
-                    relationship,
                     email,
-                    country,
-                    whatsapp_no
+                    gender,
+                    country
                 });
 
                 if (response.status === 200) {
-                    // ✅ Success message
-                    toastr.success("Next of Kin updated successfully", "Success", {
+                    document.getElementById("editUTitle").value = "";
+                    document.getElementById("editUFirst").value = "";
+                    document.getElementById("editULast").value = "";
+                    document.getElementById("editUEmail").value = "";
+                    document.getElementById("editUGender").value = "";
+                    document.getElementById("editUCountry").value = "";
+
+                    const modalEl = document.getElementById("editUserModal");
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    modal.hide();
+                    getData();
+                    toastr.success("Profile updated successfully", "Success", {
                         closeButton: true,
                         progressBar: true,
                         timeOut: 2000
                     });
-
-                    // ✅ Clear form fields
-                    document.getElementById("editKTitle").value = "";
-                    document.getElementById("editKFirst").value = "";
-                    document.getElementById("editKLast").value = "";
-                    document.getElementById("editKRel").value = "";
-                    document.getElementById("editKEmail").value = "";
-                    document.getElementById("editKCountry").value = "";
-                    document.getElementById("editKWhatsApp").value = "";
-
-                    // ✅ Hide modal (Bootstrap 5)
-                    const modalEl = document.getElementById("editKinModal");
-                    const modal = bootstrap.Modal.getInstance(modalEl);
-                    modal.hide();
-
-                    // ✅ Refresh data (same as your getData())
-                    getData();
                 }
             } catch (error) {
                 console.error(error);
@@ -517,32 +589,47 @@
             }
         });
 
-        document.getElementById("userForm").addEventListener("submit", async function (e) {
+        // <CHANGE> Added password change form handler
+        document.getElementById("passwordForm").addEventListener("submit", async function (e) {
             e.preventDefault();
-            const first_name = document.getElementById("editUFirst").value.trim();
-            const last_name = document.getElementById("editULast").value.trim();
-            const email = document.getElementById("editUEmail").value.trim();
+            const currentPassword = document.getElementById("currentPassword").value.trim();
+            const newPassword = document.getElementById("newPassword").value.trim();
+            const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+            if (newPassword !== confirmPassword) {
+                toastr.error("New passwords do not match!", "Error", {
+                    closeButton: true,
+                    progressBar: true,
+                    timeOut: 2000
+                });
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                toastr.error("Password must be at least 6 characters long!", "Error", {
+                    closeButton: true,
+                    progressBar: true,
+                    timeOut: 2000
+                });
+                return;
+            }
 
             try {
-                const response = await axios.put(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/update-info/${uid}`, {
-                    first_name,
-                    last_name,
-                    email
+                const response = await axios.put(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/update-password/${uid}`, {
+                    currentPassword,
+                    newPassword
                 });
 
                 if (response.status === 200) {
+                    document.getElementById("currentPassword").value = "";
+                    document.getElementById("newPassword").value = "";
+                    document.getElementById("confirmPassword").value = "";
 
-                    // ✅ Clear the form fields
-                    document.getElementById("editUFirst").value = "";
-                    document.getElementById("editULast").value = "";
-                    document.getElementById("editUEmail").value = "";
-
-                    // ✅ Hide the modal (Bootstrap 5)
-                    const modalEl = document.getElementById("editUserModal");
+                    const modalEl = document.getElementById("changePasswordModal");
                     const modal = bootstrap.Modal.getInstance(modalEl);
                     modal.hide();
-                    getData();
-                    toastr.success("updated successfully", "Success", {
+
+                    toastr.success("Password changed successfully", "Success", {
                         closeButton: true,
                         progressBar: true,
                         timeOut: 2000
@@ -551,7 +638,7 @@
             } catch (error) {
                 console.error(error);
                 const msg = error.response?.data?.message || "Something went wrong!";
-                toastr.error("Something went wrong!", "Error", {
+                toastr.error(msg, "Error", {
                     closeButton: true,
                     progressBar: true,
                     timeOut: 2000
@@ -559,6 +646,7 @@
             }
         });
 
+        // <CHANGE> Updated getData to fetch and display all user fields including profile picture
         async function getData() {
             axios.get(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/single-user/${uid}`)
                 .then(response => {
@@ -567,52 +655,40 @@
                     if (response.data.data.role === 'admin') {
                         document.getElementById('admin-acc').classList.remove('d-none');
                         document.getElementById('m-admin-acc').classList.remove('d-none');
-
                     } else {
                         document.getElementById('m-admin-acc').classList.add('d-none');
                     }
 
-                    document.getElementById('uFirst').innerText = user.first_name;
-                    document.getElementById('uLast').innerText = user.last_name;
+                    // Display user information
+                    document.getElementById('uTitle').innerText = user.title || 'Not added';
+                    document.getElementById('uFirst').innerText = user.firstName;
+                    document.getElementById('uLast').innerText = user.lastName;
                     document.getElementById('uEmail').innerText = user.email;
+                    document.getElementById('uGender').innerText = user.gender ? user.gender.charAt(0).toUpperCase() + user.gender.slice(1) : 'Not added';
+                    document.getElementById('uCountry').innerText = user.country || 'Not added';
 
-                    document.getElementById('editUFirst').value = user.first_name;
-                    document.getElementById('editULast').value = user.last_name;
+                    // Set form values for editing
+                    document.getElementById('editUTitle').value = user.title || '';
+                    document.getElementById('editUFirst').value = user.firstName;
+                    document.getElementById('editULast').value = user.lastName;
                     document.getElementById('editUEmail').value = user.email;
+                    document.getElementById('editUGender').value = user.gender || '';
+                    document.getElementById('editUCountry').value = user.country || '';
 
-                    if (user.next_of_kin && user.next_of_kin.length > 0) {
-                        const kin = user.next_of_kin[0];
-
-                        // Display text (fallback: "Not added")
-                        document.getElementById('kTitle').innerText = kin.title || 'Not added';
-                        document.getElementById('kFirst').innerText = kin.first_name || 'Not added';
-                        document.getElementById('kLast').innerText = kin.last_name || 'Not added';
-                        document.getElementById('kRel').innerText = kin.relationship || 'Not added';
-                        document.getElementById('kEmail').innerText = kin.email || 'Not added';
-                        document.getElementById('kCountry').innerText = kin.country || 'Not added';
-                        document.getElementById('kWhatsApp').innerText = kin.whatsapp_no || 'Not added';
-
-                        // Form values (blank for editing)
-                        document.getElementById('editKTitle').value = kin.title || '';
-                        document.getElementById('editKFirst').value = kin.first_name || '';
-                        document.getElementById('editKLast').value = kin.last_name || '';
-                        document.getElementById('editKRel').value = kin.relationship || '';
-                        document.getElementById('editKEmail').value = kin.email || '';
-                        document.getElementById('editKCountry').value = kin.country || '';
-                        document.getElementById('editKWhatsApp').value = kin.whatsapp_no || '';
-
+                    // Display profile picture if available
+                    const profilePicContainer = document.getElementById('profilePicContainer');
+                    if (user.dpImageUrl && user.dpImageUrl.trim() !== '') {
+                        profilePicContainer.innerHTML = `<img src="${user.dpImageUrl}" alt="Profile Picture" class="profile-pic">`;
+                        // Show Account card only if profile picture exists
+                        document.getElementById('accountCard').style.display = 'block';
                     } else {
-                        // If no next_of_kin data exists
-                        const fields = ['kTitle', 'kFirst', 'kLast', 'kRel', 'kEmail', 'kCountry', 'kWhatsApp'];
-                        fields.forEach(id => {
-                            document.getElementById(id).innerText = 'Not added';
-                        });
-
-                        // Also clear the editable fields
-                        const editFields = ['editKTitle', 'editKFirst', 'editKLast', 'editKRel', 'editKEmail', 'editKCountry', 'editKWhatsApp'];
-                        editFields.forEach(id => {
-                            document.getElementById(id).value = '';
-                        });
+                        profilePicContainer.innerHTML = `
+                            <div class="profile-pic-placeholder">
+                                <i class="fa fa-user"></i>
+                            </div>
+                        `;
+                        // Hide Account card if no profile picture
+                        document.getElementById('accountCard').style.display = 'none';
                     }
 
                 })
@@ -622,92 +698,22 @@
         }
 
         getData();
-        const noPage = document.querySelectorAll('.no-page');
 
-        function commingSoon(text) {
-            profileModal.classList.add('show');
-            document.getElementById('overlay2').classList.add('show');
-            document.querySelector('#profileModal p').innerHTML = `<p>${text} isn’t available yet!</p>`;
-        }
-
-
-        function findNearbyServices() {
-            // Show location permission modal
-            document.getElementById('locationModal').classList.add('show');
-            document.getElementById('overlay').classList.add('show');
-        }
-
-        function allowLocation() {
-            hideLocationModal();
-
-            navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-
-                    console.log('[v0] Location obtained:', latitude, longitude);
-
-                    // Simulate finding nearby services
-                    setTimeout(() => {
-                    }, 2000);
-                },
-                function (error) {
-                    console.log('[v0] Location error:', error.message);
-                    let errorMessage = 'Unable to retrieve location. ';
-
-                    switch (error.code) {
-                        case error.PERMISSION_DENIED:
-                            errorMessage += 'Location access denied by user.';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            errorMessage += 'Location information unavailable.';
-                            break;
-                        case error.TIMEOUT:
-                            errorMessage += 'Location request timed out.';
-                            break;
-                        default:
-                            errorMessage += 'An unknown error occurred.';
-                            break;
-                    }
-
-                    showLocationStatus(errorMessage, 'error');
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 60000
-                }
-            );
-        }
-
-        function denyLocation() {
-            hideLocationModal();
-        }
-
-        function hideLocationModal() {
-            document.getElementById('locationModal').classList.remove('show');
-            document.getElementById('overlay').classList.remove('show');
-        }
-
-
+        // ... existing code ...
 
         const profileButton = document.querySelectorAll('.profile-button');
         const profileModal = document.getElementById('profileModal');
         const closeProfileBtn = document.getElementById('closeProfileBtn');
 
-        // Common UID check
-
-        // Handle all profile buttons (desktop + mobile)
         const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
 
         allProfiles.forEach(wrapper => {
             const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
             const dropdownMenu = wrapper.querySelector(".dropdown-menu");
 
-            if (!button) return; // Safety check
+            if (!button) return;
 
             if (!uid) {
-                // --- Not Logged In ---
                 button.classList.remove("dropdown-toggle");
                 if (dropdownMenu) dropdownMenu.style.display = "none";
                 button.innerHTML = `
@@ -715,10 +721,9 @@
             <span class="mx-2">Sign In</span>
             `;
                 button.onclick = () => (window.location.href = "/login.html");
-                button.removeAttribute("data-bs-toggle"); // Disable dropdown
+                button.removeAttribute("data-bs-toggle");
             } else {
                 button.classList.add("dropdown-toggle");
-                // --- Logged In ---
                 button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
             <span class="me-1" style="margin-right: -5px !important;">My Account</span>
@@ -728,16 +733,12 @@
             }
         });
 
-        // Logout logic
         document.addEventListener("click", e => {
             if (e.target.id === "logout-btn") {
                 localStorage.removeItem("uid");
                 location.reload();
             }
         });
-
-
-
 
         closeProfileBtn.addEventListener('click', function () {
             profileModal.classList.remove('show');
@@ -748,7 +749,6 @@
             document.getElementById('seach-popup').classList.add('d-none');
         });
 
-        // Mobile menu toggle
         const menuToggle = document.getElementById('menuToggle');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
@@ -761,11 +761,9 @@
         overlay.addEventListener('click', function () {
             sidebar.classList.remove('show');
             overlay.classList.remove('show');
-            // Close location modal if open
             document.getElementById('locationModal').classList.remove('show');
         });
 
-        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -778,7 +776,6 @@
             });
         });
 
-        // Responsive adjustments
         function handleResize() {
             if (window.innerWidth >= 992) {
                 sidebar.classList.remove('show');
@@ -788,7 +785,6 @@
 
         window.addEventListener('resize', handleResize);
 
-        // Initialize
         handleResize();
     </script>
 </body>

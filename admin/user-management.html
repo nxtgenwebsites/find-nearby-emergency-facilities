@@ -1055,7 +1055,7 @@
                 paginatedUsers.forEach((user) => {
                     const row = `
                 <tr data-id="${user._id || ''}">
-                  <td><strong>${user.first_name || 'N/A'} ${user.last_name || ''}</strong></td>
+                  <td><strong>${user.firstName || 'N/A'} ${user.lastName || ''}</strong></td>
                   <td>${user.email || '-'}</td>
                   <td>
                     <span class="badge-pill ${user.role === 'admin' ? 'role-admin' : 'role-user'}">
@@ -1152,7 +1152,7 @@
                 paginatedUsers.forEach((user) => {
                     const row = `
                 <tr data-id="${user._id || ''}">
-                  <td><strong>${user.first_name || 'N/A'} ${user.last_name || ''}</strong></td>
+                  <td><strong>${user.firstName || 'N/A'} ${user.lastName || ''}</strong></td>
                   <td>${user.email || '-'}</td>
                   <td>
                     <span class="badge-pill ${user.role === 'admin' ? 'role-admin' : 'role-user'}">

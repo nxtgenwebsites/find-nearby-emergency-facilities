@@ -376,18 +376,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="js/country-states.js"></script>
     <script>
-        /*
-          Admin Sponsor Management Panel
-          - View, Edit (details only), Delete, and Approve functionality
-          - No image upload for admins
-          - Uses Backend API for all operations
-          - Pagination working
-          - Email functionality added
-        */
+        (() => {
+                const country_list = country_and_states.country; // yaha tumhari countries ki list hogi
+                const id_country_option = document.getElementById("sponsorCountry");
 
+                const create_country_selection = () => {
+                    let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
+                    for (const country_code in country_list) {
+                        option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
+                    }
+                    id_country_option.innerHTML = option;
+                };
 
-        
+                // Initialize country dropdown
+                create_country_selection();
+            })();
+
         const API_BASE_URL = "https://find-nearby-emergency-facilities-ba.vercel.app/api/ads";
         const uid = localStorage.getItem('uid');
         if (!uid) {
@@ -688,7 +694,17 @@
             editingId = sponsor._id;
             popupTitle.textContent = 'Edit Sponsor';
             document.getElementById('sponsorName').value = sponsor.sponsorName || '';
-            document.getElementById('sponsorCountry').value = sponsor.country || '';
+            document.getElementById('sponsorName').value = sponsor.sponsorName || '';
+            const countrySelect = document.getElementById('sponsorCountry');
+            const sponsorCountry = sponsor.country || '';
+
+            // loop through all options and match by text
+            for (let i = 0; i < countrySelect.options.length; i++) {
+                if (countrySelect.options[i].text.trim().toLowerCase() === sponsorCountry.trim().toLowerCase()) {
+                    countrySelect.selectedIndex = i;
+                    break;
+                }
+            }
             document.getElementById('sponsorStartDate').value = sponsor.startDate ? sponsor.startDate.split('T')[0] : '';
             document.getElementById('sponsorEndDate').value = sponsor.endDate ? sponsor.endDate.split('T')[0] : '';
             document.getElementById('impressionDays').value = sponsor.impressionDays ? `${sponsor.impressionDays} days` : '0 days';
@@ -730,7 +746,7 @@
             e.preventDefault();
             
             const name = document.getElementById('sponsorName').value.trim();
-            const country = document.getElementById('sponsorCountry').value.trim();
+            const country = document.getElementById('sponsorCountry').selectedOptions[0].text.trim();
             const startDate = document.getElementById('sponsorStartDate').value;
             const endDate = document.getElementById('sponsorEndDate').value;
             const website = document.getElementById('sponsorWebsite').value.trim();

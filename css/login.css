@@ -158,3 +158,54 @@
       margin-top: 50px !important;
   }
 }
+
+.image-upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.upload-label {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed #368186;
+  border-radius: 50%;
+  background-color: #e3f2fd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+  overflow: hidden;
+}
+
+.upload-label:hover {
+  background-color: #d0ebff;
+}
+
+.upload-label i {
+  font-size: 24px;
+  color: #368186;
+  transition: 0.3s;
+}
+
+.upload-label span {
+  font-size: 12px;
+  color: #368186;
+  margin-top: 8px;
+}
+
+/* When image is uploaded */
+.uploaded {
+  border: none;
+  background: none;
+}
+
+.uploaded img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}

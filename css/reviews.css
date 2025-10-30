@@ -437,3 +437,26 @@ footer {
 .formspree-popup-close:hover {
   background: #3681861a;
 }
+
+
+.s-container img {
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin: 0 auto 5px;
+  border-radius: 50%;
+  transition: all 0.2s linear;
+}
+
+/* When selected */
+.s-container.active img {
+  outline: 3px solid #ffb400; /* golden outline */
+  outline-offset: 3px;
+  box-shadow: 0 0 8px rgba(255, 180, 0, 0.6);
+  transform: scale(1.1);
+}
+
+/* Optional hover effect */
+.s-container img:hover {
+  transform: scale(1.1);
+}

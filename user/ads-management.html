@@ -14,8 +14,105 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
         integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+
+    <style>
+        /* <CHANGE> Added success popup styling */
+        .success-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .success-popup.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-popup-content {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #4cbac2 0%, #368186 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            color: white;
+            box-shadow: 0 4px 15px #36818636;
+        }
+
+        .success-popup-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .success-popup-message {
+            font-size: 15px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .success-close-btn {
+            background: linear-gradient(135deg, #4db8c0 0%, #368186 100%);
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px #3681862f;
+        }
+
+        .success-close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px #3681867c;
+        }
+
+        .success-close-btn:active {
+            transform: translateY(0);
+        }
+    </style>
 </head>
 
 <body>
@@ -138,8 +235,8 @@
 
                     <div class="um-card">
                         <div class="um-card-header">
-                            <input id="searchInput" type="search" class="form-control"
-                                placeholder="Search your Ads." aria-label="Search sponsors" />
+                            <input id="searchInput" type="search" class="form-control" placeholder="Search your Ads."
+                                aria-label="Search sponsors" />
                             <div class="filter-wrap d-flex gap-2">
                                 <select id="statusFilter" class="form-select" aria-label="Filter by status">
                                     <option value="">All Status</option>
@@ -209,23 +306,8 @@
                 <h5 id="popupTitle">Submit Ad</h5>
                 <button class="custom-popup-close" id="addEditPopupClose">&times;</button>
             </div>
-            <div class="custom-popup-body">
+            <div class="custom-popup-body" style="padding-top: 0 !important;">
                 <form id="sponsorForm">
-                    <div class="form-group">
-                        <label>Upload Image *</label>
-                        <div class="image-upload-area" id="imageUploadArea">
-                            <i class="fa-solid fa-cloud-arrow-up"
-                                style="font-size: 32px; color: #999; margin-bottom: 10px; display: block;"></i>
-                            <p style="margin: 0; color: #666; font-size: 14px;">Drag and drop your image here or click here to select an image
-                            </p>
-                            <p style="margin: 0; color: #666; font-size: 14px;">Image Dimensions: 1100 x 620 pixels OR 11.5 x 6.50 inches required</p>
-                            <input type="file" id="logoInput" name="logo" accept="image/*" required>
-                        </div>
-                        <img id="imagePreview" class="image-preview" style="display: none;">
-                        <div id="imageSizeError"
-                            style="color: #dc3545; font-size: 12px; margin-top: 5px; display: none;"></div>
-                    </div>
-
                     <div class="form-group">
                         <label for="sponsorName">Full Name *</label>
                         <input type="text" id="sponsorName" name="name" required placeholder="Enter sponsor name">
@@ -234,21 +316,6 @@
                     <div class="form-group">
                         <label for="sponsorCountry">Target Country *</label>
                         <select id="sponsorCountry" name="country" required>
-                            <option value="">Select Country</option>
-                            <option value="USA">USA</option>
-                            <option value="Canada">Canada</option>
-                            <option value="UK">UK</option>
-                            <option value="Australia">Australia</option>
-                            <option value="India">India</option>
-                            <option value="Pakistan">Pakistan</option>
-                            <option value="Bangladesh">Bangladesh</option>
-                            <option value="Germany">Germany</option>
-                            <option value="France">France</option>
-                            <option value="Japan">Japan</option>
-                            <option value="China">China</option>
-                            <option value="Brazil">Brazil</option>
-                            <option value="Mexico">Mexico</option>
-                            <option value="Other">Other</option>
                         </select>
                     </div>
 
@@ -271,6 +338,24 @@
                     <div class="form-group">
                         <label for="sponsorWebsite">Target Link *</label>
                         <input type="url" id="sponsorWebsite" name="website" required placeholder="https://example.com">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0 !important;">
+                        <label>Upload Image *</label>
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <i class="fa-solid fa-cloud-arrow-up"
+                                style="font-size: 32px; color: #999; margin-bottom: 10px; display: block;"></i>
+                            <p style="margin: 0; color: #666; font-size: 14px;">Drag and drop your image here or click
+                                here to select an
+                                image
+                            </p>
+                            <p style="margin: 0; color: #666; font-size: 14px;">Image Dimensions: 1100 x 620 pixels OR
+                                11.5 x
+                                6.50 inches required</p>
+                            <input type="file" id="logoInput" name="logo" accept="image/*" required>
+                        </div>
+                        <img id="imagePreview" class="image-preview" style="display: none;">
+                        <div id="imageSizeError"
+                            style="color: #dc3545; font-size: 12px; margin-top: 5px; display: none;"></div>
                     </div>
                 </form>
             </div>
@@ -311,13 +396,44 @@
         </div>
     </div>
 
+    <!-- <CHANGE> Success Popup Modal -->
+    <div class="success-popup" id="successPopup">
+        <div class="success-popup-content">
+            <div class="success-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="success-popup-title">Advert Submitted</h3>
+            <p class="success-popup-message">Thank you! Your advert has been sent to our admin team for review. You'll
+                receive a notification in due course.</p>
+            <button class="success-close-btn" id="successCloseBtn">Close</button>
+        </div>
+    </div>
+
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/country-states.js"></script>
     <script>
+
+        (() => {
+            const country_list = country_and_states.country; // yaha tumhari countries ki list hogi
+            const id_country_option = document.getElementById("sponsorCountry");
+
+            const create_country_selection = () => {
+                let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
+                for (const country_code in country_list) {
+                    option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
+                }
+                id_country_option.innerHTML = option;
+            };
+
+            // Initialize country dropdown
+            create_country_selection();
+        })();
+
         // ============================================
         // CONFIGURATION
         // ============================================
@@ -332,50 +448,50 @@
 
 
         const profileButton = document.querySelectorAll('.profile-button');
-            const profileModal = document.getElementById('profileModal');
-            const closeProfileBtn = document.getElementById('closeProfileBtn');
+        const profileModal = document.getElementById('profileModal');
+        const closeProfileBtn = document.getElementById('closeProfileBtn');
 
-            // Common UID check
+        // Common UID check
 
-            // Handle all profile buttons (desktop + mobile)
-            const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
+        // Handle all profile buttons (desktop + mobile)
+        const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
 
-            allProfiles.forEach(wrapper => {
-                const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
-                const dropdownMenu = wrapper.querySelector(".dropdown-menu");
+        allProfiles.forEach(wrapper => {
+            const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
+            const dropdownMenu = wrapper.querySelector(".dropdown-menu");
 
-                if (!button) return; // Safety check
+            if (!button) return; // Safety check
 
-                if (!uid) {
-                    // --- Not Logged In ---
-                    button.classList.remove("dropdown-toggle");
-                    if (dropdownMenu) dropdownMenu.style.display = "none";
-                    button.innerHTML = `
+            if (!uid) {
+                // --- Not Logged In ---
+                button.classList.remove("dropdown-toggle");
+                if (dropdownMenu) dropdownMenu.style.display = "none";
+                button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
             <span class="mx-2">Sign In</span>
             `;
-                    button.onclick = () => (window.location.href = "/login.html");
-                    button.removeAttribute("data-bs-toggle"); // Disable dropdown
-                } else {
-                    button.classList.add("dropdown-toggle");
-                    // --- Logged In ---
-                    button.innerHTML = `
+                button.onclick = () => (window.location.href = "/login.html");
+                button.removeAttribute("data-bs-toggle"); // Disable dropdown
+            } else {
+                button.classList.add("dropdown-toggle");
+                // --- Logged In ---
+                button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
             <span class="me-1" style="margin-right: -5px !important;">My Account</span>
             <i class="bi bi-chevron-down ms-1"></i>
         `;
-                    button.setAttribute("data-bs-toggle", "dropdown");
-                }
-            });
+                button.setAttribute("data-bs-toggle", "dropdown");
+            }
+        });
 
-            // Logout logic
-            document.addEventListener("click", e => {
-                if (e.target.id === "logout-btn") {
-                    localStorage.removeItem("uid");
-                    location.reload();
-                }
-            });
-        
+        // Logout logic
+        document.addEventListener("click", e => {
+            if (e.target.id === "logout-btn") {
+                localStorage.removeItem("uid");
+                location.reload();
+            }
+        });
+
 
 
         // ============================================
@@ -410,6 +526,10 @@
         const deleteConfirmBtn = document.getElementById('deleteConfirmBtn');
         const deleteConfirmCancel = document.getElementById('deleteConfirmCancel');
         const deleteConfirmClose = document.getElementById('deleteConfirmClose');
+
+        // <CHANGE> Added success popup elements
+        const successPopup = document.getElementById('successPopup');
+        const successCloseBtn = document.getElementById('successCloseBtn');
 
         const statCardTotal = document.getElementById('statCardTotal');
         const statCardActive = document.getElementById('statCardActive');
@@ -493,7 +613,7 @@
                   <td>${escapeHtml(s.country || '-')}</td>
                   <td>${formatDate(s.startDate || '')}</td>
                   <td>${formatDate(s.endDate || '')}</td>
-                   <td>${escapeHtml(s?.cost || 'Not sent') }</td>
+                   <td>${escapeHtml(s?.cost || 'Not sent')}</td>
                   <td>${statusBadge}</td>
                   <td class="text-end action-buttons">
                     <button class="btn-action view" title="View Sponsor" data-action="view" data-id="${s._id}">
@@ -551,6 +671,15 @@
             popup.classList.remove('show');
         }
 
+        // <CHANGE> Added success popup functions
+        function openSuccessPopup() {
+            successPopup.classList.add('show');
+        }
+
+        function closeSuccessPopup() {
+            successPopup.classList.remove('show');
+        }
+
         function openViewPopup(sponsor) {
             let detailsHtml = '';
             if (sponsor.imageUrl) {
@@ -563,7 +692,7 @@
             detailsHtml += `<div class="detail-row"><div class="detail-label">Impression Days</div><div class="detail-value">${sponsor.impressionDays || 0} days</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Target Link</div><div class="detail-value"><a href="${escapeHtml(sponsor.link)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.link)}</a></div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Status</div><div class="detail-value"><span class="${sponsor.status}-badge">${sponsor.status.charAt(0).toUpperCase() + sponsor.status.slice(1)}</span></div></div>`;
- 
+
 
             viewPopupBody.innerHTML = detailsHtml;
             openPopup(viewPopup);
@@ -574,7 +703,17 @@
             if (sponsor) {
                 popupTitle.textContent = 'Edit Sponsor';
                 document.getElementById('sponsorName').value = sponsor.sponsorName || '';
-                document.getElementById('sponsorCountry').value = sponsor.country || '';
+                const countrySelect = document.getElementById('sponsorCountry');
+                const sponsorCountry = sponsor.country || '';
+
+                // loop through all options and match by text
+                for (let i = 0; i < countrySelect.options.length; i++) {
+                    if (countrySelect.options[i].text.trim().toLowerCase() === sponsorCountry.trim().toLowerCase()) {
+                        countrySelect.selectedIndex = i;
+                        break;
+                    }
+                }
+
                 document.getElementById('sponsorStartDate').value = sponsor.startDate ? sponsor.startDate.split('T')[0] : '';
                 document.getElementById('sponsorEndDate').value = sponsor.endDate ? sponsor.endDate.split('T')[0] : '';
                 document.getElementById('impressionDays').value = sponsor.impressionDays ? `${sponsor.impressionDays} days` : '0 days';
@@ -721,7 +860,6 @@
                     imageSizeError.style.display = 'block';
                     imagePreview.style.display = 'none';
                     selectedFile = null;
-                    alert(`Error: ${errorMsg}`);
                     logoInput.value = '';
                     return;
                 }
@@ -767,18 +905,74 @@
             e.preventDefault();
 
             const name = document.getElementById('sponsorName').value.trim();
-            const country = document.getElementById('sponsorCountry').value.trim();
+            const country = document.getElementById('sponsorCountry').selectedOptions[0].text.trim();
             const startDate = document.getElementById('sponsorStartDate').value;
             const endDate = document.getElementById('sponsorEndDate').value;
             const website = document.getElementById('sponsorWebsite').value.trim();
 
+            if (startDate && endDate) {
+                const today = new Date();
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+
+                if (start < today.setHours(0, 0, 0, 0)) {
+                    toastr.error("Start date can't be before today.", "Error", {
+                        closeButton: true,
+                        progressBar: true,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        timeOut: "2000",
+                        extendedTimeOut: "1000",
+                    });
+                    return;
+                }
+                if (end < start) {
+                    toastr.error("End date can't be before start.", "Error", {
+                        closeButton: true,
+                        progressBar: true,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        timeOut: "2000",
+                        extendedTimeOut: "1000",
+                    });
+                    return;
+                }
+                if (diffDays > 30) {
+                    toastr.error("End date limit is 30 days.", "Error", {
+                        closeButton: true,
+                        progressBar: true,
+                        showDuration: "300",
+                        hideDuration: "1000",
+                        timeOut: "2000",
+                        extendedTimeOut: "1000",
+                    });
+                    return;
+                }
+            }
+
+
             if (!name || !country || !startDate || !endDate || !website) {
-                alert('Please fill all required fields: Name, Country, Start Date, End Date, and Link.');
+                toastr.error("Fill all required fields.", "Error", {
+                    closeButton: true,
+                    progressBar: true,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    timeOut: "2000",
+                    extendedTimeOut: "1000",
+                });
                 return;
             }
 
             if (!selectedFile && !editingId) {
-                alert('Please upload an image (1100x620px).');
+                toastr.error("Upload image (1100x620px).", "Error", {
+                    closeButton: true,
+                    progressBar: true,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    timeOut: "2000",
+                    extendedTimeOut: "1000",
+                });
                 return;
             }
 
@@ -815,14 +1009,9 @@
             } else {
                 result = await createAdAPI(formData);
                 if (result.success) {
-                    toastr.success("Ad submitted successfully!", "Submitted  Successfully", {
-                        "closeButton": true,
-                        "progressBar": true,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": "2000",
-                        "extendedTimeOut": "1000",
-                    })
+                    // <CHANGE> Show success popup instead of toastr for new submissions
+                    closePopup(addEditPopup);
+                    openSuccessPopup();
                 } else {
                     alert("❌ Failed to create ad: " + result.error);
                 }
@@ -830,7 +1019,6 @@
 
             if (result.success) {
                 await loadSponsorsFromAPI();
-                closePopup(addEditPopup);
                 sponsorForm.reset();
                 imagePreview.style.display = 'none';
                 editingId = null;
@@ -905,6 +1093,9 @@
         viewPopupClose.addEventListener('click', () => closePopup(viewPopup));
         deleteConfirmClose.addEventListener('click', () => closePopup(deleteConfirmPopup));
         deleteConfirmCancel.addEventListener('click', () => closePopup(deleteConfirmPopup));
+
+        // <CHANGE> Added success popup close handler
+        successCloseBtn.addEventListener('click', () => closeSuccessPopup());
 
         // ============================================
         // SEARCH & FILTER HANDLERS
