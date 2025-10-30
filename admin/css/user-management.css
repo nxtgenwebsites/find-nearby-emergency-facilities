@@ -644,7 +644,3 @@ body {
     padding-bottom: 0 !important;
   }
 }
-
-#approveConfirmPopup .custom-popup-footer {
-  justify-content: center !important;
-}

@@ -984,3 +984,6 @@ border-bottom: 1px solid #e9ecef;
     padding-bottom: 0 !important;
   }
 }
+#approveConfirmPopup .custom-popup-footer {
+  justify-content: center !important;
+}
