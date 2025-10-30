@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/index-new.css">
-     <link rel="stylesheet" href="css/index-new.css">
+    <link rel="stylesheet" href="css/index-new.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
@@ -67,15 +67,13 @@
 
     <!-- Added location permission modal -->
     <div class="location-modal" id="locationModal">
-        <h4 class="text-warning">WARNING</h4>
-        <p class="mt-3 mb-0">You’ll be redirected to Google Maps. HealthCentreApp doesn’t collect your location. Please
-            make sure to allow Google
-            Maps to use your current location so results are accurate.</p>
-        <p class="mt-2 mb-0">Also, please ensure you grant Google Location Map access to your current location,
-            Google Maps operates under its own terms and privacy policy</p>
+        <h4 class="text-">Location Services</h4>
+        <p class="mt-3 mb-0">This service uses Google Maps and is subject to Google's terms and conditions.</p>
+        <p class="mt-2 mb-0">Please ensure you grant location access for accurate results.</p>
+        <p class="mt-2 mb-0"><strong>Do you want to proceed?</strong></p>
         <div class="location-buttons mt-3">
-            <button class="btn-location btn-deny" onclick="denyLocation()">Cancel</button>
-            <button class="btn-location btn-allow" id="agreeBtn">I Understand</button>
+            <button class="btn-location btn-deny" onclick="denyLocation()">No</button>
+            <button class="btn-location btn-allow" id="agreeBtn">Yes, Continue</button>
         </div>
     </div>
 
@@ -239,10 +237,10 @@
                     <li class="nav-item toggle-section">
                         <button class="nav-link toggle-btn">
                             <div class="d-flex gap-3 align-items-center">
-                            <img src="assets/icons/bx_layer.png" />
+                                <img src="assets/icons/bx_layer.png" />
                                 <span>GPSMedical</span>
                             </div>
-                                <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
                         </button>
 
                         <ul class="submenu">
@@ -313,7 +311,7 @@
 
 
         <!-- Main Content -->
-        <div class="main-content w-100 home-container" >
+        <div class="main-content w-100 home-container">
             <!-- Header -->
             <header class="header d-lg-none">
                 <a href="index.html" class="mobile-logo">
@@ -347,14 +345,16 @@
 
             <!-- Hero Section -->
             <section class="hero-section">
-                <div class="container h-100">
-                    <div class="hero-content position-relative d-none d-md-block">
+                <div class="container p-0 h-100">
+                    <div class="hero-content position-relative d-block d-md-block">
                         <div class="hero-text">
-                            <button class="btn notification-btn no-page">
-                                <img src="assets/icons/carbon_notification-new.png" alt="">
-                            </button>
+                            <div>
+                                <h1 class="hero-title">HealthCentreApp</h1>
+                                <div class="d-flex flex-column flex-lg-row justify-content-between">
+                                    <p class="hero-subtitle mb-1">Empowering Citizens Supporting Health</p>
+                                </div>
+                            </div>
                             <!-- Profile Button -->
-
                             <div class="dropdown profile-wrapper">
                                 <button
                                     class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle"
@@ -376,24 +376,23 @@
                                     <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
                                 </ul>
                             </div>
-                            <span>Welcome to</span>
-                            <h1 class="hero-title">HealthCentreApp</h1>
-                            <div class="d-flex flex-column flex-lg-row justify-content-between">
-                                <p class="hero-subtitle mb-1">Empowering Citizens Supporting Health</p>
-                                <div class="stats-info">
-                                    <img src="assets/icons/ph_users-four.svg" alt="">
-                                    <span>Total Visitors: <span id="visitorCount"></span></span>
-
-                                    <span>|</span>
-                                    <span class="time-date"></span>
-                                </div>
-                            </div>
-
                         </div>
+                    </div>
+                    <div class="stats-info desktop-stats-info d-none d-lg-block">
+                        <img src="assets/icons/ph_users-four.svg" alt="">
+                        <span>Total Visitors: <span id="visitorCount"></span></span>
+
+                        <span>|</span>
+                        <span class="time-date"></span>
+                    </div>
+                    <div class="stats-info desktop-stats-info  d-lg-none">
+                        <span>Total Visitors: <span id="m-visitorCount"></span></span>
+                        <br>
+                        <span class="time-date"></span>
                     </div>
 
                     <div class="position-relative d-md-none m-hero">
-                        <div class="m-hero-content ">
+                        <div class="m-hero-content d-none">
                             <div class="hero-text">
                                 <button class="profile-btn d-none d-lg-flex align-items-center profile-button">
                                     <img src="assets/icons/user-icon.svg" width="30" alt="">
@@ -406,70 +405,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="stats-info">
-                            <img src="assets/icons/ph_users-four.svg" alt="">
-                            <span>Total Visitors: <span id="m-visitorCount"></span></span>
-                            <br>
-                            <!-- <span>|</span> -->
-                            <span class="time-date"></span>
-                        </div>
                     </div>
-                    <!-- Desktop Container  -->
-                    <div class="center-container d-none d-md-block">
 
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="row card-img-container">
-                                    <div class="col-12 text-center" onclick="findNearbyServices()">
-                                        <h2 class="search-heading medical-service-img  mt-3">
-                                            <img src="assets/images/medical service.png" alt="">
-                                        </h2>
-                                    </div>
-                                    <div class="col-12">
-                                        <h2 class="search-heading mt-3">
-                                            <img src="assets/images/Group 146.png" alt="">
-                                        </h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="medical mt-3 d-none d-md-block " onclick="findNearbyServices()">
-                                    <img src="assets/images/hospital near you.png" alt="">
-                                </div>
-
-                                <div class="medical mt-3 d-md-none" onclick="findNearbyServices()">
-                                    <img src="assets/images/hospital near you.png" alt="">
-                                </div>
-
-
-                                <div class="sponsored-section w-100 mt-4 mb-2">
-                                    <div class="swiper">
-                                        <div class="swiper-wrapper" id="adsWrapper">
-                                            <!-- Dynamic ads will be inserted here -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-4">
-                                <div class="row card-img-container">
-                                    <div class="col-12 text-center">
-                                        <h2 class="search-heading mt-3 auth-btns">
-                                            <img src="assets/images/Group (1).png" alt="">
-                                        </h2>
-                                    </div>
-                                    <div class="col-12 text-center">
-                                        <h2 class="search-heading mt-3 coming-soon">
-                                            <img src="assets/images/Group.png" alt="">
-                                        </h2>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="medical-services mt-4">
+                        <div class="medical-circle" onclick="findNearbyServices()">
+                            <i class="fas fa-map-marker-alt" style="color: red;"></i>
                         </div>
-
+                        <button type="button"
+                            style="font-weight: 600; color: red; font-size: 22px; padding: 15px 30px; border-radius: 50px; background-color: #D3E0FB; border: none; cursor: pointer;"
+                            class="emergency-text">Emergency Hospital Near you</button>
+                    </div>
 
                         <!-- Search Section -->
-                        <div class="search-section d-none" id="searchSection">
+                        <div class="search-section" id="searchSection">
                             <div class="tags-container" id="tagsContainer">
                                 <input type="text" class="search-input" id="searchInput"
                                     placeholder="Find Specific Medical Services near you" />
@@ -486,80 +434,12 @@
                                 <option value="Physiotherapist">Physiotherapist</option>
                                 <option value="Mental Health">Mental Health</option>
                                 <option value="Psychologists">Psychologists</option>
+                                <option value="Mortuary ">Mortuary</option>
                             </select>
                             <button class="submit-btn" id="submitBtn">Search</button>
                         </div>
 
-                        <div class="pages-link d-none d-lg-none">
-                            <h5 class="text-center gap-2 d-flex justify-content-center align-items-center">
-                                <span>
-                                    <a href="privacy-policy.html">Privacy Policy</a>
-                                </span>
-                                <span class="mt-1"> | </span>
-                                <span>
-                                    <a href="terms-and-conditions.html">Terms & Conditions</a>
-                                </span>
-                            </h5>
-                            <a href="https://facebook.com/healthcentreapp/">
-                                <button>
-                                    <span>
-                                        Follow Us On
-                                    </span>
-                                    <span>
-                                        <img src="assets/icons/facebook 1.png" alt="">
-                                    </span>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Mobile Container  -->
-                    <div class="center-container  d-md-none">
-                        <div class="medical mt-4 d-none d-md-block " onclick="findNearbyServices()">
-                            <img src="assets/images/hospital near you.png" alt="">
-                        </div>
-
-                        <div class="medical mt-3 d-md-none" onclick="findNearbyServices()">
-                            <img src="assets/images/hospital near you.png" alt="">
-                        </div>
-
-                        <div class="row card-img-container">
-                            <div class="col-6 text-center" onclick="findNearbyServices()">
-                                <h2 class="search-heading medical-service-img  mt-3">
-                                    <img src="assets/images/medical service.png" alt="">
-                                </h2>
-                            </div>
-                            <div class="col-6">
-                                <h2 class="search-heading mt-3">
-                                    <img src="assets/images/Group 146.png" alt="">
-                                </h2>
-                            </div>
-                        </div>
-
-                        <!-- Search Section -->
-                        <div class="search-section d-none" id="searchSection">
-                            <div class="tags-container" id="tagsContainer">
-                                <input type="text" class="search-input" id="searchInput"
-                                    placeholder="Find Specific Medical Services near you" />
-                            </div>
-                            <select id="dropdown" class="dropdown">
-                                <option value="" selected disabled>Find Specific Medical Services near you</option>
-                                <option value="Hospital">Hospital</option>
-                                <option value="Health Center">Health Center</option>
-                                <option value="Maternity Center">Maternity Center</option>
-                                <option value="Doctor">Doctor</option>
-                                <option value="Chemist">Chemist</option>
-                                <option value="Labs">Labs</option>
-                                <option value="Opticians">Opticians</option>
-                                <option value="Physiotherapist">Physiotherapist</option>
-                                <option value="Mental Health">Mental Health</option>
-                                <option value="Psychologists">Psychologists</option>
-                            </select>
-                            <button class="submit-btn" id="submitBtn">Search</button>
-                        </div>
-
-
-
-                        <div class="sponsored-section w-100 mt-2 mt-md-4 mb-2">
+                        <div class="sponsored-section w-100 mt- mt-md-0 mb-2">
                             <div class="swiper">
                                 <div class="swiper-wrapper" id="adsWrapper">
                                     <!-- Dynamic ads will be inserted here -->
@@ -567,46 +447,54 @@
                             </div>
                         </div>
 
-                        <div class="row card-img-container">
-                            <div class="col-6 text-center">
-                                <h2 class="search-heading mt-3 auth-btns">
-                                    <img src="assets/images/Group (1).png" alt="">
-                                </h2>
-                            </div>
-                            <div class="col-6 text-center">
-                                <h2 class="search-heading mt-3 coming-soon">
-                                    <img src="assets/images/Group.png" alt="">
-                                </h2>
+                        <div class="floating-mobile-menu my-4" id="floatingMobileMenu">
+                            <div class="mobile-menu-container">
+                                <div class="mobile-menu-arrow left hidden" id="mobileMenuArrowLeft">
+                                    <i class="fas fa-chevron-left"></i>
+                                </div>
+                        
+                                <div class="mobile-menu-scroll" id="mobileMenuScroll">
+                                    <a class="mobile-menu-item no-page" data-target="gifted-medical">
+                                        <i class="fas fa-gift"></i>
+                                        <span>GiftedMedical</span>
+                                    </a>
+                        
+                                    <a class="mobile-menu-item no-page" data-target="digital-health">
+                                        <i class="fas fa-handshake"></i>
+                                        <span>DigitalHealth</span>
+                                    </a>
+                        
+                                    <a href="editions.html" class="mobile-menu-item" data-target="editions">
+                                        <i class="fas fa-book-open"></i>
+                                        <span>Editions</span>
+                                    </a>
+                        
+                                    <a class="mobile-menu-item auth-btns" data-target="place-ad">
+                                        <i class="fa-solid fa-map-pin"></i>
+                                        <span>Place an Ad</span>
+                                    </a>
+                        
+                                    <a class="mobile-menu-item no-page" data-target="information">
+                                        <i class="fas fa-info-circle"></i>
+                                        <span>Information</span>
+                                    </a>
+                        
+                                    <a href="reviews.html" class="mobile-menu-item" data-target="reviews">
+                                        <i class="fas fa-star"></i>
+                                        <span>Reviews</span>
+                                    </a>
+                                </div>
+                        
+                                <div class="mobile-menu-arrow right" id="mobileMenuArrowRight">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="pages-link d-none d-lg-none">
-                            <h5 class="text-center gap-2 d-flex justify-content-center align-items-center">
-                                <span>
-                                    <a href="privacy-policy.html">Privacy Policy</a>
-                                </span>
-                                <span class="mt-1"> | </span>
-                                <span>
-                                    <a href="terms-and-conditions.html">Terms & Conditions</a>
-                                </span>
-                            </h5>
-                            <a href="https://facebook.com/healthcentreapp/">
-                                <button>
-                                    <span>
-                                        Follow Us On
-                                    </span>
-                                    <span>
-                                        <img src="assets/icons/facebook 1.png" alt="">
-                                    </span>
-                                </button>
-                            </a>
-                        </div>
+                          
                     </div>
-                </div>
             </section>
-
             <!-- Footer -->
-            <footer class="footer d-none d-lg-block ">
+            <footer class="footer">
                 <div class="container">
                     <div class="footer-content">
                         <div class="footer-text">
@@ -626,30 +514,43 @@
             </footer>
         </div>
     </div>
-    <!-- Footer -->
-    <footer class="footer d-block d-lg-none">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-text">
-                    © 2025 HealthCentreApp.com- All Rights Reserved.
-                </div>
-                <div class="footer-links">
-                    <a href="privacy-policy.html">Privacy Policy</a>
-                    <span>|</span>
-                    <a href="terms-and-conditions.html">Terms & Conditions</a>
-                    <a href="https://facebook.com/healthcentreapp/" target="_blank" class="social"
-                        style="cursor: pointer;">
-                        <img src="assets/icons/facebook 1.svg" alt="">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/country-states.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        const scrollContainer = document.getElementById("mobileMenuScroll");
+        const leftArrow = document.getElementById("mobileMenuArrowLeft");
+        const rightArrow = document.getElementById("mobileMenuArrowRight");
+
+        // Function to update arrow visibility
+        function updateArrows() {
+            leftArrow.classList.toggle("hidden", scrollContainer.scrollLeft <= 10);
+            rightArrow.classList.toggle(
+                "hidden",
+                scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 10
+            );
+        }
+
+        // Scroll left
+        leftArrow.addEventListener("click", () => {
+            scrollContainer.scrollBy({ left: -120, behavior: "smooth" });
+        });
+
+        // Scroll right
+        rightArrow.addEventListener("click", () => {
+            scrollContainer.scrollBy({ left: 120, behavior: "smooth" });
+        });
+
+        // Check on scroll
+        scrollContainer.addEventListener("scroll", updateArrows);
+
+        // Check on load
+        window.addEventListener("load", updateArrows);
+    </script>
+      
 
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
