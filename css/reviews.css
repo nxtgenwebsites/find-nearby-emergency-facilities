@@ -450,9 +450,9 @@ footer {
 
 /* When selected */
 .s-container.active img {
-  outline: 3px solid #ffb400; /* golden outline */
+  outline: 3px solid #424242; /* golden outline */
   outline-offset: 3px;
-  box-shadow: 0 0 8px rgba(255, 180, 0, 0.6);
+  box-shadow: 0 0 8px #42424275;
   transform: scale(1.1);
 }
 

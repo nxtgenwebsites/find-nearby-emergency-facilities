@@ -22,6 +22,7 @@
 }
 
 body {
+  background: var(--light) !important;
   min-height: auto !important;
   position: relative;
 }
@@ -34,6 +35,7 @@ body {
   background: white;
   color: black;
   padding: 10px 30px;
+  box-shadow: var(--shadow);
   border-radius: 0px;
 }
 
@@ -632,15 +634,38 @@ body {
   }
 }
 @media (max-width: 768px) {
+  .hero-content {
+    box-shadow: 0px 0px 0px transparent !important;
+    padding-top: 0 !important;
+  }
+
+  .mobile-profile-btn{
+    border: 2px solid #80808036;
+  }
+
+  .header {
+    padding-bottom: 5px !important;
+  }
+
+  .search-section {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
   .search-section #dropdown {
-    font-size: 10px !important;
+    font-size: 16px !important;
   }
   .search-section #dropdown option {
     font-size: 16px !important;
   }
   .search-section #dropdown option:nth-child(1) {
-    font-size: 10px !important;
+    font-size: 16px !important;
   }
+
+  .emergency-text{
+    font-size: 16px !important;
+    
+  }
+
   .desktop-stats-info span:nth-child(1){
     font-size: 18px !important;
     color: #1d1d1d;

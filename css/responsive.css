@@ -37,8 +37,12 @@
     width: 300px !important;
     z-index: 1000;
   }
-  .sidebar-header {
-    display: none;
+  .sidebar-header{
+    padding-top: 0 !important;
+  }
+  .sidebar-header .logo-img{
+    text-align: left;
+    
   }
 
   .hero-section {

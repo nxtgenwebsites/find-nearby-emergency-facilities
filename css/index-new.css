@@ -7,6 +7,7 @@
 }
 
 body {
+
   margin: 0;
 }
 
@@ -208,9 +209,6 @@ body {
 }
 
 .notification-btn {
-  position: absolute;
-  top: 25px;
-  right: 235px;
   background: #fff;
   padding: 5px 10px;
   margin: 0 !important;
@@ -281,8 +279,8 @@ body {
     flex-direction: column !important;
     justify-items: space-between !important;
     border-right: 1px solid #e5e7eb;
-    /* min-height: 100vh !important; */
-    max-height: 100vh;
+    min-height: 101vh !important;
+    max-height: 100%;
     /* height: 100% !important; */
     height: auto !important;
     position: fixed !important;

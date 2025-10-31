@@ -314,33 +314,32 @@
         <div class="main-content w-100 home-container">
             <!-- Header -->
             <header class="header d-lg-none">
-                <a href="index.html" class="mobile-logo">
-                    <img src="assets/images/logo.svg">
-                </a>
-                <div class="header-right">
-                    <div class="dropdown user profile-button">
-                        <button class="mobile-profile-btn dropdown-toggle" type="button" id="mobileProfileMenu"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="assets/icons/user-icon.svg" alt="User">
-                        </button>
-
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
-                            <li><a class="dropdown-item" href="user/profile.html">My Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="user/ads-management.html">Submit Ad</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
-                        </ul>
-                    </div>
-
-                    <button class="menu-toggle" id="menuToggle">
-                        <img src="assets/icons/bars.svg" alt="">
+                <button class="btn notification-btn no-page d-lg-none">
+                    <img src="assets/icons/carbon_notification-new.png" alt="">
+                </button>
+                <div class="dropdown user profile-button">
+                    <button class="mobile-profile-btn dropdown-toggle" type="button" id="mobileProfileMenu"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="assets/icons/user-icon.svg" alt="User">
                     </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
+                        <li><a class="dropdown-item" href="user/profile.html">My Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="user/ads-management.html">Submit Ad</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                    </ul>
                 </div>
+
+                <button class="menu-toggle" id="menuToggle">
+                    <img src="assets/icons/bars.svg" alt="">
+                </button>
+
             </header>
 
             <!-- Hero Section -->
@@ -354,27 +353,32 @@
                                     <p class="hero-subtitle mb-1">Empowering Citizens Supporting Health</p>
                                 </div>
                             </div>
-                            <!-- Profile Button -->
-                            <div class="dropdown profile-wrapper">
-                                <button
-                                    class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle"
-                                    type="button" id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
-                                    style="gap: 5px !important;">
-                                    <img src="assets/icons/user-icon.svg" width="30" alt="">
-                                    <i class="bi bi-chevron-down"></i>
+                            <div class="d-flex align-items-center gap-3">
+                                <button class="btn notification-btn no-page d-none d-lg-block">
+                                    <img src="assets/icons/carbon_notification-new.png" alt="">
                                 </button>
-                                <ul class="dropdown-menu dropdown-menu-end shadow-sm"
-                                    aria-labelledby="profileMenuButton">
-                                    <li><a class="dropdown-item" href="user/profile.html">My Profile</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="user/ads-management.html">Submit Ad</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
-                                </ul>
+                                <!-- Profile Button -->
+                                <div class="dropdown profile-wrapper">
+                                    <button
+                                        class="profile-btn d-none d-lg-flex align-items-center justify-content-center dropdown-toggle"
+                                        type="button" id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+                                        style="gap: 5px !important;">
+                                        <img src="assets/icons/user-icon.svg" width="30" alt="">
+                                        <i class="bi bi-chevron-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm"
+                                        aria-labelledby="profileMenuButton">
+                                        <li><a class="dropdown-item" href="user/profile.html">My Profile</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="user/ads-management.html">Submit Ad</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><button class="dropdown-item text-danger" id="logout-btn">Logout</button></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -385,7 +389,7 @@
                         <span>|</span>
                         <span class="time-date"></span>
                     </div>
-                    <div class="stats-info desktop-stats-info  d-lg-none">
+                    <div class="stats-info desktop-stats-info  d-lg-none position-relative z-n1">
                         <span>Total Visitors: <span id="m-visitorCount"></span></span>
                         <br>
                         <span class="time-date"></span>
@@ -411,8 +415,8 @@
                         <div class="medical-circle" onclick="findNearbyServices()">
                             <i class="fas fa-map-marker-alt" style="color: red;"></i>
                         </div>
-                        <button type="button"
-                            style="font-weight: 600; color: red; font-size: 22px; padding: 15px 30px; border-radius: 50px; background-color: #D3E0FB; border: none; cursor: pointer;"
+                        <button type="button" onclick="findNearbyServices()"
+                            style="font-weight: 800; color: red; font-size: 20px; padding: 11px 30px; border-radius: 50px; background-color: #D3E0FB; border: none; cursor: pointer;"
                             class="emergency-text">Emergency Hospital Near you</button>
                     </div>
 
