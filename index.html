@@ -314,10 +314,13 @@
         <div class="main-content w-100 home-container">
             <!-- Header -->
             <header class="header d-lg-none">
-                <button class="btn notification-btn no-page d-lg-none">
-                    <img src="assets/icons/carbon_notification-new.png" alt="">
-                </button>
-                <div class="dropdown user profile-button">
+<!-- Notification Button (Mobile) -->
+<button id="notificationBtnMobile" class="btn notification-btn position-relative d-lg-none">
+    <img src="assets/icons/carbon_notification-new.png" alt="Notifications" width="26">
+    <span id="notifCountMobile"
+        class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">0</span>
+    </button>
+                    <div class="dropdown user profile-button">
                     <button class="mobile-profile-btn dropdown-toggle" type="button" id="mobileProfileMenu"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="assets/icons/user-icon.svg" alt="User">
@@ -354,9 +357,21 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center gap-3">
-                                <button class="btn notification-btn no-page d-none d-lg-block">
+                                <button id="notificationBtn" class="btn notification-btn d-none d-lg-block position-relative">
                                     <img src="assets/icons/carbon_notification-new.png" alt="">
+                                    <span id="notifCount" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
+                                        0
+                                    </span>
                                 </button>
+                                
+                                <div id="notifDropdown" class="notification-dropdown card shadow-lg p-2"
+                                    style="display:none; position:absolute; right:180px; top:85px; width:300px; z-index:1000;">
+                                    <div id="notifList"></div>
+                                    <div class="text-center mt-2">
+                                        <button class="btn btn-sm btn-primary" id="viewAllBtn">View All</button>
+                                    </div>
+                                </div>
+                                  
                                 <!-- Profile Button -->
                                 <div class="dropdown profile-wrapper">
                                     <button
@@ -557,6 +572,87 @@
       
 
     <script>
+        const userId = localStorage.getItem('uid');
+
+            // Load top 5 unread notifications
+            async function loadNotifications() {
+                try {
+                    const res = await fetch(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/notifications/${userId}`);
+                    const data = await res.json();
+                    const notifications = data.notifications || [];
+
+                    // Unread count
+                    const unreadCount = notifications.filter(n => !n.isRead).length;
+
+                    // Badge update
+                    const notifCount = document.getElementById("notifCount");
+                    notifCount.textContent = unreadCount > 0 ? unreadCount : "";
+                    notifCount.style.display = unreadCount > 0 ? "inline-block" : "none";
+
+                    // Notification list
+                    const notifList = document.getElementById("notifList");
+                    if (!notifList) return;
+
+                    notifList.innerHTML = notifications.length
+                        ? notifications.map(n => `
+                <div class="notification-item ${n.isRead ? "" : "unread"}">
+                    <div>${n.message}</div>
+                    <small class="text-muted">${new Date(n.createdAt).toLocaleString()}</small>
+                </div>
+            `).join("")
+                        : `<div class="text-center text-muted p-2">No notifications yet.</div>`;
+
+                    // Add "Read All" button if notifications exist
+                    if (notifications.length > 0) {
+                        notifList.innerHTML += `
+                <div class="text-center mt-2">
+                    <button id="readAllBtn" class="btn btn-sm btn-primary w-100">Mark All as Read</button>
+                </div>
+            `;
+                        document.getElementById("readAllBtn").addEventListener("click", markAllAsRead);
+                    }
+                } catch (error) {
+                    console.error("Load Notifications Error:", error);
+                }
+            }
+
+            // Toggle dropdown visibility
+            const notifBtn = document.getElementById("notificationBtn");
+            const notifDropdown = document.getElementById("notifDropdown");
+
+            notifBtn.addEventListener("click", async () => {
+                const isVisible = notifDropdown.style.display === "block";
+                notifDropdown.style.display = isVisible ? "none" : "block";
+
+                if (!isVisible) {
+                    await loadNotifications();
+                }
+            });
+
+            // Hide dropdown on outside click
+            document.addEventListener("click", (e) => {
+                if (!notifBtn.contains(e.target) && !notifDropdown.contains(e.target)) {
+                    notifDropdown.style.display = "none";
+                }
+            });
+
+            // ✅ Mark all top 5 as read
+            async function markAllAsRead() {
+                try {
+                    await fetch(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/notifications/read-all/${userId}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" }
+                    });
+                    await loadNotifications();
+                } catch (error) {
+                    console.error("Mark All Read Error:", error);
+                }
+            }
+
+            // Initial load
+            loadNotifications();
+
+
         document.addEventListener("DOMContentLoaded", async () => {
             const adsWrappers = document.querySelectorAll(".swiper-wrapper");
 

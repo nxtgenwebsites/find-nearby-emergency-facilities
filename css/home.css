@@ -539,6 +539,7 @@ body {
 .search-section #dropdown {
   width: 100%;
   text-align: start;
+  background: white !important;
   font-size: 17px;
   border: 0 !important;
   outline: none !important;
@@ -632,6 +633,9 @@ body {
   .home-container {
     min-height: 93.7vh !important;
   }
+  .header {
+    background: white !important;
+  }
 }
 @media (max-width: 768px) {
   .hero-content {
@@ -646,6 +650,23 @@ body {
   .header {
     padding-bottom: 5px !important;
   }
+
+  .hero-content .hero-title {
+    margin-bottom: 2px !important;
+    font-size: 1.3rem !important;
+}
+
+.hero-subtitle {
+  font-size: 0.9rem;
+}
+
+.desktop-stats-info span:nth-child(1) {
+  font-size: 0px !important;
+}
+
+.desktop-stats-info .time-date {
+  font-size: 14px !important;
+}
 
   .search-section {
     padding-left: 8px !important;
@@ -667,13 +688,18 @@ body {
   }
 
   .desktop-stats-info span:nth-child(1){
-    font-size: 18px !important;
+    font-size: 16px !important;
     color: #1d1d1d;
   }
   .desktop-stats-info .time-date{
-    font-size: 14px !important;
+    font-size: 13px !important;
     color: #1d1d1d;
   }
+
+  .emergency-text {
+    font-size: 15px !important;
+}
+
   .hero-content {
     padding-bottom: 5px !important;
   }
@@ -819,4 +845,83 @@ body {
   .hero-stats {
     display: none !important;
   }
+}
+
+
+.notification-btn img {
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+  transition: transform 0.2s ease;
+}
+
+.notification-btn:hover img {
+  transform: scale(1.1);
+}
+
+.notification-dropdown {
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 70px;
+  width: 320px;
+  z-index: 1000;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px) saturate(180%);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.notification-item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.notification-item:hover {
+  background: rgba(0, 123, 255, 0.05);
+}
+
+.notification-item.unread {
+  background: #eef4ff;
+  font-weight: 500;
+}
+
+.notif-list {
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.notif-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.notif-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+@media (max-width: 992px) {
+  .notification-dropdown {
+    right: 10px;
+    top: 60px;
+    width: 90%;
+  }
+}
+
+#viewAllBtn{
+  background: transparent !important;
+  border: none !important;
+  color: #368186 !important;
+  text-decoration: underline !important;
+}
+
+#readAllBtn{
+  background: #368186 !important;
+  border: none !important;
 }

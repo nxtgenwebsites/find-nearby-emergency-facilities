@@ -18,7 +18,6 @@
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 
     <style>
-        /* <CHANGE> Added success popup styling */
         .success-popup {
             position: fixed;
             top: 0;
@@ -110,6 +109,70 @@
         }
 
         .success-close-btn:active {
+            transform: translateY(0);
+        }
+
+        .payment-buttons-container {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-paypal {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #0070ba 0%, #003087 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 112, 186, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-paypal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 112, 186, 0.5);
+        }
+
+        .btn-paypal:active {
+            transform: translateY(0);
+        }
+
+        .btn-checkout {
+            min-width: 140px;
+            width: 50% !important;
+            margin: auto;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #3eaeb6 0%, #368186 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(35, 161, 199, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-checkout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(31, 41, 55, 0.5);
+        }
+
+        .btn-checkout:active {
             transform: translateY(0);
         }
     </style>
@@ -335,6 +398,13 @@
                             style="background-color: #f5f5f5;">
                     </div>
 
+                    <!-- Added cost field that auto-calculates based on $25 per 30 days -->
+                    <div class="form-group">
+                        <label>Cost</label>
+                        <input type="text" id="cost" name="cost" readonly placeholder="$0.00"
+                            style="background-color: #f5f5f5; font-weight: 600; color: #368186;">
+                    </div>
+
                     <div class="form-group">
                         <label for="sponsorWebsite">Target Link *</label>
                         <input type="url" id="sponsorWebsite" name="website" required placeholder="https://example.com">
@@ -375,6 +445,16 @@
             </div>
             <div class="custom-popup-body" id="viewPopupBody">
             </div>
+            <!-- Added payment buttons in view popup -->
+            <div class="custom-popup-footer" style="flex-direction: column; gap: 12px;">
+                <div class="payment-buttons-container">
+                    <a href="/payment.html" class="w-100 text-decoration-none">
+                        <button class="btn-checkout" id="checkoutBtn">
+                            <i class="fa-solid fa-shopping-cart"></i> Checkout
+                        </button>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -396,7 +476,7 @@
         </div>
     </div>
 
-    <!-- <CHANGE> Success Popup Modal -->
+    <!-- Success Popup Modal -->
     <div class="success-popup" id="successPopup">
         <div class="success-popup-content">
             <div class="success-icon">
@@ -419,24 +499,20 @@
     <script>
 
         (() => {
-            const country_list = country_and_states.country; // yaha tumhari countries ki list hogi
+            const country_list = country_and_states.country;
             const id_country_option = document.getElementById("sponsorCountry");
 
             const create_country_selection = () => {
-                let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
+                let option = '<option value="" selected disabled>Select Country</option>';
                 for (const country_code in country_list) {
                     option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
                 }
                 id_country_option.innerHTML = option;
             };
 
-            // Initialize country dropdown
             create_country_selection();
         })();
 
-        // ============================================
-        // CONFIGURATION
-        // ============================================
         const API_BASE_URL = "https://find-nearby-emergency-facilities-ba.vercel.app/api/ads";
         const REQUIRED_IMAGE_WIDTH = 1100;
         const REQUIRED_IMAGE_HEIGHT = 620;
@@ -446,57 +522,6 @@
             window.location.href = '/login.html';
         }
 
-
-        const profileButton = document.querySelectorAll('.profile-button');
-        const profileModal = document.getElementById('profileModal');
-        const closeProfileBtn = document.getElementById('closeProfileBtn');
-
-        // Common UID check
-
-        // Handle all profile buttons (desktop + mobile)
-        const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
-
-        allProfiles.forEach(wrapper => {
-            const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
-            const dropdownMenu = wrapper.querySelector(".dropdown-menu");
-
-            if (!button) return; // Safety check
-
-            if (!uid) {
-                // --- Not Logged In ---
-                button.classList.remove("dropdown-toggle");
-                if (dropdownMenu) dropdownMenu.style.display = "none";
-                button.innerHTML = `
-            <img src="assets/icons/user-icon.svg" width="28" alt="">
-            <span class="mx-2">Sign In</span>
-            `;
-                button.onclick = () => (window.location.href = "/login.html");
-                button.removeAttribute("data-bs-toggle"); // Disable dropdown
-            } else {
-                button.classList.add("dropdown-toggle");
-                // --- Logged In ---
-                button.innerHTML = `
-            <img src="assets/icons/user-icon.svg" width="28" alt="">
-            <span class="me-1" style="margin-right: -5px !important;">My Account</span>
-            <i class="bi bi-chevron-down ms-1"></i>
-        `;
-                button.setAttribute("data-bs-toggle", "dropdown");
-            }
-        });
-
-        // Logout logic
-        document.addEventListener("click", e => {
-            if (e.target.id === "logout-btn") {
-                localStorage.removeItem("uid");
-                location.reload();
-            }
-        });
-
-
-
-        // ============================================
-        // DOM ELEMENTS
-        // ============================================
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
         const menuToggle = document.getElementById('menuToggle');
@@ -527,7 +552,6 @@
         const deleteConfirmCancel = document.getElementById('deleteConfirmCancel');
         const deleteConfirmClose = document.getElementById('deleteConfirmClose');
 
-        // <CHANGE> Added success popup elements
         const successPopup = document.getElementById('successPopup');
         const successCloseBtn = document.getElementById('successCloseBtn');
 
@@ -540,18 +564,12 @@
         const imagePreview = document.getElementById('imagePreview');
         const imageSizeError = document.getElementById('imageSizeError');
 
-        // ============================================
-        // STATE VARIABLES
-        // ============================================
         let allSponsors = [];
         let filtered = [];
         let pendingDeleteId = null;
         let editingId = null;
         let selectedFile = null;
 
-        // ============================================
-        // UTILITY FUNCTIONS
-        // ============================================
         function truncate(text, max = 50) {
             if (!text) return '';
             return text.length > max ? text.slice(0, max) + '…' : text;
@@ -583,12 +601,15 @@
             return diffDays;
         }
 
-        // ============================================
-        // RENDER FUNCTIONS
-        // ============================================
+        function calculateCost(impressionDays) {
+            const costPer30Days = 25;
+            if (impressionDays < 30) return 0;
+            const cost = (impressionDays / 30) * costPer30Days;
+            return parseFloat(cost.toFixed(2));
+        }
+
         function renderStats(list) {
             const total = list.length;
-            // <CHANGE> Fixed: Calculate active and inactive stats
             const active = list.filter(s => s.status === 'active').length;
             const inactive = list.filter(s => s.status === 'inactive').length;
 
@@ -604,7 +625,6 @@
                 const statusText = s.status.charAt(0).toUpperCase() + s.status.slice(1);
                 const statusBadge = `<span class="${s.status}-badge">${statusText}</span>`;
 
-
                 tr.innerHTML = `
                   <td>
                     ${s.imageUrl ? `<img src="${escapeHtml(s.imageUrl)}" alt="${escapeHtml(s.sponsorName)}" class="sponsor-logo-thumb" style="max-width: 50px; max-height: 50px; border-radius: 4px;">` : '<div style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 4px;"></div>'}
@@ -613,7 +633,7 @@
                   <td>${escapeHtml(s.country || '-')}</td>
                   <td>${formatDate(s.startDate || '')}</td>
                   <td>${formatDate(s.endDate || '')}</td>
-                   <td>${escapeHtml(s?.cost || 'Not sent')}</td>
+                  <td>${escapeHtml(s?.cost || '0.00')}</td>
                   <td>${statusBadge}</td>
                   <td class="text-end action-buttons">
                     <button class="btn-action view" title="View Sponsor" data-action="view" data-id="${s._id}">
@@ -633,11 +653,7 @@
             tableInfo.textContent = `Showing ${list.length} of ${allSponsors.length} results`;
         }
 
-        // ============================================
-        // FILTER & SEARCH
-        // ============================================
         function applyFilters() {
-            // <CHANGE> Fixed: Uncommented and fixed the filtering logic
             const q = (searchInput.value || '').toLowerCase().trim();
             const status = statusFilter.value;
 
@@ -660,9 +676,6 @@
             renderStats(allSponsors);
         }
 
-        // ============================================
-        // POPUP MANAGEMENT
-        // ============================================
         function openPopup(popup) {
             popup.classList.add('show');
         }
@@ -671,7 +684,6 @@
             popup.classList.remove('show');
         }
 
-        // <CHANGE> Added success popup functions
         function openSuccessPopup() {
             successPopup.classList.add('show');
         }
@@ -690,9 +702,9 @@
             detailsHtml += `<div class="detail-row"><div class="detail-label">Start Date</div><div class="detail-value">${formatDate(sponsor.startDate || '')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">End Date</div><div class="detail-value">${formatDate(sponsor.endDate || '')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Impression Days</div><div class="detail-value">${sponsor.impressionDays || 0} days</div></div>`;
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Cost</div><div class="detail-value"><strong style="color: #368186; font-size: 16px;">$${sponsor.cost || '0.00'}</strong></div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Target Link</div><div class="detail-value"><a href="${escapeHtml(sponsor.link)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.link)}</a></div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Status</div><div class="detail-value"><span class="${sponsor.status}-badge">${sponsor.status.charAt(0).toUpperCase() + sponsor.status.slice(1)}</span></div></div>`;
-
 
             viewPopupBody.innerHTML = detailsHtml;
             openPopup(viewPopup);
@@ -706,7 +718,6 @@
                 const countrySelect = document.getElementById('sponsorCountry');
                 const sponsorCountry = sponsor.country || '';
 
-                // loop through all options and match by text
                 for (let i = 0; i < countrySelect.options.length; i++) {
                     if (countrySelect.options[i].text.trim().toLowerCase() === sponsorCountry.trim().toLowerCase()) {
                         countrySelect.selectedIndex = i;
@@ -717,6 +728,7 @@
                 document.getElementById('sponsorStartDate').value = sponsor.startDate ? sponsor.startDate.split('T')[0] : '';
                 document.getElementById('sponsorEndDate').value = sponsor.endDate ? sponsor.endDate.split('T')[0] : '';
                 document.getElementById('impressionDays').value = sponsor.impressionDays ? `${sponsor.impressionDays} days` : '0 days';
+                document.getElementById('cost').value = sponsor.cost ? `$${sponsor.cost}` : '$0.00';
                 document.getElementById('sponsorWebsite').value = sponsor.link || '';
                 if (sponsor.imageUrl) {
                     imagePreview.src = sponsor.imageUrl;
@@ -731,6 +743,7 @@
                 imagePreview.style.display = 'none';
                 imagePreview.src = '';
                 document.getElementById('impressionDays').value = '0 days';
+                document.getElementById('cost').value = '$0.00';
             }
             imageSizeError.style.display = 'none';
             imageSizeError.textContent = '';
@@ -738,12 +751,9 @@
             openPopup(addEditPopup);
         }
 
-        // ============================================
-        // API FUNCTIONS - CREATE
-        // ============================================
         async function createAdAPI(formData) {
             try {
-                const response = await axios.post(`${API_BASE_URL}/upload/${uid}`, formData, {
+                const response = await axios.post(`https://find-nearby-emergency-facilities-ba.vercel.app/api/ads/upload/${uid}`, formData, {
                     headers: { "Content-Type": "multipart/form-data" }
                 });
                 return { success: true, data: response.data };
@@ -753,18 +763,14 @@
             }
         }
 
-        // ============================================
-        // API FUNCTIONS - READ
-        // ============================================
         async function loadSponsorsFromAPI() {
             try {
                 const response = await axios.get(`${API_BASE_URL}/owner/${uid}`);
-                // <CHANGE> Fixed: Handle both array and object response formats
                 allSponsors = Array.isArray(response.data) ? response.data : (response.data?.ads || []);
                 applyFilters();
             } catch (error) {
                 console.error("[v0] Load Ads Error:", error.response?.data || error.message);
-                toastr.error(err.response?.data?.message || "Failed to load ads", "Error", {
+                toastr.error(error.response?.data?.message || "Failed to load ads", "Error", {
                     "closeButton": true,
                     "progressBar": true,
                     "showDuration": "300",
@@ -775,12 +781,9 @@
             }
         }
 
-        // ============================================
-        // API FUNCTIONS - UPDATE
-        // ============================================
         async function updateAdAPI(id, formData) {
             try {
-                const response = await axios.put(`${API_BASE_URL}/${id}`, formData, {
+                const response = await axios.put(`https://find-nearby-emergency-facilities-ba.vercel.app/api/ads/${id}`, formData, {
                     headers: { "Content-Type": "multipart/form-data" }
                 });
                 console.log("[v0] Ad updated successfully:", response.data);
@@ -791,9 +794,6 @@
             }
         }
 
-        // ============================================
-        // API FUNCTIONS - DELETE
-        // ============================================
         async function deleteAdAPI(id) {
             try {
                 const response = await axios.delete(`${API_BASE_URL}/${id}`);
@@ -805,9 +805,6 @@
             }
         }
 
-        // ============================================
-        // IMAGE VALIDATION
-        // ============================================
         function validateImageDimensions(file, callback) {
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -827,9 +824,6 @@
             reader.readAsDataURL(file);
         }
 
-        // ============================================
-        // IMAGE UPLOAD HANDLERS
-        // ============================================
         imageUploadArea.addEventListener('click', () => logoInput.click());
 
         imageUploadArea.addEventListener('dragover', (e) => {
@@ -877,15 +871,14 @@
             });
         }
 
-        // ============================================
-        // DATE CHANGE HANDLERS
-        // ============================================
         document.getElementById('sponsorStartDate').addEventListener('change', () => {
             const startDate = document.getElementById('sponsorStartDate').value;
             const endDate = document.getElementById('sponsorEndDate').value;
             if (startDate && endDate) {
                 const days = calculateImpressionDays(startDate, endDate);
                 document.getElementById('impressionDays').value = `${days} days`;
+                const cost = calculateCost(days);
+                document.getElementById('cost').value = `$${cost.toFixed(2)}`;
             }
         });
 
@@ -895,12 +888,11 @@
             if (startDate && endDate) {
                 const days = calculateImpressionDays(startDate, endDate);
                 document.getElementById('impressionDays').value = `${days} days`;
+                const cost = calculateCost(days);
+                document.getElementById('cost').value = `$${cost.toFixed(2)}`;
             }
         });
 
-        // ============================================
-        // FORM SUBMISSION - CREATE/UPDATE
-        // ============================================
         addEditPopupSubmit.addEventListener('click', async (e) => {
             e.preventDefault();
 
@@ -938,8 +930,9 @@
                     });
                     return;
                 }
-                if (diffDays > 30) {
-                    toastr.error("End date limit is 30 days.", "Error", {
+           
+                if (diffDays < 30) {
+                    toastr.error("Minimum duration is 30 days.", "Error", {
                         closeButton: true,
                         progressBar: true,
                         showDuration: "300",
@@ -950,7 +943,6 @@
                     return;
                 }
             }
-
 
             if (!name || !country || !startDate || !endDate || !website) {
                 toastr.error("Fill all required fields.", "Error", {
@@ -977,6 +969,8 @@
             }
 
             const impressionDays = calculateImpressionDays(startDate, endDate);
+         
+            const cost = calculateCost(impressionDays);
 
             const formData = new FormData();
             formData.append("sponsorName", name);
@@ -985,6 +979,7 @@
             formData.append("endDate", endDate);
             formData.append("link", website);
             formData.append("impressionDays", impressionDays);
+            formData.append("cost", `$${cost}`);
             formData.append("status", "pending");
 
             if (selectedFile) {
@@ -1009,7 +1004,6 @@
             } else {
                 result = await createAdAPI(formData);
                 if (result.success) {
-                    // <CHANGE> Show success popup instead of toastr for new submissions
                     closePopup(addEditPopup);
                     openSuccessPopup();
                 } else {
@@ -1026,9 +1020,6 @@
             }
         });
 
-        // ============================================
-        // DELETE CONFIRMATION
-        // ============================================
         deleteConfirmBtn.addEventListener('click', async () => {
             if (pendingDeleteId) {
                 const result = await deleteAdAPI(pendingDeleteId);
@@ -1057,10 +1048,6 @@
             }
         });
 
-
-        // ============================================
-        // TABLE ACTION BUTTONS
-        // ============================================
         sponsorsTbody.addEventListener('click', (e) => {
             const btn = e.target.closest('button[data-action]');
             if (!btn) return;
@@ -1083,9 +1070,6 @@
             }
         });
 
-        // ============================================
-        // POPUP CLOSE HANDLERS
-        // ============================================
         addSponsorBtn.addEventListener('click', () => openAddEditPopup());
         addEditPopupClose.addEventListener('click', () => closePopup(addEditPopup));
         addEditPopupCancel.addEventListener('click', () => closePopup(addEditPopup));
@@ -1094,18 +1078,11 @@
         deleteConfirmClose.addEventListener('click', () => closePopup(deleteConfirmPopup));
         deleteConfirmCancel.addEventListener('click', () => closePopup(deleteConfirmPopup));
 
-        // <CHANGE> Added success popup close handler
         successCloseBtn.addEventListener('click', () => closeSuccessPopup());
 
-        // ============================================
-        // SEARCH & FILTER HANDLERS
-        // ============================================
         searchInput.addEventListener('input', applyFilters);
         statusFilter.addEventListener('change', applyFilters);
 
-        // ============================================
-        // STAT CARD FILTERS
-        // ============================================
         statCardTotal.addEventListener('click', () => {
             statusFilter.value = '';
             applyFilters();
@@ -1121,9 +1098,6 @@
             applyFilters();
         });
 
-        // ============================================
-        // SIDEBAR TOGGLE
-        // ============================================
         menuToggle?.addEventListener('click', function () {
             sidebar.classList.toggle('show');
             overlay.classList.toggle('show');
@@ -1142,9 +1116,6 @@
         }
         window.addEventListener('resize', handleResize);
 
-        // ============================================
-        // INITIALIZE - LOAD ADS ON PAGE LOAD
-        // ============================================
         document.addEventListener('DOMContentLoaded', () => {
             console.log("[v0] Page loaded, fetching ads...");
             loadSponsorsFromAPI();
