@@ -391,6 +391,8 @@
                         <label for="sponsorCountry">Target Country *</label>
                         <select id="sponsorCountry" name="country" required>
                         </select>
+                        <!-- Added error message for country selection -->
+                        <div class="error-message" id="countryError"></div>
                     </div>
 
                     <div class="form-group">
@@ -411,9 +413,10 @@
                             style="background-color: #f5f5f5;">
                     </div>
 
+                    <!-- Removed $ symbol from cost display in form -->
                     <div class="form-group">
                         <label>Cost</label>
-                        <input type="text" id="cost" name="cost" readonly placeholder="$0.00"
+                        <input type="text" id="cost" name="cost" readonly placeholder="0.00"
                             style="background-color: #f5f5f5; font-weight: 600; color: #368186;">
                     </div>
 
@@ -443,7 +446,7 @@
             </div>
             <div class="custom-popup-footer">
                 <button class="popup-btn popup-btn-secondary" id="addEditPopupCancel">Cancel</button>
-                <button class="popup-btn popup-btn-primary" id="addEditPopupSubmit">Submit Ad</button>
+                <button class="popup-btn popup-btn-primary" id="addEditPopupSubmit">Checkout</button>
             </div>
         </div>
     </div>
@@ -577,6 +580,7 @@
 
         const startDateError = document.getElementById('startDateError');
         const endDateError = document.getElementById('endDateError');
+        const countryError = document.getElementById('countryError');
 
         let allSponsors = [];
         let filtered = [];
@@ -615,7 +619,6 @@
             return diffDays;
         }
 
-        // <CHANGE> Changed cost from $25 per 30 days to $5 per 30 days
         function calculateCost(impressionDays) {
             const costPer30Days = 5;
             if (impressionDays < 30) return 0;
@@ -648,7 +651,7 @@
                   <td>${escapeHtml(s.country || '-')}</td>
                   <td>${formatDate(s.startDate || '')}</td>
                   <td>${formatDate(s.endDate || '')}</td>
-                  <td>${escapeHtml(s?.cost || '0.00')}</td>
+                  <td>$${escapeHtml(s?.cost || '0.00')}</td>
                   <td>${statusBadge}</td>
                   <td class="text-end action-buttons">
                     <button class="btn-action view" title="View Sponsor" data-action="view" data-id="${s._id}">
@@ -717,7 +720,9 @@
             detailsHtml += `<div class="detail-row"><div class="detail-label">Start Date</div><div class="detail-value">${formatDate(sponsor.startDate || '')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">End Date</div><div class="detail-value">${formatDate(sponsor.endDate || '')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Impression Days</div><div class="detail-value">${sponsor.impressionDays || 0} days</div></div>`;
-            detailsHtml += `<div class="detail-row"><div class="detail-label">Cost</div><div class="detail-value"><strong style="color: #368186; font-size: 16px;">$${sponsor.cost || '0.00'}</strong></div></div>`;
+            <!-- added $ symbol back to cost display in view popup -->
+            const costValue = (sponsor.cost || '0.00').toString().replace('$', '');
+            detailsHtml += `<div class="detail-row"><div class="detail-label">Cost</div><div class="detail-value"><strong style="color: #368186; font-size: 16px;">$${costValue}</strong></div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Target Link</div><div class="detail-value"><a href="${escapeHtml(sponsor.link)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.link)}</a></div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Status</div><div class="detail-value"><span class="${sponsor.status}-badge">${sponsor.status.charAt(0).toUpperCase() + sponsor.status.slice(1)}</span></div></div>`;
 
@@ -743,7 +748,9 @@
                 document.getElementById('sponsorStartDate').value = sponsor.startDate ? sponsor.startDate.split('T')[0] : '';
                 document.getElementById('sponsorEndDate').value = sponsor.endDate ? sponsor.endDate.split('T')[0] : '';
                 document.getElementById('impressionDays').value = sponsor.impressionDays ? `${sponsor.impressionDays} days` : '0 days';
-                document.getElementById('cost').value = sponsor.cost ? `$${sponsor.cost}` : '$0.00';
+             
+                const costValue = (sponsor.cost || '0.00').toString().replace('$', '');
+                document.getElementById('cost').value = `$${costValue}`;
                 document.getElementById('sponsorWebsite').value = sponsor.link || '';
                 if (sponsor.imageUrl) {
                     imagePreview.src = sponsor.imageUrl;
@@ -764,6 +771,8 @@
             startDateError.classList.remove('show');
             endDateError.textContent = '';
             endDateError.classList.remove('show');
+            countryError.textContent = '';
+            countryError.classList.remove('show');
             imageSizeError.style.display = 'none';
             imageSizeError.textContent = '';
             selectedFile = null;
@@ -843,7 +852,6 @@
             reader.readAsDataURL(file);
         }
 
-        // <CHANGE> Clear error messages immediately when user changes dates
         function validateDates() {
             if (editingId) {
                 startDateError.textContent = '';
@@ -941,7 +949,7 @@
         document.getElementById('sponsorStartDate').addEventListener('change', () => {
             const startDate = document.getElementById('sponsorStartDate').value;
             const endDate = document.getElementById('sponsorEndDate').value;
-            validateDates();
+          
             if (startDate && endDate) {
                 const days = calculateImpressionDays(startDate, endDate);
                 document.getElementById('impressionDays').value = `${days} days`;
@@ -950,17 +958,29 @@
             }
         });
 
-        document.getElementById('sponsorEndDate').addEventListener('change', () => {
-            const startDate = document.getElementById('sponsorStartDate').value;
-            const endDate = document.getElementById('sponsorEndDate').value;
-            validateDates();
-            if (startDate && endDate) {
-                const days = calculateImpressionDays(startDate, endDate);
-                document.getElementById('impressionDays').value = `${days} days`;
-                const cost = calculateCost(days);
-                document.getElementById('cost').value = `$${cost.toFixed(2)}`;
-            }
-        });
+       
+            document.getElementById('sponsorEndDate').addEventListener('change', () => {
+                const startDate = document.getElementById('sponsorStartDate').value;
+                const endDate = document.getElementById('sponsorEndDate').value;
+                const countrySelect = document.getElementById('sponsorCountry');
+
+                // Check if country is selected
+                if (countrySelect.value === '' || countrySelect.selectedIndex === 0) {
+                    countryError.textContent = 'Please select a country first.';
+                    countryError.classList.add('show');
+                    return;
+                } else {
+                    countryError.textContent = '';
+                    countryError.classList.remove('show');
+                }
+            
+                if (startDate && endDate) {
+                    const days = calculateImpressionDays(startDate, endDate);
+                    document.getElementById('impressionDays').value = `${days} days`;
+                    const cost = calculateCost(days);
+                    document.getElementById('cost').value = `$${cost.toFixed(2)}`;
+                }
+            });
 
         addEditPopupSubmit.addEventListener('click', async (e) => {
             e.preventDefault();
@@ -1012,7 +1032,7 @@
             formData.append("endDate", endDate);
             formData.append("link", website);
             formData.append("impressionDays", impressionDays);
-            formData.append("cost", `$${cost}`);
+            formData.append("cost", `${cost}`);
             formData.append("status", "pending");
 
             if (selectedFile) {
@@ -1031,7 +1051,6 @@
                         "timeOut": "2000",
                         "extendedTimeOut": "1000",
                     })
-                    // <CHANGE> Close popup after edit success
                     closePopup(addEditPopup);
                 } else {
                     alert("❌ Failed to update ad: " + result.error);
@@ -1040,6 +1059,7 @@
                 result = await createAdAPI(formData);
                 if (result.success) {
                     closePopup(addEditPopup);
+                    location.href = '/payment.html';
                     openSuccessPopup();
                 } else {
                     alert("❌ Failed to create ad: " + result.error);
@@ -1143,7 +1163,6 @@
             overlay.classList.remove('show');
         });
 
-        // ... existing code ...
 
         const profileButton = document.querySelectorAll('.profile-button');
         const profileModal = document.getElementById('profileModal');

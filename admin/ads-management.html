@@ -618,7 +618,7 @@
                   <td>${escapeHtml(s.country || '-')}</td>
                   <td>${formatDate(s.startDate || '')}</td>
                   <td>${formatDate(s.endDate || '')}</td>
-                  <td>${escapeHtml(s?.cost || 'Not sent') }</td>
+                  <td>${escapeHtml(`$${s?.cost} `|| 'Not sent') }</td>
                   <td>${statusBadge}</td>
                   <td class="text-end action-buttons">
                     <button class="btn-action view" title="View Sponsor" data-action="view" data-id="${s._id}">
