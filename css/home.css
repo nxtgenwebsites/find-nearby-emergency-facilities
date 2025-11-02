@@ -865,7 +865,6 @@ body {
   width: 320px;
   z-index: 1000;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(12px) saturate(180%);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.25s ease;

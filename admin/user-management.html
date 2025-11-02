@@ -108,19 +108,45 @@
                         <div class="modal-body">
                             <div class="row g-3">
                                 <div class="col-12 col-md-6">
+                                    <label class="form-label">Title</label>
+                                    <select class="form-select" name="title" required>
+                                        <option value="">Select</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Mrs">Mrs</option>
+                                        <option value="Miss">Miss</option>
+                                        <option value="Ms">Ms</option>
+                                        <option value="Prof">Prof</option>
+                                        <option value="Rev">Rev</option>
+                                        <option value="Alhj">Alhj</option>
+                                        <option value="Mlm">Mlm</option>
+                                        <option value="Hon">Hon</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-6">
                                     <label class="form-label">First Name</label>
-                                    <input type="text" class="form-control" name="first" required />
+                                    <input type="text" class="form-control" name="firstName" required />
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" name="last" required />
+                                    <input type="text" class="form-control" name="lastName" required />
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Gender</label>
+                                    <select class="form-select" name="gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Email</label>
                                     <input type="email" class="form-control" name="email" required />
                                 </div>
-
-                                <!-- Add password + confirm password fields to Add User -->
+                                <div class="col-12">
+                                    <label class="form-label">Country</label>
+                                    <input type="text" class="form-control" name="country" />
+                                </div>
                                 <div class="col-12 col-md-6">
                                     <label class="form-label">Password</label>
                                     <input type="password" class="form-control" name="password" required />
@@ -129,21 +155,11 @@
                                     <label class="form-label">Confirm Password</label>
                                     <input type="password" class="form-control" name="confirm_password" required />
                                 </div>
-
                                 <div class="col-12">
                                     <label class="form-label">Role</label>
                                     <select class="form-select" name="role">
                                         <option value="user">User</option>
                                         <option value="admin">Admin</option>
-                                    </select>
-                                </div>
-                                <div class="col-6 d-none">
-                                    <label class="form-label">Status</label>
-                                    <select class="form-select" name="status">
-                                        <!-- Keep statuses but allow blocked as well -->
-                                        <option value="active">Active</option>
-                                        <option value="pending">Pending</option>
-                                        <option value="blocked">Blocked</option>
                                     </select>
                                 </div>
                             </div>
@@ -171,34 +187,52 @@
                         <div class="modal-body">
                             <div class="row g-3">
                                 <div class="col-12 col-md-6">
+                                    <label class="form-label">Title</label>
+                                    <select class="form-select" name="title" required>
+                                        <option value="">Select</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Mrs">Mrs</option>
+                                        <option value="Miss">Miss</option>
+                                        <option value="Ms">Ms</option>
+                                        <option value="Prof">Prof</option>
+                                        <option value="Rev">Rev</option>
+                                        <option value="Alhj">Alhj</option>
+                                        <option value="Mlm">Mlm</option>
+                                        <option value="Hon">Hon</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-6">
                                     <label class="form-label">First Name</label>
-                                    <input type="text" class="form-control" name="first" required />
+                                    <input type="text" class="form-control" name="firstName" required />
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" name="last" required />
+                                    <input type="text" class="form-control" name="lastName" required />
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Gender</label>
+                                    <select class="form-select" name="gender">
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Email</label>
                                     <input type="email" class="form-control" name="email" required />
                                 </div>
-                                <div class="col-12 d-block">
+                                <div class="col-12">
+                                    <label class="form-label">Country</label>
+                                    <input type="text" class="form-control" name="country" />
+                                </div>
+                                <div class="col-12">
                                     <label class="form-label">Role</label>
                                     <select class="form-select" name="role">
                                         <option value="user">User</option>
                                         <option value="admin">Admin</option>
                                     </select>
                                 </div>
-                                <div class="col-6 d-none">
-                                    <label class="form-label">Status</label>
-                                    <select class="form-select" name="status">
-                                        <option value="active">Active</option>
-                                        <option value="blocked">Blocked</option>
-                                        <option value="pending">Pending</option>
-                                    </select>
-                                </div>
-
-                                <!-- Optional password update -->
                                 <div class="col-12 col-md-6">
                                     <label class="form-label">New Password (optional)</label>
                                     <input type="password" class="form-control" name="password" />
@@ -207,8 +241,6 @@
                                     <label class="form-label">Confirm New Password</label>
                                     <input type="password" class="form-control" name="confirm_password" />
                                 </div>
-
-                                <!-- hidden id holder (not shown) -->
                                 <input type="hidden" name="id" />
                             </div>
                         </div>
@@ -240,23 +272,29 @@
                                 <label class="form-label small-muted">Email</label>
                                 <div class="fw-semibold" id="vuEmail">-</div>
                             </div>
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-3">
+                                <label class="form-label small-muted">Title</label>
+                                <div class="fw-semibold" id="vuTitle">-</div>
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <label class="form-label small-muted">Gender</label>
+                                <div class="fw-semibold" id="vuGender">-</div>
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <label class="form-label small-muted">Country</label>
+                                <div class="fw-semibold" id="vuCountry">-</div>
+                            </div>
+                            <div class="col-12 col-md-3">
                                 <label class="form-label small-muted">Role</label>
                                 <div id="vuRole"><span class="badge-pill role-user">user</span></div>
                             </div>
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-6">
                                 <label class="form-label small-muted">Status</label>
                                 <div id="vuStatus"><span class="badge-pill status-active">active</span></div>
                             </div>
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-6">
                                 <label class="form-label small-muted">Created</label>
                                 <div id="vuCreated">-</div>
-                            </div>
-                        </div>
-                        <div class="row g-3 d-none">
-                            <div class="col-12">
-                                <label class="form-label small-muted">ID</label>
-                                <div class="text-monospace small" id="vuId">-</div>
                             </div>
                         </div>
                     </div>
@@ -372,21 +410,14 @@
                         <!-- User Management Table -->
                         <div class="um-card">
                             <div class="um-card-header">
-                                <h5 class="um-card-title mb-0">Users Directory</h5>
+                                <input type="search" id="searchUser" class="form-control" placeholder="Search user"
+                                    aria-label="Search by name or email" />
                                 <div class="filter-wrap d-flex gap-2">
-                                    <!-- Search now matches only first/last name or email -->
-                                    <input type="search" id="searchUser" class="form-control" placeholder="Search user"
-                                        aria-label="Search by name or email" />
-
-                                    <!-- Status filter: All, Active, Blocked, Pending -->
                                     <select id="filterStatus" class="form-select" aria-label="Filter by status">
                                         <option value="">All Status</option>
                                         <option value="active">Active</option>
                                         <option value="blocked">Blocked</option>
-                                        <option value="pending">Pending</option>
                                     </select>
-
-                                    <!-- Role filter remains -->
                                     <select id="filterRole" class="form-select" aria-label="Filter by role">
                                         <option value="">All Roles</option>
                                         <option value="admin">Admin</option>
@@ -488,7 +519,6 @@
             window.location.href = '/login.html';
         }
 
-
         // Handle all profile buttons (desktop + mobile)
         const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
 
@@ -496,10 +526,9 @@
             const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
             const dropdownMenu = wrapper.querySelector(".dropdown-menu");
 
-            if (!button) return; // Safety check
+            if (!button) return;
 
             if (!uId) {
-                // --- Not Logged In ---
                 button.classList.remove("dropdown-toggle");
                 if (dropdownMenu) dropdownMenu.style.display = "none";
                 button.innerHTML = `
@@ -507,10 +536,9 @@
     <span class="mx-2">Sign In</span>
     `;
                 button.onclick = () => (window.location.href = "/login.html");
-                button.removeAttribute("data-bs-toggle"); // Disable dropdown
+                button.removeAttribute("data-bs-toggle");
             } else {
                 button.classList.add("dropdown-toggle");
-                // --- Logged In ---
                 button.innerHTML = `
     <img src="assets/icons/user-icon.svg" width="28" alt="">
     <span class="me-1" style="margin-right: -5px !important;">My Account</span>
@@ -528,16 +556,12 @@
             }
         });
 
-
-
-
         const api = axios.create({
             baseURL: 'https://find-nearby-emergency-facilities-ba.vercel.app/api/users',
             timeout: 10000,
             headers: { 'Content-Type': 'application/json' },
         });
 
-        // Global error handling via interceptor + cache
         let usersCache = [];
         api.interceptors.response.use(
             (res) => res,
@@ -548,7 +572,6 @@
             }
         );
 
-        // <CHANGE> Pagination state variables
         let currentPage = 1;
         const itemsPerPage = 8;
 
@@ -564,7 +587,7 @@
                 users.forEach((user) => {
                     const row = `
             <tr data-id="${user._id || ''}">
-              <td><strong>${user.first_name || 'N/A'} ${user.last_name || ''}</strong></td>
+              <td><strong>${user.firstName || 'N/A'} ${user.lastName || ''}</strong></td>
               <td>${user.email || '-'}</td>
               <td>
                 <span class="badge-pill ${user.role === 'admin' ? 'role-admin' : 'role-user'}">
@@ -595,7 +618,6 @@
                     tableBody.insertAdjacentHTML('beforeend', row);
                 });
 
-                // Update metric cards
                 const total = users.length;
                 const active = users.filter(u => !u.isBlocked).length;
                 const now = new Date();
@@ -614,7 +636,6 @@
                 if (activeEl) activeEl.textContent = active;
                 if (newEl) newEl.textContent = newThisMonth;
 
-                // <CHANGE> Reset to page 1 when data loads
                 currentPage = 1;
                 applyFilters();
             } catch (error) {
@@ -623,56 +644,51 @@
             }
         }
 
-
         document.getElementById("addUserForm").addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            // 🔹 Get form values
             const form = e.target;
-            const first_name = form.querySelector('[name="first"]').value.trim();
-            const last_name = form.querySelector('[name="last"]').value.trim();
+            const firstName = form.querySelector('[name="firstName"]').value.trim();
+            const lastName = form.querySelector('[name="lastName"]').value.trim();
             const email = form.querySelector('[name="email"]').value.trim();
             const password = form.querySelector('[name="password"]').value.trim();
             const confirm_password = form.querySelector('[name="confirm_password"]').value.trim();
             const role = form.querySelector('[name="role"]').value;
-            const status = form.querySelector('[name="status"]').value;
+            const title = form.querySelector('[name="title"]').value;
+            const gender = form.querySelector('[name="gender"]').value;
+            const country = form.querySelector('[name="country"]').value;
 
-            // 🔹 Validate password match
             if (password !== confirm_password) {
-                alert("Passwords do not match.", "Error");
+                showToast("error", "Passwords do not match");
                 return;
             }
 
             try {
-                // 🔹 Build request body
                 const payload = {
-                    first_name,
-                    last_name,
+                    firstName,
+                    lastName,
                     email,
                     password,
                     role,
-                    status,
+                    title,
+                    gender,
+                    country,
                 };
 
-                // 🔹 Send POST request to backend
                 const response = await axios.post(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/add/${uId}`, payload);
 
                 if (response.data.success) {
-
-                    // Reset form
+                    showToast("success", "User added successfully");
                     form.reset();
                     getData();
-                    // Close modal
                     const modal = bootstrap.Modal.getInstance(document.getElementById("addUserModal"));
                     if (modal) modal.hide();
-
-                    // Refresh user list if available
-                    if (typeof loadUsers === "function") loadUsers();
                 } else {
-                    console.log(response.data);
+                    showToast("error", response.data.message || "Failed to add user");
                 }
             } catch (error) {
                 console.error(error);
+                showToast("error", error.response?.data?.message || "Internal server error");
             }
         });
 
@@ -701,7 +717,6 @@
         function closeDeletePopup() {
             document.getElementById('deleteUserPopup').style.display = 'none';
         }
-
 
         // Block / Unblock User
         let blockUserId = null;
@@ -757,7 +772,8 @@
         function viewUser(id) {
             const u = usersCache.find(x => String(x._id) === String(id));
             if (!u) { showToast('error', 'User not found'); return; }
-            const fullName = [u.first_name, u.last_name].filter(Boolean).join(' ').trim() || 'N/A';
+
+            const fullName = [u.firstName, u.lastName].filter(Boolean).join(' ').trim() || 'N/A';
             const email = u.email || '-';
             const role = u.role || 'user';
             const isBlocked = !!u.isBlocked;
@@ -765,7 +781,9 @@
 
             document.getElementById('vuName').textContent = fullName;
             document.getElementById('vuEmail').textContent = email;
-            document.getElementById('vuId').textContent = u._id || '-';
+            document.getElementById('vuTitle').textContent = u.title || '-';
+            document.getElementById('vuGender').textContent = u.gender || '-';
+            document.getElementById('vuCountry').textContent = u.country || '-';
 
             const roleEl = document.getElementById('vuRole');
             roleEl.innerHTML = `<span class="badge-pill ${role === 'admin' ? 'role-admin' : 'role-user'}">${role}</span>`;
@@ -789,11 +807,13 @@
 
             const form = document.getElementById('editUserForm');
             form.elements['id'].value = u._id || '';
-            form.elements['first'].value = u.first_name || '';
-            form.elements['last'].value = u.last_name || '';
+            form.elements['firstName'].value = u.firstName || '';
+            form.elements['lastName'].value = u.lastName || '';
             form.elements['email'].value = u.email || '';
+            form.elements['title'].value = u.title || '';
+            form.elements['gender'].value = u.gender || '';
+            form.elements['country'].value = u.country || '';
             form.elements['role'].value = u.role === 'admin' ? 'admin' : 'user';
-            form.elements['status'].value = u.isBlocked ? 'blocked' : 'active';
             form.elements['password'].value = '';
             form.elements['confirm_password'].value = '';
 
@@ -802,19 +822,20 @@
             modal.show();
         }
 
-        // 🔹 Handle form submit (PUT request)
         document.getElementById("editUserForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const form = e.target;
 
             const userId = form.elements["id"].value.trim();
-            const first_name = form.elements["first"].value.trim();
-            const last_name = form.elements["last"].value.trim();
+            const firstName = form.elements["firstName"].value.trim();
+            const lastName = form.elements["lastName"].value.trim();
             const email = form.elements["email"].value.trim();
             const role = form.elements["role"].value.trim();
-            const status = form.elements["status"].value.trim();
             const password = form.elements["password"].value.trim();
             const confirm_password = form.elements["confirm_password"].value.trim();
+            const title = form.elements["title"].value;
+            const gender = form.elements["gender"].value;
+            const country = form.elements["country"].value;
 
             if (password && password !== confirm_password) {
                 showToast("error", "Passwords do not match");
@@ -824,21 +845,15 @@
             try {
                 const response = await axios.put(
                     `https://find-nearby-emergency-facilities-ba.vercel.app/api/users/edit/${uId}/${userId}`,
-                    { first_name, last_name, email, password, role, status }
+                    { firstName, lastName, email, password, role, title, gender, country }
                 );
 
                 if (response.data.success) {
                     showToast("success", "User updated successfully");
-
-                    // Hide modal
                     const modalEl = document.getElementById("editUserModal");
                     const modal = bootstrap.Modal.getInstance(modalEl);
                     modal.hide();
                     getData();
-                    // Refresh user list
-                    if (typeof loadUsers === "function") {
-                        await loadUsers();
-                    }
                 } else {
                     showToast("error", response.data.message || "Failed to update user");
                 }
@@ -847,117 +862,23 @@
                 showToast("error", err.response?.data?.message || "Internal server error");
             }
         });
-        // Run on load
+
         getData();
     </script>
 
     <script>
-        // ---- Simple chart demo guards (keep original behavior but avoid null errors) ----
-        const svg = document.getElementById('regChart');
-        const barsG = document.getElementById('bars');
-        const xlabelsG = document.getElementById('xlabels');
-        const ylabelsG = document.getElementById('ylabels');
-
-        const ranges = {
-            "7d": { labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], values: [12, 16, 22, 26, 18, 31, 36] },
-            "30d": { labels: Array.from({ length: 10 }, (_, i) => `D${i + 1}`), values: [5, 9, 12, 7, 11, 15, 13, 18, 16, 19] },
-            "90d": { labels: Array.from({ length: 12 }, (_, i) => `W${i + 1}`), values: [18, 22, 24, 27, 29, 25, 30, 32, 31, 35, 36, 38] }
-        };
-
-        const x0 = 50, y0 = 260, chartW = 610, chartH = 240;
-
-        function renderBarChart(dataset) {
-            if (!svg || !barsG || !xlabelsG || !ylabelsG) return;
-            barsG.innerHTML = ''; xlabelsG.innerHTML = ''; ylabelsG.innerHTML = '';
-            const max = Math.max(...dataset.values) || 1;
-            const step = dataset.values.length;
-            const gap = 12;
-            const barW = (chartW - (gap * (step + 1))) / step;
-
-            const ticks = [0, Math.ceil(max / 2), Math.ceil(max)];
-            ticks.forEach((t, i) => {
-                const y = y0 - (t / max) * chartH;
-                const grid = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                grid.setAttribute('x1', x0); grid.setAttribute('y1', y);
-                grid.setAttribute('x2', x0 + chartW); grid.setAttribute('y2', y);
-                grid.setAttribute('class', 'bar-axis'); grid.setAttribute('opacity', i === 0 ? 1 : .5);
-                ylabelsG.appendChild(grid);
-
-                const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                lbl.setAttribute('x', x0 - 10); lbl.setAttribute('y', y + 4);
-                lbl.setAttribute('text-anchor', 'end'); lbl.setAttribute('class', 'bar-label');
-                lbl.textContent = t;
-                ylabelsG.appendChild(lbl);
-            });
-
-            dataset.values.forEach((v, i) => {
-                const x = x0 + gap + i * (barW + gap);
-                const h = (v / max) * chartH;
-                const y = y0 - h;
-
-                const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                rect.setAttribute('x', x);
-                rect.setAttribute('y', y);
-                rect.setAttribute('width', barW);
-                rect.setAttribute('height', h);
-                rect.setAttribute('rx', 6);
-                rect.setAttribute('class', 'bar');
-                rect.setAttribute('aria-label', `Value ${v} for ${dataset.labels[i]}`);
-                barsG.appendChild(rect);
-
-                const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                lbl.setAttribute('x', x + barW / 2);
-                lbl.setAttribute('y', y0 + 18);
-                lbl.setAttribute('text-anchor', 'middle');
-                lbl.setAttribute('class', 'bar-label');
-                lbl.textContent = dataset.labels[i];
-                xlabelsG.appendChild(lbl);
-            });
-        }
-
-        document.querySelectorAll('.segmented button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.segmented button').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const key = btn.getAttribute('data-range');
-                renderBarChart(ranges[key]);
-            });
-        });
-
-        renderBarChart(ranges["7d"]);
-
-        const refreshBtn = document.getElementById('refreshActivity');
-        if (refreshBtn) {
-            refreshBtn.addEventListener('click', () => {
-                const list = document.getElementById('activityList');
-                if (!list) return;
-                const now = new Date().toLocaleTimeString();
-                const item = document.createElement('div');
-                item.className = 'activity-item';
-                item.innerHTML = `
-          <div class="activity-title">System sync completed</div>
-          <div class="d-flex justify-content-between">
-            <span class="activity-note">Background job finished</span><span class="small-muted">${now}</span>
-          </div>`;
-                list.prepend(item);
-            });
-        }
-    </script>
-
-    <script>
-        // <CHANGE> Complete filter and pagination system
+        // Filter and pagination system
         const searchUser = document.getElementById('searchUser');
         const filterStatus = document.getElementById('filterStatus');
         const filterRole = document.getElementById('filterRole');
 
-        // <CHANGE> Get filtered users based on all criteria
         function getFilteredUsers() {
             const q = (searchUser?.value || '').trim().toLowerCase();
             const st = (filterStatus?.value || '').toLowerCase();
             const rl = (filterRole?.value || '').toLowerCase();
 
             return usersCache.filter(user => {
-                const name = `${user.first_name || ''} ${user.last_name || ''}`.toLowerCase();
+                const name = `${user.firstName || ''} ${user.lastName || ''}`.toLowerCase();
                 const email = (user.email || '').toLowerCase();
                 const role = (user.role || 'user').toLowerCase();
                 const status = user.isBlocked ? 'blocked' : 'active';
@@ -970,7 +891,6 @@
             });
         }
 
-        // <CHANGE> Render pagination with filtered data
         function renderPagination(filteredUsers) {
             const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
             const pageNumbersContainer = document.getElementById('pageNumbers');
@@ -979,10 +899,8 @@
 
             pageNumbersContainer.innerHTML = '';
 
-            // Ensure current page is valid
             if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
 
-            // Previous button
             if (currentPage === 1) {
                 prevBtn.classList.add('disabled');
                 prevBtn.querySelector('button').disabled = true;
@@ -995,7 +913,6 @@
                 };
             }
 
-            // Page numbers
             for (let i = 1; i <= totalPages; i++) {
                 const li = document.createElement('li');
                 li.className = `page-item ${i === currentPage ? 'active' : ''}`;
@@ -1010,7 +927,6 @@
                 pageNumbersContainer.appendChild(li);
             }
 
-            // Next button
             if (currentPage === totalPages || totalPages === 0) {
                 nextBtn.classList.add('disabled');
                 nextBtn.querySelector('button').disabled = true;
@@ -1024,7 +940,6 @@
             }
         }
 
-        // <CHANGE> Update pagination text
         function updatePaginationText(filteredUsers) {
             const total = filteredUsers.length;
             const start = total === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
@@ -1032,20 +947,16 @@
             document.getElementById('paginationText').textContent = `Showing ${start} to ${end} of ${total} results`;
         }
 
-        // <CHANGE> Apply filters and render table with pagination
         function applyFilters() {
             const filteredUsers = getFilteredUsers();
             const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
-            // Ensure current page is valid
             if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
 
-            // Calculate start and end indices
             const startIdx = (currentPage - 1) * itemsPerPage;
             const endIdx = startIdx + itemsPerPage;
             const paginatedUsers = filteredUsers.slice(startIdx, endIdx);
 
-            // Render table rows
             const tableBody = document.getElementById('userTableBody');
             tableBody.innerHTML = '';
 
@@ -1087,26 +998,23 @@
                 });
             }
 
-            // Update pagination
             renderPagination(filteredUsers);
             updatePaginationText(filteredUsers);
         }
 
-        // <CHANGE> Add event listeners to all filters
         [searchUser, filterStatus, filterRole].forEach(el => {
             if (el) {
                 el.addEventListener('input', () => {
-                    currentPage = 1; // Reset to page 1 when filter changes
+                    currentPage = 1;
                     applyFilters();
                 });
                 el.addEventListener('change', () => {
-                    currentPage = 1; // Reset to page 1 when filter changes
+                    currentPage = 1;
                     applyFilters();
                 });
             }
         });
 
-        // <CHANGE> Add click handlers to stat cards for quick filtering
         document.getElementById('statCardTotal').addEventListener('click', () => {
             searchUser.value = '';
             filterStatus.value = '';
@@ -1129,7 +1037,6 @@
             filterRole.value = '';
             currentPage = 1;
 
-            // Filter to show only users created this month
             const now = new Date();
             const m = now.getMonth(), y = now.getFullYear();
             const thisMonthUsers = usersCache.filter(u => {
@@ -1138,7 +1045,6 @@
                 return d.getFullYear() === y && d.getMonth() === m;
             });
 
-            // Render filtered users
             const tableBody = document.getElementById('userTableBody');
             tableBody.innerHTML = '';
 
@@ -1190,19 +1096,15 @@
     </script>
 
     <script>
-        // Misc UI scripts (unchanged)
         const profileButton = document.querySelectorAll('.profile-button');
         const profileModal = document.getElementById('profileModal');
         const closeProfileBtn = document.getElementById('closeProfileBtn');
-
-
 
         closeProfileBtn.addEventListener('click', function () {
             profileModal.classList.remove('show');
             document.getElementById('overlay2').classList.remove('show');
         });
 
-        // Mobile menu toggle
         const menuToggle = document.getElementById('menuToggle');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
@@ -1219,7 +1121,6 @@
             if (loc) loc.classList.remove('show');
         });
 
-        // Responsive adjustments
         function handleResize() {
             if (window.innerWidth >= 992) {
                 sidebar.classList.remove('show');
