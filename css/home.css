@@ -117,7 +117,7 @@ body {
 
 .desktop-stats-info {
   background: white;
-  margin-top: 30px !important;
+  margin-top: 15px !important;
   width: fit-content;
   margin: auto;
   color: #64748b;
@@ -177,8 +177,8 @@ body {
 }
 
 .medical-circle {
-  width: 120px !important;
-  height: 120px !important;
+  width: 100px !important;
+  height: 100px !important;
   background: white;
   border-radius: 50%;
   display: flex;
@@ -197,7 +197,7 @@ body {
 }
 
 .medical-circle i {
-  font-size: 48px;
+  font-size: 40px;
   color: var(--primary);
 }
 
@@ -208,8 +208,8 @@ body {
 
 .medical-circle i {
   background: rgba(37, 99, 235, 0.1);
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -914,14 +914,22 @@ body {
   }
 }
 
-#viewAllBtn{
+#viewAllBtnMobile{
+  width: 100%;
+  background: transparent !important;
+  border: none !important;
+  color: #368186 !important;
+  text-decoration: underline !important;
+}
+#viewAllBtnDesktop{
+  width: 100%;
   background: transparent !important;
   border: none !important;
   color: #368186 !important;
   text-decoration: underline !important;
 }
 
-#readAllBtn{
+.readAllBtn{
   background: #368186 !important;
   border: none !important;
 }

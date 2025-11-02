@@ -315,11 +315,20 @@
             <!-- Header -->
             <header class="header d-lg-none">
 <!-- Notification Button (Mobile) -->
-<button id="notificationBtnMobile" class="btn notification-btn position-relative d-lg-none">
-    <img src="assets/icons/carbon_notification-new.png" alt="Notifications" width="26">
-    <span id="notifCountMobile"
-        class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">0</span>
-    </button>
+<button id="notificationBtnMobile" class="btn notification-btn d-block d-lg-none position-relative">
+    <img src="assets/icons/carbon_notification-new.png" alt="">
+    <span id="notifCountMobile" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
+        0
+    </span>
+</button>
+
+<div id="notifDropdownMobile" class="notification-dropdown card shadow-lg p-2"
+    style="display:none; position:absolute; left:20px; top:85px; width:300px; z-index:1000;">
+    <div id="notifListMobile"></div>
+    <div class="text-center mt-2">
+        <button class="btn btn-sm btn-primary no-page" id="viewAllBtnMobile">View All</button>
+    </div>
+</div>
                     <div class="dropdown user profile-button">
                     <button class="mobile-profile-btn dropdown-toggle" type="button" id="mobileProfileMenu"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -357,20 +366,20 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center gap-3">
-                                <button id="notificationBtn" class="btn notification-btn d-none d-lg-block position-relative">
+                                <button id="notificationBtnDesktop" class="btn notification-btn d-none d-lg-block position-relative">
                                     <img src="assets/icons/carbon_notification-new.png" alt="">
-                                    <span id="notifCount" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
+                                    <span id="notifCountDesktop"
+                                        class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
                                         0
                                     </span>
                                 </button>
                                 
-                                <div id="notifDropdown" class="notification-dropdown card shadow-lg p-2"
+                                <div id="notifDropdownDesktop" class="notification-dropdown card shadow-lg p-2"
                                     style="display:none; position:absolute; right:180px; top:85px; width:300px; z-index:1000;">
-                                    <div id="notifList"></div>
+                                    <div id="notifListDesktop"></div>
                                     <div class="text-center mt-2">
-                                        <button class="btn btn-sm btn-primary" id="viewAllBtn">View All</button>
-                                    </div>
-                                </div>
+                                        <button class="btn btn-sm btn-primary no-page" id="viewAllBtnDesktop">View All</button>
+                                    </div>                          </div>
                                   
                                 <!-- Profile Button -->
                                 <div class="dropdown profile-wrapper">
@@ -426,12 +435,12 @@
                         </div>
                     </div>
 
-                    <div class="medical-services mt-4">
+                    <div class="medical-services mt-3">
                         <div class="medical-circle" onclick="findNearbyServices()">
                             <i class="fas fa-map-marker-alt" style="color: red;"></i>
                         </div>
                         <button type="button" onclick="findNearbyServices()"
-                            style="font-weight: 800; color: red; font-size: 20px; padding: 11px 30px; border-radius: 50px; background-color: #D3E0FB; border: none; cursor: pointer;"
+                            style="font-weight: 800; color: red; font-size: 18px; padding: 8px 30px; border-radius: 50px; background-color: #D3E0FB; border: none; cursor: pointer;"
                             class="emergency-text">Emergency Hospital Near you</button>
                     </div>
 
@@ -572,85 +581,98 @@
       
 
     <script>
-        const userId = localStorage.getItem('uid');
+   const userId = localStorage.getItem('uid');
 
-            // Load top 5 unread notifications
-            async function loadNotifications() {
-                try {
-                    const res = await fetch(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/notifications/${userId}`);
-                    const data = await res.json();
-                    const notifications = data.notifications || [];
+    // Load top 5 unread notifications for both mobile and desktop
+    async function loadNotifications() {
+        try {
+            const res = await fetch(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/notifications/${userId}`);
+            const data = await res.json();
+            const notifications = data.notifications || [];
 
-                    // Unread count
-                    const unreadCount = notifications.filter(n => !n.isRead).length;
+            const unreadCount = notifications.filter(n => !n.isRead).length;
 
-                    // Badge update
-                    const notifCount = document.getElementById("notifCount");
+            // Update both badges
+            ["Desktop", "Mobile"].forEach(type => {
+                const notifCount = document.getElementById(`notifCount${type}`);
+                if (notifCount) {
                     notifCount.textContent = unreadCount > 0 ? unreadCount : "";
                     notifCount.style.display = unreadCount > 0 ? "inline-block" : "none";
-
-                    // Notification list
-                    const notifList = document.getElementById("notifList");
-                    if (!notifList) return;
-
-                    notifList.innerHTML = notifications.length
-                        ? notifications.map(n => `
-                <div class="notification-item ${n.isRead ? "" : "unread"}">
-                    <div>${n.message}</div>
-                    <small class="text-muted">${new Date(n.createdAt).toLocaleString()}</small>
-                </div>
-            `).join("")
-                        : `<div class="text-center text-muted p-2">No notifications yet.</div>`;
-
-                    // Add "Read All" button if notifications exist
-                    if (notifications.length > 0) {
-                        notifList.innerHTML += `
-                <div class="text-center mt-2">
-                    <button id="readAllBtn" class="btn btn-sm btn-primary w-100">Mark All as Read</button>
-                </div>
-            `;
-                        document.getElementById("readAllBtn").addEventListener("click", markAllAsRead);
-                    }
-                } catch (error) {
-                    console.error("Load Notifications Error:", error);
                 }
-            }
+            });
 
-            // Toggle dropdown visibility
-            const notifBtn = document.getElementById("notificationBtn");
-            const notifDropdown = document.getElementById("notifDropdown");
+            // Update both lists
+            ["Desktop", "Mobile"].forEach(type => {
+                const notifList = document.getElementById(`notifList${type}`);
+                if (!notifList) return;
 
-            notifBtn.addEventListener("click", async () => {
+                notifList.innerHTML = notifications.length
+                    ? notifications.map(n => `
+                    <div class="notification-item ${n.isRead ? "" : "unread"}">
+                        <div>${n.message}</div>
+                        <small class="text-muted">${new Date(n.createdAt).toLocaleString()}</small>
+                    </div>
+                `).join("")
+                    : `<div class="text-center text-muted p-2">No notifications yet.</div>`;
+
+                if (notifications.length > 0) {
+                    notifList.innerHTML += `
+                    <div class="text-center mt-2">
+                        <button class="btn btn-sm btn-primary w-100 readAllBtn">Mark All as Read</button>
+                    </div>
+                `;
+                }
+            });
+
+            // Add click event for "Mark All as Read" buttons
+            document.querySelectorAll('.readAllBtn').forEach(btn => {
+                btn.addEventListener("click", markAllAsRead);
+            });
+        } catch (error) {
+            console.error("Load Notifications Error:", error);
+        }
+    }
+
+    // Toggle dropdowns visibility (desktop + mobile)
+    ["Desktop", "Mobile"].forEach(type => {
+        const notifBtn = document.getElementById(`notificationBtn${type}`);
+        const notifDropdown = document.getElementById(`notifDropdown${type}`);
+
+        if (notifBtn && notifDropdown) {
+            notifBtn.addEventListener("click", async (e) => {
+                e.stopPropagation();
                 const isVisible = notifDropdown.style.display === "block";
+                document.querySelectorAll('.notification-dropdown').forEach(dd => dd.style.display = "none");
                 notifDropdown.style.display = isVisible ? "none" : "block";
 
-                if (!isVisible) {
-                    await loadNotifications();
-                }
+                if (!isVisible) await loadNotifications();
             });
+        }
+    });
 
-            // Hide dropdown on outside click
-            document.addEventListener("click", (e) => {
-                if (!notifBtn.contains(e.target) && !notifDropdown.contains(e.target)) {
-                    notifDropdown.style.display = "none";
-                }
+    // Hide all dropdowns on outside click
+    document.addEventListener("click", (e) => {
+        if (!e.target.closest(".notification-dropdown") && !e.target.closest(".notification-btn")) {
+            document.querySelectorAll('.notification-dropdown').forEach(dd => dd.style.display = "none");
+        }
+    });
+
+    // Mark all as read
+    async function markAllAsRead() {
+        try {
+            await fetch(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/notifications/read-all/${userId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" }
             });
+            await loadNotifications();
+        } catch (error) {
+            console.error("Mark All Read Error:", error);
+        }
+    }
 
-            // ✅ Mark all top 5 as read
-            async function markAllAsRead() {
-                try {
-                    await fetch(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/notifications/read-all/${userId}`, {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" }
-                    });
-                    await loadNotifications();
-                } catch (error) {
-                    console.error("Mark All Read Error:", error);
-                }
-            }
+    // Initial load
+    loadNotifications();
 
-            // Initial load
-            loadNotifications();
 
 
         document.addEventListener("DOMContentLoaded", async () => {
