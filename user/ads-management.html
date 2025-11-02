@@ -175,6 +175,17 @@
         .btn-checkout:active {
             transform: translateY(0);
         }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
     </style>
 </head>
 
@@ -385,11 +396,13 @@
                     <div class="form-group">
                         <label for="sponsorStartDate">Start Date *</label>
                         <input type="date" id="sponsorStartDate" name="startDate" required>
+                        <div class="error-message" id="startDateError"></div>
                     </div>
 
                     <div class="form-group">
                         <label for="sponsorEndDate">End Date *</label>
                         <input type="date" id="sponsorEndDate" name="endDate" required>
+                        <div class="error-message" id="endDateError"></div>
                     </div>
 
                     <div class="form-group">
@@ -398,7 +411,6 @@
                             style="background-color: #f5f5f5;">
                     </div>
 
-                    <!-- Added cost field that auto-calculates based on $25 per 30 days -->
                     <div class="form-group">
                         <label>Cost</label>
                         <input type="text" id="cost" name="cost" readonly placeholder="$0.00"
@@ -445,7 +457,6 @@
             </div>
             <div class="custom-popup-body" id="viewPopupBody">
             </div>
-            <!-- Added payment buttons in view popup -->
             <div class="custom-popup-footer" style="flex-direction: column; gap: 12px;">
                 <div class="payment-buttons-container">
                     <a href="/payment.html" class="w-100 text-decoration-none">
@@ -564,6 +575,9 @@
         const imagePreview = document.getElementById('imagePreview');
         const imageSizeError = document.getElementById('imageSizeError');
 
+        const startDateError = document.getElementById('startDateError');
+        const endDateError = document.getElementById('endDateError');
+
         let allSponsors = [];
         let filtered = [];
         let pendingDeleteId = null;
@@ -601,8 +615,9 @@
             return diffDays;
         }
 
+        // <CHANGE> Changed cost from $25 per 30 days to $5 per 30 days
         function calculateCost(impressionDays) {
-            const costPer30Days = 25;
+            const costPer30Days = 5;
             if (impressionDays < 30) return 0;
             const cost = (impressionDays / 30) * costPer30Days;
             return parseFloat(cost.toFixed(2));
@@ -745,6 +760,10 @@
                 document.getElementById('impressionDays').value = '0 days';
                 document.getElementById('cost').value = '$0.00';
             }
+            startDateError.textContent = '';
+            startDateError.classList.remove('show');
+            endDateError.textContent = '';
+            endDateError.classList.remove('show');
             imageSizeError.style.display = 'none';
             imageSizeError.textContent = '';
             selectedFile = null;
@@ -824,6 +843,54 @@
             reader.readAsDataURL(file);
         }
 
+        // <CHANGE> Clear error messages immediately when user changes dates
+        function validateDates() {
+            if (editingId) {
+                startDateError.textContent = '';
+                startDateError.classList.remove('show');
+                endDateError.textContent = '';
+                endDateError.classList.remove('show');
+                return true;
+            }
+
+            const startDate = document.getElementById('sponsorStartDate').value;
+            const endDate = document.getElementById('sponsorEndDate').value;
+            let isValid = true;
+
+            startDateError.textContent = '';
+            startDateError.classList.remove('show');
+            endDateError.textContent = '';
+            endDateError.classList.remove('show');
+
+            if (startDate && endDate) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+
+                if (start < today) {
+                    startDateError.textContent = "Start date can't be before today.";
+                    startDateError.classList.add('show');
+                    isValid = false;
+                }
+
+                if (end < start) {
+                    endDateError.textContent = "End date can't be before start.";
+                    endDateError.classList.add('show');
+                    isValid = false;
+                }
+
+                const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+                if (diffDays < 30) {
+                    endDateError.textContent = "Minimum duration is 30 days.";
+                    endDateError.classList.add('show');
+                    isValid = false;
+                }
+            }
+
+            return isValid;
+        }
+
         imageUploadArea.addEventListener('click', () => logoInput.click());
 
         imageUploadArea.addEventListener('dragover', (e) => {
@@ -874,6 +941,7 @@
         document.getElementById('sponsorStartDate').addEventListener('change', () => {
             const startDate = document.getElementById('sponsorStartDate').value;
             const endDate = document.getElementById('sponsorEndDate').value;
+            validateDates();
             if (startDate && endDate) {
                 const days = calculateImpressionDays(startDate, endDate);
                 document.getElementById('impressionDays').value = `${days} days`;
@@ -885,6 +953,7 @@
         document.getElementById('sponsorEndDate').addEventListener('change', () => {
             const startDate = document.getElementById('sponsorStartDate').value;
             const endDate = document.getElementById('sponsorEndDate').value;
+            validateDates();
             if (startDate && endDate) {
                 const days = calculateImpressionDays(startDate, endDate);
                 document.getElementById('impressionDays').value = `${days} days`;
@@ -903,43 +972,7 @@
             const website = document.getElementById('sponsorWebsite').value.trim();
 
             if (startDate && endDate) {
-                const today = new Date();
-                const start = new Date(startDate);
-                const end = new Date(endDate);
-                const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-
-                if (start < today.setHours(0, 0, 0, 0)) {
-                    toastr.error("Start date can't be before today.", "Error", {
-                        closeButton: true,
-                        progressBar: true,
-                        showDuration: "300",
-                        hideDuration: "1000",
-                        timeOut: "2000",
-                        extendedTimeOut: "1000",
-                    });
-                    return;
-                }
-                if (end < start) {
-                    toastr.error("End date can't be before start.", "Error", {
-                        closeButton: true,
-                        progressBar: true,
-                        showDuration: "300",
-                        hideDuration: "1000",
-                        timeOut: "2000",
-                        extendedTimeOut: "1000",
-                    });
-                    return;
-                }
-           
-                if (diffDays < 30) {
-                    toastr.error("Minimum duration is 30 days.", "Error", {
-                        closeButton: true,
-                        progressBar: true,
-                        showDuration: "300",
-                        hideDuration: "1000",
-                        timeOut: "2000",
-                        extendedTimeOut: "1000",
-                    });
+                if (!validateDates()) {
                     return;
                 }
             }
@@ -969,7 +1002,7 @@
             }
 
             const impressionDays = calculateImpressionDays(startDate, endDate);
-         
+
             const cost = calculateCost(impressionDays);
 
             const formData = new FormData();
@@ -998,6 +1031,8 @@
                         "timeOut": "2000",
                         "extendedTimeOut": "1000",
                     })
+                    // <CHANGE> Close popup after edit success
+                    closePopup(addEditPopup);
                 } else {
                     alert("❌ Failed to update ad: " + result.error);
                 }
@@ -1108,46 +1143,46 @@
             overlay.classList.remove('show');
         });
 
-                // ... existing code ...
+        // ... existing code ...
 
-                    const profileButton = document.querySelectorAll('.profile-button');
-                    const profileModal = document.getElementById('profileModal');
-                    const closeProfileBtn = document.getElementById('closeProfileBtn');
+        const profileButton = document.querySelectorAll('.profile-button');
+        const profileModal = document.getElementById('profileModal');
+        const closeProfileBtn = document.getElementById('closeProfileBtn');
 
-                    const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
+        const allProfiles = document.querySelectorAll(".profile-wrapper, .profile-button");
 
-                    allProfiles.forEach(wrapper => {
-                        const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
-                        const dropdownMenu = wrapper.querySelector(".dropdown-menu");
+        allProfiles.forEach(wrapper => {
+            const button = wrapper.querySelector("button, .profile-btn, .mobile-profile-btn");
+            const dropdownMenu = wrapper.querySelector(".dropdown-menu");
 
-                        if (!button) return;
+            if (!button) return;
 
-                        if (!uid) {
-                            button.classList.remove("dropdown-toggle");
-                            if (dropdownMenu) dropdownMenu.style.display = "none";
-                            button.innerHTML = `
+            if (!uid) {
+                button.classList.remove("dropdown-toggle");
+                if (dropdownMenu) dropdownMenu.style.display = "none";
+                button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
             <span class="mx-2">Sign In</span>
             `;
-                            button.onclick = () => (window.location.href = "/login.html");
-                            button.removeAttribute("data-bs-toggle");
-                        } else {
-                            button.classList.add("dropdown-toggle");
-                            button.innerHTML = `
+                button.onclick = () => (window.location.href = "/login.html");
+                button.removeAttribute("data-bs-toggle");
+            } else {
+                button.classList.add("dropdown-toggle");
+                button.innerHTML = `
             <img src="assets/icons/user-icon.svg" width="28" alt="">
             <span class="me-1" style="margin-right: -5px !important;">My Account</span>
             <i class="bi bi-chevron-down ms-1"></i>
         `;
-                            button.setAttribute("data-bs-toggle", "dropdown");
-                        }
-                    });
+                button.setAttribute("data-bs-toggle", "dropdown");
+            }
+        });
 
-                    document.addEventListener("click", e => {
-                        if (e.target.id === "logout-btn") {
-                            localStorage.removeItem("uid");
-                            location.reload();
-                        }
-                    });
+        document.addEventListener("click", e => {
+            if (e.target.id === "logout-btn") {
+                localStorage.removeItem("uid");
+                location.reload();
+            }
+        });
 
 
         function handleResize() {
