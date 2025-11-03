@@ -176,6 +176,7 @@
             transform: translateY(0);
         }
 
+        /* Inline error styling for individual fields */
         .error-message {
             color: #dc3545;
             font-size: 12px;
@@ -185,6 +186,35 @@
 
         .error-message.show {
             display: block;
+        }
+
+        .form-errors-container {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .form-errors-container.show {
+            display: block;
+        }
+
+        .form-errors-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .form-errors-list li {
+            color: #721c24;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        .form-errors-list li:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -387,20 +417,22 @@
                         <input type="text" id="sponsorName" name="name" required placeholder="Enter sponsor name">
                     </div>
 
+                    <!-- Country field with inline error below -->
                     <div class="form-group">
                         <label for="sponsorCountry">Target Country *</label>
                         <select id="sponsorCountry" name="country" required>
                         </select>
-                        <!-- Added error message for country selection -->
                         <div class="error-message" id="countryError"></div>
                     </div>
 
+                    <!-- Start Date field with inline error below -->
                     <div class="form-group">
                         <label for="sponsorStartDate">Start Date *</label>
                         <input type="date" id="sponsorStartDate" name="startDate" required>
                         <div class="error-message" id="startDateError"></div>
                     </div>
 
+                    <!-- End Date field with inline error below -->
                     <div class="form-group">
                         <label for="sponsorEndDate">End Date *</label>
                         <input type="date" id="sponsorEndDate" name="endDate" required>
@@ -413,7 +445,6 @@
                             style="background-color: #f5f5f5;">
                     </div>
 
-                    <!-- Removed $ symbol from cost display in form -->
                     <div class="form-group">
                         <label>Cost</label>
                         <input type="text" id="cost" name="cost" readonly placeholder="0.00"
@@ -424,26 +455,25 @@
                         <label for="sponsorWebsite">Target Link *</label>
                         <input type="url" id="sponsorWebsite" name="website" required placeholder="https://example.com">
                     </div>
+
+                    <!-- Image upload with inline error below -->
                     <div class="form-group" style="margin-bottom: 0 !important;">
                         <label>Upload Image *</label>
                         <div class="image-upload-area" id="imageUploadArea">
                             <i class="fa-solid fa-cloud-arrow-up"
                                 style="font-size: 32px; color: #999; margin-bottom: 10px; display: block;"></i>
                             <p style="margin: 0; color: #666; font-size: 14px;">Drag and drop your image here or click
-                                here to select an
-                                image
-                            </p>
+                                here to select an image</p>
                             <p style="margin: 0; color: #666; font-size: 14px;">Image Dimensions: 1100 x 620 pixels OR
-                                11.5 x
-                                6.50 inches required</p>
+                                11.5 x 6.50 inches required</p>
                             <input type="file" id="logoInput" name="logo" accept="image/*" required>
                         </div>
                         <img id="imagePreview" class="image-preview" style="display: none;">
-                        <div id="imageSizeError"
-                            style="color: #dc3545; font-size: 12px; margin-top: 5px; display: none;"></div>
+                        <div class="error-message" id="imageSizeError"></div>
                     </div>
                 </form>
             </div>
+            <!-- Dynamic button text: "Save" for edit, "Checkout" for new ad -->
             <div class="custom-popup-footer">
                 <button class="popup-btn popup-btn-secondary" id="addEditPopupCancel">Cancel</button>
                 <button class="popup-btn popup-btn-primary" id="addEditPopupSubmit">Checkout</button>
@@ -576,11 +606,11 @@
         const imageUploadArea = document.getElementById('imageUploadArea');
         const logoInput = document.getElementById('logoInput');
         const imagePreview = document.getElementById('imagePreview');
-        const imageSizeError = document.getElementById('imageSizeError');
 
+        const countryError = document.getElementById('countryError');
         const startDateError = document.getElementById('startDateError');
         const endDateError = document.getElementById('endDateError');
-        const countryError = document.getElementById('countryError');
+        const imageSizeError = document.getElementById('imageSizeError');
 
         let allSponsors = [];
         let filtered = [];
@@ -720,7 +750,6 @@
             detailsHtml += `<div class="detail-row"><div class="detail-label">Start Date</div><div class="detail-value">${formatDate(sponsor.startDate || '')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">End Date</div><div class="detail-value">${formatDate(sponsor.endDate || '')}</div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Impression Days</div><div class="detail-value">${sponsor.impressionDays || 0} days</div></div>`;
-            <!-- added $ symbol back to cost display in view popup -->
             const costValue = (sponsor.cost || '0.00').toString().replace('$', '');
             detailsHtml += `<div class="detail-row"><div class="detail-label">Cost</div><div class="detail-value"><strong style="color: #368186; font-size: 16px;">$${costValue}</strong></div></div>`;
             detailsHtml += `<div class="detail-row"><div class="detail-label">Target Link</div><div class="detail-value"><a href="${escapeHtml(sponsor.link)}" target="_blank" style="color: #368186;">${escapeHtml(sponsor.link)}</a></div></div>`;
@@ -730,10 +759,24 @@
             openPopup(viewPopup);
         }
 
+        function hideAllErrors() {
+            countryError.textContent = '';
+            countryError.classList.remove('show');
+            startDateError.textContent = '';
+            startDateError.classList.remove('show');
+            endDateError.textContent = '';
+            endDateError.classList.remove('show');
+            imageSizeError.textContent = '';
+            imageSizeError.classList.remove('show');
+        }
+
         function openAddEditPopup(sponsor = null) {
             editingId = sponsor?._id || null;
+            hideAllErrors();
+
             if (sponsor) {
                 popupTitle.textContent = 'Edit Sponsor';
+                addEditPopupSubmit.textContent = 'Save';
                 document.getElementById('sponsorName').value = sponsor.sponsorName || '';
                 const countrySelect = document.getElementById('sponsorCountry');
                 const sponsorCountry = sponsor.country || '';
@@ -748,7 +791,7 @@
                 document.getElementById('sponsorStartDate').value = sponsor.startDate ? sponsor.startDate.split('T')[0] : '';
                 document.getElementById('sponsorEndDate').value = sponsor.endDate ? sponsor.endDate.split('T')[0] : '';
                 document.getElementById('impressionDays').value = sponsor.impressionDays ? `${sponsor.impressionDays} days` : '0 days';
-             
+
                 const costValue = (sponsor.cost || '0.00').toString().replace('$', '');
                 document.getElementById('cost').value = `$${costValue}`;
                 document.getElementById('sponsorWebsite').value = sponsor.link || '';
@@ -761,20 +804,13 @@
                 }
             } else {
                 popupTitle.textContent = 'Submit an Ad';
+                addEditPopupSubmit.textContent = 'Checkout';
                 sponsorForm.reset();
                 imagePreview.style.display = 'none';
                 imagePreview.src = '';
                 document.getElementById('impressionDays').value = '0 days';
                 document.getElementById('cost').value = '$0.00';
             }
-            startDateError.textContent = '';
-            startDateError.classList.remove('show');
-            endDateError.textContent = '';
-            endDateError.classList.remove('show');
-            countryError.textContent = '';
-            countryError.classList.remove('show');
-            imageSizeError.style.display = 'none';
-            imageSizeError.textContent = '';
             selectedFile = null;
             openPopup(addEditPopup);
         }
@@ -852,7 +888,20 @@
             reader.readAsDataURL(file);
         }
 
-        function validateDates() {
+        function validateCountry() {
+            const country = document.getElementById('sponsorCountry').value.trim();
+            if (!country) {
+                countryError.textContent = 'Please select a country.';
+                countryError.classList.add('show');
+                return false;
+            } else {
+                countryError.textContent = '';
+                countryError.classList.remove('show');
+                return true;
+            }
+        }
+
+        function validateDatesInline() {
             if (editingId) {
                 startDateError.textContent = '';
                 startDateError.classList.remove('show');
@@ -883,7 +932,7 @@
                 }
 
                 if (end < start) {
-                    endDateError.textContent = "End date can't be before start.";
+                    endDateError.textContent = "End date can't be before start date.";
                     endDateError.classList.add('show');
                     isValid = false;
                 }
@@ -897,6 +946,26 @@
             }
 
             return isValid;
+        }
+
+        function validateStartDateInline() {
+            const startDate = document.getElementById('sponsorStartDate').value;
+
+            startDateError.textContent = '';
+            startDateError.classList.remove('show');
+
+            if (startDate) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const start = new Date(startDate);
+
+                if (start < today) {
+                    startDateError.textContent = "Start date can't be before today.";
+                    startDateError.classList.add('show');
+                    return false;
+                }
+            }
+            return true;
         }
 
         imageUploadArea.addEventListener('click', () => logoInput.click());
@@ -926,15 +995,15 @@
             validateImageDimensions(file, (isValid, errorMsg) => {
                 if (!isValid) {
                     imageSizeError.textContent = errorMsg;
-                    imageSizeError.style.display = 'block';
+                    imageSizeError.classList.add('show');
                     imagePreview.style.display = 'none';
                     selectedFile = null;
                     logoInput.value = '';
                     return;
                 }
 
-                imageSizeError.style.display = 'none';
                 imageSizeError.textContent = '';
+                imageSizeError.classList.remove('show');
                 selectedFile = file;
 
                 const reader = new FileReader();
@@ -947,82 +1016,80 @@
         }
 
         document.getElementById('sponsorStartDate').addEventListener('change', () => {
+            validateStartDateInline();
+
             const startDate = document.getElementById('sponsorStartDate').value;
             const endDate = document.getElementById('sponsorEndDate').value;
-          
+
             if (startDate && endDate) {
                 const days = calculateImpressionDays(startDate, endDate);
                 document.getElementById('impressionDays').value = `${days} days`;
                 const cost = calculateCost(days);
                 document.getElementById('cost').value = `$${cost.toFixed(2)}`;
+                validateDatesInline();
             }
         });
 
-       
-            document.getElementById('sponsorEndDate').addEventListener('change', () => {
-                const startDate = document.getElementById('sponsorStartDate').value;
-                const endDate = document.getElementById('sponsorEndDate').value;
-                const countrySelect = document.getElementById('sponsorCountry');
+        document.getElementById('sponsorEndDate').addEventListener('change', () => {
+            const startDate = document.getElementById('sponsorStartDate').value;
+            const endDate = document.getElementById('sponsorEndDate').value;
 
-                // Check if country is selected
-                if (countrySelect.value === '' || countrySelect.selectedIndex === 0) {
-                    countryError.textContent = 'Please select a country first.';
-                    countryError.classList.add('show');
-                    return;
-                } else {
-                    countryError.textContent = '';
-                    countryError.classList.remove('show');
-                }
-            
-                if (startDate && endDate) {
-                    const days = calculateImpressionDays(startDate, endDate);
-                    document.getElementById('impressionDays').value = `${days} days`;
-                    const cost = calculateCost(days);
-                    document.getElementById('cost').value = `$${cost.toFixed(2)}`;
-                }
-            });
+            if (startDate && endDate) {
+                const days = calculateImpressionDays(startDate, endDate);
+                document.getElementById('impressionDays').value = `${days} days`;
+                const cost = calculateCost(days);
+                document.getElementById('cost').value = `$${cost.toFixed(2)}`;
+                validateDatesInline();
+            }
+        });
+
+        document.getElementById('sponsorCountry').addEventListener('change', () => {
+            validateCountry();
+        });
 
         addEditPopupSubmit.addEventListener('click', async (e) => {
             e.preventDefault();
 
             const name = document.getElementById('sponsorName').value.trim();
-            const country = document.getElementById('sponsorCountry').selectedOptions[0].text.trim();
+            const country = document.getElementById('sponsorCountry').selectedOptions[0]?.text?.trim() || '';
             const startDate = document.getElementById('sponsorStartDate').value;
             const endDate = document.getElementById('sponsorEndDate').value;
             const website = document.getElementById('sponsorWebsite').value.trim();
 
-            if (startDate && endDate) {
-                if (!validateDates()) {
-                    return;
-                }
+            // Validate country inline
+            validateCountry();
+
+            // Validate dates inline
+            validateDatesInline();
+
+            let hasError = false;
+
+            // Check if country error is shown
+            if (countryError.classList.contains('show')) {
+                hasError = true;
             }
 
+            // Check if any date error is shown
+            if (startDateError.classList.contains('show') || endDateError.classList.contains('show')) {
+                hasError = true;
+            }
+
+            // Check required fields
             if (!name || !country || !startDate || !endDate || !website) {
-                toastr.error("Fill all required fields.", "Error", {
-                    closeButton: true,
-                    progressBar: true,
-                    showDuration: "300",
-                    hideDuration: "1000",
-                    timeOut: "2000",
-                    extendedTimeOut: "1000",
-                });
-                return;
+                hasError = true;
             }
 
             if (!selectedFile && !editingId) {
-                toastr.error("Upload image (1100x620px).", "Error", {
-                    closeButton: true,
-                    progressBar: true,
-                    showDuration: "300",
-                    hideDuration: "1000",
-                    timeOut: "2000",
-                    extendedTimeOut: "1000",
-                });
+                imageSizeError.textContent = 'Image is required (1100x620px).';
+                imageSizeError.classList.add('show');
+                hasError = true;
+            }
+
+            if (hasError) {
                 return;
             }
 
             const impressionDays = calculateImpressionDays(startDate, endDate);
-
             const cost = calculateCost(impressionDays);
 
             const formData = new FormData();
@@ -1043,7 +1110,7 @@
             if (editingId) {
                 result = await updateAdAPI(editingId, formData);
                 if (result.success) {
-                    toastr.success("Ad updated successfully!", "Updated  Successfully", {
+                    toastr.success("Ad updated successfully!", "Updated Successfully", {
                         "closeButton": true,
                         "progressBar": true,
                         "showDuration": "300",
@@ -1053,7 +1120,7 @@
                     })
                     closePopup(addEditPopup);
                 } else {
-                    alert("❌ Failed to update ad: " + result.error);
+                    alert("Failed to update ad: " + result.error);
                 }
             } else {
                 result = await createAdAPI(formData);
@@ -1062,7 +1129,7 @@
                     location.href = '/payment.html';
                     openSuccessPopup();
                 } else {
-                    alert("❌ Failed to create ad: " + result.error);
+                    alert("Failed to create ad: " + result.error);
                 }
             }
 
@@ -1163,7 +1230,6 @@
             overlay.classList.remove('show');
         });
 
-
         const profileButton = document.querySelectorAll('.profile-button');
         const profileModal = document.getElementById('profileModal');
         const closeProfileBtn = document.getElementById('closeProfileBtn');
@@ -1202,7 +1268,6 @@
                 location.reload();
             }
         });
-
 
         function handleResize() {
             if (window.innerWidth >= 992) {
