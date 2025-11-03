@@ -115,6 +115,7 @@
                                         <option value="Mrs">Mrs</option>
                                         <option value="Miss">Miss</option>
                                         <option value="Ms">Ms</option>
+                                        <option value="Dr">Dr</option>
                                         <option value="Prof">Prof</option>
                                         <option value="Rev">Rev</option>
                                         <option value="Alhj">Alhj</option>
@@ -194,6 +195,7 @@
                                         <option value="Mrs">Mrs</option>
                                         <option value="Miss">Miss</option>
                                         <option value="Ms">Ms</option>
+                                        <option value="Dr">Dr</option>
                                         <option value="Prof">Prof</option>
                                         <option value="Rev">Rev</option>
                                         <option value="Alhj">Alhj</option>
@@ -595,9 +597,21 @@
                 </span>
               </td>
               <td>
-                <span class="badge-pill ${user.isBlocked ? 'status-blocked' : 'status-active'}">
-                  ${user.isBlocked ? 'blocked' : 'active'}
-                </span>
+               <span class="badge-pill ${
+                        user.isBlocked
+                            ? 'status-blocked'
+                            : user.isActive
+                                ? 'status-active'
+                                : 'status-pending'
+                        }">
+  ${user.isBlocked
+                            ? 'Blocked'
+                            : user.isActive
+                                ? 'Active'
+                                : 'Pending'
+  }
+</span>
+
               </td>
               <td class="text-end action-buttons">
                 <button class="btn-action view" title="View" onclick="viewUser('${user._id}')">
@@ -974,9 +988,21 @@
                     </span>
                   </td>
                   <td>
-                    <span class="badge-pill ${user.isBlocked ? 'status-blocked' : 'status-active'}">
-                      ${user.isBlocked ? 'blocked' : 'active'}
-                    </span>
+                   <span class="badge-pill ${
+                        user.isBlocked
+                            ? 'status-blocked'
+                            : user.isActive
+                                ? 'status-active'
+                                : 'status-pending'
+                        }">
+  ${user.isBlocked
+                            ? 'Blocked'
+                            : user.isActive
+                                ? 'Active'
+                                : 'Pending'
+  }
+</span>
+
                   </td>
                   <td class="text-end action-buttons">
                     <button class="btn-action view" title="View" onclick="viewUser('${user._id}')">
@@ -1066,9 +1092,21 @@
                     </span>
                   </td>
                   <td>
-                    <span class="badge-pill ${user.isBlocked ? 'status-blocked' : 'status-active'}">
-                      ${user.isBlocked ? 'blocked' : 'active'}
-                    </span>
+                    <span class="badge-pill ${
+                        user.isBlocked
+                            ? 'status-blocked'
+                            : user.isActive
+                                ? 'status-active'
+                                : 'status-pending'
+                        }">
+  ${user.isBlocked
+                            ? 'Blocked'
+                            : user.isActive
+                                ? 'Active'
+                                : 'Pending'
+  }
+</span>
+
                   </td>
                   <td class="text-end action-buttons">
                     <button class="btn-action view" title="View" onclick="viewUser('${user._id}')">

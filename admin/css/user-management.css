@@ -622,6 +622,10 @@ body {
   color: #070707;
 }
 
+.filter-wrap select{
+  width: 120px !important;
+}
+
 #confirmBlock {
   background: #ff4c4c;
   border: none;
