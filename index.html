@@ -323,7 +323,7 @@
 </button>
 
 <div id="notifDropdownMobile" class="notification-dropdown card shadow-lg p-2"
-    style="display:none; position:absolute; left:20px; top:85px; width:300px; z-index:1000;">
+    style="display:none; position:absolute; left:20px; top:85px; width:300px; z-index:10000000000000000000000000000000000000 !important;">
     <div id="notifListMobile"></div>
     <div class="text-center mt-2">
         <button class="btn btn-sm btn-primary no-page" id="viewAllBtnMobile">View All</button>
@@ -581,9 +581,9 @@
       
 
     <script>
-   const userId = localStorage.getItem('uid');
+    const userId = localStorage.getItem('uid');
 
-    // Load top 5 unread notifications for both mobile and desktop
+    // Load top 5 notifications (read + unread)
     async function loadNotifications() {
         try {
             const res = await fetch(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/notifications/${userId}`);
@@ -601,20 +601,21 @@
                 }
             });
 
-            // Update both lists
+            // Update both notification lists
             ["Desktop", "Mobile"].forEach(type => {
                 const notifList = document.getElementById(`notifList${type}`);
                 if (!notifList) return;
 
                 notifList.innerHTML = notifications.length
                     ? notifications.map(n => `
-                    <div class="notification-item ${n.isRead ? "" : "unread"}">
+                    <div class="notification-item ${n.isRead ? "read" : "unread"}">
                         <div>${n.message}</div>
                         <small class="text-muted">${new Date(n.createdAt).toLocaleString()}</small>
                     </div>
                 `).join("")
                     : `<div class="text-center text-muted p-2">No notifications yet.</div>`;
 
+                // Add "Mark All as Read" button if notifications exist
                 if (notifications.length > 0) {
                     notifList.innerHTML += `
                     <div class="text-center mt-2">
@@ -628,34 +629,11 @@
             document.querySelectorAll('.readAllBtn').forEach(btn => {
                 btn.addEventListener("click", markAllAsRead);
             });
+
         } catch (error) {
             console.error("Load Notifications Error:", error);
         }
     }
-
-    // Toggle dropdowns visibility (desktop + mobile)
-    ["Desktop", "Mobile"].forEach(type => {
-        const notifBtn = document.getElementById(`notificationBtn${type}`);
-        const notifDropdown = document.getElementById(`notifDropdown${type}`);
-
-        if (notifBtn && notifDropdown) {
-            notifBtn.addEventListener("click", async (e) => {
-                e.stopPropagation();
-                const isVisible = notifDropdown.style.display === "block";
-                document.querySelectorAll('.notification-dropdown').forEach(dd => dd.style.display = "none");
-                notifDropdown.style.display = isVisible ? "none" : "block";
-
-                if (!isVisible) await loadNotifications();
-            });
-        }
-    });
-
-    // Hide all dropdowns on outside click
-    document.addEventListener("click", (e) => {
-        if (!e.target.closest(".notification-dropdown") && !e.target.closest(".notification-btn")) {
-            document.querySelectorAll('.notification-dropdown').forEach(dd => dd.style.display = "none");
-        }
-    });
 
     // Mark all as read
     async function markAllAsRead() {
@@ -664,14 +642,58 @@
                 method: "PUT",
                 headers: { "Content-Type": "application/json" }
             });
-            await loadNotifications();
+
+            // Instantly update UI
+            document.querySelectorAll('.notification-item').forEach(item => {
+                item.classList.remove('unread');
+                item.classList.add('read');
+            });
+
+            // Hide unread count badges
+            ["Desktop", "Mobile"].forEach(type => {
+                const notifCount = document.getElementById(`notifCount${type}`);
+                if (notifCount) {
+                    notifCount.textContent = "";
+                    notifCount.style.display = "none";
+                }
+            });
+
         } catch (error) {
             console.error("Mark All Read Error:", error);
         }
     }
 
+    // Toggle dropdown visibility for both desktop and mobile
+    ["Desktop", "Mobile"].forEach(type => {
+        const notifBtn = document.getElementById(`notificationBtn${type}`);
+        const notifDropdown = document.getElementById(`notifDropdown${type}`);
+
+        if (notifBtn && notifDropdown) {
+            notifBtn.addEventListener("click", async (e) => {
+                e.stopPropagation();
+                const isVisible = notifDropdown.style.display === "block";
+
+                // Hide other dropdowns
+                document.querySelectorAll('.notification-dropdown').forEach(dd => dd.style.display = "none");
+
+                // Toggle current
+                notifDropdown.style.display = isVisible ? "none" : "block";
+
+                if (!isVisible) await loadNotifications();
+            });
+        }
+    });
+
+    // Hide dropdowns on outside click
+    document.addEventListener("click", (e) => {
+        if (!e.target.closest(".notification-dropdown") && !e.target.closest(".notification-btn")) {
+            document.querySelectorAll('.notification-dropdown').forEach(dd => dd.style.display = "none");
+        }
+    });
+
     // Initial load
     loadNotifications();
+
 
 
 

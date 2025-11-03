@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Health Monitor</title>
+    <title>Health Centre App</title>
     <link rel="shortcut icon" href="assets/icons/logo.svg" type="image/x-icon" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/payment.css" />
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="../css/toastr.min.css">
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -97,7 +98,7 @@
                     <div class="payment-option">
                         <input type="radio" name="payment" id="stripe">
                         <label for="stripe">
-                            <img src="../assets/images/logos_stripe.png" alt="Stripe" style="height: 25px;">
+                            <img src="https://insart.com/wp-content/uploads/fim/Paystack.png" alt="Stripe" style="height: 25px;">
                         </label>
                     </div>
 
@@ -236,7 +237,7 @@
                         <img src="../assets/images/premium-icon.png" alt="">
                         <span class="premium-title">Sponsor Add</span>
                     </div>
-                    <span class="premium-price">£36.60</span>
+                    <span class="premium-price">$5</span>
                 </div>
             </div>
 
@@ -244,27 +245,28 @@
 
             <div class="subscription-details">
                 <div class="details-row">
-                    £36.60/annually | <b>From:</b> 01 April, 2025 <b>To:</b> 15 April, 2025
+                    $5/annually | <b>From:</b> 01 April, 2025 <b>To:</b> 15 April, 2025
                 </div>
             </div>
 
             <div class="price-breakdown">
                 <div class="price-row">
                     <span>Subtotal</span>
-                    <span>£36.60</span>
+                    <span>$5</span>
                 </div>
                 <div class="price-row">
                     <span>Tax</span>
-                    <span>- £0.00</span>
+                    <span>$0.00</span>
                 </div>
 
                 <div class="total-row">
                     <span>Total</span>
-                    <span>£36.60</span>
+                    <span>$5</span>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Self Payment Popup  -->
     <div class="popup d-none" id="self-payment">
         <div class="payment-box bg-white">
@@ -280,6 +282,7 @@
             </div>
         </div>
     </div>
+
     <!-- Someone Payment Popup  -->
     <div class="popup d-none" id="someone-payment">
         <div class="payment-box bg-white">
@@ -288,23 +291,24 @@
                 you will be notified when your account is active.
             </p>
             <a href="user/ads-management.html" class="text-decoration-none">
-            <div class="popup-btn" id="someone-payment-back">Go Back</div>
+                <div class="popup-btn" id="someone-payment-back">Go Back</div>
             </a>
             <div class="close-btn" id="someone-payment-close">
                 <img src="../../user-dashboard/assets/icons/close.svg" alt="">
             </div>
         </div>
     </div>
-    <!-- Someone Payment Popup  -->
+
+    <!-- Scripts -->
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="../https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../js/toastr.min.js"></script>
     <script src="../js/country-states.js"></script>
-    <script>
 
+    <script>
         var user_country_code = "";
 
         (() => {
@@ -314,12 +318,11 @@
             const id_state_option = document.getElementById("state-drop-down");
             const id_country_option = document.getElementById("country");
 
-            // Initially disable the state dropdown
             id_state_option.innerHTML = '<option>select state</option>';
             id_state_option.setAttribute("disabled", "disabled");
 
             const create_country_selection = () => {
-                let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
+                let option = '<option value="" selected disabled>Select Country</option>';
                 for (const country_code in country_list) {
                     option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
                 }
@@ -342,16 +345,12 @@
                 });
 
                 id_state_option.innerHTML = option;
-                id_state_option.removeAttribute("disabled"); // Enable dropdown when country is selected
+                id_state_option.removeAttribute("disabled");
             };
 
-            // Country select change event update state dropdown
             id_country_option.addEventListener('change', create_states_selection);
-
-            // Initialize country dropdown with placeholder
             create_country_selection();
         })();
-
 
         (() => {
             const country_list = country_and_states.country;
@@ -360,12 +359,11 @@
             const id_state_option = document.getElementById("state-drop-down");
             const id_country_option = document.getElementById("country2");
 
-            // Initially disable the state dropdown
             id_state_option.innerHTML = '<option>select state</option>';
             id_state_option.setAttribute("disabled", "disabled");
 
             const create_country_selection = () => {
-                let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
+                let option = '<option value="" selected disabled>Select Country</option>';
                 for (const country_code in country_list) {
                     option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
                 }
@@ -388,13 +386,10 @@
                 });
 
                 id_state_option.innerHTML = option;
-                id_state_option.removeAttribute("disabled"); // Enable dropdown when country is selected
+                id_state_option.removeAttribute("disabled");
             };
 
-            // Country select change event update state dropdown
             id_country_option.addEventListener('change', create_states_selection);
-
-            // Initialize country dropdown with placeholder
             create_country_selection();
         })();
 
@@ -403,54 +398,70 @@
         const selfPaymentClose = document.getElementById('self-payment-close');
         const selfPayBtn = document.getElementById('self-pay-btn');
 
-        selfPayBtn.addEventListener(('click'), () => {
-            selfPayment.classList.remove('d-none');
-        })
+        // Updated Pay Now button logic - redirects to PayPal or Stripe in new tab based on payment method
+        selfPayBtn.addEventListener('click', () => {
+            const isPayPalSelected = document.getElementById('paypal').checked;
+            const isStripeSelected = document.getElementById('stripe').checked;
+            const country2Value = document.getElementById('country2').value;
 
-        selfPaymentClose.addEventListener(('click'), () => {
-            selfPayment.classList.add('d-none');
-        })
-
-        selfPaymentBack.addEventListener(('click'), () => {
-            selfPayment.classList.add('d-none');
-        })
-
-        selfPayment.addEventListener(('click'), (e) => {
-            if (e.target === selfPayment) {
-                selfPayment.classList.add('d-none')
+            if (isPayPalSelected) {
+                // Redirect to PayPal website in new tab
+                window.open('https://www.paypal.com', '_blank');
+            } else if (isStripeSelected) {
+                if (country2Value) {
+                    // Redirect to Stripe website in new tab when bank is selected
+                    window.open('https://paystack.com/', '_blank');
+                } else {
+                    // Alert user to select a bank
+                    window.open('https://www.stripe.com', '_blank');
+                  
+                }
+            } else {
+                // For other payment methods, show the popup
+                selfPayment.classList.remove('d-none');
             }
-        })
+        });
+
+        selfPaymentClose.addEventListener('click', () => {
+            selfPayment.classList.add('d-none');
+        });
+
+        selfPaymentBack.addEventListener('click', () => {
+            selfPayment.classList.add('d-none');
+        });
+
+        selfPayment.addEventListener('click', (e) => {
+            if (e.target === selfPayment) {
+                selfPayment.classList.add('d-none');
+            }
+        });
 
         const someonePay = document.getElementById('someone-payment');
         const someonePayBack = document.getElementById('someone-payment-back');
         const someonePayClose = document.getElementById('someone-payment-close');
         const someonePayBtn = document.getElementById('someone-pay-btn');
 
-        someonePayBtn.addEventListener(('click'), () => {
+        someonePayBtn.addEventListener('click', () => {
             someonePay.classList.remove('d-none');
-        })
+        });
 
-        someonePayClose.addEventListener(('click'), () => {
+        someonePayClose.addEventListener('click', () => {
             someonePay.classList.add('d-none');
-        })
+        });
 
-        someonePayBack.addEventListener(('click'), () => {
+        someonePayBack.addEventListener('click', () => {
             someonePay.classList.add('d-none');
-        })
+        });
 
-        someonePay.addEventListener(('click'), (e) => {
+        someonePay.addEventListener('click', (e) => {
             if (e.target === someonePay) {
-                someonePay.classList.add('d-none')
+                someonePay.classList.add('d-none');
             }
-        })
-
+        });
 
         // Popup buttons functionality
         document.getElementById('popupMyselfBtn').addEventListener('click', function () {
-            // Close popup
             document.getElementById('blurPopup').style.display = 'none';
-
-            // Activate Myself form
             document.getElementById('myselfBtn').classList.add('active');
             document.getElementById('someoneBtn').classList.remove('active');
             document.getElementById('myselfForm').classList.add('active');
@@ -458,10 +469,7 @@
         });
 
         document.getElementById('popupSomeoneBtn').addEventListener('click', function () {
-            // Close popup
             document.getElementById('blurPopup').style.display = 'none';
-
-            // Activate Someone form
             document.getElementById('someoneBtn').classList.add('active');
             document.getElementById('myselfBtn').classList.remove('active');
             document.getElementById('someoneForm').classList.add('active');
@@ -513,36 +521,36 @@
             }
         });
 
-        document.getElementById('linkedin-share-btn').addEventListener(('click'), () => {
+        document.getElementById('linkedin-share-btn').addEventListener('click', () => {
             const shareUrl = "https://www.linkedin.com/sharing/share-offsite";
 
             const params = new URLSearchParams({
                 url: "https://health-monitor-sa.vercel.app/",
                 title: "Health Monitor",
-                summary: "A smarter way to track and manage your health with our intuitive dashboard. Gain complete control over your well-being, all in one place", // Summary text
+                summary: "A smarter way to track and manage your health with our intuitive dashboard. Gain complete control over your well-being, all in one place",
                 source: "Health Monitor"
             }).toString();
 
             window.open(`${shareUrl}?${params}`, "_blank", "width=600,height=400");
-        })
+        });
 
-        document.getElementById('x-share-btn').addEventListener(('click'), () => {
+        document.getElementById('x-share-btn').addEventListener('click', () => {
             const tweetText = encodeURIComponent("A smarter way to track and manage your health with our intuitive dashboard. Gain complete control over your well-being, all in one place: https://health-monitor-sa.vercel.app/ #HealthCentreApp");
             const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
             window.open(tweetUrl, "_blank", "width=600,height=400");
-        })
+        });
 
-        document.getElementById('fb-share-btn').addEventListener(('click'), () => {
+        document.getElementById('fb-share-btn').addEventListener('click', () => {
             const fbShareUrl = "https://www.facebook.com/sharer/sharer.php";
             const params = new URLSearchParams({
-                u: "https://health-monitor-sa.vercel.app/", // Your website URL
-                quote: "A smarter way to track and manage your health with our intuitive dashboard. Gain complete control over your well-being, all in one place", // Text to share
-                hashtag: "#HealthCentreApp", // Optional hashtag
+                u: "https://health-monitor-sa.vercel.app/",
+                quote: "A smarter way to track and manage your health with our intuitive dashboard. Gain complete control over your well-being, all in one place",
+                hashtag: "#HealthCentreApp",
             }).toString();
 
             const shareUrl = `${fbShareUrl}?${params}`;
             window.open(shareUrl, "_blank", "width=600,height=400");
-        })
+        });
     </script>
 </body>
 

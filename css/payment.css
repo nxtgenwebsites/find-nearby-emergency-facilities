@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #0b6fc0;
-    --gradient: linear-gradient(270.46deg, #1fdce5 0.32%, #0c74c2 108.77%);
+    --primary-color: #368186;
+    --gradient: linear-gradient(270.46deg, #368186 0.32%, #368186 108.77%);
     --light-gray: #f8f9fa;
   }
   
@@ -184,7 +184,7 @@
   .pay-now-btn:hover,
   .submit-link-btn:hover {
     border: 2px solid transparent;
-  background: linear-gradient(270.46deg, #1FDCE5 0.32%, #0C74C2 108.77%);
+  background: linear-gradient(270.46deg, #368186 0.32%, #368186 108.77%);
     color: white;
   }
   
@@ -312,9 +312,6 @@
     margin-bottom: 15px;
   }
   
-  .card-header h3 {
-  }
-  
   .card-input {
     background-color: #e9e9e9;
     border: none;
@@ -407,7 +404,7 @@
   }
   
   .section-title-blue {
-    color: #0039a6;
+    color: #404040;
     font-weight: 600;
     margin-bottom: 25px;
   }
@@ -435,7 +432,7 @@
   }
   
   .popup-title {
-    color: #0039a6;
+    color: #404040;
     font-weight: 600;
     margin-bottom: 25px;
   }
@@ -461,7 +458,7 @@
   .popup-btn:hover {
     color: white;
     border: 1px solid transparent !important;
-    background: linear-gradient(270.46deg, #1fdce5 0.32%, #0c74c2 108.77%);
+    background: linear-gradient(270.46deg, #368186 0.32%, #368186 108.77%);
   }
   
   .popup-btn.active {
@@ -518,7 +515,7 @@
     cursor: pointer;
   }
   .payment-box h3{
-    color: #0C74C2;
+    color: #368186;
   }
   .payment-box p{
     margin-top: 10px;

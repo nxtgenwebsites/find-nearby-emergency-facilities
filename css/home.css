@@ -262,7 +262,8 @@ body {
 .search-section {
   max-width: 500px;
   margin: 0 auto 30px;
-  position: relative;
+  position: unset !important;
+  z-index: 0 !important;
 }
 
 .search-input {
@@ -541,6 +542,8 @@ body {
   background: white !important;
   font-size: 17px;
   border: 0 !important;
+  position: unset !important;
+  z-index: 0 !important;
   outline: none !important;
 }
 .search-section {
@@ -845,8 +848,7 @@ body {
     display: none !important;
   }
 }
-
-
+/* Notification icon styling */
 .notification-btn img {
   filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
   transition: transform 0.2s ease;
@@ -856,6 +858,7 @@ body {
   transform: scale(1.1);
 }
 
+/* Dropdown styling */
 .notification-dropdown {
   display: none;
   position: absolute;
@@ -865,6 +868,7 @@ body {
   z-index: 1000;
   border-radius: 14px;
   backdrop-filter: blur(12px) saturate(180%);
+  background: rgba(255, 255, 255, 0.75);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.25s ease;
 }
@@ -874,21 +878,32 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Notification items */
 .notification-item {
   padding: 10px 12px;
   border-radius: 8px;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+  margin-bottom: 6px;
 }
 
-.notification-item:hover {
-  background: rgba(0, 123, 255, 0.05);
-}
-
+/* 🔴 Unread notifications */
 .notification-item.unread {
-  background: #eef4ff;
-  font-weight: 500;
+  background: #2a6d7133;
+  font-weight: 600;
 }
 
+/* ⚪ Read notifications */
+.notification-item.read {
+  background: #f5f5f5;
+  color: #333;
+}
+
+/* Hover effect */
+.notification-item:hover {
+  opacity: 0.9;
+}
+
+/* List scroll styling */
 .notif-list {
   max-height: 300px;
   overflow-y: auto;
@@ -904,6 +919,7 @@ body {
   border-radius: 10px;
 }
 
+/* Responsive dropdown */
 @media (max-width: 992px) {
   .notification-dropdown {
     right: 10px;
@@ -912,14 +928,8 @@ body {
   }
 }
 
-#viewAllBtnMobile{
-  width: 100%;
-  background: transparent !important;
-  border: none !important;
-  color: #368186 !important;
-  text-decoration: underline !important;
-}
-#viewAllBtnDesktop{
+/* View All buttons */
+#viewAllBtnMobile, #viewAllBtnDesktop {
   width: 100%;
   background: transparent !important;
   border: none !important;
@@ -927,7 +937,16 @@ body {
   text-decoration: underline !important;
 }
 
-.readAllBtn{
+/* Read All button */
+.readAllBtn {
   background: #368186 !important;
   border: none !important;
+  color: #fff !important;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.readAllBtn:hover {
+  background: #2a6d71 !important;
 }
