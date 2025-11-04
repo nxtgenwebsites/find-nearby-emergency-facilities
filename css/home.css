@@ -950,3 +950,10 @@ body {
 .readAllBtn:hover {
   background: #2a6d71 !important;
 }
+
+.sponsored-heading {
+  font-size: 16px;
+ font-weight: 500;
+ color: #535353 !important;
+ text-align: left !important;
+}

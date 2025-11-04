@@ -460,3 +460,45 @@ footer {
 .s-container img:hover {
   transform: scale(1.1);
 }
+
+.trustpilot-widget {
+  text-align: left !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+}
+
+.tp-widget-wrapper {
+  text-align: left !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+}
+
+.trustpilot-widget iframe {
+  margin: 0 !important;
+  text-align: left !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+}
+
+.review-btn-container {
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: center;
+}
+
+.trustpilot-widget {
+  text-align: left !important;
+  margin: 0 !important;
+  justify-content: flex-start !important;
+}
+
+.review-btn-container,
+.trustpilot-widget,
+.tp-widget-wrapper {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  margin: 0 !important;
+}
+

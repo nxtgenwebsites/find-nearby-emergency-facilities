@@ -450,7 +450,15 @@
                     </div>
                     <div class="write-para">
                         <p>What you tell us is important to us please share and help us get better.</p>
-                        <button id="add-review-btn">Write a review</button>
+                        <div class="review-btn-container text-start">
+                            <div class="trustpilot-widget" data-locale="en-GB" data-template-id="56278e9abfbbba0bdcd568bc"
+                                data-businessunit-id="6908bee6154aa52f830e3a09" data-style-height="52px" data-style-width="100%"
+                                data-token="4aa21d86-eeb6-4885-8d1d-2e363f714f6f" style="text-align: left !important;">
+                                <a href="https://uk.trustpilot.com/review/healthcentreapp.com" target="_blank" rel="noopener">Trustpilot</a>
+                            </div>
+                        </div>
+                          
+                        <button id="add-review-btn" class="d-none">Write a review</button>
                     </div>
                     <div class="reviews-container">
                         <div class="row row-gap-4"  id="reviewsRow">
@@ -913,7 +921,9 @@
             </footer>
         </div>
     </div>
-
+        <!-- TrustBox script -->
+        <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+        <!-- End TrustBox script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -923,6 +933,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script>
 
 
