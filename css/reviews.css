@@ -498,7 +498,24 @@ footer {
 .trustpilot-widget,
 .tp-widget-wrapper {
   text-align: left !important;
+
   justify-content: flex-start !important;
   margin: 0 !important;
+  margin-right: -20px !important;
 }
 
+
+
+@media (max-width: 991px) {
+    #write-para{
+      flex-direction: column !important;
+    }
+    .review-btn-container {
+      display: block;
+    }
+    .review-btn-container,
+.trustpilot-widget,
+.tp-widget-wrapper {
+  margin-right: 0px !important;
+}
+}
