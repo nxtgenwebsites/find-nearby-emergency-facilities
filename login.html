@@ -236,24 +236,42 @@
                     <li class="nav-item toggle-section">
                         <button class="nav-link toggle-btn">
                             <div class="d-flex gap-3 align-items-center">
-                                <img src="assets/icons/fluent-mdl2_health.png" />
+                                <img src="assets/icons/fluent-mdl2_health.png" alt="Digital Health Icon" />
                                 <span>DigitalHealth (Coming Soon)</span>
                             </div>
                             <i class="fa-solid fa-chevron-down arrow-icon"></i>
                         </button>
-        
-                        <ul class="submenu">
-                            <li><a class="nav-link no-page"><span>CareAI</span></a></li>
-                            <li><a class="nav-link no-page"><span>CareConnect</span></a></li>
-                            <li><a class="nav-link no-page"><span>CareDiary</span></a></li>
-                            <li><a class="nav-link no-page"><span>CareMedication</span></a></li>
-                            <li><a class="nav-link no-page"><span>CareMonitor</span></a></li>
-                            <li><a class="nav-link no-page"><span>CareRecord</span></a></li>
-                            <li><a class="nav-link no-page"><span>CareRequest</span></a></li>
-                            <li><a class="nav-link no-page"><span>CareRemote</span></a></li>
-                            <li><a class="nav-link no-page"><span>CareSecure</span></a></li>
-                        </ul>
-                    </li>
+                    
+                        <ul class="submenu digital-health">
+                            <!-- Standard Sub-dropdown -->
+                            <li class="sub-dropdown">
+                                <button class="sub-dropdown-btn">
+                                    <span>Standard</span>
+                                    <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                                </button>
+                                <ul class="sub-dropdown-menu">
+                                    <li><a class="nav-link no-page">CareRecord</a></li>
+                                    <li><a class="nav-link no-page">CareRequest</a></li>
+                                    <li><a class="nav-link no-page">CareSecure</a></li>
+                                    <li><a class="nav-link no-page">CareConnect</a></li>
+                                    <li><a class="nav-link no-page">CareMedication</a></li>
+                                </ul>
+                            </li>
+                    
+                            <!-- Premium Sub-dropdown -->
+                            <li class="sub-dropdown">
+                                <button class="sub-dropdown-btn">
+                                    <span>Premium</span>
+                                    <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                                </button>
+                                <ul class="sub-dropdown-menu">
+                                    <li><a class="nav-link no-page">CareMonitor</a></li>
+                                    <li><a class="nav-link no-page">CareRemote</a></li>
+                                    <li><a class="nav-link no-page">CareAI</a></li>
+                                    <li><a class="nav-link no-page">CareDiary</a></li>
+                                </ul>
+                            </li>
+                        </ul>               </li>
         
                     <!-- Toggle Section -->
                     <li class="nav-item toggle-section">
@@ -441,7 +459,13 @@
                 });
             });
 
-
+                document.querySelectorAll('.sub-dropdown-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const parent = btn.parentElement;
+                        parent.classList.toggle('open');
+                    });
+                });
+                
         document.querySelectorAll(".toggle-section").forEach(section => {
             const toggleBtn = section.querySelector(".toggle-btn");
             const submenu = section.querySelector(".submenu");
