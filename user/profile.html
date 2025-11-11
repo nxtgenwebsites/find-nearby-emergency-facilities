@@ -464,9 +464,10 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Country</label>
-                                        <input type="text" class="form-control" id="editUCountry">
+                                        <select class="form-select" id="editUCountry" name="country">
+                                        </select>
                                     </div>
-                                    <button type="submit" class="btn btn-edit w-100">Save Changes</button>
+                                    <button type="submit" class="btn btn-edit w-100 text-white">Save Changes</button>
                                 </form>
                             </div>
                         </div>
@@ -532,9 +533,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+        <script src="js/country-states.js"></script>
+        
     <script>
+            (() => {
+                const country_list = country_and_states.country; // yaha tumhari countries ki list hogi
+                const id_country_option = document.getElementById("editUCountry");
 
+                const create_country_selection = () => {
+                    let option = '<option value="" selected disabled>Select Country</option>'; // Placeholder option
+                    for (const country_code in country_list) {
+                        option += '<option value="' + country_code + '">' + country_list[country_code] + '</option>';
+                    }
+                    id_country_option.innerHTML = option;
+                };
+
+                // Initialize country dropdown
+                create_country_selection();
+            })();
         const uid = localStorage.getItem("uid");
 
         if (!uid) {
@@ -549,7 +565,7 @@
             const last_name = document.getElementById("editULast").value.trim();
             const email = document.getElementById("editUEmail").value.trim();
             const gender = document.getElementById("editUGender").value.trim();
-            const country = document.getElementById("editUCountry").value.trim();
+            const country = document.getElementById('editUCountry').selectedOptions[0].text;
 
             try {
                 const response = await axios.put(`https://find-nearby-emergency-facilities-ba.vercel.app/api/users/update-info/${uid}`, {
@@ -674,7 +690,8 @@
                     document.getElementById('editULast').value = user.lastName;
                     document.getElementById('editUEmail').value = user.email;
                     document.getElementById('editUGender').value = user.gender || '';
-                    document.getElementById('editUCountry').value = user.country || '';
+                    document.getElementById('editUCountry').selectedOptions[0].text  = user.country || '';;
+
 
                     // Display profile picture if available
                     const profilePicContainer = document.getElementById('profilePicContainer');
